@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">jianshi</string>
+
+    <string name="home">首页</string>
+    <string name="daily">日常</string>
+    <string name="recommend">推荐</string>
+    <string name="discover">发现</string>
+    <string name="me">我的</string>
+</resources>
