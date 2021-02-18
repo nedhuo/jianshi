@@ -1,4 +1,7 @@
 package com.hngg.jianshi.data.bean.home;
+
+import java.io.Serializable;
+
 /**
  * Date: 2020/11/24
  * Timer: 12:08
@@ -6,7 +9,7 @@ package com.hngg.jianshi.data.bean.home;
  * Description:
  */
 
-public class ItemList {
+public class ItemList implements Serializable {
 
     private String type;
     private Data data;

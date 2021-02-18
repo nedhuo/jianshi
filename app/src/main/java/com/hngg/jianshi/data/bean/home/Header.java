@@ -7,12 +7,13 @@ package com.hngg.jianshi.data.bean.home;
  * Description:
  */
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Auto-generated: 2020-11-22 14:0:2
  */
-public class Header {
+public class Header implements Serializable {
 
     private int id;
     private String title;

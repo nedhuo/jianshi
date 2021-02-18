@@ -1,5 +1,9 @@
 package com.hngg.jianshi.data.bean.home;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +12,7 @@ import java.util.List;
  * Author: nedhuo
  * Description:
  */
-public class Data{
+public class Data implements Serializable {
     private String dataType;
     private long id;
     private String title;
@@ -31,7 +35,7 @@ public class Data{
     private String campaign;
     private String waterMarks;
     private boolean ad;
-    private List<String> adTrack;
+    //  private List<String> adTrack;
     private String type;
     private String titlePgc;
     private String descriptionPgc;
@@ -244,13 +248,13 @@ public class Data{
         this.ad = ad;
     }
 
-    public List<String> getAdTrack() {
-        return adTrack;
-    }
-
-    public void setAdTrack(List<String> adTrack) {
-        this.adTrack = adTrack;
-    }
+//    public List<String> getAdTrack() {
+//        return adTrack;
+//    }
+//
+//    public void setAdTrack(List<String> adTrack) {
+//        this.adTrack = adTrack;
+//    }
 
     public String getType() {
         return type;
@@ -515,4 +519,5 @@ public class Data{
     public void setFooter(String footer) {
         this.footer = footer;
     }
+
 }

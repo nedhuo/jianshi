@@ -1,5 +1,7 @@
 package com.hngg.network.interceptor;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -13,10 +15,12 @@ import okhttp3.Response;
  * Description:
  */
 public class CommonRequestInterceptor implements Interceptor {
+    private final String TAG = "CommonRequestInterceptor";
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
         builder.addHeader("os","android");
+
         return chain.proceed(builder.build());
     }
 }

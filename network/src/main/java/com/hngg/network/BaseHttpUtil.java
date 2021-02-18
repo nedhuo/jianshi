@@ -1,5 +1,8 @@
 package com.hngg.network;
 
+import com.hngg.network.interceptor.CommonRequestInterceptor;
+import com.hngg.network.interceptor.CommonResponseInterceptor;
+
 import java.util.HashMap;
 
 import io.reactivex.Observable;
@@ -11,6 +14,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.internal.platform.Platform;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -23,11 +27,11 @@ import static com.hngg.network.KaiYanApi.baseUrl;
  * Timer: 22:44
  * Author: nedhuo
  * Description:
- *      使用Retrofit2 + OkHttp3 + RxJava2组合的一个网络module
- *      待完善模块： OkHttp拦截器
- *                  已添加OkHttp 日志拦截器，debug模式自动打印日志
- *      使用方法  实现此方法
- *      请求类
+ * 使用Retrofit2 + OkHttp3 + RxJava2组合的一个网络module
+ * 待完善模块： OkHttp拦截器
+ * 已添加OkHttp 日志拦截器，debug模式自动打印日志
+ * 使用方法  实现此方法
+ * 请求类
  */
 public abstract class BaseHttpUtil {
     private final String TAG = "HttpUtils";
@@ -43,16 +47,17 @@ public abstract class BaseHttpUtil {
 
     /**
      * 这个接口用来留给web调用
+     *
      * @param clazz 传入接口
      * @return 所传入接口的实例化对象
-     * */
+     */
     public <T> T getService(Class<T> clazz) {
         return getRetrofit(clazz).create(clazz);
     }
 
     /**
      * 获取retrofit对象，里面用map对对象进行了存储
-     * */
+     */
     private Retrofit getRetrofit(Class clazz) {
         if (retrofitHashMap.get(baseUrl + clazz.getName()) != null) {
             return retrofitHashMap.get(baseUrl + clazz.getName());
@@ -73,30 +78,32 @@ public abstract class BaseHttpUtil {
     /**
      * 获取OkHttp对象
      * 该对象主要用来添加拦截器
-     * */
+     */
     private OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         if (iNetworkRequiredInfo != null && iNetworkRequiredInfo.isDebug()) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
             okHttpClientBuilder.addInterceptor(loggingInterceptor);
         }
+
+
 //        okHttpClientBuilder.addInterceptor()
-//        okHttpClientBuilder.addInterceptor(new CommonRequestInterceptor());
-//        okHttpClientBuilder.addInterceptor(new CommonResponseInterceptor());
+        okHttpClientBuilder.addInterceptor(new CommonRequestInterceptor());
+        okHttpClientBuilder.addInterceptor(new CommonResponseInterceptor());
         return okHttpClientBuilder.build();
     }
 
     /**
      * 对通用的Schedulers进行了封装
-     * */
-    public <T> ObservableTransformer<T, T> applySchedulers(final Observer<T> observer) {
+     */
+    public <T> ObservableTransformer<T, T> applySchedulers() {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
                 Observable<T> observable = upstream.subscribeOn(Schedulers.io())
                         .subscribeOn(AndroidSchedulers.mainThread());
-                observable.subscribe(observer);
+                //observable.subscribe(observer);
                 return observable;
             }
         };

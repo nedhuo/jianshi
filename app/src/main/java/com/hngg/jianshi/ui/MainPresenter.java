@@ -30,6 +30,7 @@ import javax.inject.Inject;
  * Presenter 在 MVP 中的大部分作用是实现业务逻辑代码, 从 Model 层获取数据,
  * 在调用 View 层显示数据, 首先必须实现 BasePresenter, 并指定 View 和 Model 的范型,
  * 注意一定要指定 Contract 中定义的接口, Presenter 需要的 View 和 Model,
+ *
  * 都使用 Dagger2 来注入, 这样即解藕又方便测试
  * <p>
  * TODO 内存泄漏问题

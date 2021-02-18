@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
     defaultConfig {
         applicationId "com.hngg.jianshi"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -52,9 +52,26 @@ dependencies {
     implementation rootProject.ext.dependencies["dagger2"]
     implementation rootProject.ext.dependencies["eventbus"]
 
+
+
+
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     //Butterknife 插件, 很多人因为没加这个而报错, 切记!!!
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     implementation project(path: ':network')//依赖插件
 
+    //刷新
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1'
+    implementation 'com.scwang.smart:refresh-header-classics:2.0.3'
+
+    //gsyVideo
+    implementation 'com.shuyu:GSYVideoPlayer:8.1.0'
+    //ijkplayer
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
 }

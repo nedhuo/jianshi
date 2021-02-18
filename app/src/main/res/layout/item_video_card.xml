@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardVideo"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_marginLeft="8dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="5dp">
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/iv_dailyItem_content"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,6 +19,7 @@
         android:id="@+id/iv_dailyItem_head"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_dailyItem_content" />
@@ -29,7 +29,12 @@
         android:id="@+id/tv_dailyItem_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="asssssssssssss"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="7dp"
+        android:ellipsize="end"
+        android:text=""
+        android:textColor="@color/colorBlack"
+        android:textSize="15sp"
         app:layout_constraintLeft_toRightOf="@id/iv_dailyItem_head"
         app:layout_constraintTop_toBottomOf="@id/iv_dailyItem_content" />
     <!--desc-->
@@ -37,6 +42,10 @@
         android:id="@+id/tv_dailyItem_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:text="asssssssssssss"
         app:layout_constraintLeft_toRightOf="@id/iv_dailyItem_head"
         app:layout_constraintTop_toBottomOf="@id/tv_dailyItem_title" />
@@ -47,7 +56,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:text="asssssssssssss"
+        android:background="@drawable/time_bg"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text=""
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="@id/iv_dailyItem_content"
         app:layout_constraintRight_toRightOf="@id/iv_dailyItem_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.hngg.jianshi.data.bean.home;
 
+import java.io.Serializable;
 import java.util.List;
 /**
  * Date: 2020/11/22
@@ -123,7 +124,7 @@ public class DailyRootBean {
  * @author json.cn (i@json.cn)
  * @website http://www.json.cn/java2pojo/
  */
- class Tags {
+ class Tags implements Serializable {
 
     private int id;
     private String name;
@@ -240,50 +241,9 @@ public class DailyRootBean {
 }
 
 
-/**
- * Auto-generated: 2020-11-22 13:39:12
- *
- * @author json.cn (i@json.cn)
- * @website http://www.json.cn/java2pojo/
- */
- class Consumption {
-
-    private int collectionCount;
-    private int shareCount;
-    private int replyCount;
-    private int realCollectionCount;
-    public void setCollectionCount(int collectionCount) {
-        this.collectionCount = collectionCount;
-    }
-    public int getCollectionCount() {
-        return collectionCount;
-    }
-
-    public void setShareCount(int shareCount) {
-        this.shareCount = shareCount;
-    }
-    public int getShareCount() {
-        return shareCount;
-    }
-
-    public void setReplyCount(int replyCount) {
-        this.replyCount = replyCount;
-    }
-    public int getReplyCount() {
-        return replyCount;
-    }
-
-    public void setRealCollectionCount(int realCollectionCount) {
-        this.realCollectionCount = realCollectionCount;
-    }
-    public int getRealCollectionCount() {
-        return realCollectionCount;
-    }
-
-}
 
 
- class Follow {
+ class Follow implements Serializable{
 
     private String itemType;
     private int itemId;
@@ -319,7 +279,7 @@ public class DailyRootBean {
  * @author json.cn (i@json.cn)
  * @website http://www.json.cn/java2pojo/
  */
- class Shield {
+ class Shield implements Serializable{
 
     private String itemType;
     private int itemId;
@@ -351,33 +311,7 @@ public class DailyRootBean {
 
 
 
-/**
- * Auto-generated: 2020-11-22 13:39:12
- *
- * @author json.cn (i@json.cn)
- * @website http://www.json.cn/java2pojo/
- */
- class WebUrl {
 
-    private String raw;
-    private String forWeibo;
-
-    public String getRaw() {
-        return raw;
-    }
-
-    public void setRaw(String raw) {
-        this.raw = raw;
-    }
-
-    public void setForWeibo(String forWeibo) {
-        this.forWeibo = forWeibo;
-    }
-    public String getForWeibo() {
-        return forWeibo;
-    }
-
-}
 
 
 
@@ -388,7 +322,7 @@ public class DailyRootBean {
  * @author json.cn (i@json.cn)
  * @website http://www.json.cn/java2pojo/
  */
- class UrlList {
+ class UrlList implements Serializable{
 
     private String name;
     private String url;
@@ -425,7 +359,7 @@ public class DailyRootBean {
  * @author json.cn (i@json.cn)
  * @website http://www.json.cn/java2pojo/
  */
- class PlayInfo {
+ class PlayInfo implements Serializable{
 
     private int height;
     private int width;
@@ -481,7 +415,7 @@ public class DailyRootBean {
 
 
 
- class Label {
+ class Label implements Serializable{
 
     private String text;
     private String card;
@@ -510,7 +444,7 @@ public class DailyRootBean {
 }
 
 
- class LabelList {
+ class LabelList implements Serializable{
 
     private String text;
     private String actionUrl;

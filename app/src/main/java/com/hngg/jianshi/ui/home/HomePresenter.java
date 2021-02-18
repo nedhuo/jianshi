@@ -1,19 +1,10 @@
 package com.hngg.jianshi.ui.home;
 
 
-import android.util.Log;
-import android.widget.TableLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
-
-import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.ui.home.daily.DailyFragment;
 import com.jess.arms.mvp.BasePresenter;

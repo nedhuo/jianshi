@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerDisCoverComponent;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 
@@ -29,12 +28,12 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-        DaggerDisCoverComponent
-                .builder()
-                .appComponent(appComponent)
-                .disCoverModule(new DisCoverModule(this))
-                .build()
-                .inject(this);
+//        DaggerDisCoverComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .disCoverModule(new DisCoverModule(this))
+//                .build()
+//                .inject(this);
     }
 
     @Override

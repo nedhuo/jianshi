@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
@@ -31,6 +32,8 @@ public class VideoViewHolder extends RecyclerView.ViewHolder {
     public  TextView mTv_desc;
     @BindView(R.id.tv_dailyItem_duration)
     public TextView mTv_duration;
+    @BindView(R.id.cardVideo)
+    public ConstraintLayout cardVideo;
 
     public VideoViewHolder(@NonNull View itemView) {
         super(itemView);

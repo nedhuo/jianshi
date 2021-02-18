@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
 
+
 import com.hngg.jianshi.component.DaggerHomeComponent;
 import com.hngg.jianshi.widget.CustomViewPager;
 import com.jess.arms.base.BaseFragment;

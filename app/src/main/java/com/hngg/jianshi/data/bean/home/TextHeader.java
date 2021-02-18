@@ -35,14 +35,14 @@ public class TextHeader extends Data {
         return font;
     }
 
-    @Override
-    public List<String> getAdTrack() {
-        return adTrack;
-    }
-
-    @Override
-    public void setAdTrack(List<String> adTrack) {
-        this.adTrack = adTrack;
-    }
+//    @Override
+//    public List<String> getAdTrack() {
+//        return adTrack;
+//    }
+//
+//    @Override
+//    public void setAdTrack(List<String> adTrack) {
+//        this.adTrack = adTrack;
+//    }
 }
 

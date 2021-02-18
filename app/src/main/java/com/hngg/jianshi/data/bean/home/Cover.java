@@ -6,13 +6,16 @@ package com.hngg.jianshi.data.bean.home;
  * Author: nedhuo
  * Description:
  */
+
+import java.io.Serializable;
+
 /**
  * Auto-generated: 2020-11-22 13:39:12
  *
  * @author json.cn (i@json.cn)
  * @website http://www.json.cn/java2pojo/
  */
-public class Cover {
+public class Cover implements Serializable {
 
     private String feed;
     private String detail;
