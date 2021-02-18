@@ -40,9 +40,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_daily"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_height="wrap_content" />
 
         <com.scwang.smart.refresh.footer.ClassicsFooter
             android:id="@+id/classicsFooter"

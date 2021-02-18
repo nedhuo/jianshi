@@ -17,10 +17,10 @@ import butterknife.ButterKnife;
  * Description:
  */
 public class ReplyHeaderViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.tv_title)
     public TextView tvTitle;
+
     public ReplyHeaderViewHolder(View view) {
         super(view);
-        ButterKnife.bind(this, view);
+        tvTitle = itemView.findViewById(R.id.tv_title);
     }
 }

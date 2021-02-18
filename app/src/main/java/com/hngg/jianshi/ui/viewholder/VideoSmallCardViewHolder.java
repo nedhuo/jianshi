@@ -20,19 +20,18 @@ import butterknife.ButterKnife;
  * Description:
  */
 public class VideoSmallCardViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.iv_videoList_image)
     public ImageView iv_videoImage;
-    @BindView(R.id.tv_videoList_duration)
     public TextView tv_VideoDuration;
-    @BindView(R.id.tv_videoList_title)
     public TextView tv_videoTitle;
-    @BindView(R.id.tv_videoList_category)
     public TextView tv_videoCategory;
-    @BindView(R.id.ll_smallCard)
     public LinearLayout ll_smallCard;
 
     public VideoSmallCardViewHolder(@NonNull View itemView) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
+        iv_videoImage = itemView.findViewById(R.id.iv_videoList_image);
+        tv_VideoDuration = itemView.findViewById(R.id.tv_videoList_duration);
+        tv_videoTitle = itemView.findViewById(R.id.tv_videoList_title);
+        tv_videoCategory = itemView.findViewById(R.id.tv_videoList_category);
+        ll_smallCard = itemView.findViewById(R.id.ll_smallCard);
     }
 }

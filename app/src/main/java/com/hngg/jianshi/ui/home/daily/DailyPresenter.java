@@ -11,6 +11,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 /**
  * Date: 2020/11/19
@@ -55,7 +56,7 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
 
                         @Override
                         public void onFail(Throwable e) {
-                            Log.e(TAG, e.getMessage());
+                            Timber.e(e);
                         }
                     });
         } else {

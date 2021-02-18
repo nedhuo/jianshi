@@ -22,21 +22,21 @@ import butterknife.ButterKnife;
  * Description:
  */
 public class VideoViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.iv_dailyItem_content)
     public ImageView mIv_content;
-    @BindView(R.id.iv_dailyItem_head)
     public ImageView mIv_icon;
-    @BindView(R.id.tv_dailyItem_title)
     public TextView mTv_title;
-    @BindView(R.id.tv_dailyItem_desc)
-    public  TextView mTv_desc;
-    @BindView(R.id.tv_dailyItem_duration)
+    public TextView mTv_desc;
     public TextView mTv_duration;
-    @BindView(R.id.cardVideo)
+
     public ConstraintLayout cardVideo;
 
     public VideoViewHolder(@NonNull View itemView) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
+        mIv_content = itemView.findViewById(R.id.iv_dailyItem_content);
+        mIv_icon = itemView.findViewById(R.id.iv_dailyItem_head);
+        mTv_title = itemView.findViewById(R.id.tv_dailyItem_title);
+        mTv_desc = itemView.findViewById(R.id.tv_dailyItem_desc);
+        mTv_duration = itemView.findViewById(R.id.tv_dailyItem_duration);
+        cardVideo = itemView.findViewById(R.id.cardVideo);
     }
 }

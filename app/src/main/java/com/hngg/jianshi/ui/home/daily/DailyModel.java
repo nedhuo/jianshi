@@ -40,7 +40,6 @@ public class DailyModel extends BaseModel implements DailyContract.Model {
     public DailyModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
         httpUtil = new KaiYanHttpUtil();
-//        reLoad();
     }
 
     /**
@@ -49,9 +48,9 @@ public class DailyModel extends BaseModel implements DailyContract.Model {
      */
 
     public Observable<DailyRootBean> refresh() {
-        Log.i(TAG, KaiYanApi.baseUrl + KaiYanApi.homePageUrl);
         return httpUtil.getService(ApiInterface.class)
-                .getDailyData().compose(httpUtil.applySchedulers());
+                .getDailyData()
+                .compose(httpUtil.applySchedulers());
     }
 
     public Observable<DailyRootBean> loadMore(String urlPath) {
@@ -59,8 +58,8 @@ public class DailyModel extends BaseModel implements DailyContract.Model {
         if (urlPath.contains(KaiYanApi.baseUrl)) {
             urlPath = urlPath.replace(KaiYanApi.baseUrl, "");
         }
-        Log.i(TAG, KaiYanApi.baseUrl + urlPath);
         return httpUtil.getService(ApiInterface.class)
-                .getDailyNextPage(urlPath).compose(httpUtil.applySchedulers());
+                .getDailyNextPage(urlPath)
+                .compose(httpUtil.applySchedulers());
     }
 }

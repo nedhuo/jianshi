@@ -1,4 +1,4 @@
-package com.hngg.jianshi.ui.recommend;
+package com.hngg.jianshi.ui.home.recommend;
 
 import com.jess.arms.di.scope.FragmentScope;
 
@@ -20,14 +20,14 @@ public class RecommendModule {
     }
 
     @Provides
-    @RecommendScope
+    @FragmentScope
     public RecommendContract.View provideRecommendView() {
         return view;
     }
 
 
     @Provides
-    @RecommendScope
+    @FragmentScope
     public RecommendContract.Model provideRecommendModel(RecommendModel model) {
         return model;
     }

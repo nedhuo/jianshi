@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.ui.home.daily.DailyFragment;
+import com.hngg.jianshi.ui.home.recommend.RecommendFragment;
 import com.jess.arms.mvp.BasePresenter;
 
 import java.util.ArrayList;
@@ -37,7 +38,8 @@ public class HomePresenter extends BasePresenter {
         mRootView.initTabLayout();
 
         List<Fragment> fragments = obtainPagerList();
-        FragmentPagerAdapter adapter = new FragmentPagerAdapter(
+        FragmentPagerAdapter adapter =
+                new FragmentPagerAdapter(
                 mRootView.getChildFragmentManager()) {
             @Override
             public int getCount() {
@@ -101,7 +103,7 @@ public class HomePresenter extends BasePresenter {
     private List<Fragment> obtainPagerList() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new DailyFragment());
-        fragments.add(new DailyFragment());
+        fragments.add(new RecommendFragment());
         return fragments;
     }
 }

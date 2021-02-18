@@ -22,6 +22,7 @@ public class Cover implements Serializable {
     private String blurred;
     private String sharing;
     private String homepage;
+
     public void setFeed(String feed) {
         this.feed = feed;
     }

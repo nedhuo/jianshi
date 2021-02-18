@@ -18,11 +18,10 @@ import butterknife.ButterKnife;
  * Description:
  */
 public class TextHeaderViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.tv_header_time)
     public TextView mTvHeaderTime;
 
     public TextHeaderViewHolder(@NonNull View itemView) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
+        mTvHeaderTime = itemView.findViewById(R.id.tv_header_time);
     }
 }

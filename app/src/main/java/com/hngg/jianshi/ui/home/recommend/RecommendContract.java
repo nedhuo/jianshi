@@ -1,4 +1,4 @@
-package com.hngg.jianshi.ui.recommend;
+package com.hngg.jianshi.ui.home.recommend;
 
 import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;

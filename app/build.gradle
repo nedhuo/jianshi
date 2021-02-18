@@ -47,14 +47,14 @@ dependencies {
     implementation rootProject.ext.dependencies["gson"]
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["cardview-v7"]
-    implementation rootProject.ext.dependencies["butterknife"]
+
     implementation rootProject.ext.dependencies["androideventbus"]
     implementation rootProject.ext.dependencies["dagger2"]
     implementation rootProject.ext.dependencies["eventbus"]
 
 
 
-
+    implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     //Butterknife 插件, 很多人因为没加这个而报错, 切记!!!
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
@@ -63,6 +63,9 @@ dependencies {
     //刷新
     implementation 'com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1'
     implementation 'com.scwang.smart:refresh-header-classics:2.0.3'
+
+    //轮播图
+    implementation 'com.youth.banner:banner:2.1.0'
 
     //gsyVideo
     implementation 'com.shuyu:GSYVideoPlayer:8.1.0'

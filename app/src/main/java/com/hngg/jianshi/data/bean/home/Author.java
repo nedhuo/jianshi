@@ -24,6 +24,8 @@ public class Author implements Serializable {
     private boolean ifPgc;
     private int recSort;
     private boolean expert;
+
+
     public void setId(int id) {
         this.id = id;
     }

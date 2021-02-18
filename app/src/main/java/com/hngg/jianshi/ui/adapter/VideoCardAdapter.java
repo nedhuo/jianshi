@@ -87,18 +87,17 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        Data data = mItemList.get(position).getData();
         if (viewHolder instanceof VideoViewHolder) {
-            Data videoData = mItemList.get(position).getData();
             VideoViewHolder holder = (VideoViewHolder) viewHolder;
-
             try {
                 Glide.with(holder.itemView)
-                        .load(videoData.getAuthor().getIcon())
+                        .load(data.getAuthor().getIcon())
                         .circleCrop()
                         .into(holder.mIv_icon);
             } catch (Exception e) {
                 Log.i(TAG, "===============");
-                Log.i(TAG, videoData.getTitle());
+                Log.i(TAG, data.getTitle());
 
                 Glide.with(holder.itemView)
                         .load("http://img.kaiyanapp.com/ebf307197b634f30b2fa4eb867e908c1.jpeg?" +
@@ -107,37 +106,36 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         .into(holder.mIv_icon);
             }
             Glide.with(holder.itemView)
-                    .load(videoData.getCover().getFeed())
+                    .load(data.getCover().getFeed())
                     .centerCrop()
                     .into(holder.mIv_content);
-            holder.mTv_title.setText(videoData.getTitle());
-            holder.mTv_desc.setText(videoData.getDescription());
-            holder.mTv_duration.setText(CommonUtil.intToTime(videoData.getDuration()));
+            holder.mTv_title.setText(data.getTitle());
+            holder.mTv_desc.setText(data.getDescription());
+            holder.mTv_duration.setText(CommonUtil.intToTime(data.getDuration()));
             holder.cardVideo.setOnClickListener(v -> {
                 Intent intent = new Intent(mCtx.getActivity(), VideoDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Constant.VIDEO_BEAN, videoData);
+                bundle.putSerializable(Constant.VIDEO_BEAN, data);
                 intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
                 mCtx.getActivity().startActivity(intent);
 
             });
         } else if (viewHolder instanceof TextFooterViewHolder) {
-            Data footerData = mItemList.get(position).getData();
+
             TextFooterViewHolder holder = (TextFooterViewHolder) viewHolder;
-            holder.mTvFindPast.setText(footerData.getText());
+            holder.mTvFindPast.setText(data.getText());
             //http://baobab.kaiyanapp.com/api/v2/feed?issueIndex=1
             //eyepetizer://feed?issueIndex=1
         } else if (viewHolder instanceof TextHeaderViewHolder) {
-            Data headerData = mItemList.get(position).getData();
+
             TextHeaderViewHolder holder = (TextHeaderViewHolder) viewHolder;
-            holder.mTvHeaderTime.setText(headerData.getText());
+            holder.mTvHeaderTime.setText(data.getText());
         } else if (viewHolder instanceof VideoCoverViewHolder) {
             //videoSmallCard
-            Data itemData = mItemList.get(position).getData();
             VideoCoverViewHolder holder = (VideoCoverViewHolder) viewHolder;
             VideoSmallCardAdapter adapter = new VideoSmallCardAdapter(mCtx.getActivity());
             holder.mRecyclerView.setAdapter(adapter);
-            adapter.setData(itemData.getItemList());
+            adapter.setData(data.getItemList());
             adapter.notifyDataSetChanged();
         }
 

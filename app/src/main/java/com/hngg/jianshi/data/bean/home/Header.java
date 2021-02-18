@@ -26,6 +26,51 @@ public class Header implements Serializable {
     private String actionUrl;
     private List<LabelList> labelList;
     private String rightText;
+    private String icon;
+    private String iconType;
+    private String description;
+    private long time;
+    private boolean showHateVideo;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getIconType() {
+        return iconType;
+    }
+
+    public void setIconType(String iconType) {
+        this.iconType = iconType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public boolean isShowHateVideo() {
+        return showHateVideo;
+    }
+
+    public void setShowHateVideo(boolean showHateVideo) {
+        this.showHateVideo = showHateVideo;
+    }
 
     public void setId(int id) {
         this.id = id;

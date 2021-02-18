@@ -3,6 +3,8 @@ package com.hngg.jianshi.data.bean.home;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.hngg.jianshi.data.bean.recommend.Content;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -71,6 +73,16 @@ public class Data implements Serializable {
     private List<ItemList> itemList;
     private int count;
     private String footer;
+
+    private Content content;
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
 
     public String getDataType() {
         return dataType;

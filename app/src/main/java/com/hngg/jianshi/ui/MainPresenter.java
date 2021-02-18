@@ -3,17 +3,14 @@ package com.hngg.jianshi.ui;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.ui.discover.DisCoverFragment;
 import com.hngg.jianshi.ui.home.HomeFragment;
 import com.hngg.jianshi.ui.me.MeFragment;
-import com.hngg.jianshi.ui.recommend.RecommendFragment;
+import com.hngg.jianshi.ui.home.recommend.RecommendFragment;
 import com.jess.arms.mvp.BasePresenter;
 
 import java.util.ArrayList;
