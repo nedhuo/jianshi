@@ -19,7 +19,8 @@ import java.util.List;
  * Author: nedhuo
  * Description:
  */
-public class BannerViewAdapter extends BannerAdapter<ItemList, BannerViewAdapter.BannerItemViewHolder> {
+public class BannerViewAdapter extends BannerAdapter<ItemList,
+        BannerViewAdapter.BannerItemViewHolder> {
     public BannerViewAdapter(List<ItemList> datas) {
         super(datas);
     }

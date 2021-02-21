@@ -1,5 +1,6 @@
 package com.hngg.jianshi.data;
 
+import com.hngg.jianshi.data.bean.community.CommunityRootBean;
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.recommend.RecommendRootBean;
@@ -25,10 +26,12 @@ import retrofit2.http.Url;
 public interface ApiInterface {
 
     //daily数据接口
+    //
     @GET("api/v4/tabs/selected")
     Observable<DailyRootBean> getDailyData();
 
     //daily下一页接口
+    //
     @GET()
     Observable<DailyRootBean> getDailyNextPage(@Url String url);
 
@@ -59,4 +62,14 @@ public interface ApiInterface {
     //http://baobab.kaiyanapp.com/api/v5/index/tab/allRec?page=1&isTag=true&adIndex=5
     @GET()
     Observable<RecommendRootBean> getRecommendNextPage(@Url String url);
+
+    //社区
+    //http://baobab.kaiyanapp.com/api/v7/community/tab/rec
+    @GET("api/v7/community/tab/rec")
+    Observable<CommunityRootBean> getCommunityData();
+
+    //社区
+    //http://baobab.kaiyanapp.com/api/v7/community/tab/rec?startScore=1613737807000&pageCount=2
+    @GET()
+    Observable<CommunityRootBean> getCommunityNextPage(@Url String url);
 }

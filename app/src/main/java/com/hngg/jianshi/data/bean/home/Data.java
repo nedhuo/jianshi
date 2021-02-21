@@ -3,10 +3,12 @@ package com.hngg.jianshi.data.bean.home;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.hngg.jianshi.data.bean.community.Owner;
 import com.hngg.jianshi.data.bean.recommend.Content;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.SplittableRandom;
 
 /**
  * Date: 2020/11/24
@@ -17,8 +19,15 @@ import java.util.List;
 public class Data implements Serializable {
     private String dataType;
     private long id;
+    private long uid;
+    private long createTime;
+    private boolean shade;
+    private long updateTime;
+    private String image;
     private String title;
     private String description;
+    private String subTitle;
+    private String bgPicture;
     private String library;
     private List<Tags> tags;
     private Consumption consumption;
@@ -52,8 +61,6 @@ public class Data implements Serializable {
     private String webAdTrack;
     private long date;
     private String promotion;
-    private String label;
-    private List<String> labelList;
     private String descriptionEditor;
     private boolean collected;
     private boolean reallyCollected;
@@ -74,7 +81,244 @@ public class Data implements Serializable {
     private int count;
     private String footer;
 
+    private boolean autoPlay;
     private Content content;
+
+    private long selectedTime;
+    private String checkStatus;
+    private String area;
+    private String city;
+    private double longitude;
+    private double latitude;
+    private boolean ifMock;
+    private String validateStatus;
+    private String validateResult;
+    private int width;
+    private int height;
+    private boolean addWatermark;
+    private String privateMessageActionUrl;
+    private String url;
+    private List<String> urls;
+    private String status;
+    private Owner owner;
+    private List<String> urlsWithWatermark;
+    private RecentOnceReply recentOnceReply;
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(long updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public long getSelectedTime() {
+        return selectedTime;
+    }
+
+    public void setSelectedTime(long selectedTime) {
+        this.selectedTime = selectedTime;
+    }
+
+    public String getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(String checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public boolean isIfMock() {
+        return ifMock;
+    }
+
+    public void setIfMock(boolean ifMock) {
+        this.ifMock = ifMock;
+    }
+
+    public String getValidateStatus() {
+        return validateStatus;
+    }
+
+    public void setValidateStatus(String validateStatus) {
+        this.validateStatus = validateStatus;
+    }
+
+    public String getValidateResult() {
+        return validateResult;
+    }
+
+    public void setValidateResult(String validateResult) {
+        this.validateResult = validateResult;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public boolean isAddWatermark() {
+        return addWatermark;
+    }
+
+    public void setAddWatermark(boolean addWatermark) {
+        this.addWatermark = addWatermark;
+    }
+
+    public String getPrivateMessageActionUrl() {
+        return privateMessageActionUrl;
+    }
+
+    public void setPrivateMessageActionUrl(String privateMessageActionUrl) {
+        this.privateMessageActionUrl = privateMessageActionUrl;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public List<String> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(List<String> urls) {
+        this.urls = urls;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<String> getUrlsWithWatermark() {
+        return urlsWithWatermark;
+    }
+
+    public void setUrlsWithWatermark(List<String> urlsWithWatermark) {
+        this.urlsWithWatermark = urlsWithWatermark;
+    }
+
+    public RecentOnceReply getRecentOnceReply() {
+        return recentOnceReply;
+    }
+
+    public void setRecentOnceReply(RecentOnceReply recentOnceReply) {
+        this.recentOnceReply = recentOnceReply;
+    }
+
+    public boolean isShade() {
+        return shade;
+    }
+
+    public void setShade(boolean shade) {
+        this.shade = shade;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean isAutoPlay() {
+        return autoPlay;
+    }
+
+    public void setAutoPlay(boolean autoPlay) {
+        this.autoPlay = autoPlay;
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+    public String getBgPicture() {
+        return bgPicture;
+    }
+
+    public void setBgPicture(String bgPicture) {
+        this.bgPicture = bgPicture;
+    }
 
     public Content getContent() {
         return content;
@@ -378,22 +622,6 @@ public class Data implements Serializable {
 
     public void setPromotion(String promotion) {
         this.promotion = promotion;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public List<String> getLabelList() {
-        return labelList;
-    }
-
-    public void setLabelList(List<String> labelList) {
-        this.labelList = labelList;
     }
 
     public String getDescriptionEditor() {

@@ -21,7 +21,7 @@ import java.util.List;
  * @author json.cn (i@json.cn)
  * @website http://www.json.cn/java2pojo/
  */
-public class DailyRootBean {
+public class DailyRootBean implements Serializable{
 
     private List<ItemList> itemList;
     private int count;

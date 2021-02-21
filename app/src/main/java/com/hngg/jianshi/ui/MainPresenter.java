@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.ui.community.CommunityFragment;
 import com.hngg.jianshi.ui.discover.DisCoverFragment;
 import com.hngg.jianshi.ui.home.HomeFragment;
 import com.hngg.jianshi.ui.me.MeFragment;
@@ -114,7 +115,7 @@ public class MainPresenter extends BasePresenter {
     private List<Fragment> obtainPager() {
         List<Fragment> arrayList = new ArrayList<>();
         arrayList.add(new HomeFragment());
-        arrayList.add(new RecommendFragment());
+        arrayList.add(new CommunityFragment());
         arrayList.add(new DisCoverFragment());
         arrayList.add(new MeFragment());
         return arrayList;

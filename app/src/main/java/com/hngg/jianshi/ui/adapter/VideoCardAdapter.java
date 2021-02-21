@@ -173,18 +173,19 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
         return super.getItemViewType(position);
     }
+
+    class DataType {
+        final static String VIDEO = "video";
+        final static String TEXT_HEADER = "textHeader";
+        final static String TEXT_FOOTER = "textFooter";
+        final static String VIDEO_COLLECTION_FOLLOW = "videoCollectionOfFollow";
+        final static String VIDEO_COLLECTION_COVER = "videoCollectionWithCover";
+
+        final static int VIDEO_ID = 1;
+        final static int TEXT_HEADER_ID = 2;
+        final static int TEXT_FOOTER_ID = 3;
+        final static int VIDEO_COLLECTION_FOLLOW_ID = 4;
+        final static int VIDEO_COLLECTION_COVER_ID = 5;
+    }
 }
 
-class DataType {
-    final static String VIDEO = "video";
-    final static String TEXT_HEADER = "textHeader";
-    final static String TEXT_FOOTER = "textFooter";
-    final static String VIDEO_COLLECTION_FOLLOW = "videoCollectionOfFollow";
-    final static String VIDEO_COLLECTION_COVER = "videoCollectionWithCover";
-
-    final static int VIDEO_ID = 1;
-    final static int TEXT_HEADER_ID = 2;
-    final static int TEXT_FOOTER_ID = 3;
-    final static int VIDEO_COLLECTION_FOLLOW_ID = 4;
-    final static int VIDEO_COLLECTION_COVER_ID = 5;
-}

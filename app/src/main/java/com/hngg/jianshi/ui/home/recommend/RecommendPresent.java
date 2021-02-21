@@ -33,25 +33,24 @@ public class RecommendPresent extends BasePresenter<RecommendContract.Model, Rec
         super(model, rootView);
     }
 
-    public void obtainRecommendData() {
-        mModel.getRecommendData()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<RecommendRootBean>() {
-                    @Override
-                    protected void onSuccess(RecommendRootBean rootBean) {
-                        mNextPageUrl = rootBean.getNextPageUrl();
-                        mRootView.setData(rootBean.getItemList(), true);
-                    }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        Timber.e(e,TAG);
-                    }
-                });
-    }
+    public void obtainRecommendData(boolean isUpdate) {
+        if(isUpdate){
+            mModel.getRecommendData()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseObserver<RecommendRootBean>() {
+                        @Override
+                        protected void onSuccess(RecommendRootBean rootBean) {
+                            mNextPageUrl = rootBean.getNextPageUrl();
+                            mRootView.setData(rootBean.getItemList(), true);
+                        }
 
-    public void obtainRecommendNextPage() {
-        if (!mNextPageUrl.equals("") && mNextPageUrl != null) {
+                        @Override
+                        public void onFail(Throwable e) {
+                            Timber.e(e,TAG);
+                        }
+                    });
+        }else  if (!mNextPageUrl.equals("") && mNextPageUrl != null) {
             mModel.getRecommendNextPage(mNextPageUrl).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseObserver<RecommendRootBean>() {
                         @Override
@@ -66,10 +65,11 @@ public class RecommendPresent extends BasePresenter<RecommendContract.Model, Rec
                         }
                     });
         } else {
-            mRootView.mRefreshLayout.setNoMoreData(true);
+            mRootView.notifyNoData();
         }
 
     }
+
 
     public void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mRootView.getContext());

@@ -19,6 +19,6 @@ public class BannerViewHolder extends RecyclerView.ViewHolder {
 
     public BannerViewHolder(View itemView) {
         super(itemView);
-        banner = itemView.findViewById(R.id.banner_recommend);
+        banner = itemView.findViewById(R.id.banner);
     }
 }

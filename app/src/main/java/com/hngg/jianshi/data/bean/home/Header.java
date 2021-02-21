@@ -30,7 +30,52 @@ public class Header implements Serializable {
     private String iconType;
     private String description;
     private long time;
+    private String followType;
     private boolean showHateVideo;
+    private int tagId;
+    private String tagName;
+    private String issuerName;
+    private boolean topShow;
+
+    public String getFollowType() {
+        return followType;
+    }
+
+    public void setFollowType(String followType) {
+        this.followType = followType;
+    }
+
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
+
+    public String getIssuerName() {
+        return issuerName;
+    }
+
+    public void setIssuerName(String issuerName) {
+        this.issuerName = issuerName;
+    }
+
+    public boolean isTopShow() {
+        return topShow;
+    }
+
+    public void setTopShow(boolean topShow) {
+        this.topShow = topShow;
+    }
 
     public String getIcon() {
         return icon;
