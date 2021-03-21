@@ -1,5 +1,6 @@
 package com.hngg.jianshi.ui.community;
 
+import android.annotation.SuppressLint;
 import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,9 +15,20 @@ import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.mvp.IPresenter;
 
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import timber.log.Timber;
 
 /**
@@ -31,10 +43,13 @@ public class CommunityPresenter extends BasePresenter
     CommunityFragment mRootView = (CommunityFragment) super.mRootView;
     private String mNextPageUrl;
     private final String TAG = "CommunityPresent";
+    private Disposable mDisposable;
 
     @Inject
     public CommunityPresenter(CommunityContract.Model model, CommunityContract.View rootView) {
         super(model, rootView);
+
+
     }
 
     /**
@@ -42,33 +57,22 @@ public class CommunityPresenter extends BasePresenter
      */
     public void getCommunityData(boolean isUpdate) {
         if (isUpdate) {
-            mModel.getCommunityData()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BaseObserver<CommunityRootBean>() {
+
+            mDisposable = mModel.getCommunityData()
+                    .subscribe(new Consumer<CommunityRootBean>() {
                         @Override
-                        protected void onSuccess(CommunityRootBean rootBean) {
+                        public void accept(CommunityRootBean rootBean) throws Exception {
                             mNextPageUrl = rootBean.getNextPageUrl();
                             mRootView.setData(rootBean.getItemList(), true);
                         }
-
-                        @Override
-                        public void onFail(Throwable e) {
-                            Timber.e(e, TAG);
-                        }
                     });
         } else if (!mNextPageUrl.equals("") && mNextPageUrl != null) {
-            mModel.getCommunityNextData(mNextPageUrl)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BaseObserver<CommunityRootBean>() {
+            mDisposable = mModel.getCommunityNextData(mNextPageUrl)
+                    .subscribe(new Consumer<CommunityRootBean>() {
                         @Override
-                        protected void onSuccess(CommunityRootBean rootBean) {
+                        public void accept(CommunityRootBean rootBean) throws Exception {
                             mNextPageUrl = rootBean.getNextPageUrl();
                             mRootView.setData(rootBean.getItemList(), false);
-                        }
-
-                        @Override
-                        public void onFail(Throwable e) {
-                            Timber.e(e, TAG);
                         }
                     });
         } else {
@@ -85,4 +89,12 @@ public class CommunityPresenter extends BasePresenter
                 new RecyclerViewWrapper(communityAdapter, mRootView.getActivity());
         mRootView.initRecyclerView(manager, adapterWrapper);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mDisposable != null && mDisposable.isDisposed())
+            mDisposable.dispose();
+    }
+
 }

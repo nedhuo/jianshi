@@ -1,10 +1,12 @@
 package com.hngg.jianshi.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,14 +14,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
-
-
-import com.hngg.jianshi.component.DaggerHomeComponent;
+//import com.hngg.jianshi.component.DaggerHomeComponent;
+import com.hngg.jianshi.ui.TourRecommendationActivity;
 import com.hngg.jianshi.widget.CustomViewPager;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.mvp.IView;
-
 
 import javax.inject.Inject;
 
@@ -40,15 +40,19 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IView {
 
     @Inject
     HomePresenter mPresenter;
+    @BindView(R.id.iv_rili)
+    ImageView ivRili;
+    @BindView(R.id.iv_search)
+    ImageView ivSearch;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-        DaggerHomeComponent
-                .builder()
-                .appComponent(appComponent)
-                .homeModule(new HomeModule(this))
-                .build()
-                .inject(this);
+//        DaggerHomeComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .homeModule(new HomeModule(this))
+//                .build()
+//                .inject(this);
     }
 
     @Override
@@ -60,6 +64,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IView {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         Log.i(TAG, "initData执行");
+
+        ivRili.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, TourRecommendationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         mPresenter.initView();
     }
 

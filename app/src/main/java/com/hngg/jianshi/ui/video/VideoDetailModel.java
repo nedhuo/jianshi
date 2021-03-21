@@ -43,7 +43,7 @@ public class VideoDetailModel implements VideoDetailContract.Model {
     public Observable<RelationVideoBean> getRelationVideo(long id) {
 
         return httpUtil.getService(ApiInterface.class)
-                 .getRelationVideo(String.valueOf(id))
+                .getRelationVideo(String.valueOf(id))
                 .compose(httpUtil.applySchedulers());
     }
 

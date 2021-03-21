@@ -1,23 +1,22 @@
 package com.hngg.jianshi.ui;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.os.Bundle;
-import android.util.Log;
-
-import android.view.MotionEvent;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hngg.jianshi.R;
 
 
-import com.hngg.jianshi.component.DaggerMainComponent;
+//import com.hngg.jianshi.component.DaggerMainComponent;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 
@@ -46,13 +45,19 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerMainComponent
-                .builder()
-                .appComponent(appComponent)
-                .mainModule(new MainModule(this))
-                .build()
-                .inject(this);
+//        DaggerMainComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .mainModule(new MainModule(this))
+//                .build()
+//                .inject(this);
+
+
+        View view;
+        ViewGroup viewGroup;
+        RecyclerView rv;
     }
+
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {

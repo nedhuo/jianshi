@@ -75,6 +75,9 @@ public class VideoDetailPresenter {
      * TODO 处理内存泄漏问题
      */
     public void onDestroy() {
-
+        if (mModel != null)
+            mModel.onDestroy();
+        this.mModel = null;
+        this.mRootView = null;
     }
 }

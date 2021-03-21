@@ -53,7 +53,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
     TextView tvTag;
     @BindView(R.id.tv_desc)
     TextView tvDesc;
-//    @BindView(R.id.tv_collectionCount)
+    //    @BindView(R.id.tv_collectionCount)
 //    TextView tvCollectionCount;
 //    @BindView(R.id.tv_replyCount)
 //    TextView tvReplyCount;
@@ -135,7 +135,10 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
     public GSYVideoOptionBuilder getGSYVideoOptionBuilder() {
         //内置封面可参考SampleCoverVideo
         ImageView imageView = new ImageView(this);
-        Glide.with(this).load(mVideoData.getCover().getFeed()).centerCrop().into(imageView);
+        Glide.with(this)
+                .load(mVideoData.getCover().getFeed())
+                .centerCrop()
+                .into(imageView);
         //  loadCover(imageView,);
         return new GSYVideoOptionBuilder()
                 .setThumbImageView(imageView)
@@ -152,7 +155,6 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
 
     @Override
     public void clickForFullScreen() {
-
     }
 
     @Override
@@ -194,11 +196,11 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
 
     /**
      * 视频回复
-     *
+     * <p>
      * 此版块先撤销，有需要再完善
-     *
+     * <p>
      * 需要解决两个RecyclerView的问题
-     * */
+     */
     public void initVideoReplyRV(LinearLayoutManager layoutManager, VideoReplyAdapter adapter) {
 //        rvVideoReply.setLayoutManager(layoutManager);
 //        rvVideoReply.setAdapter(adapter);
@@ -218,5 +220,13 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
 //                        Timber.e(e.toString());
 //                    }
 //                });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) mPresenter.onDestroy();//释放资源
+        this.mPresenter = null;
     }
 }

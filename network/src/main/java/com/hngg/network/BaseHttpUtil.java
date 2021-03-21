@@ -1,5 +1,7 @@
 package com.hngg.network;
 
+import android.view.ViewGroup;
+
 import com.hngg.network.interceptor.CommonRequestInterceptor;
 import com.hngg.network.interceptor.CommonResponseInterceptor;
 
@@ -43,6 +45,7 @@ public abstract class BaseHttpUtil {
      */
     public void init(INetworkRequiredInfo networkRequiredInfo) {
         iNetworkRequiredInfo = networkRequiredInfo;
+
     }
 
     /**
@@ -82,7 +85,8 @@ public abstract class BaseHttpUtil {
     private OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         if (iNetworkRequiredInfo != null && iNetworkRequiredInfo.isDebug()) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
+            HttpLoggingInterceptor loggingInterceptor =
+                    new HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
             okHttpClientBuilder.addInterceptor(loggingInterceptor);
         }
@@ -102,7 +106,7 @@ public abstract class BaseHttpUtil {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
                 Observable<T> observable = upstream.subscribeOn(Schedulers.io())
-                        .subscribeOn(AndroidSchedulers.mainThread());
+                        .observeOn(AndroidSchedulers.mainThread());
                 //observable.subscribe(observer);
                 return observable;
             }

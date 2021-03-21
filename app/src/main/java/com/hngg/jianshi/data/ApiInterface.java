@@ -1,6 +1,7 @@
 package com.hngg.jianshi.data;
 
 import com.hngg.jianshi.data.bean.community.CommunityRootBean;
+import com.hngg.jianshi.data.bean.discover.DisCoverRootBean;
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.recommend.RecommendRootBean;
@@ -37,20 +38,13 @@ public interface ApiInterface {
 
     //相关视频链接
     ////http://baobab.kaiyanapp.com/api/v4/video/related?id=186856
-    /**
-     * itemList: List
-     * count:int
-     * total:int
-     * nextPageUrl:null
-     * adExist:false
-     * */
     @GET("api/v4/video/related")
     Observable<RelationVideoBean> getRelationVideo(@Query("id") String id);
 
     //相关回复链接
     //http://baobab.kaiyanapp.com/api/v2/replies/video?videoId=186856
     @GET("api/v2/replies/video")
-    Observable<JsonRootBean> getVideoReply(@Query("videoId")long id);
+    Observable<JsonRootBean> getVideoReply(@Query("videoId") long id);
 
 
     //推荐
@@ -72,4 +66,24 @@ public interface ApiInterface {
     //http://baobab.kaiyanapp.com/api/v7/community/tab/rec?startScore=1613737807000&pageCount=2
     @GET()
     Observable<CommunityRootBean> getCommunityNextPage(@Url String url);
+
+    //发现
+    //http://baobab.kaiyanapp.com/api/v7/index/tab/discovery
+    //http://baobab.kaiyanapp.com/api/v4/discovery
+    @GET("api/v7/index/tab/discovery")
+    Observable<DisCoverRootBean> getDisCoverData();
+
+
+    //分类  http://baobab.kaiyanapp.com/api/v4/discovery/category
+    //      http://baobab.kaiyanapp.com/api/v4/categories
+
+    ///http://baobab.kaiyanapp.com/api/v4/category/24/?title=%E6%97%B6%E5%B0%9A
+
+
+    //日历
+    //http://baobab.kaiyanapp.com/api/v7/roamingCalendar/index?date=2021-5-22
+
+
+    //搜索
+    //http://baobab.kaiyanapp.com/api/v1/search?&num=10&start=10&query=%E2%80%9C%E5%B9%BF%E5%91%8A%E2%80%9D
 }

@@ -17,6 +17,8 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.viewholder.BannerViewHolder;
 import com.youth.banner.adapter.BannerAdapter;
+import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.transformer.AlphaPageTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,9 +92,14 @@ public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
                 viewHolder.tv_title2.setText(itemList.get(1).getData().getTitle());
                 viewHolder.tv_desc2.setText(itemList.get(1).getData().getSubTitle());
             } else if (holder instanceof BannerViewHolder) {
+                BannerViewHolder viewHolder = (BannerViewHolder) holder;
                 List<ItemList> itemList = mItemList.get(position).getData().getItemList();
                 BannerViewAdapter adapter = new BannerViewAdapter(itemList);
-                ((BannerViewHolder) holder).banner.setAdapter(adapter);
+                viewHolder.banner.setAdapter(adapter);
+                viewHolder.banner.setIndicator(new CircleIndicator(mCtx));
+                //添加魅族效果
+//                viewHolder.banner.setBannerGalleryMZ(20);
+//                viewHolder.banner.addPageTransformer(new AlphaPageTransformer());
             }
         } else {
             mAdapter.onBindViewHolder(holder, position - getHeadersCount());
@@ -179,7 +186,6 @@ public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
         mAdapter.setData(data, isUpdate);
         mAdapter.notifyDataSetChanged();
     }
-
 
 
     private class DataType {

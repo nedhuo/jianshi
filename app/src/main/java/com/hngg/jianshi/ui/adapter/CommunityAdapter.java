@@ -1,7 +1,9 @@
 package com.hngg.jianshi.ui.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,9 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.recommend.Content;
+import com.hngg.jianshi.ui.community.CommunityVideoActivity;
+import com.hngg.jianshi.ui.community.UgcPictureActivity;
+import com.hngg.jianshi.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +80,17 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 viewHolder.tv_name.setText(data.getOwner().getNickname());
                 viewHolder.tv_desc.setText(data.getDescription());
                 viewHolder.iv_flag.setImageResource(R.drawable.storage);
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mCtx, UgcPictureActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Constant.PICTURE_BEAN, data);
+                        intent.putExtra(Constant.PICTURE_BUNDLE, bundle);
+                        mCtx.startActivity(intent);
+                    }
+                });
             } else if (DataType.VIDEO_CARD.equals(content.getType())) {
                 Glide.with((viewHolder).iv_content)
                         .load(data.getCover().getFeed())
@@ -93,6 +109,17 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
 
                 viewHolder.iv_flag.setImageResource(R.drawable.video);
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mCtx, CommunityVideoActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Constant.VIDEO_BEAN, data);
+                        intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
+                        mCtx.startActivity(intent);
+                    }
+                });
             }
         }
     }

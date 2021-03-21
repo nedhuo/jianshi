@@ -65,25 +65,7 @@ public class MainPresenter extends BasePresenter {
             }
         };
         mRootView.initViewPager(pagerAdapter,listener);
-//        FragmentStateAdapter stateAdapter = new FragmentStateAdapter(mRootView) {
-//            @NonNull
-//            @Override
-//            public Fragment createFragment(int position) {
-//                return fragments.get(position);
-//            }
-//
-//            @Override
-//            public int getItemCount() {
-//                return fragments.size();
-//            }
-//        };
-//        ViewPager2.OnPageChangeCallback callback = new ViewPager2.OnPageChangeCallback() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                mRootView.setCurrentItem(position);
-//            }
-//        };
-//        mRootView.initViewPager(stateAdapter, callback);
+
     }
 
     public void initBottomBar() {

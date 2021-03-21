@@ -17,6 +17,16 @@ import java.util.SplittableRandom;
  * Description:
  */
 public class Data implements Serializable {
+    private boolean expert;
+    private String iconType;
+    private boolean ifPgc;
+    private boolean ifShowNotificationIcon;
+    private boolean switchStatus;
+    private boolean medalIcon;
+    private boolean haveReward;
+    private boolean ifNewest;
+    private String icon;
+
     private String dataType;
     private long id;
     private long uid;
@@ -103,6 +113,78 @@ public class Data implements Serializable {
     private Owner owner;
     private List<String> urlsWithWatermark;
     private RecentOnceReply recentOnceReply;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public boolean isExpert() {
+        return expert;
+    }
+
+    public void setExpert(boolean expert) {
+        this.expert = expert;
+    }
+
+    public String getIconType() {
+        return iconType;
+    }
+
+    public void setIconType(String iconType) {
+        this.iconType = iconType;
+    }
+
+    public boolean isIfPgc() {
+        return ifPgc;
+    }
+
+    public void setIfPgc(boolean ifPgc) {
+        this.ifPgc = ifPgc;
+    }
+
+    public boolean isIfShowNotificationIcon() {
+        return ifShowNotificationIcon;
+    }
+
+    public void setIfShowNotificationIcon(boolean ifShowNotificationIcon) {
+        this.ifShowNotificationIcon = ifShowNotificationIcon;
+    }
+
+    public boolean isSwitchStatus() {
+        return switchStatus;
+    }
+
+    public void setSwitchStatus(boolean switchStatus) {
+        this.switchStatus = switchStatus;
+    }
+
+    public boolean isMedalIcon() {
+        return medalIcon;
+    }
+
+    public void setMedalIcon(boolean medalIcon) {
+        this.medalIcon = medalIcon;
+    }
+
+    public boolean isHaveReward() {
+        return haveReward;
+    }
+
+    public void setHaveReward(boolean haveReward) {
+        this.haveReward = haveReward;
+    }
+
+    public boolean isIfNewest() {
+        return ifNewest;
+    }
+
+    public void setIfNewest(boolean ifNewest) {
+        this.ifNewest = ifNewest;
+    }
 
     public Owner getOwner() {
         return owner;

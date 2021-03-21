@@ -19,4 +19,7 @@ public class Constant {
      * */
     public static final String VIDEO_BEAN="videoBean";
     public static final String VIDEO_BUNDLE="videoBundle";
+
+    public static final String PICTURE_BEAN="ugcBean";
+    public static final String PICTURE_BUNDLE="ugcBundle";
 }

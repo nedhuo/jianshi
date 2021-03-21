@@ -22,6 +22,7 @@ import com.hngg.jianshi.ui.viewholder.VideoSmallCardViewHolder;
 import com.hngg.jianshi.ui.viewholder.VideoViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
+import com.youth.banner.indicator.CircleIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private List<ItemList> mItemList;
     private final Activity mCtx;
+    private final String TAG = "RecommendAdapter";
 
     public RecommendAdapter(Activity ctx) {
         mCtx = ctx;
@@ -93,8 +95,15 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
         } else if (holder instanceof BannerViewHolder) {
-            BannerViewAdapter adapter = new BannerViewAdapter(data.getItemList());
-            ((BannerViewHolder) holder).banner.setAdapter(adapter);
+            BannerViewHolder viewHolder = (BannerViewHolder) holder;
+            BannerViewAdapter adapter = new BannerViewAdapter(data.getItemList(), TAG);
+            viewHolder.banner.setAdapter(adapter);
+            viewHolder.banner.setIndicator(new CircleIndicator(mCtx));
+            //添加画廊效果
+            viewHolder.banner.setBannerGalleryMZ(20);
+            //(可以和其他PageTransformer组合使用，比如AlphaPageTransformer，注意但和其他带有缩放的PageTransformer会显示冲突)
+            //添加透明效果(画廊配合透明效果更棒)
+            //viewHolder.banner.addPageTransformer(new AlphaPageTransformer());
 
         } else if (holder instanceof VideoViewHolder) {
             VideoViewHolder viewHolder = (VideoViewHolder) holder;
