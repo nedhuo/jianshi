@@ -19,6 +19,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
         jcenter()
         maven { url "https://jitpack.io" }//注意!!! RxCache 是托管于 jitpack 仓库的, 如果没有这一段代码将永远依赖不了 RxCache

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerMeComponent;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 
@@ -21,12 +22,12 @@ import com.jess.arms.di.component.AppComponent;
 public class MeFragment extends BaseFragment<MePresenter> implements MeContract.View {
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerMeComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .meModule(new MeModule(this))
-//                .build()
-//                .inject(this);
+        DaggerMeComponent
+                .builder()
+                .appComponent(appComponent)
+                .meModule(new MeModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
 //import com.hngg.jianshi.component.DaggerDisCoverComponent;
+import com.hngg.jianshi.component.DaggerDisCoverComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.adapter.DisCoverAdapter;
 import com.jess.arms.base.BaseFragment;
@@ -48,12 +49,12 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerDisCoverComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .disCoverModule(new DisCoverModule(this))
-//                .build()
-//                .inject(this);
+        DaggerDisCoverComponent
+                .builder()
+                .appComponent(appComponent)
+                .disCoverModule(new DisCoverModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override

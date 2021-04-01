@@ -62,7 +62,6 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
         } else {
             refreshlayout.setNoMoreData(true);
         }
-
     }
 
     public void onRefresh(RefreshLayout refreshlayout) {

@@ -3,7 +3,7 @@ package com.hngg.jianshi.ui.video;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
-import com.hngg.jianshi.data.bean.reply.JsonRootBean;
+import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 
@@ -66,7 +66,7 @@ public class VideoDetailPresenter {
     /**
      * TODO 视频评论 是有下一页的 思考 如何处理
      */
-    public Observable<JsonRootBean> obtainVideoReply(long id) {
+    public Observable<ReplyRootBean> obtainVideoReply(long id) {
         return mModel.getVideoReply(id);
     }
 

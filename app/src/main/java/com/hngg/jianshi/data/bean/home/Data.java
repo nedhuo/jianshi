@@ -1,14 +1,11 @@
 package com.hngg.jianshi.data.bean.home;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.hngg.jianshi.data.bean.community.Owner;
 import com.hngg.jianshi.data.bean.recommend.Content;
+import com.hngg.jianshi.data.bean.reply.User;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.SplittableRandom;
 
 /**
  * Date: 2020/11/24
@@ -56,7 +53,6 @@ public class Data implements Serializable {
     private String campaign;
     private String waterMarks;
     private boolean ad;
-    //  private List<String> adTrack;
     private String type;
     private String titlePgc;
     private String descriptionPgc;
@@ -113,6 +109,188 @@ public class Data implements Serializable {
     private Owner owner;
     private List<String> urlsWithWatermark;
     private RecentOnceReply recentOnceReply;
+
+    private long videoId;
+    private String videoTitle;
+    private int parentReplyId;
+    private long rootReplyId;
+    private int sequence;
+    private String message;
+    private String replyStatus;
+    private User user;
+    private int likeCount;
+    private boolean liked;
+    private boolean hot;
+    private String userType;
+    private String imageUrl;
+    private String ugcVideoId;
+    private String parentReply;
+    private boolean showParentReply;
+    private boolean showConversationButton;
+    private String ugcVideoUrl;
+    private boolean userBlocked;
+    private String sid;
+
+
+    public long getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(long videoId) {
+        this.videoId = videoId;
+    }
+
+    public String getVideoTitle() {
+        return videoTitle;
+    }
+
+    public void setVideoTitle(String videoTitle) {
+        this.videoTitle = videoTitle;
+    }
+
+    public int getParentReplyId() {
+        return parentReplyId;
+    }
+
+    public void setParentReplyId(int parentReplyId) {
+        this.parentReplyId = parentReplyId;
+    }
+
+    public long getRootReplyId() {
+        return rootReplyId;
+    }
+
+    public void setRootReplyId(long rootReplyId) {
+        this.rootReplyId = rootReplyId;
+    }
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getReplyStatus() {
+        return replyStatus;
+    }
+
+    public void setReplyStatus(String replyStatus) {
+        this.replyStatus = replyStatus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
+    public boolean isHot() {
+        return hot;
+    }
+
+    public void setHot(boolean hot) {
+        this.hot = hot;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getUgcVideoId() {
+        return ugcVideoId;
+    }
+
+    public void setUgcVideoId(String ugcVideoId) {
+        this.ugcVideoId = ugcVideoId;
+    }
+
+    public String getParentReply() {
+        return parentReply;
+    }
+
+    public void setParentReply(String parentReply) {
+        this.parentReply = parentReply;
+    }
+
+    public boolean isShowParentReply() {
+        return showParentReply;
+    }
+
+    public void setShowParentReply(boolean showParentReply) {
+        this.showParentReply = showParentReply;
+    }
+
+    public boolean isShowConversationButton() {
+        return showConversationButton;
+    }
+
+    public void setShowConversationButton(boolean showConversationButton) {
+        this.showConversationButton = showConversationButton;
+    }
+
+    public String getUgcVideoUrl() {
+        return ugcVideoUrl;
+    }
+
+    public void setUgcVideoUrl(String ugcVideoUrl) {
+        this.ugcVideoUrl = ugcVideoUrl;
+    }
+
+    public boolean isUserBlocked() {
+        return userBlocked;
+    }
+
+    public void setUserBlocked(boolean userBlocked) {
+        this.userBlocked = userBlocked;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
 
     public String getIcon() {
         return icon;
@@ -586,13 +764,6 @@ public class Data implements Serializable {
         this.ad = ad;
     }
 
-//    public List<String> getAdTrack() {
-//        return adTrack;
-//    }
-//
-//    public void setAdTrack(List<String> adTrack) {
-//        this.adTrack = adTrack;
-//    }
 
     public String getType() {
         return type;

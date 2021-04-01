@@ -39,6 +39,8 @@
             android:name=".ui.community.CommunityVideoActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.TourRecommendationActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
     </application>
 
 </manifest>

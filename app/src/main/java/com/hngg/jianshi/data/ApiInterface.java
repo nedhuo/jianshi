@@ -5,15 +5,11 @@ import com.hngg.jianshi.data.bean.discover.DisCoverRootBean;
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.recommend.RecommendRootBean;
-import com.hngg.jianshi.data.bean.reply.JsonRootBean;
-import com.hngg.network.KaiYanApi;
+import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
 
 
 import io.reactivex.Observable;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
-import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -44,7 +40,7 @@ public interface ApiInterface {
     //相关回复链接
     //http://baobab.kaiyanapp.com/api/v2/replies/video?videoId=186856
     @GET("api/v2/replies/video")
-    Observable<JsonRootBean> getVideoReply(@Query("videoId") long id);
+    Observable<ReplyRootBean> getVideoReply(@Query("videoId") long id);
 
 
     //推荐
