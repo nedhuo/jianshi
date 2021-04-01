@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * 数据多的话控制显示行数，少的话改变控件高度
+ */
 public class FlowLayout extends ViewGroup {
 
     private float mVerticalSpacing; //每个item纵向间距
