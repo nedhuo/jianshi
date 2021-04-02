@@ -3,17 +3,11 @@ package com.hngg.jianshi.ui.video;
 import com.hngg.jianshi.data.ApiInterface;
 import com.hngg.jianshi.data.KaiYanHttpUtil;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
-import com.hngg.jianshi.data.bean.reply.JsonRootBean;
-import com.jess.arms.integration.IRepositoryManager;
-import com.jess.arms.mvp.BaseModel;
-import com.jess.arms.mvp.IModel;
+import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Date: 2021/2/16
@@ -34,7 +28,7 @@ public class VideoDetailModel implements VideoDetailContract.Model {
     }
 
 
-    public Observable<JsonRootBean> getVideoReply(long id) {
+    public Observable<ReplyRootBean> getVideoReply(long id) {
         return httpUtil.getService(ApiInterface.class)
                 .getVideoReply(id)
                 .compose(httpUtil.applySchedulers());

@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.data.bean.reply.Data;
-import com.hngg.jianshi.data.bean.reply.ItemList;
+import com.hngg.jianshi.data.bean.home.Data;
+import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.reply.User;
 import com.hngg.jianshi.ui.viewholder.ReplyHeaderViewHolder;
 import com.hngg.jianshi.ui.viewholder.VideoReplyViewHolder;
@@ -22,7 +22,6 @@ import com.hngg.jianshi.utils.CommonUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import timber.log.Timber;
 
 /**
@@ -35,7 +34,6 @@ public class VideoReplyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private static final String TAG = "VideoReplyAdapter";
     private final Activity mCtx;
-
 
     private List<ItemList> mItemList;
 
