@@ -10,4 +10,6 @@
     <color name="colorBlue">#3333ff</color>
     <color name="colorGray">#808080</color>
     <color name="colorBlack_shade">#88000000</color>
+    <color name="color_selected_flow">#CCCCCC</color>
+    <color name="color_select_flow">#F7F7F7</color>
 </resources>

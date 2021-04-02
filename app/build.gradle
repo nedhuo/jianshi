@@ -73,5 +73,7 @@ dependencies {
     // implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
 
-    implementation 'pub.devrel:easypermissions:1.2.0'
+    implementation 'pub.devrel:easypermissions:2.0.1'
+
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
 }

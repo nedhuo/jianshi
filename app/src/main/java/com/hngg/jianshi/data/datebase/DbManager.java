@@ -5,6 +5,8 @@ package com.hngg.jianshi.data.datebase;
  *
  * 搜索历史库
  *
+ * 观看历史记录
+ *
  * 我的收藏库
  *
  * 下载库

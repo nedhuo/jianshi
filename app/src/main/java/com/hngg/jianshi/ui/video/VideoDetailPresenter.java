@@ -6,6 +6,7 @@ import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
+import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
@@ -17,13 +18,13 @@ import io.reactivex.Observable;
  * Author: nedhuo
  * Description:
  */
-public class VideoDetailPresenter {
-    VideoDetailActivity mRootView;
-    VideoDetailModel mModel;
+public class VideoDetailPresenter extends BasePresenter {
+    private VideoDetailActivity mRootView;
+    private VideoDetailModel mModel;
 
     @Inject
-    public VideoDetailPresenter(VideoDetailModel model,
-                                VideoDetailActivity rootView) {
+    VideoDetailPresenter(VideoDetailModel model,
+                         VideoDetailActivity rootView) {
         mRootView = rootView;
         mModel = model;
     }

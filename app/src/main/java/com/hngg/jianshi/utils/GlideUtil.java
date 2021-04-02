@@ -14,42 +14,42 @@ import com.bumptech.glide.request.BaseRequestOptions;
 import com.hngg.jianshi.R;
 
 public class GlideUtil {
-    public static void loadImage(Context context, String imageUrl, ImageView view) {
-        Glide.with(context).load(imageUrl).apply(new BaseRequestOptions<BaseRequestOptions>() {
-            @NonNull
-            @Override
-            public BaseRequestOptions diskCacheStrategy(@NonNull DiskCacheStrategy strategy) {
-                return super.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
-            }
-
-            @NonNull
-            @Override
-            public BaseRequestOptions placeholder(@Nullable Drawable drawable) {
-                return super.placeholder(R.mipmap.ic_launcher);
-            }
-        }).into(view);
-    }
-
-
-    public static void loadCircleImage(Context context, String imageUrl, ImageView view) {
-        Glide.with(context).load(imageUrl).apply(new BaseRequestOptions<BaseRequestOptions>() {
-            @NonNull
-            @Override
-            public BaseRequestOptions diskCacheStrategy(@NonNull DiskCacheStrategy strategy) {
-                return super.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
-            }
-
-            @NonNull
-            @Override
-            public BaseRequestOptions placeholder(@Nullable Drawable drawable) {
-                return super.placeholder(R.mipmap.ic_launcher);
-            }
-
-            @NonNull
-            @Override
-            public BaseRequestOptions circleCrop() {
-                return super.circleCrop();
-            }
-        }).into(view);
-    }
+//    public static void loadImage(Context context, String imageUrl, ImageView view) {
+//        Glide.with(context).load(imageUrl).apply(new BaseRequestOptions<T>() {
+//            @NonNull
+//            @Override
+//            public T diskCacheStrategy(@NonNull DiskCacheStrategy strategy) {
+//                return super.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+//            }
+//
+//            @NonNull
+//            @Override
+//            public T placeholder(@Nullable Drawable drawable) {
+//                return super.placeholder(R.mipmap.ic_launcher);
+//            }
+//        }).into(view);
+//    }
+//
+//
+//    public static void loadCircleImage(Context context, String imageUrl, ImageView view) {
+//        Glide.with(context).load(imageUrl).apply(new BaseRequestOptions<T>() {
+//            @NonNull
+//            @Override
+//            public T diskCacheStrategy(@NonNull DiskCacheStrategy strategy) {
+//                return super.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+//            }
+//
+//            @NonNull
+//            @Override
+//            public T placeholder(@Nullable Drawable drawable) {
+//                return super.placeholder(R.mipmap.ic_launcher);
+//            }
+//
+//            @NonNull
+//            @Override
+//            public T circleCrop() {
+//                return super.circleCrop();
+//            }
+//        }).into(view);
+//    }
 }
