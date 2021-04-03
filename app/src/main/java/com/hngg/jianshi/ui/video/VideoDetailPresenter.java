@@ -2,6 +2,7 @@ package com.hngg.jianshi.ui.video;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
@@ -80,5 +81,29 @@ public class VideoDetailPresenter extends BasePresenter {
             mModel.onDestroy();
         this.mModel = null;
         this.mRootView = null;
+    }
+
+    /**
+     * @return true  表示未收藏，已经将其收藏
+     * false 表示已收藏，已取消收藏，或者收藏失败
+     */
+    boolean checkAndCollection(Data videoData) {
+        if (checkIsCollection(videoData)) {
+            /*从数据库移除*/
+            return false;
+        } else {
+            /*添加到数据库*/
+            return true;
+        }
+    }
+
+    /**
+     * 检查收藏数据库该视频是否存在
+     *
+     * @return true    表示已经收藏
+     * false   表示未收藏
+     */
+    boolean checkIsCollection(Data videoData) {
+        return false;
     }
 }

@@ -42,7 +42,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
  * 视频详情页面  视频播放(页面传递)+相关信息(页面传递)+相关评论(网络获取)+相关视频(网络获取)
  */
 public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoPlayer>
-        implements VideoDetailContract.View {
+        implements VideoDetailContract.View, View.OnClickListener {
 
 
     @BindView(R.id.videoPlayer)
@@ -59,6 +59,12 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
 //    TextView tvReplyCount;
 //    @BindView(R.id.tv_shareCount)
 //    TextView tvShareCount;
+    @BindView(R.id.iv_collection)
+    ImageView ivCollection;
+    @BindView(R.id.iv_download)
+    ImageView ivDownload;
+    @BindView(R.id.iv_share)
+    ImageView ivShare;
     @BindView(R.id.rv_relationVideo)
     RecyclerView rvRelationVideo;
     @BindView(R.id.rv_videoReply)
@@ -78,6 +84,11 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videodetail);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         initData();
         initView();
     }
@@ -123,6 +134,10 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         //相关视频RecyclerView
         mPresenter = new VideoDetailPresenter(new VideoDetailModel(), this);
         mPresenter.initRecyclerView();
+
+        ivCollection.setOnClickListener(this);
+        ivDownload.setOnClickListener(this);
+        ivShare.setOnClickListener(this);
     }
 
 
@@ -228,5 +243,19 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         super.onDestroy();
         if (mPresenter != null) mPresenter.onDestroy();//释放资源
         this.mPresenter = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_collection:
+                mPresenter.checkAndCollection(mVideoData);
+                break;
+            case R.id.iv_download:
+                break;
+            case R.id.iv_share:
+                break;
+            default:
+        }
     }
 }

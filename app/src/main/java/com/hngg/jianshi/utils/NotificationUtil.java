@@ -16,23 +16,36 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.hngg.jianshi.R;
 
+import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Description: java类作用描述
  * @Author: nedhuo
- * @Data:
+ * @Data: 需求：下载时候始终保持一个通知不被杀死
+ * <p>
+ * 建立两个通知list,其中一个赋予ongoing属性，只存一个通知
+ * 另一个可以存储多个通知，但是不设置ongoing属性
+ * <p>
+ * 当具有ongoing属性的下载完成之后，也就是判断ongoing属性的list无数据之后
+ * 另一个list有数据，从另一个list删除索引为0的通知，让这个通知重新新建，添加到ongoing属性list中
+ * <p>
+ * 如果有办法直接将其具有不死属性，也可以直接设置
  */
 public class NotificationUtil {
     private RemoteViews mRemoteView = null;
     private NotificationManagerCompat mNotificationManagerCompat;
     private NotificationManager mNotifiManager = null;
     private NotificationChannel mNotifiChannel = null;
-    private String channelId = "niceVideo";
-    private String channelName = "download";
+    private String channelName;
     private int importance = NotificationManager.IMPORTANCE_DEFAULT;
-    private ConcurrentHashMap<Integer, Notification> mNotifications;
+    private ConcurrentHashMap<Integer, Notification> mOrdinaryMap;
+    private ConcurrentHashMap<Integer, Notification> mKeepAliveMap;
     private String mIsApplyNotification_sp = "isApplyNotification";
+
+    public NotificationUtil() {
+        channelName = "download";
+    }
 
     /**
      * 创建通知渠道
@@ -42,6 +55,7 @@ public class NotificationUtil {
         if (mNotifiChannel == null)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 //创建通知渠道，重要程度为NotificationManager.IMPORTANCE_HIGH 紧急
+                String channelId = "niceVideo";
                 mNotifiChannel = new NotificationChannel(channelId, channelName, importance);
 //                mNotifiChannel.canBypassDnd();//是否绕过请勿打扰模式
                 mNotifiChannel.enableLights(false);//是否在桌面icon右上角展示小红点
@@ -100,6 +114,38 @@ public class NotificationUtil {
         } else {
             return false;
         }
+    }
+
+
+    /**
+     * @param id 通知显示ID
+     *           <p>
+     *           处理逻辑：下载成功，判断是否是KeepAliveNotification
+     *           是 -> 移除当前下载通知，从ordianry获取一个通知放入keepAliveNotification中（移除，新建）
+     *           否 -> 切换Notification显示，为下载完成状态
+     */
+    public void onDownloadSuccess(int id) {
+        Notification keepAliveNotification = mKeepAliveMap.get(id);
+        if (keepAliveNotification != null) {
+            mNotifiManager.cancel(id);
+            mKeepAliveMap.remove(id);
+        }
+
+        if (mKeepAliveMap.size() == 0) {
+            if (mOrdinaryMap.size() > 0) {
+                Enumeration<Integer> keys = mOrdinaryMap.keys();
+                Integer element = keys.nextElement();
+                /*通过element数据库取元素*/
+                createKeepAliveNotification();
+            }
+        }
+    }
+
+    /**
+     * 创建保活通知
+     * */
+    private void createKeepAliveNotification() {
+
     }
 
 }

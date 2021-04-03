@@ -10,6 +10,12 @@ package com.hngg.jianshi.data.datebase;
  * 我的收藏库
  *
  * 下载库
+ *     id           int       自增唯一
+ *     videoId
+ *     videoName    String
+ *     filePath     String
+ *     videoImage   String
+ *     taskState    int
  *
  *
  */
