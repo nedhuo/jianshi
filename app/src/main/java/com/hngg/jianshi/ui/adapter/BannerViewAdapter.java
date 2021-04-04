@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
+import com.hngg.jianshi.utils.GlideUtil;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.util.List;
@@ -46,16 +47,10 @@ public class BannerViewAdapter extends BannerAdapter<ItemList,
     public void onBindView(BannerItemViewHolder holder, ItemList data, int position, int size) {
         if (mTag.equals(DataType.RECOMMEND)) {
             String imageUrl = mDatas.get(position).getData().getContent().getData().getCover().getFeed();
-            Glide.with(holder.imageView)
-                    .load(imageUrl)
-                    .centerCrop()
-                    .into(holder.imageView);
+            GlideUtil.loadImage(holder.imageView,imageUrl,holder.imageView);
         } else if (mTag.equals(DataType.DISCOVER)) {
             Data bannerData = mDatas.get(position).getData();
-            Glide.with(holder.imageView)
-                    .load(bannerData.getImage())
-                    .centerCrop()
-                    .into(holder.imageView);
+            GlideUtil.loadImage(holder.imageView,bannerData.getImage(),holder.imageView);
         }
 
     }

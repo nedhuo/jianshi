@@ -1,5 +1,6 @@
 package com.hngg.jianshi;
 
+import com.arialyy.aria.core.Aria;
 import com.jess.arms.base.BaseApplication;
 
 /**
@@ -12,5 +13,10 @@ public class CustomApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Aria.download(this).register();
     }
+
+
+
+
 }

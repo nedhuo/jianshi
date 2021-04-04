@@ -12,10 +12,10 @@ import androidx.collection.SparseArrayCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.bumptech.glide.Glide;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.viewholder.BannerViewHolder;
+import com.hngg.jianshi.utils.GlideUtil;
 import com.youth.banner.adapter.BannerAdapter;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.transformer.AlphaPageTransformer;
@@ -78,17 +78,15 @@ public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
                 CommunityContentViewHolder viewHolder = (CommunityContentViewHolder) holder;
                 List<ItemList> itemList = mItemList.get(position).getData().getItemList();
 
-                Glide.with(mCtx)
-                        .load(itemList.get(0).getData().getBgPicture())
-                        .centerCrop()
-                        .into(viewHolder.iv_content1);
+                GlideUtil.loadImage(mCtx,
+                        itemList.get(0).getData().getBgPicture(),
+                        viewHolder.iv_content1);
                 viewHolder.tv_title1.setText(itemList.get(0).getData().getTitle());
                 viewHolder.tv_desc1.setText(itemList.get(0).getData().getSubTitle());
+                GlideUtil.loadImage(mCtx,
+                        itemList.get(1).getData().getBgPicture(),
+                        viewHolder.iv_content2);
 
-                Glide.with(mCtx)
-                        .load(itemList.get(1).getData().getBgPicture())
-                        .centerCrop()
-                        .into(viewHolder.iv_content2);
                 viewHolder.tv_title2.setText(itemList.get(1).getData().getTitle());
                 viewHolder.tv_desc2.setText(itemList.get(1).getData().getSubTitle());
             } else if (holder instanceof BannerViewHolder) {
@@ -238,10 +236,7 @@ public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         public void onBindView(BannerItemViewHolder holder, ItemList data, int position, int size) {
             String imageUrl = data.getData().getImage();
-            Glide.with(holder.imageView)
-                    .load(imageUrl)
-                    .centerCrop()
-                    .into(holder.imageView);
+            GlideUtil.loadImage(holder.imageView,imageUrl,holder.imageView);
         }
 
         class BannerItemViewHolder extends RecyclerView.ViewHolder {

@@ -16,6 +16,7 @@ import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.viewholder.BannerViewHolder;
 import com.hngg.jianshi.ui.viewholder.TextHeaderViewHolder;
+import com.hngg.jianshi.utils.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,10 +76,7 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (holder instanceof BriefItemViewHolder) {
             BriefItemViewHolder viewHolder = (BriefItemViewHolder) holder;
             Data data = mItemList.get(position).getData();
-            Glide.with(mCtx)
-                    .load(data.getIcon())
-                    .centerCrop()
-                    .into(viewHolder.iv_image);
+            GlideUtil.loadImage(mCtx,data.getIcon(),viewHolder.iv_image);
             viewHolder.tv_title.setText(data.getTitle());
             viewHolder.tv_desc.setText(data.getDescription());
         }

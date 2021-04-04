@@ -16,10 +16,18 @@ public class Constant {
      * collectionCount
      * shareCount
      * replyCount
-     * */
-    public static final String VIDEO_BEAN="videoBean";
-    public static final String VIDEO_BUNDLE="videoBundle";
+     */
+    public static final String VIDEO_BEAN = "videoBean";
+    public static final String VIDEO_BUNDLE = "videoBundle";
 
-    public static final String PICTURE_BEAN="ugcBean";
-    public static final String PICTURE_BUNDLE="ugcBundle";
+    public static final String PICTURE_BEAN = "ugcBean";
+    public static final String PICTURE_BUNDLE = "ugcBundle";
+
+
+    /**
+     * SharedPrefenerce
+     */
+
+    public static final String SP_NAME = "jianshi";
+    public static final String UNIQUE_ID = "uniqueId";
 }

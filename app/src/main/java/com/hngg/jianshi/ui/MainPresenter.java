@@ -45,6 +45,7 @@ public class MainPresenter extends BasePresenter {
 
     public void initViewPager() {
         List<Fragment> fragments = obtainPager();
+
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(
                 mRootView.getSupportFragmentManager()) {
             @Override

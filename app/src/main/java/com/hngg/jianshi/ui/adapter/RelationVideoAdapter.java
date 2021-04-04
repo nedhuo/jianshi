@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
@@ -20,6 +19,7 @@ import com.hngg.jianshi.ui.viewholder.TextHeaderViewHolder;
 import com.hngg.jianshi.ui.viewholder.VideoSmallCardViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class RelationVideoAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<ItemList> mItemList;
 
     public RelationVideoAdapter(Activity ctx) {
-        mItemList=new ArrayList<>();
+        mItemList = new ArrayList<>();
         mCtx = ctx;
     }
 
@@ -207,7 +207,7 @@ public class RelationVideoAdapter extends RecyclerView.Adapter<RecyclerView.View
      * "src":null,
      * "recallSource":null,
      * "recall_source":null
-     *
+     * <p>
      * TODO 此处的smallcard是可以无限制多开的，没打开一个就会new VideoDetailActivity，需要进行处理
      */
     @Override
@@ -217,10 +217,7 @@ public class RelationVideoAdapter extends RecyclerView.Adapter<RecyclerView.View
             ((TextHeaderViewHolder) holder).mTvHeaderTime.setText(data.getText());
         } else if (holder instanceof VideoSmallCardViewHolder) {
             VideoSmallCardViewHolder videoHolder = (VideoSmallCardViewHolder) holder;
-            Glide.with(mCtx)
-                    .load(data.getCover().getFeed())
-                    .centerCrop()
-                    .into(videoHolder.iv_videoImage);
+            GlideUtil.loadImage(mCtx, data.getCover().getFeed(), videoHolder.iv_videoImage);
             videoHolder.tv_videoTitle.setText(data.getTitle());
             videoHolder.tv_videoCategory.setText("#" + data.getCategory());
             videoHolder.tv_VideoDuration.setText(CommonUtil.intToTime(data.getDuration()));
@@ -233,6 +230,7 @@ public class RelationVideoAdapter extends RecyclerView.Adapter<RecyclerView.View
                     bundle.putSerializable(Constant.VIDEO_BEAN, data);
                     intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
                     mCtx.startActivity(intent);
+                    mCtx.finish();
                 }
             });
         } else {

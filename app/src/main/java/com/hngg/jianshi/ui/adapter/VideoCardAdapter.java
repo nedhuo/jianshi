@@ -23,6 +23,7 @@ import com.hngg.jianshi.ui.viewholder.VideoCoverViewHolder;
 import com.hngg.jianshi.ui.viewholder.VideoViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,10 +92,7 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (viewHolder instanceof VideoViewHolder) {
             VideoViewHolder holder = (VideoViewHolder) viewHolder;
             try {
-                Glide.with(holder.itemView)
-                        .load(data.getAuthor().getIcon())
-                        .circleCrop()
-                        .into(holder.mIv_icon);
+                GlideUtil.loadImage(holder.itemView,data.getAuthor().getIcon(),holder.mIv_icon);
             } catch (Exception e) {
                 Log.i(TAG, "===============");
                 Log.i(TAG, data.getTitle());
@@ -105,10 +103,7 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         .circleCrop()
                         .into(holder.mIv_icon);
             }
-            Glide.with(holder.itemView)
-                    .load(data.getCover().getFeed())
-                    .centerCrop()
-                    .into(holder.mIv_content);
+            GlideUtil.loadImage(holder.itemView,data.getCover().getFeed(),holder.mIv_content);
             holder.mTv_title.setText(data.getTitle());
             holder.mTv_desc.setText(data.getDescription());
             holder.mTv_duration.setText(CommonUtil.intToTime(data.getDuration()));

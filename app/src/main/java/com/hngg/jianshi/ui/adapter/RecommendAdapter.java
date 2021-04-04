@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.bumptech.glide.Glide;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
@@ -22,6 +20,7 @@ import com.hngg.jianshi.ui.viewholder.VideoSmallCardViewHolder;
 import com.hngg.jianshi.ui.viewholder.VideoViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.GlideUtil;
 import com.youth.banner.indicator.CircleIndicator;
 
 import java.util.ArrayList;
@@ -76,10 +75,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((TextHeaderViewHolder) holder).mTvHeaderTime.setText(data.getText());
         } else if (holder instanceof VideoSmallCardViewHolder) {
             VideoSmallCardViewHolder videoHolder = (VideoSmallCardViewHolder) holder;
-            Glide.with(mCtx)
-                    .load(data.getCover().getFeed())
-                    .centerCrop()
-                    .into(videoHolder.iv_videoImage);
+            GlideUtil.loadImage(mCtx, data.getCover().getFeed(), videoHolder.iv_videoImage);
+
             videoHolder.tv_videoTitle.setText(data.getTitle());
             videoHolder.tv_videoCategory.setText("#" + data.getCategory());
             videoHolder.tv_VideoDuration.setText(CommonUtil.intToTime(data.getDuration()));
@@ -108,16 +105,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (holder instanceof VideoViewHolder) {
             VideoViewHolder viewHolder = (VideoViewHolder) holder;
             Data videoBean = data.getContent().getData();
-
-            Glide.with(mCtx)
-                    .load(videoBean.getAuthor().getIcon())
-                    .circleCrop()
-                    .into(viewHolder.mIv_icon);
-
-            Glide.with(mCtx)
-                    .load(videoBean.getCover().getFeed())
-                    .centerCrop()
-                    .into(viewHolder.mIv_content);
+            GlideUtil.loadCircleImage(mCtx, videoBean.getAuthor().getIcon(), viewHolder.mIv_icon);
+            GlideUtil.loadImage(mCtx, videoBean.getCover().getFeed(), viewHolder.mIv_content);
 
             viewHolder.mTv_title.setText(videoBean.getTitle());
             viewHolder.mTv_desc.setText(videoBean.getDescription());

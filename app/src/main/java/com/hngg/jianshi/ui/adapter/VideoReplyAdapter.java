@@ -18,6 +18,7 @@ import com.hngg.jianshi.data.bean.reply.User;
 import com.hngg.jianshi.ui.viewholder.ReplyHeaderViewHolder;
 import com.hngg.jianshi.ui.viewholder.VideoReplyViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
+import com.hngg.jianshi.utils.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,11 +130,7 @@ public class VideoReplyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             VideoReplyViewHolder viewHolder = (VideoReplyViewHolder) holder;
             User user = data.getUser();
 
-            Glide.with(mCtx)
-                    .load(user.getAvatar())
-                    .circleCrop()
-                    .centerCrop()
-                    .into(viewHolder.ivHeadImage);
+            GlideUtil.loadCircleImage(mCtx,user.getAvatar(),viewHolder.ivHeadImage);
             viewHolder.tvName.setText(user.getNickname());
             viewHolder.tvReply.setText(data.getMessage());
             viewHolder.tvPublishTime.setText(CommonUtil.longToDate(data.getCreateTime()));

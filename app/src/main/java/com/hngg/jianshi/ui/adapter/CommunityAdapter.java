@@ -22,6 +22,7 @@ import com.hngg.jianshi.data.bean.recommend.Content;
 import com.hngg.jianshi.ui.community.CommunityVideoActivity;
 import com.hngg.jianshi.ui.community.UgcPictureActivity;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,14 +70,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Content content = mItemList.get(position).getData().getContent();
             Data data = content.getData();
             if (DataType.UGC_PICTURE_CARD.equals(content.getType())) {
-                Glide.with((viewHolder).iv_content)
-                        .load(data.getUrl())
-                        .into(viewHolder.iv_content);
-                Glide.with((viewHolder).iv_headImage)
-                        .load(data.getOwner().getAvatar())
-                        .centerCrop()
-                        .circleCrop()
-                        .into(viewHolder.iv_headImage);
+                GlideUtil.loadImage(viewHolder.iv_content,data.getUrl(),viewHolder.iv_content);
+                GlideUtil.loadCircleImage(viewHolder.iv_headImage,
+                        data.getOwner().getAvatar(),
+                        viewHolder.iv_headImage);
                 viewHolder.tv_name.setText(data.getOwner().getNickname());
                 viewHolder.tv_desc.setText(data.getDescription());
                 viewHolder.iv_flag.setImageResource(R.drawable.storage);

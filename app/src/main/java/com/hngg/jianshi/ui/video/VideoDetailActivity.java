@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.arialyy.aria.core.Aria;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
@@ -19,6 +19,7 @@ import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.network.Observer.BaseObserver;
 import com.shuyu.gsyvideoplayer.GSYBaseActivityDetail;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
@@ -84,6 +85,9 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videodetail);
         ButterKnife.bind(this);
+        Aria.download(this).register();
+        Aria.get(this).getDownloadConfig().setConvertSpeed(true);
+        Aria.get(this).getDownloadConfig().setMaxTaskNum(3);
     }
 
     @Override
@@ -123,11 +127,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
 //        tvShareCount.setText(String.valueOf(mVideoData.getConsumption().getShareCount()));
 
         //Author
-        Glide.with(this)
-                .load(mVideoData.getAuthor().getIcon())
-                .centerCrop()
-                .circleCrop()
-                .into(ivHeadImage);
+        GlideUtil.loadCircleImage(this, mVideoData.getAuthor().getIcon(), ivHeadImage);
         tvName.setText(mVideoData.getAuthor().getName());
         tvPersonDesc.setText(mVideoData.getAuthor().getDescription());
 
@@ -150,10 +150,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
     public GSYVideoOptionBuilder getGSYVideoOptionBuilder() {
         //内置封面可参考SampleCoverVideo
         ImageView imageView = new ImageView(this);
-        Glide.with(this)
-                .load(mVideoData.getCover().getFeed())
-                .centerCrop()
-                .into(imageView);
+        GlideUtil.loadImage(this, mVideoData.getCover().getFeed(), imageView);
         //  loadCover(imageView,);
         return new GSYVideoOptionBuilder()
                 .setThumbImageView(imageView)
@@ -243,6 +240,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         super.onDestroy();
         if (mPresenter != null) mPresenter.onDestroy();//释放资源
         this.mPresenter = null;
+        Aria.download(this).unRegister();
     }
 
     @Override
@@ -252,8 +250,10 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
                 mPresenter.checkAndCollection(mVideoData);
                 break;
             case R.id.iv_download:
+                mPresenter.onDownloadVideo(mVideoData);
                 break;
             case R.id.iv_share:
+                mPresenter.onShare();
                 break;
             default:
         }

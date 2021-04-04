@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
@@ -18,6 +17,7 @@ import com.hngg.jianshi.ui.video.VideoDetailActivity;
 import com.hngg.jianshi.ui.viewholder.VideoSmallCardViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +55,7 @@ public class VideoSmallCardAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Data videoData = mItemList.get(position).getData();
         VideoSmallCardViewHolder viewHolder = (VideoSmallCardViewHolder) holder;
-        Glide.with(holder.itemView)
-                .load(videoData.getCover().getFeed())
-                .centerCrop()
-                .into(viewHolder.iv_videoImage);
+        GlideUtil.loadImage(holder.itemView,videoData.getCover().getFeed(),viewHolder.iv_videoImage);
 
         viewHolder.tv_videoTitle.setText(videoData.getTitle());
         viewHolder.tv_videoCategory.setText(videoData.getCategory());
