@@ -21,7 +21,7 @@ import org.greenrobot.greendao.annotation.Index;
 public class VideoTask {
 
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
 
     private int downId;
 
@@ -32,18 +32,18 @@ public class VideoTask {
     private String filePath;
 
     @Index(unique = true)
-    private long videoId;
+    private Long videoId;
 
     private String url;
 
     private int taskState;
 
-    private long createTime;
+    private Long createTime;
 
-    @Generated(hash = 899477973)
-    public VideoTask(long id, int downId, String videoName, String poster,
-            String filePath, long videoId, String url, int taskState,
-            long createTime) {
+    @Generated(hash = 563638968)
+    public VideoTask(Long id, int downId, String videoName, String poster,
+            String filePath, Long videoId, String url, int taskState,
+            Long createTime) {
         this.id = id;
         this.downId = downId;
         this.videoName = videoName;
@@ -59,11 +59,11 @@ public class VideoTask {
     public VideoTask() {
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -99,11 +99,11 @@ public class VideoTask {
         this.filePath = filePath;
     }
 
-    public long getVideoId() {
+    public Long getVideoId() {
         return this.videoId;
     }
 
-    public void setVideoId(long videoId) {
+    public void setVideoId(Long videoId) {
         this.videoId = videoId;
     }
 
@@ -123,12 +123,14 @@ public class VideoTask {
         this.taskState = taskState;
     }
 
-    public long getCreateTime() {
+    public Long getCreateTime() {
         return this.createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
+
+
 
 }

@@ -16,6 +16,9 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
+import com.hngg.jianshi.data.datebase.DbManager;
+import com.hngg.jianshi.data.datebase.VideoTask;
+import com.hngg.jianshi.data.datebase.VideoTaskDao;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 import com.hngg.jianshi.utils.Constant;
@@ -88,6 +91,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         Aria.download(this).register();
         Aria.get(this).getDownloadConfig().setConvertSpeed(true);
         Aria.get(this).getDownloadConfig().setMaxTaskNum(3);
+        Aria.get(this).getDownloadConfig().setMaxSpeed(256);
     }
 
     @Override
@@ -105,6 +109,13 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra(Constant.VIDEO_BUNDLE);
         mVideoData = (Data) bundle.get(Constant.VIDEO_BEAN);
+
+        List<VideoTask> list = DbManager.getInstance(this).getVideoTaskDao()
+                .queryBuilder()
+                .where(VideoTaskDao.Properties.VideoId.eq(mVideoData.getId())).list();
+        if (list.size()>0){
+            ivDownload.setColorFilter(R.color.colorBlue);
+        }
     }
 
     private void initView() {

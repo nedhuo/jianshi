@@ -12,7 +12,6 @@ import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.component.DaggerDownloadComponent;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.di.component.DaggerAppComponent;
 
 /**
  * @Description: java类作用描述

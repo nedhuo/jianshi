@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 30
@@ -24,6 +25,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+
+    greendao{
+        schemaVersion 1
+    }
+
 }
 
 dependencies {
@@ -69,6 +75,8 @@ dependencies {
     //gsyVideo
     implementation 'com.shuyu:GSYVideoPlayer:8.1.0'
 
+    implementation 'com.arialyy.aria:core:3.8.15'
+    annotationProcessor 'com.arialyy.aria:compiler:3.8.15'
     //Rx
     // implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
@@ -76,4 +84,6 @@ dependencies {
     implementation 'pub.devrel:easypermissions:2.0.1'
 
     implementation 'com.hyman:flowlayout-lib:1.1.2'
+
+    implementation 'org.greenrobot:greendao:3.3.0'
 }

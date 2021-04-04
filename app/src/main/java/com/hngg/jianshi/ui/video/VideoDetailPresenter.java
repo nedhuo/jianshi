@@ -1,5 +1,6 @@
 package com.hngg.jianshi.ui.video;
 
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.data.datebase.VideoTask;
 import com.hngg.jianshi.data.datebase.VideoTaskDao;
 import com.hngg.jianshi.data.datebase.VideoTaskState;
+import com.hngg.jianshi.service.DownloadService;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 import com.hngg.jianshi.utils.CommonUtil;
@@ -119,8 +121,6 @@ public class VideoDetailPresenter extends BasePresenter {
      * false   表示未收藏
      */
     boolean checkIsCollection(Data videoData) {
-        if (mNotificationUtil == null)
-            mNotificationUtil = NotificationUtil.getInstance(mRootView);
 
 
         //   mNotificationUtil.onDownloadSuccess(videoTask);
@@ -133,6 +133,9 @@ public class VideoDetailPresenter extends BasePresenter {
      * 3. 开始下载
      */
     public void onDownloadVideo(Data videoData) {
+        Intent intent = new Intent(mRootView, DownloadService.class);
+        mRootView.startService(intent);
+
         VideoTaskDao videoTaskDao = DbManager.getInstance(mRootView).getVideoTaskDao();
         List<VideoTask> list = videoTaskDao
                 .queryBuilder()
@@ -158,9 +161,11 @@ public class VideoDetailPresenter extends BasePresenter {
         }
 
         /*显示通知*/
-        if (mNotificationUtil == null)
-            mNotificationUtil = NotificationUtil.getInstance(mRootView);
-        mNotificationUtil.showNotification(videoTaskInfo);
+//        if (mNotificationUtil == null)
+//            mNotificationUtil = NotificationUtil.getInstance(mRootView);
+//        mNotificationUtil.showNotification(videoTaskInfo);
+
+
     }
 
     private VideoTask createVideoTaskInfo(VideoTaskDao videoTaskDao, Data videoData) {
@@ -180,8 +185,9 @@ public class VideoDetailPresenter extends BasePresenter {
         videoTask.setVideoId(videoData.getId());
         videoTask.setVideoName(videoData.getTitle());
 
-        videoTaskDao.insertOrReplace(videoTask);
-
+        long insert = videoTaskDao.insertOrReplace(videoTask);
+        Log.i(TAG, "下载数据插入数据库ID" + insert);
+        Log.i(TAG, "当前生成ID" + uniqueId);
         return videoTask;
     }
 

@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!--    OkHttp3禁用明文请求，取消此限制-->
     <!--    android:networkSecurityConfig="@xml/network_security_config"-->
     <application
@@ -41,6 +41,10 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.TourRecommendationActivity" />
         <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.me.download.DownloadActivity" />
+        <activity android:name=".ui.calender.CalenderActivity" />
+
+        <service android:name=".service.DownloadService" />
     </application>
 
 </manifest>

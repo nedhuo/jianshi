@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -15,12 +16,17 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.arialyy.aria.core.download.DownloadEntity;
 import com.arialyy.aria.core.task.DownloadTask;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.transition.Transition;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.data.datebase.VideoTask;
 import com.hngg.jianshi.data.datebase.VideoTaskDao;
+import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.ui.MainActivity;
+import com.hngg.jianshi.widget.DownloadTarget;
 
 import java.util.Enumeration;
 import java.util.List;
@@ -41,6 +47,9 @@ import static androidx.core.app.NotificationCompat.VISIBILITY_SECRET;
  * 另一个list有数据，从另一个list删除索引为0的通知，让这个通知重新新建，添加到ongoing属性list中
  * <p>
  * 如果有办法直接将其具有不死属性，也可以直接设置
+ * <p>
+ * 需要注意： 通知工具类是由Service间接控制的，
+ * 如果传入Activity的context,会出现Activity已经销毁，还使用context的异常出现
  */
 public class NotificationUtil {
     private static NotificationUtil mNotificationUtil;
@@ -154,37 +163,29 @@ public class NotificationUtil {
 
 
     /**
-     * @param videoTask 下载任务
-     *                  <p>
-     *                  处理逻辑：下载成功，判断是否是KeepAliveNotification
-     *                  是 -> 移除当前下载通知，从ordianry获取一个通知放入keepAliveNotification中（移除，新建）
-     *                  否 -> 切换Notification显示，为下载完成状态
+     * @param taskItem 下载任务
+     *                 <p>
+     *                 处理逻辑：下载成功，判断是否是KeepAliveNotification
+     *                 是 -> 移除当前下载通知，从ordianry获取一个通知放入keepAliveNotification中（移除，新建）
+     *                 否 -> 切换Notification显示，为下载完成状态
      */
-    public void onDownloadSuccess(VideoTask videoTask) {
+    public void onDownloadSuccess(DownloadTask taskItem, VideoTask videoTask) {
+        if (videoTask.getTaskState() == VideoTaskState.SUCCESS)
+            return;
+
+        updateNotification(taskItem, videoTask);
         int downId = videoTask.getDownId();
-        Notification keepAliveNotification = mKeepAliveMap.get(downId).build();
-        if (keepAliveNotification != null) {
-            mNotificationManager.cancel(downId);
+        NotificationCompat.Builder keepAliveBuilder = mKeepAliveMap.get(downId);
+        if (keepAliveBuilder != null) {
+            mSuccessMap.put(downId, mKeepAliveMap.get(downId).build());
             mKeepAliveMap.remove(downId);
-            //TODO 可优化
 
             if (mKeepAliveMap.size() == 0) {
                 if (mOrdinaryMap.size() > 0) {
                     /*需要mOrdinaryMap中排除下载成功状态*/
                     Enumeration<Integer> keys = mOrdinaryMap.keys();
                     int element = keys.nextElement();
-                    /*通过element数据库取元素*/
-//                    List<VideoTask> videoTaskList = DbManager.getInstance(mCtx)
-//                            .getVideoTaskDao()
-//                            .queryBuilder()
-//                            .where(VideoTaskDao.Properties.DownId.eq(element))
-//                            .list();
-//                    if (videoTaskList.size() == 1) {
-//                        VideoTask videoTask_db = videoTaskList.get(0);
-//                        createKeepAliveNotification(videoTask_db);
-//                    } else {
-//                        Log.e(TAG, "数据库根据DownId查询异常,Notification可能显示异常");
-//                    }
+
                     NotificationCompat.Builder builder = mOrdinaryMap.get(element);
                     if (builder != null) {
                         createKeepAliveNotification(element, builder);
@@ -195,8 +196,8 @@ public class NotificationUtil {
                 }
             }
         } else {
-            Notification notification = mOrdinaryMap.get(downId).build();
-            if (notification != null) {
+            NotificationCompat.Builder ordinaryBuilder = mOrdinaryMap.get(downId);
+            if (ordinaryBuilder != null) {
                 /*切换Map*/
                 Enumeration<Integer> keys = mOrdinaryMap.keys();
                 Integer key = keys.nextElement();
@@ -222,8 +223,14 @@ public class NotificationUtil {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(mCtx.getApplicationContext(), mChannelId);
         RemoteViews remoteViews = new RemoteViews(mCtx.getPackageName(), R.layout.notify_download);
-        //TODO 添加view数据
-        remoteViews.setTextViewText(R.id.tv_title, "测试测试");
+
+        remoteViews.setTextViewText(R.id.tv_title, videoTask.getVideoName());
+        Glide.with(mCtx).asBitmap().load(videoTask.getPoster()).into(new DownloadTarget() {
+            @Override
+            public void onloadSuccess(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                remoteViews.setImageViewBitmap(R.id.notify_image, bitmap);
+            }
+        });
 
         Intent intent = new Intent(mCtx, MainActivity.class);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -259,7 +266,13 @@ public class NotificationUtil {
                 new NotificationCompat.Builder(mCtx.getApplicationContext(), mChannelId);
         RemoteViews remoteViews = new RemoteViews(mCtx.getPackageName(), R.layout.notify_download);
         //TODO 添加view数据
-        remoteViews.setTextViewText(R.id.tv_title, "测试测试");
+        remoteViews.setTextViewText(R.id.tv_title, videoTask.getVideoName());
+        Glide.with(mCtx).asBitmap().load(videoTask.getPoster()).into(new DownloadTarget() {
+            @Override
+            public void onloadSuccess(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                remoteViews.setImageViewBitmap(R.id.notify_image, bitmap);
+            }
+        });
 
         Intent intent = new Intent(mCtx, MainActivity.class);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -289,23 +302,20 @@ public class NotificationUtil {
 
     /**
      * 由Service调用
-     * */
-    public void updateNotification(DownloadTask taskItem) {
-        String url = taskItem.getKey();
-        List<VideoTask> list = DbManager.getInstance(mCtx).getVideoTaskDao().queryBuilder()
-                .where(VideoTaskDao.Properties.Url.eq(url)).list();
-        if (list.size() == 0) {
-            Toast.makeText(mCtx, "当前更新下载数据不存在", Toast.LENGTH_SHORT).show();
+     */
+    public void updateNotification(DownloadTask taskItem, VideoTask videoTask) {
+        if (taskItem.getState() == DownloadEntity.STATE_COMPLETE) {
+            updateSuccess(taskItem, videoTask);
             return;
         }
-        VideoTask videoTask = list.get(0);
         int downId = videoTask.getDownId();
         if (mKeepAliveMap.get(downId) != null) {
             Notification build = mKeepAliveMap.get(downId).build();
             String downloadSize = taskItem.getConvertCurrentProgress()
-                    + "/" + taskItem.getFileSize();
+                    + "/" + taskItem.getConvertFileSize();
 
-            RemoteViews remoteViews = build.bigContentView;
+            //   RemoteViews remoteViews = build.bigContentView;
+            RemoteViews remoteViews = build.contentView;
             remoteViews.setTextViewText(R.id.tv_speed, taskItem.getConvertSpeed());
             remoteViews.setTextViewText(R.id.tv_size, downloadSize);
             remoteViews.setProgressBar(R.id.progressView, 100,
@@ -317,9 +327,9 @@ public class NotificationUtil {
             Notification build = mOrdinaryMap.get(downId).build();
 
             String downloadSize = taskItem.getConvertCurrentProgress()
-                    + "/" + taskItem.getFileSize();
+                    + "/" + taskItem.getConvertFileSize();
 
-            RemoteViews remoteViews = build.bigContentView;
+            RemoteViews remoteViews = build.contentView;
             remoteViews.setTextViewText(R.id.tv_speed, taskItem.getConvertSpeed());
             remoteViews.setTextViewText(R.id.tv_size, downloadSize);
             remoteViews.setProgressBar(R.id.progressView, 100,
@@ -330,5 +340,65 @@ public class NotificationUtil {
             Log.i(TAG, "当前通知不存在，正在新建...");
             showNotification(videoTask);
         }
+    }
+
+    private void updateSuccess(DownloadTask taskItem, VideoTask videoTask) {
+        int downId = videoTask.getDownId();
+        if (mKeepAliveMap.get(downId) != null) {
+            NotificationCompat.Builder builder = mKeepAliveMap.get(downId);
+
+            builder.setOngoing(false);
+            Notification build = builder.build();
+
+            String downloadSize = taskItem.getConvertFileSize();
+
+            RemoteViews remoteViews = build.contentView;
+            remoteViews.setTextViewText(R.id.tv_speed, "下载完成");
+            remoteViews.setTextViewText(R.id.tv_size, downloadSize);
+            remoteViews.setProgressBar(R.id.progressView, 100,
+                    100, false);
+
+            mNotificationManager.notify(downId, build);
+
+            updateDbState(videoTask);
+        } else if (mOrdinaryMap.get(downId) != null) {
+            NotificationCompat.Builder builder = mOrdinaryMap.get(downId);
+
+            Notification build = builder.build();
+
+            String downloadSize = taskItem.getConvertFileSize();
+
+            RemoteViews remoteViews = build.contentView;
+            remoteViews.setTextViewText(R.id.tv_speed, "下载完成");
+            remoteViews.setTextViewText(R.id.tv_size, downloadSize);
+            remoteViews.setProgressBar(R.id.progressView, 100,
+                    100, false);
+
+            mNotificationManager.notify(downId, build);
+
+            updateDbState(videoTask);
+        } else {
+            Log.i(TAG, "当前通知不存在，正在新建...");
+            showNotification(videoTask);
+        }
+
+
+    }
+
+
+    private VideoTask getVideoTask(DownloadTask taskItem) {
+        String url = taskItem.getKey();
+        List<VideoTask> list = DbManager.getInstance(mCtx).getVideoTaskDao().queryBuilder()
+                .where(VideoTaskDao.Properties.Url.eq(url)).list();
+        if (list.size() == 0) {
+            Toast.makeText(mCtx, "当前更新下载数据不存在", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        return list.get(0);
+    }
+
+    private void updateDbState(VideoTask videoTask) {
+        videoTask.setTaskState(VideoTaskState.SUCCESS);
+        DbManager.getInstance(mCtx).getVideoTaskDao().update(videoTask);
     }
 }
