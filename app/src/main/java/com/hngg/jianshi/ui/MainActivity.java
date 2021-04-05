@@ -23,7 +23,6 @@ import com.jess.arms.di.component.AppComponent;
 import java.util.List;
 
 import butterknife.BindView;
-import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.hngg.jianshi.R;
-//import com.hngg.jianshi.component.DaggerCommunityComponent;
 import com.hngg.jianshi.component.DaggerCommunityComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.adapter.RecyclerViewWrapper;

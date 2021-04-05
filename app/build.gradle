@@ -26,7 +26,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
 
-    greendao{
+    greendao {
         schemaVersion 1
     }
 
@@ -72,6 +72,7 @@ dependencies {
     //轮播图
     implementation 'com.youth.banner:banner:2.1.0'
 
+    implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
     //gsyVideo
     implementation 'com.shuyu:GSYVideoPlayer:8.1.0'
 

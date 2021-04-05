@@ -185,6 +185,7 @@ public class NotificationUtil {
                     /*需要mOrdinaryMap中排除下载成功状态*/
                     Enumeration<Integer> keys = mOrdinaryMap.keys();
                     int element = keys.nextElement();
+                    Log.i(TAG, "downId" + element);
 
                     NotificationCompat.Builder builder = mOrdinaryMap.get(element);
                     if (builder != null) {
@@ -252,6 +253,7 @@ public class NotificationUtil {
     }
 
     private void createKeepAliveNotification(int key, NotificationCompat.Builder builder) {
+        Log.i(TAG, "DOWnID=" + key + "添加进保活通知");
         builder.setOngoing(true);
         if (mKeepAliveMap.size() == 0) {
             mKeepAliveMap.put(key, builder);
@@ -346,7 +348,7 @@ public class NotificationUtil {
         int downId = videoTask.getDownId();
         if (mKeepAliveMap.get(downId) != null) {
             NotificationCompat.Builder builder = mKeepAliveMap.get(downId);
-
+            Log.i(TAG, "保活通知下载成功,移入普通通知");
             builder.setOngoing(false);
             Notification build = builder.build();
 
@@ -367,7 +369,7 @@ public class NotificationUtil {
             Notification build = builder.build();
 
             String downloadSize = taskItem.getConvertFileSize();
-
+            Log.i(TAG, "普通通知下载成功");
             RemoteViews remoteViews = build.contentView;
             remoteViews.setTextViewText(R.id.tv_speed, "下载完成");
             remoteViews.setTextViewText(R.id.tv_size, downloadSize);

@@ -11,4 +11,8 @@
         <item>汽车</item>
         <item>黑科技</item>
     </string-array>
+    <string-array name="download_page" >
+        <item>下载中</item>
+        <item>下载完成</item>
+    </string-array>
 </resources>
