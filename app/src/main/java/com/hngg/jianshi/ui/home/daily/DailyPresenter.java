@@ -8,6 +8,8 @@ import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -42,7 +44,7 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
     }
 
     public void onLoadMore(RefreshLayout refreshlayout) {
-        if (mNextUrl != "" && mNextUrl != null) {
+        if (mNextUrl != null && !mNextUrl.equals("")) {
             mModel.loadMore(mNextUrl).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseObserver<DailyRootBean>() {
                         @Override
@@ -80,12 +82,26 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
 
                     @Override
                     public void onFail(Throwable e) {
-                        Log.e(TAG, e.getMessage());
+                        Log.e(TAG, Objects.requireNonNull(e.getMessage()));
                     }
                 });
 
     }
 
+
+    class DataType {
+        final static String VIDEO = "video";
+        final static String TEXT_HEADER = "textHeader";
+        final static String TEXT_FOOTER = "textFooter";
+        final static String VIDEO_COLLECTION_FOLLOW = "videoCollectionOfFollow";
+        final static String VIDEO_COLLECTION_COVER = "videoCollectionForCover";
+
+        final static int VIDEO_ID = 1;
+        final static int TEXT_HEADER_ID = 2;
+        final static int TEXT_FOOTER_ID = 3;
+        final static int VIDEO_COLLECTION_FOLLOW_ID = 4;
+        final static int VIDEO_COLLECTION_COVER_ID = 5;
+    }
 }
 
 

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.ui.home.daily.DailyFragment;
 import com.hngg.jianshi.ui.home.recommend.RecommendFragment;
@@ -40,55 +41,26 @@ public class HomePresenter extends BasePresenter {
         List<Fragment> fragments = obtainPagerList();
         FragmentPagerAdapter adapter =
                 new FragmentPagerAdapter(
-                mRootView.getChildFragmentManager()) {
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
+                        mRootView.getChildFragmentManager()) {
+                    @Override
+                    public int getCount() {
+                        return fragments.size();
+                    }
 
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
+                    @NonNull
+                    @Override
+                    public Fragment getItem(int position) {
+                        return fragments.get(position);
+                    }
 
-            @Nullable
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return titles.get(position);
-            }
-        };
-//        ViewPager.SimpleOnPageChangeListener listener =
-//                new ViewPager.SimpleOnPageChangeListener() {
-//                    @Override
-//                    public void onPageScrolled(int position, float positionOffset,
-//                                               int positionOffsetPixels) {
-//                        mRootView.setCurrentItem(position);
-//                    }
-//                };
+                    @Nullable
+                    @Override
+                    public CharSequence getPageTitle(int position) {
+                        return titles.get(position);
+                    }
+                };
+
         mRootView.initViewPager(adapter);
-
-//        FragmentStateAdapter pagerAdapter = new FragmentStateAdapter(mRootView) {
-//            @Override
-//            public int getItemCount() {
-//                return fragments.size();
-//            }
-//
-//            @NonNull
-//            @Override
-//            public Fragment createFragment(int position) {
-//                return fragments.get(position);
-//            }
-//        };
-//        ViewPager2.OnPageChangeCallback callback = new ViewPager2.OnPageChangeCallback(){
-//            @Override
-//            public void onPageSelected(int position) {
-//                mRootView.setCurrentItem(position);
-//                Log.i(TAG,""+ position);
-//            }
-//        };
-//        mRootView.setPagerAdapter(pagerAdapter,callback);
-
     }
 
     //TabList Item

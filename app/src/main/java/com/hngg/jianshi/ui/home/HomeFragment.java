@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
 //import com.hngg.jianshi.component.DaggerHomeComponent;
+
 import com.hngg.jianshi.component.DaggerHomeComponent;
 import com.hngg.jianshi.ui.TourRecommendationActivity;
 import com.hngg.jianshi.ui.search.SearchActivity;

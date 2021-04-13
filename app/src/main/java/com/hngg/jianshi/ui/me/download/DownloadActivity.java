@@ -9,12 +9,14 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
+
 import com.hngg.jianshi.component.DaggerDownloadComponent;
 import com.hngg.jianshi.ui.me.download.downloaded.DownloadedFragment;
 import com.hngg.jianshi.ui.me.download.downloading.DownloadingFragment;
@@ -106,7 +108,17 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
         fragments.add(new DownloadingFragment());
         fragments.add(new DownloadedFragment());
 
+        mViewPager.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
 
+            @Override
+            public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+                return false;
+            }
+        });
     }
 
 

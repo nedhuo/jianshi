@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
+
 import com.hngg.jianshi.component.DaggerMeComponent;
 import com.hngg.jianshi.ui.me.download.DownloadActivity;
 import com.jess.arms.base.BaseFragment;
@@ -28,8 +29,11 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
 
 
     @BindView(R.id.ll_myDownload)
-    LinearLayout llMyDownload;
-
+    LinearLayout ll_myDownload;
+    @BindView(R.id.ll_myCollection)
+    LinearLayout ll_myCollection;
+    @BindView(R.id.ll_history)
+    LinearLayout ll_history;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -54,7 +58,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
 
     @Override
     public void setData(@Nullable Object data) {
-        llMyDownload.setOnClickListener(this);
+        ll_myDownload.setOnClickListener(this);
+        ll_history.setOnClickListener(this);
+        ll_myCollection.setOnClickListener(this);
     }
 
 

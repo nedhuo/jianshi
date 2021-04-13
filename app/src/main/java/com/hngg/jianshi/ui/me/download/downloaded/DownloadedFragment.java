@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.hngg.jianshi.R;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 
@@ -16,7 +17,8 @@ import com.jess.arms.di.component.AppComponent;
  * @Author: nedhuo
  * @Data:
  */
-public class DownloadedFragment extends BaseFragment<DownloadedPresenter> {
+public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
+        implements DownloadedContract.View {
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
 
@@ -24,7 +26,7 @@ public class DownloadedFragment extends BaseFragment<DownloadedPresenter> {
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return null;
+        return inflater.inflate(R.layout.fragment_downloaded, container, false);
     }
 
     @Override
@@ -36,4 +38,11 @@ public class DownloadedFragment extends BaseFragment<DownloadedPresenter> {
     public void setData(@Nullable Object data) {
 
     }
+
+    @Override
+    public void showMessage(@NonNull String message) {
+
+    }
+
+
 }

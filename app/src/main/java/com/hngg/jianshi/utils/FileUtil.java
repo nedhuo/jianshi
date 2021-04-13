@@ -1,5 +1,6 @@
 package com.hngg.jianshi.utils;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
@@ -18,6 +19,8 @@ public class FileUtil {
      */
     public static String getDownloadPath() {
         String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+//        Context context;
+//        context.getExternalFilesDir("string/video");
         String filePath = absolutePath + "/jianshi/video/";
 
         File file = new File(filePath);

@@ -71,7 +71,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/me_collection" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,10 +87,10 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-
-            android:src="@mipmap/ic_launcher" />
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_go_flag" />
 
     </LinearLayout>
 
@@ -109,7 +109,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/me_download" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -125,9 +125,10 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_go_flag" />
 
     </LinearLayout>
 
@@ -146,7 +147,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/me_history" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -162,10 +163,10 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-
-            android:src="@mipmap/ic_launcher" />
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_go_flag" />
 
     </LinearLayout>
 </LinearLayout>
