@@ -14,10 +14,12 @@ import com.hngg.jianshi.R;
 
 import com.hngg.jianshi.component.DaggerMeComponent;
 import com.hngg.jianshi.ui.me.download.DownloadActivity;
+import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Date: 2020/11/19
@@ -46,21 +48,35 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                          @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_me, container, false);
     }
 
     @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 
+    /**
+     * onActivityCreate调用
+     * */
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        ll_myDownload.setOnClickListener(this);
+        ll_history.setOnClickListener(this);
+        ll_myCollection.setOnClickListener(this);
     }
 
     @Override
     public void setData(@Nullable Object data) {
-        ll_myDownload.setOnClickListener(this);
-        ll_history.setOnClickListener(this);
-        ll_myCollection.setOnClickListener(this);
+
     }
 
 
@@ -73,6 +89,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_myDownload:
+                LogUtil.i(TAG,"ll_myDownload");
                 Intent intent = new Intent(this.getActivity(), DownloadActivity.class);
                 startActivity(intent);
                 break;

@@ -2,13 +2,16 @@ package com.hngg.jianshi.ui.me.download;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -75,6 +78,7 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
         String[] stringArray = getResources().getStringArray(R.array.download_page);
+        commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
 
             @Override
@@ -84,14 +88,18 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
 
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
-                ColorTransitionPagerTitleView colorTransitionPagerTitleView =
+                ColorTransitionPagerTitleView titleView =
                         new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.GRAY);
-                colorTransitionPagerTitleView.setSelectedColor(Color.BLACK);
-                colorTransitionPagerTitleView.setText(stringArray[index]);
-                colorTransitionPagerTitleView.setOnClickListener(view ->
+                titleView.setNormalColor(Color.GRAY);
+                titleView.setSelectedColor(Color.BLACK);
+                titleView.setText(stringArray[index]);
+
+                titleView.setTextSize(16F);
+                titleView.setTypeface(Typeface.DEFAULT_BOLD);
+
+                titleView.setOnClickListener(view ->
                         mViewPager.setCurrentItem(index));
-                return colorTransitionPagerTitleView;
+                return titleView;
             }
 
             @Override
@@ -108,15 +116,17 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
         fragments.add(new DownloadingFragment());
         fragments.add(new DownloadedFragment());
 
-        mViewPager.setAdapter(new PagerAdapter() {
+        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
+                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+            @NonNull
             @Override
-            public int getCount() {
-                return fragments.size();
+            public Fragment getItem(int position) {
+                return fragments.get(position);
             }
 
             @Override
-            public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-                return false;
+            public int getCount() {
+                return fragments.size();
             }
         });
     }

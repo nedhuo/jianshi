@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerDownloadedComponent;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 
@@ -21,11 +22,18 @@ public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
         implements DownloadedContract.View {
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-
+        DaggerDownloadedComponent
+                .builder()
+                .appComponent(appComponent)
+                .downloadedModule(new DownloadedModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
-    public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View initView(@NonNull LayoutInflater inflater,
+                         @Nullable ViewGroup container,
+                         @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_downloaded, container, false);
     }
 

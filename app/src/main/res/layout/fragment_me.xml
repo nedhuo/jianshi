@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
-        android:background="@color/color_select_flow"
+        android:background="@drawable/selector_item_click"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
@@ -70,6 +70,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:clickable="false"
             android:scaleType="centerCrop"
             android:src="@drawable/me_collection" />
 
@@ -77,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:clickable="false"
             android:text="@string/my_collection"
             android:textColor="@color/colorBlack"
             android:textSize="14sp" />
@@ -84,11 +86,13 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:clickable="false" />
 
         <ImageView
             android:layout_width="10dp"
             android:layout_height="15dp"
+            android:clickable="false"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_go_flag" />
 
@@ -99,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="1dp"
-        android:background="@color/color_select_flow"
+        android:background="@drawable/selector_item_click"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
@@ -108,6 +112,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:clickable="false"
             android:scaleType="centerCrop"
             android:src="@drawable/me_download" />
 
@@ -115,6 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:clickable="false"
             android:text="@string/my_download"
             android:textColor="@color/colorBlack"
             android:textSize="14sp" />
@@ -122,11 +128,13 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:clickable="false" />
 
         <ImageView
             android:layout_width="10dp"
             android:layout_height="15dp"
+            android:clickable="false"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_go_flag" />
 
@@ -137,7 +145,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="0.5dp"
-        android:background="@color/color_select_flow"
+        android:background="@drawable/selector_item_click"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"

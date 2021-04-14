@@ -23,6 +23,8 @@ public class VideoTask {
     @Id(autoincrement = true)
     private Long id;
 
+    private Long taskId;
+
     private int downId;
 
     private String videoName;
@@ -42,8 +44,8 @@ public class VideoTask {
 
     @Generated(hash = 563638968)
     public VideoTask(Long id, int downId, String videoName, String poster,
-            String filePath, Long videoId, String url, int taskState,
-            Long createTime) {
+                     String filePath, Long videoId, String url, int taskState,
+                     Long createTime) {
         this.id = id;
         this.downId = downId;
         this.videoName = videoName;
@@ -130,7 +132,6 @@ public class VideoTask {
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
-
 
 
 }

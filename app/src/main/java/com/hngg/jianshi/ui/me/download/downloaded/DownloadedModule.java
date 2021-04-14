@@ -17,7 +17,7 @@ import dagger.Provides;
 public class DownloadedModule {
     private DownloadedContract.View view;
 
-    public DownloadedModule(DownloadedContract.View view) {
+    public DownloadedModule(DownloadedFragment view) {
         this.view = view;
     }
 
