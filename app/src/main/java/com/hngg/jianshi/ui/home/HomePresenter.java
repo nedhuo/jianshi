@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
+
 /**
  * Date: 2020/11/19
  * Timer: 16:28
@@ -41,7 +43,7 @@ public class HomePresenter extends BasePresenter {
         List<Fragment> fragments = obtainPagerList();
         FragmentPagerAdapter adapter =
                 new FragmentPagerAdapter(
-                        mRootView.getChildFragmentManager()) {
+                        mRootView.getChildFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
                     @Override
                     public int getCount() {
                         return fragments.size();

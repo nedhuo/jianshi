@@ -14,4 +14,11 @@
     <string name="my_collection">我的收藏</string>
     <string name="my_download">我的下载</string>
     <string name="history_record">历史记录</string>
+
+<!--    下载状态-->
+    <string name="state_pre">获取请求中</string>
+    <string name="state_waiting">等待中</string>
+    <string name="state_pause">暂停</string>
+    <string name="state_fail">失败</string>
+    <string name="state_complete">下载完成</string>
 </resources>

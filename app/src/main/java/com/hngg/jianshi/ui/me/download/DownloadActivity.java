@@ -40,6 +40,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_SET_USER_VISIBLE_HINT;
 
 /**
@@ -119,7 +120,7 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
         fragments.add(new DownloadedFragment());
 
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
-                BEHAVIOR_SET_USER_VISIBLE_HINT) {
+                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
             @Override
             public Fragment getItem(int position) {

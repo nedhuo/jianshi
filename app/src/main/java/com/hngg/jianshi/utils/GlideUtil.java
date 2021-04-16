@@ -37,6 +37,7 @@ public class GlideUtil {
         Glide.with(context)
                 .load(imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .placeholder(R.mipmap.ic_launcher)
                 .centerCrop()
                 .into(view);
     }
@@ -46,6 +47,7 @@ public class GlideUtil {
                 .load(imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .placeholder(R.mipmap.ic_launcher)
+                .centerCrop()
                 .circleCrop()
                 .into(view);
     }
@@ -55,6 +57,7 @@ public class GlideUtil {
                 .load(imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .placeholder(R.mipmap.ic_launcher)
+                .centerCrop()
                 .circleCrop()
                 .into(view);
     }

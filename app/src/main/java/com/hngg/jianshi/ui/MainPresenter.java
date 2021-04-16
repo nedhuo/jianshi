@@ -19,6 +19,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
+
 
 /**
  * Date: 2020/11/18
@@ -28,7 +30,7 @@ import javax.inject.Inject;
  * Presenter 在 MVP 中的大部分作用是实现业务逻辑代码, 从 Model 层获取数据,
  * 在调用 View 层显示数据, 首先必须实现 BasePresenter, 并指定 View 和 Model 的范型,
  * 注意一定要指定 Contract 中定义的接口, Presenter 需要的 View 和 Model,
- *
+ * <p>
  * 都使用 Dagger2 来注入, 这样即解藕又方便测试
  * <p>
  * TODO 内存泄漏问题
@@ -47,7 +49,7 @@ public class MainPresenter extends BasePresenter {
         List<Fragment> fragments = obtainPager();
 
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(
-                mRootView.getSupportFragmentManager()) {
+                mRootView.getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public int getCount() {
                 return fragments.size();
@@ -65,7 +67,7 @@ public class MainPresenter extends BasePresenter {
                 mRootView.setCurrentItem(position);
             }
         };
-        mRootView.initViewPager(pagerAdapter,listener);
+        mRootView.initViewPager(pagerAdapter, listener);
 
     }
 

@@ -13,5 +13,6 @@
     <color name="color_selected_flow">#CCCCCC</color>
     <color name="color_select_flow">#F7F7F7</color>
 
-    <color name="test_pressed">#EFF2FB</color>
+    <color name="color_item_unpressed">#FFFFFF</color>
+    <color name="color_item_pressed">#EFF2FB</color>
 </resources>

@@ -11,8 +11,8 @@ import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
 import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTask;
-import com.hngg.jianshi.data.datebase.VideoTaskDao;
+import com.hngg.jianshi.data.datebase.VideoTaskInfo;
+import com.hngg.jianshi.data.datebase.VideoTaskInfoDao;
 import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.service.DownloadService;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
@@ -136,10 +136,10 @@ public class VideoDetailPresenter extends BasePresenter {
         Intent intent = new Intent(mRootView, DownloadService.class);
         mRootView.startService(intent);
 
-        VideoTaskDao videoTaskDao = DbManager.getInstance(mRootView).getVideoTaskDao();
-        List<VideoTask> list = videoTaskDao
+        VideoTaskInfoDao videoTaskDao = DbManager.getInstance(mRootView).getVideoTaskDao();
+        List<VideoTaskInfo> list = videoTaskDao
                 .queryBuilder()
-                .where(VideoTaskDao.Properties.VideoId.eq(videoData.getId()))
+                .where(VideoTaskInfoDao.Properties.VideoId.eq(videoData.getId()))
                 .list();
         if (list.size() > 0) {
             Log.i(TAG, "当前查询到的数据" + list.get(0).getVideoName());
@@ -148,7 +148,7 @@ public class VideoDetailPresenter extends BasePresenter {
         }
 
         /*封装下载数据对象*/
-        VideoTask videoTaskInfo = createVideoTaskInfo(videoTaskDao, videoData);
+        VideoTaskInfo videoTaskInfo = createVideoTaskInfo(videoTaskDao, videoData);
         long taskId = Aria.download(mRootView)
                 .load(videoTaskInfo.getUrl())
                 .setFilePath(videoTaskInfo.getFilePath() + videoTaskInfo.getVideoName() + ".mp4")
@@ -168,27 +168,27 @@ public class VideoDetailPresenter extends BasePresenter {
 
     }
 
-    private VideoTask createVideoTaskInfo(VideoTaskDao videoTaskDao, Data videoData) {
+    private VideoTaskInfo createVideoTaskInfo(VideoTaskInfoDao videoTaskDao, Data videoData) {
         int uniqueId = CommonUtil.generatorUniqueID(mRootView);
         if (uniqueId == 0) {
             /*校验*/
             uniqueId = checkUniqueId(videoTaskDao);
         }
 
-        VideoTask videoTask = new VideoTask();
-        videoTask.setCreateTime(System.currentTimeMillis());
-        videoTask.setDownId(uniqueId);
-        videoTask.setPoster(videoData.getAuthor().getIcon());
-        videoTask.setFilePath(FileUtil.getDownloadPath());
-        videoTask.setTaskState(VideoTaskState.OTHER);
-        videoTask.setUrl(videoData.getPlayUrl());
-        videoTask.setVideoId(videoData.getId());
-        videoTask.setVideoName(videoData.getTitle());
+        VideoTaskInfo videoTaskInfo = new VideoTaskInfo();
+        videoTaskInfo.setCreateTime(System.currentTimeMillis());
+        videoTaskInfo.setDownId(uniqueId);
+        videoTaskInfo.setPoster(videoData.getAuthor().getIcon());
+        videoTaskInfo.setFilePath(FileUtil.getDownloadPath());
+        videoTaskInfo.setTaskState(VideoTaskState.OTHER);
+        videoTaskInfo.setUrl(videoData.getPlayUrl());
+        videoTaskInfo.setVideoId(videoData.getId());
+        videoTaskInfo.setVideoName(videoData.getTitle());
 
-        long insert = videoTaskDao.insertOrReplace(videoTask);
+        long insert = videoTaskDao.insertOrReplace(videoTaskInfo);
         Log.i(TAG, "下载数据插入数据库ID" + insert);
         Log.i(TAG, "当前生成ID" + uniqueId);
-        return videoTask;
+        return videoTaskInfo;
     }
 
     /**
@@ -198,15 +198,15 @@ public class VideoDetailPresenter extends BasePresenter {
      *
      * @param videoTaskDao
      */
-    private int checkUniqueId(VideoTaskDao videoTaskDao) {
-        List<VideoTask> videoTasks = videoTaskDao.queryBuilder().list();
-        if (videoTasks.size() == 0)
+    private int checkUniqueId(VideoTaskInfoDao videoTaskDao) {
+        List<VideoTaskInfo> videoTaskInfos = videoTaskDao.queryBuilder().list();
+        if (videoTaskInfos.size() == 0)
             return 0;
         else {
             Log.i(TAG, "SP文件已破坏，重新计算当前downId");
             /*获取真实唯一ID*/
-            List<VideoTask> list = videoTaskDao.queryBuilder()
-                    .orderAsc(VideoTaskDao.Properties.DownId).list();
+            List<VideoTaskInfo> list = videoTaskDao.queryBuilder()
+                    .orderAsc(VideoTaskInfoDao.Properties.DownId).list();
             int downId = list.get(list.size() - 1).getDownId();
             Log.i(TAG, "重新查找会DownId为" + downId + 1);
             SpUtil.putInt(mRootView, Constant.UNIQUE_ID, downId + 2);

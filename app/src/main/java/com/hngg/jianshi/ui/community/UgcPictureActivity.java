@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,8 @@ public class UgcPictureActivity extends AppCompatActivity {
     TextView tvName;
     @BindView(R.id.tv_personDesc)
     TextView tvPersonDesc;
+    @BindView(R.id.ib_back)
+    ImageButton ibBack;
     private Data mData;
 
     @Override
@@ -60,23 +64,18 @@ public class UgcPictureActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-//        rvUgcPicture.setLayoutManager(layoutManager);
-//        rvUgcPicture.setAdapter(new PictureAdapter(mData.getUrls(), this));
-
         viewPager.setAdapter(new UgcPagerAdapter(initViewPagerData(), this));
         viewPager.setCurrentItem(0);
         viewPager.setOffscreenPageLimit(mData.getUrls().size());
 
-        Glide.with(this)
-                .load(mData.getOwner().getAvatar())
-                .centerCrop()
-                .circleCrop()
-                .into(ivHeadImage);
+        GlideUtil.loadCircleImage(this, mData.getOwner().getAvatar(), ivHeadImage);
         tvName.setText(mData.getOwner().getNickname());
         tvDescription.setText(mData.getDescription());
         tvPersonDesc.setText(mData.getOwner().getDescription());
+
+        ibBack.setOnClickListener(v -> {
+            onBackPressed();
+        });
     }
 
     private void initData() {
@@ -89,12 +88,10 @@ public class UgcPictureActivity extends AppCompatActivity {
         List<String> urls = mData.getUrls();
         int i = 0;
         while (i < urls.size()) {
-            View view = LayoutInflater.from(this).inflate(R.layout.item_ugcpicture, null, false);
+            View view = LayoutInflater.from(this)
+                    .inflate(R.layout.item_ugcpicture, null, false);
             ImageView imageView = view.findViewById(R.id.iv_content);
-            Glide.with(imageView)
-                    .load(urls.get(i))
-                    .centerCrop()
-                    .into(imageView);
+            GlideUtil.loadImage(imageView, urls.get(i), imageView);
             views.add(view);
             i++;
         }
@@ -125,41 +122,5 @@ public class UgcPictureActivity extends AppCompatActivity {
         public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
             return view == object;
         }
-    }
-
-    private class PictureAdapter extends RecyclerView.Adapter {
-
-        private final List<String> mDatas;
-        private final Activity mCtx;
-
-        PictureAdapter(List<String> data, Activity ctx) {
-            mDatas = data;
-            mCtx = ctx;
-        }
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            View view = LayoutInflater.from(mCtx).inflate(R.layout.item_ugcpicture, parent, false);
-            return new RecyclerView.ViewHolder(view) {
-            };
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            ImageView itemView = (ImageView) holder.itemView.findViewById(R.id.iv_content);
-            Glide.with(itemView)
-                    .load(mDatas.get(position))
-                    .centerCrop()
-                    .into(itemView);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mDatas.size();
-        }
-
-
     }
 }

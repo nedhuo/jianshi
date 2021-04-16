@@ -15,8 +15,8 @@ import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerDownloadingComponent;
 import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTask;
-import com.hngg.jianshi.data.datebase.VideoTaskDao;
+import com.hngg.jianshi.data.datebase.VideoTaskInfo;
+import com.hngg.jianshi.data.datebase.VideoTaskInfoDao;
 import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
@@ -55,11 +55,11 @@ public class DownloadingFragment extends BaseFragment<DownloadingPresenter>
     public void initData(@Nullable Bundle savedInstanceState) {
         Aria.download(this).register();
         List<DownloadEntity> allNotCompleteTask = Aria.download(this).getAllNotCompleteTask();
-        List<VideoTask> videoTaskList = DbManager.getInstance(getActivity())
+        List<VideoTaskInfo> videoTaskInfoList = DbManager.getInstance(getActivity())
                 .getVideoTaskDao().queryBuilder()
-                .where(VideoTaskDao.Properties.TaskState.notEq(VideoTaskState.SUCCESS))
+                .where(VideoTaskInfoDao.Properties.TaskState.notEq(VideoTaskState.SUCCESS))
                 .list();
-        mAdapter = new VideoDownloadAdapter(getActivity(), videoTaskList, allNotCompleteTask);
+        mAdapter = new VideoDownloadAdapter(getActivity(), videoTaskInfoList, allNotCompleteTask);
     }
 
 
@@ -83,6 +83,13 @@ public class DownloadingFragment extends BaseFragment<DownloadingPresenter>
     /**
      * 下载监听
      */
+
+    @Download.onPre
+    void onPre(DownloadTask taskItem) {
+        LogUtil.i(TAG, "onPre");
+        mAdapter.updateState(taskItem);
+    }
+
     @Download.onTaskRunning
     void onTaskRunning(DownloadTask taskItem) {
         LogUtil.i(TAG, "onTaskRunning");

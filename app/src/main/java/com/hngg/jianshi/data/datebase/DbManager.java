@@ -49,8 +49,8 @@ public class DbManager {
         return mDaoSession;
     }
 
-    public VideoTaskDao getVideoTaskDao() {
-        return mDaoSession.getVideoTaskDao();
+    public VideoTaskInfoDao getVideoTaskDao() {
+        return mDaoSession.getVideoTaskInfoDao();
     }
 
     /**

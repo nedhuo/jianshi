@@ -2,28 +2,18 @@ package com.hngg.jianshi.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.download.DownloadEntity;
 import com.arialyy.aria.core.task.DownloadTask;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.BaseRequestOptions;
-import com.bumptech.glide.request.Request;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
 import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTask;
+import com.hngg.jianshi.data.datebase.VideoTaskInfo;
 import com.hngg.jianshi.utils.NotificationUtil;
-import com.jess.arms.base.delegate.IFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +28,7 @@ public class DownloadService extends Service {
     private NotificationUtil mNotificationUtil;
     private static final String TAG = "DownloadService";
     private List<DownloadEntity> mTaskList;
-    private List<VideoTask> mVideoList;
+    private List<VideoTaskInfo> mVideoList;
 
     @Override
     public void onCreate() {
@@ -120,16 +110,16 @@ public class DownloadService extends Service {
 
     private int indexVideoTask(DownloadTask taskItem) {
 
-        for (VideoTask videoTask : mVideoList) {
-            if (videoTask.getUrl().equals(taskItem.getKey())) {
-                return mVideoList.indexOf(videoTask);
+        for (VideoTaskInfo videoTaskInfo : mVideoList) {
+            if (videoTaskInfo.getUrl().equals(taskItem.getKey())) {
+                return mVideoList.indexOf(videoTaskInfo);
             }
         }
         return -1;
     }
 
     private void updateVideoTaskData() {
-        List<VideoTask> list = DbManager.getInstance(this).getVideoTaskDao().queryBuilder().list();
+        List<VideoTaskInfo> list = DbManager.getInstance(this).getVideoTaskDao().queryBuilder().list();
         mVideoList.clear();
         mVideoList.addAll(list);
     }

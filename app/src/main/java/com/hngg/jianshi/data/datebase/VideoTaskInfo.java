@@ -18,7 +18,7 @@ import org.greenrobot.greendao.annotation.Index;
  */
 
 @Entity
-public class VideoTask {
+public class VideoTaskInfo {
 
     @Id(autoincrement = true)
     private Long id;
@@ -42,8 +42,8 @@ public class VideoTask {
 
     private Long createTime;
 
-    @Generated(hash = 1158521386)
-    public VideoTask(Long id, Long taskId, int downId, String videoName,
+    @Generated(hash = 2059500070)
+    public VideoTaskInfo(Long id, Long taskId, int downId, String videoName,
             String poster, String filePath, Long videoId, String url, int taskState,
             Long createTime) {
         this.id = id;
@@ -58,8 +58,8 @@ public class VideoTask {
         this.createTime = createTime;
     }
 
-    @Generated(hash = 1455847522)
-    public VideoTask() {
+    @Generated(hash = 481335027)
+    public VideoTaskInfo() {
     }
 
     public Long getId() {
@@ -68,6 +68,14 @@ public class VideoTask {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getTaskId() {
+        return this.taskId;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
     }
 
     public int getDownId() {
@@ -133,14 +141,5 @@ public class VideoTask {
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
-
-    public Long getTaskId() {
-        return this.taskId;
-    }
-
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
-    }
-
-
+    
 }

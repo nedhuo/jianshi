@@ -22,8 +22,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.Transition;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTask;
-import com.hngg.jianshi.data.datebase.VideoTaskDao;
+import com.hngg.jianshi.data.datebase.VideoTaskInfo;
+import com.hngg.jianshi.data.datebase.VideoTaskInfoDao;
 import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.ui.MainActivity;
 import com.hngg.jianshi.widget.DownloadTarget;
@@ -119,7 +119,7 @@ public class NotificationUtil {
     }
 
 
-    public void showNotification(VideoTask videoTask) {
+    public void showNotification(VideoTaskInfo videoTask) {
         Notification successBuild = mSuccessMap.get(videoTask.getDownId());
         NotificationCompat.Builder ordinaryBuild = mOrdinaryMap.get(videoTask.getDownId());
         NotificationCompat.Builder keepAliveBuild = mKeepAliveMap.get(videoTask.getDownId());
@@ -169,7 +169,7 @@ public class NotificationUtil {
      *                 是 -> 移除当前下载通知，从ordianry获取一个通知放入keepAliveNotification中（移除，新建）
      *                 否 -> 切换Notification显示，为下载完成状态
      */
-    public void onDownloadSuccess(DownloadTask taskItem, VideoTask videoTask) {
+    public void onDownloadSuccess(DownloadTask taskItem, VideoTaskInfo videoTask) {
         if (videoTask.getTaskState() == VideoTaskState.SUCCESS)
             return;
 
@@ -216,7 +216,7 @@ public class NotificationUtil {
     /**
      * 创建保活通知
      */
-    private void createKeepAliveNotification(VideoTask videoTask) {
+    private void createKeepAliveNotification(VideoTaskInfo videoTask) {
         if (mKeepAliveMap.size() > 0) {
             createOrdinaryNotification(videoTask);
             return;
@@ -263,7 +263,7 @@ public class NotificationUtil {
     /**
      * 创建普通通知
      */
-    private void createOrdinaryNotification(VideoTask videoTask) {
+    private void createOrdinaryNotification(VideoTaskInfo videoTask) {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(mCtx.getApplicationContext(), mChannelId);
         RemoteViews remoteViews = new RemoteViews(mCtx.getPackageName(), R.layout.notify_download);
@@ -305,7 +305,7 @@ public class NotificationUtil {
     /**
      * 由Service调用
      */
-    public void updateNotification(DownloadTask taskItem, VideoTask videoTask) {
+    public void updateNotification(DownloadTask taskItem, VideoTaskInfo videoTask) {
         if (taskItem.getState() == DownloadEntity.STATE_COMPLETE) {
             updateSuccess(taskItem, videoTask);
             return;
@@ -317,6 +317,7 @@ public class NotificationUtil {
                     + "/" + taskItem.getConvertFileSize();
 
             //   RemoteViews remoteViews = build.bigContentView;
+
             RemoteViews remoteViews = build.contentView;
             remoteViews.setTextViewText(R.id.tv_speed, taskItem.getConvertSpeed());
             remoteViews.setTextViewText(R.id.tv_size, downloadSize);
@@ -326,6 +327,7 @@ public class NotificationUtil {
             mNotificationManager.notify(downId, build);
 
         } else if (mOrdinaryMap.get(downId) != null) {
+
             Notification build = mOrdinaryMap.get(downId).build();
 
             String downloadSize = taskItem.getConvertCurrentProgress()
@@ -344,7 +346,7 @@ public class NotificationUtil {
         }
     }
 
-    private void updateSuccess(DownloadTask taskItem, VideoTask videoTask) {
+    private void updateSuccess(DownloadTask taskItem, VideoTaskInfo videoTask) {
         int downId = videoTask.getDownId();
         if (mKeepAliveMap.get(downId) != null) {
             NotificationCompat.Builder builder = mKeepAliveMap.get(downId);
@@ -388,10 +390,10 @@ public class NotificationUtil {
     }
 
 
-    private VideoTask getVideoTask(DownloadTask taskItem) {
+    private VideoTaskInfo getVideoTask(DownloadTask taskItem) {
         String url = taskItem.getKey();
-        List<VideoTask> list = DbManager.getInstance(mCtx).getVideoTaskDao().queryBuilder()
-                .where(VideoTaskDao.Properties.Url.eq(url)).list();
+        List<VideoTaskInfo> list = DbManager.getInstance(mCtx).getVideoTaskDao().queryBuilder()
+                .where(VideoTaskInfoDao.Properties.Url.eq(url)).list();
         if (list.size() == 0) {
             Toast.makeText(mCtx, "当前更新下载数据不存在", Toast.LENGTH_SHORT).show();
             return null;
@@ -399,7 +401,7 @@ public class NotificationUtil {
         return list.get(0);
     }
 
-    private void updateDbState(VideoTask videoTask) {
+    private void updateDbState(VideoTaskInfo videoTask) {
         videoTask.setTaskState(VideoTaskState.SUCCESS);
         DbManager.getInstance(mCtx).getVideoTaskDao().update(videoTask);
     }

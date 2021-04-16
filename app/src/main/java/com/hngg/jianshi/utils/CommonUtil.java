@@ -3,14 +3,10 @@ package com.hngg.jianshi.utils;
 import android.content.Context;
 
 import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTask;
-import com.hngg.jianshi.data.datebase.VideoTaskDao;
-
-import org.greenrobot.greendao.annotation.Id;
+import com.hngg.jianshi.data.datebase.VideoTaskInfoDao;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
 
 /**
  * Date: 2021/2/14
@@ -73,7 +69,7 @@ public class CommonUtil {
 
             dbManager.getVideoTaskDao()
                     .queryBuilder()
-                    .orderAsc(VideoTaskDao.Properties.DownId)
+                    .orderAsc(VideoTaskInfoDao.Properties.DownId)
                     .list();
         }
     }
