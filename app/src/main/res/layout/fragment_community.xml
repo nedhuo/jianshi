@@ -6,12 +6,27 @@
     android:orientation="vertical">
 
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_home"
+    <!--    <com.google.android.material.tabs.TabLayout-->
+    <!--        android:id="@+id/tl_community"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:tabIndicatorFullWidth="false"-->
+    <!--        app:tabIndicatorGravity="bottom" />-->
+
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabIndicatorFullWidth="false"
-        app:tabIndicatorGravity="bottom" />
+        android:background="@color/colorWhite"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/community"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/font_16sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"

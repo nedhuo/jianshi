@@ -10,10 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerCommunityComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.adapter.RecyclerViewWrapper;
+import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
@@ -40,6 +42,8 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
     ClassicsFooter mClassicsFooter;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+//    @BindView(R.id.tl_community)
+//    TabLayout mTabLayout;
     private RecyclerViewWrapper mAdapter;
 
     @Override
@@ -60,6 +64,9 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        if (mPresenter == null) {
+            LogUtil.e(TAG, "mPresenter为null");
+        }
         //init 刷新控件
         mRefreshLayout.setRefreshHeader(mClassicsHeader);
         mRefreshLayout.setRefreshFooter(mClassicsFooter);
@@ -86,7 +93,7 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
         mAdapter.notifyDataSetChanged();
         if (isUpdate && mRefreshLayout.isRefreshing()) {
             mRefreshLayout.finishRefresh();
-        } else if ( mRefreshLayout.isLoading()) {
+        } else if (mRefreshLayout.isLoading()) {
             mRefreshLayout.finishLoadMore();
         }
     }
@@ -114,5 +121,11 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
         mAdapter.addHeaderView(headerView2);
         mRv_community.setLayoutManager(layoutManager);
         mRv_community.setAdapter(adapter);
+
+        /*不能使用new TabLayout.Tab */
+//        TabLayout.Tab tab = mTabLayout.newTab();
+//        tab.setText(getResources().getString(R.string.community));
+//        mTabLayout.addTab(tab);
+//        mTabLayout.setInlineLabel(false);
     }
 }

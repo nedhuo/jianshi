@@ -61,10 +61,12 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        if (mPresenter != null) {
+            initView();
 
-        initView();
+            mPresenter.initView();
+        }
 
-        mPresenter.initView();
     }
 
     @Override
@@ -79,7 +81,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                assert mPresenter != null;
                 mPresenter.onRefresh(refreshlayout);
                 //refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
             }

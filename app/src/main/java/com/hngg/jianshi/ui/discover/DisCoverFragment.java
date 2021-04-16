@@ -37,8 +37,6 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
 
     @Inject
     DisCoverPresenter mPresenter;
-    @BindView(R.id.tl_home)
-    TabLayout tlHome;
     @BindView(R.id.classicsHeader)
     ClassicsHeader mClassicsHeader;
     @BindView(R.id.rv_discover)

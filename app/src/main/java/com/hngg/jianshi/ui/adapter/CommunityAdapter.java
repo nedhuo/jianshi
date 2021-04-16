@@ -2,7 +2,6 @@ package com.hngg.jianshi.ui.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -76,7 +74,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         viewHolder.iv_headImage);
                 viewHolder.tv_name.setText(data.getOwner().getNickname());
                 viewHolder.tv_desc.setText(data.getDescription());
-                viewHolder.iv_flag.setImageResource(R.drawable.storage);
+                viewHolder.iv_flag.setImageResource(R.drawable.ic_storage);
 
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -105,7 +103,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     viewHolder.tv_desc.setText(data.getDescription());
                 }
 
-                viewHolder.iv_flag.setImageResource(R.drawable.video);
+                viewHolder.iv_flag.setImageResource(R.drawable.video_play);
 
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

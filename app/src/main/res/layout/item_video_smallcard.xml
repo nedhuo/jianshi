@@ -6,6 +6,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:orientation="horizontal"
+    android:background="@drawable/selector_item_click"
     android:padding="5dp">
 
     <RelativeLayout
@@ -29,7 +30,7 @@
             android:paddingTop="2dp"
             android:paddingEnd="2dp"
             android:paddingRight="4dp"
-            android:text="时间"
+            android:text="time"
             android:textColor="@color/colorWhite" />
     </RelativeLayout>
 
