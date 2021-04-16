@@ -54,8 +54,8 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
             updateDataFromDb(taskItem);
         }
         switch (taskItem.getState()) {
-            DownloadEntity.STATE_COMPLETE:
-            break;
+            case DownloadEntity.STATE_COMPLETE:
+                break;
         }
     }
 

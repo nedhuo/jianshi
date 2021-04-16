@@ -87,4 +87,7 @@ dependencies {
     implementation 'com.hyman:flowlayout-lib:1.1.2'
 
     implementation 'org.greenrobot:greendao:3.3.0'
+
+    //异常日志上报
+    implementation 'com.tencent.bugly:crashreport:3.3.91'
 }

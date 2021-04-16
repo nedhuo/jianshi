@@ -61,12 +61,12 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
     }
 
     /**
      * onActivityCreate调用
-     * */
+     */
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         ll_myDownload.setOnClickListener(this);
@@ -89,10 +89,19 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_myDownload:
-                LogUtil.i(TAG,"ll_myDownload");
+                LogUtil.i(TAG, "ll_myDownload");
                 Intent intent = new Intent(this.getActivity(), DownloadActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.ll_myCollection:
+                LogUtil.i(TAG, "ll_myCollection");
+
+                break;
+            case R.id.ll_history:
+                LogUtil.i(TAG, "ll_history");
+
+                break;
+
         }
     }
 }

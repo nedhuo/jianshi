@@ -40,6 +40,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_SET_USER_VISIBLE_HINT;
+
 /**
  * @Description: java类作用描述
  * @Author: nedhuo
@@ -94,8 +96,8 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
                 titleView.setSelectedColor(Color.BLACK);
                 titleView.setText(stringArray[index]);
 
-                titleView.setTextSize(16F);
-                titleView.setTypeface(Typeface.DEFAULT_BOLD);
+                titleView.setTextSize(14F);
+                //   titleView.setTypeface(Typeface.DEFAULT_BOLD);
 
                 titleView.setOnClickListener(view ->
                         mViewPager.setCurrentItem(index));
@@ -112,12 +114,12 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
         magicIndicator.setNavigator(commonNavigator);
 
         List<Fragment> fragments;
-        fragments = new ArrayList<Fragment>();
+        fragments = new ArrayList<>();
         fragments.add(new DownloadingFragment());
         fragments.add(new DownloadedFragment());
 
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
-                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+                BEHAVIOR_SET_USER_VISIBLE_HINT) {
             @NonNull
             @Override
             public Fragment getItem(int position) {
@@ -129,6 +131,7 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
                 return fragments.size();
             }
         });
+        ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
 
 

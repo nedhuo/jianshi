@@ -42,11 +42,12 @@ public class VideoTask {
 
     private Long createTime;
 
-    @Generated(hash = 563638968)
-    public VideoTask(Long id, int downId, String videoName, String poster,
-                     String filePath, Long videoId, String url, int taskState,
-                     Long createTime) {
+    @Generated(hash = 1158521386)
+    public VideoTask(Long id, Long taskId, int downId, String videoName,
+            String poster, String filePath, Long videoId, String url, int taskState,
+            Long createTime) {
         this.id = id;
+        this.taskId = taskId;
         this.downId = downId;
         this.videoName = videoName;
         this.poster = poster;
@@ -131,6 +132,14 @@ public class VideoTask {
 
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getTaskId() {
+        return this.taskId;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
     }
 
 

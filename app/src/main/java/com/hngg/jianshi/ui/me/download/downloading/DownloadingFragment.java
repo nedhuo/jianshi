@@ -73,6 +73,13 @@ public class DownloadingFragment extends BaseFragment<DownloadingPresenter>
 
     }
 
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Aria.download(this).unRegister();
+    }
+
     /**
      * 下载监听
      */
