@@ -35,4 +35,12 @@ public class VideoTaskInfoUtil {
                 .orderRaw(VideoTaskInfoDao.Properties.DownId.toString())
                 .list();
     }
+
+    public void queryIsDownloaded() {
+
+    }
+
+    public boolean queryIsExist(String url) {
+        return false;
+    }
 }

@@ -3,6 +3,7 @@ package com.hngg.jianshi.ui.video;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,9 +17,6 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
-import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTaskInfo;
-import com.hngg.jianshi.data.datebase.VideoTaskInfoDao;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 import com.hngg.jianshi.utils.Constant;
@@ -79,6 +77,10 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
     TextView tvName;
     @BindView(R.id.tv_personDesc)
     TextView tvPersonDesc;
+    @BindView(R.id.ib_back)
+    ImageButton ibBack;
+
+
     private Data mVideoData;
     private VideoDetailPresenter mPresenter;
     private final String TAG = "VideoDetailActivity";
@@ -109,13 +111,6 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra(Constant.VIDEO_BUNDLE);
         mVideoData = (Data) bundle.get(Constant.VIDEO_BEAN);
-
-        List<VideoTaskInfo> list = DbManager.getInstance(this).getVideoTaskDao()
-                .queryBuilder()
-                .where(VideoTaskInfoDao.Properties.VideoId.eq(mVideoData.getId())).list();
-        if (list.size()>0){
-            ivDownload.setColorFilter(R.color.colorBlue);
-        }
     }
 
     private void initView() {
@@ -133,9 +128,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         String tag = mVideoData.getAuthor().getName() + " / " + mVideoData.getCategory();
         tvTag.setText(tag);
         tvDesc.setText(mVideoData.getDescription());
-//        tvCollectionCount.setText(String.valueOf(mVideoData.getConsumption().getCollectionCount()));
-//        tvReplyCount.setText(String.valueOf(mVideoData.getConsumption().getReplyCount()));
-//        tvShareCount.setText(String.valueOf(mVideoData.getConsumption().getShareCount()));
+
 
         //Author
         GlideUtil.loadCircleImage(this, mVideoData.getAuthor().getIcon(), ivHeadImage);
@@ -146,9 +139,14 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         mPresenter = new VideoDetailPresenter(new VideoDetailModel(), this);
         mPresenter.initRecyclerView();
 
+//        tvCollectionCount.setText(String.valueOf(mVideoData.getConsumption().getCollectionCount()));
+//        tvReplyCount.setText(String.valueOf(mVideoData.getConsumption().getReplyCount()));
+//        tvShareCount.setText(String.valueOf(mVideoData.getConsumption().getShareCount()));
         ivCollection.setOnClickListener(this);
         ivDownload.setOnClickListener(this);
         ivShare.setOnClickListener(this);
+
+        ibBack.setOnClickListener(v-> onBackPressed());
     }
 
 

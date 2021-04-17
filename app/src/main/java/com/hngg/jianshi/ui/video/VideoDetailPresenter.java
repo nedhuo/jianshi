@@ -20,6 +20,7 @@ import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.FileUtil;
+import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.jianshi.utils.NotificationUtil;
 import com.hngg.jianshi.utils.SpUtil;
 import com.jess.arms.mvp.BasePresenter;
@@ -127,38 +128,41 @@ public class VideoDetailPresenter extends BasePresenter {
         return false;
     }
 
+    boolean checkIsDownloaded(Data videoData){
+        LogUtil.i(TAG,videoData.toString());
+        return false;
+    }
+
     /**
      * 1. 展示通知
      * 2. 查询是否存在该任务
      * 3. 开始下载
      */
     public void onDownloadVideo(Data videoData) {
-        Intent intent = new Intent(mRootView, DownloadService.class);
-        mRootView.startService(intent);
-
-        VideoTaskInfoDao videoTaskDao = DbManager.getInstance(mRootView).getVideoTaskDao();
-        List<VideoTaskInfo> list = videoTaskDao
-                .queryBuilder()
-                .where(VideoTaskInfoDao.Properties.VideoId.eq(videoData.getId()))
-                .list();
-        if (list.size() > 0) {
-            Log.i(TAG, "当前查询到的数据" + list.get(0).getVideoName());
-            Toast.makeText(mRootView, "当前视频已经被下载", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        /*封装下载数据对象*/
-        VideoTaskInfo videoTaskInfo = createVideoTaskInfo(videoTaskDao, videoData);
-        long taskId = Aria.download(mRootView)
-                .load(videoTaskInfo.getUrl())
-                .setFilePath(videoTaskInfo.getFilePath() + videoTaskInfo.getVideoName() + ".mp4")
-                .create();
-        if (taskId == -1) {
-            videoTaskDao.delete(videoTaskInfo);
-            Toast.makeText(mRootView, "下载失败", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(mRootView, "开始下载...", Toast.LENGTH_SHORT).show();
-        }
+        checkIsDownloaded(videoData);
+//        Intent intent = new Intent(mRootView, DownloadService.class);
+//        mRootView.startService(intent);
+//
+//        DbManager.getInstance(mRootView).getVideoTaskDao().queryIsDownloaded();
+//
+//        if (list.size() > 0) {
+//            Log.i(TAG, "当前查询到的数据" + list.get(0).getVideoName());
+//            Toast.makeText(mRootView, "当前视频已经被下载", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        /*封装下载数据对象*/
+//        VideoTaskInfo videoTaskInfo = createVideoTaskInfo(videoTaskDao, videoData);
+//        long taskId = Aria.download(mRootView)
+//                .load(videoTaskInfo.getUrl())
+//                .setFilePath(videoTaskInfo.getFilePath() + videoTaskInfo.getVideoName() + ".mp4")
+//                .create();
+//        if (taskId == -1) {
+//            videoTaskDao.delete(videoTaskInfo);
+//            Toast.makeText(mRootView, "下载失败", Toast.LENGTH_SHORT).show();
+//        } else {
+//            Toast.makeText(mRootView, "开始下载...", Toast.LENGTH_SHORT).show();
+//        }
 
         /*显示通知*/
 //        if (mNotificationUtil == null)
@@ -180,7 +184,7 @@ public class VideoDetailPresenter extends BasePresenter {
         videoTaskInfo.setDownId(uniqueId);
         videoTaskInfo.setPoster(videoData.getAuthor().getIcon());
         videoTaskInfo.setFilePath(FileUtil.getDownloadPath());
-        videoTaskInfo.setTaskState(VideoTaskState.OTHER);
+        videoTaskInfo.setTaskState(VideoTaskState.STATE_OTHER);
         videoTaskInfo.setUrl(videoData.getPlayUrl());
         videoTaskInfo.setVideoId(videoData.getId());
         videoTaskInfo.setVideoName(videoData.getTitle());

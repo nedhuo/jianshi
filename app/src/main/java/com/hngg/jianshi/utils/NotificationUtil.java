@@ -170,7 +170,7 @@ public class NotificationUtil {
      *                 否 -> 切换Notification显示，为下载完成状态
      */
     public void onDownloadSuccess(DownloadTask taskItem, VideoTaskInfo videoTask) {
-        if (videoTask.getTaskState() == VideoTaskState.SUCCESS)
+        if (videoTask.getTaskState() == VideoTaskState.STATE_COMPLETE)
             return;
 
         updateNotification(taskItem, videoTask);
@@ -390,19 +390,19 @@ public class NotificationUtil {
     }
 
 
-    private VideoTaskInfo getVideoTask(DownloadTask taskItem) {
-        String url = taskItem.getKey();
-        List<VideoTaskInfo> list = DbManager.getInstance(mCtx).getVideoTaskDao().queryBuilder()
-                .where(VideoTaskInfoDao.Properties.Url.eq(url)).list();
-        if (list.size() == 0) {
-            Toast.makeText(mCtx, "当前更新下载数据不存在", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return list.get(0);
-    }
+//    private VideoTaskInfo getVideoTask(DownloadTask taskItem) {
+//        String url = taskItem.getKey();
+//        List<VideoTaskInfo> list = DbManager.getInstance(mCtx).getVideoTaskDao().queryIsExist(url);
+//
+//        if (list.size() == 0) {
+//            Toast.makeText(mCtx, "当前更新下载数据不存在", Toast.LENGTH_SHORT).show();
+//            return null;
+//        }
+//        return list.get(0);
+//    }
 
     private void updateDbState(VideoTaskInfo videoTask) {
-        videoTask.setTaskState(VideoTaskState.SUCCESS);
-        DbManager.getInstance(mCtx).getVideoTaskDao().update(videoTask);
+        videoTask.setTaskState(VideoTaskState.STATE_COMPLETE);
+        DbManager.getInstance(mCtx).getVideoTaskDao().updateVideoTaskInfo(videoTask);
     }
 }

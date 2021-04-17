@@ -14,11 +14,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arialyy.annotations.Download;
+import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.download.DownloadEntity;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.data.datebase.VideoTaskInfo;
+import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
@@ -40,7 +42,6 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
     private final FragmentActivity mCtx;
     private final String TAG = "VideoDownloadAdapter";
     private final List<DownloadEntity> mAriaList;
-    private final List<DownloadTask> mAriaTaskList;
 
     VideoDownloadAdapter(FragmentActivity activity,
                          List<VideoTaskInfo> videoTaskInfoList,
@@ -48,7 +49,6 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
         mCtx = activity;
         mList = videoTaskInfoList;
         mAriaList = allNotCompleteTask;
-        mAriaTaskList = new ArrayList<>();
     }
 
     @NonNull
@@ -88,17 +88,43 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
     private void setVideoData(VideoItemViewHolder holder, int position) {
         VideoTaskInfo taskInfo = mList.get(position);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(CommonUtil.sizeTranform(taskInfo.getDownloadSize()));
-        stringBuilder.append("/");
-        stringBuilder.append(CommonUtil.sizeTranform(taskInfo.getFileSize()));
-        String size = stringBuilder.toString();
+        String size = CommonUtil.sizeTranform(taskInfo.getDownloadSize()) +
+                "/" +
+                CommonUtil.sizeTranform(taskInfo.getFileSize());
 
         GlideUtil.loadImage(mCtx, taskInfo.getPoster(), holder.ivImage);
         holder.progressView.setProgress(taskInfo.getPercent());
         holder.tvSpeed.setText(CommonUtil.sizeTranform(taskInfo.getSpeed()));
         holder.tvTitle.setText(taskInfo.getVideoName());
         holder.tvSize.setText(size);
+
+        holder.btnStateChange.setOnClickListener(v -> {
+            if (taskInfo.isRunning()) {
+                Aria.download(this).load(taskInfo.getTaskId()).stop();
+                holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_play);
+            } else if (taskInfo.getTaskState() == VideoTaskState.STATE_FAIL) {
+                holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
+                long taskId = Aria.download(this).load(taskInfo.getTaskId()).reStart();
+                taskInfo.setTaskId(taskId);
+            } else {
+                holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
+                Aria.download(this).load(taskInfo.getTaskId()).resume();
+            }
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            if (taskInfo.isRunning()) {
+                Aria.download(this).load(taskInfo.getTaskId()).stop();
+                holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_play);
+            } else if (taskInfo.getTaskState() == VideoTaskState.STATE_FAIL) {
+                holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
+                long taskId = Aria.download(this).load(taskInfo.getTaskId()).reStart();
+                taskInfo.setTaskId(taskId);
+            } else {
+                holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
+                Aria.download(this).load(taskInfo.getTaskId()).resume();
+            }
+        });
     }
 
     /**
@@ -148,33 +174,48 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
             updateDataFromDb(taskItem);
             return;
         }
-        VideoTaskInfo videoTaskInfo = mList.get(position);
+        VideoTaskInfo taskInfo = mList.get(position);
         /*更新当前集合信息*/
-        updateVideoInfo(videoTaskInfo, taskItem);
+        updateVideoInfo(taskInfo, taskItem);
 
         switch (taskItem.getState()) {
             case DownloadEntity.STATE_COMPLETE:
+                taskInfo.setRunning(false);
+                notifyItemChanged(position, taskItem);
+                break;
             case DownloadEntity.STATE_RUNNING:
+                taskInfo.setRunning(true);
+                notifyItemChanged(position, taskItem);
+                break;
             case DownloadEntity.STATE_STOP:
+                taskInfo.setRunning(false);
+                notifyItemChanged(position, taskItem);
+                break;
             case DownloadEntity.STATE_WAIT:
+                taskInfo.setRunning(true);
                 notifyItemChanged(position, taskItem);
                 break;
             case DownloadEntity.STATE_CANCEL:
+                //TODO 待处理
+                taskInfo.setRunning(false);
+                notifyItemChanged(position, taskItem);
+                break;
             case DownloadEntity.STATE_FAIL:
+                taskInfo.setRunning(false);
+                notifyItemChanged(position, taskItem);
                 break;
         }
     }
 
     /**
      * 将当前下载信息同步更新到VideoTaskInfo集合
-     * 暂时只需要更新一个状态
      */
     private void updateVideoInfo(VideoTaskInfo taskInfo, DownloadTask taskItem) {
         taskInfo.setTaskState(taskItem.getState());
         taskInfo.setDownloadSize(taskItem.getCurrentProgress());
         taskInfo.setFileSize(taskItem.getFileSize());
         taskInfo.setPercent(taskItem.getPercent());
-        taskItem.getSpeed();
+        taskInfo.setSpeed(taskItem.getSpeed());
     }
 
     /**
@@ -196,13 +237,6 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
         }
     }
 
-    private int indexAriaTask(String url) {
-        for (DownloadEntity taskItem : mAriaList) {
-            if (taskItem.getKey().equals(url))
-                return mAriaList.indexOf(taskItem);
-        }
-        return -1;
-    }
 
     private int indexVideoTask(String downloadUrl) {
         for (VideoTaskInfo videoTaskInfo : mList) {

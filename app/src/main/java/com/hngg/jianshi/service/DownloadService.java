@@ -119,7 +119,7 @@ public class DownloadService extends Service {
     }
 
     private void updateVideoTaskData() {
-        List<VideoTaskInfo> list = DbManager.getInstance(this).getVideoTaskDao().queryBuilder().list();
+        List<VideoTaskInfo> list = DbManager.getInstance(this).getVideoTaskDao().queryAll();
         mVideoList.clear();
         mVideoList.addAll(list);
     }

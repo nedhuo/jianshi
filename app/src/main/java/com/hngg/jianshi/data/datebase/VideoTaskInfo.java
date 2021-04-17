@@ -42,6 +42,9 @@ public class VideoTaskInfo {
     @Transient
     private Long speed;
 
+    @Transient
+    private boolean isRunning;
+
     private int percent;
 
     private Long downloadSize;
@@ -75,6 +78,13 @@ public class VideoTaskInfo {
         this.createTime = createTime;
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
 
     public Long getSpeed() {
         return speed;
