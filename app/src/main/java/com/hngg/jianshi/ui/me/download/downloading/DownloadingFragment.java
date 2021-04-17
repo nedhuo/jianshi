@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
@@ -16,13 +18,13 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerDownloadingComponent;
 import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.data.datebase.VideoTaskInfo;
-import com.hngg.jianshi.data.datebase.VideoTaskInfoDao;
-import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * @Description: java类作用描述
@@ -32,6 +34,8 @@ import java.util.List;
 public class DownloadingFragment extends BaseFragment<DownloadingPresenter>
         implements DownloadingContract.View {
 
+    @BindView(R.id.rv_downloading)
+    RecyclerView rvDownloading;
     private VideoDownloadAdapter mAdapter;
 
     @Override
@@ -55,11 +59,11 @@ public class DownloadingFragment extends BaseFragment<DownloadingPresenter>
     public void initData(@Nullable Bundle savedInstanceState) {
         Aria.download(this).register();
         List<DownloadEntity> allNotCompleteTask = Aria.download(this).getAllNotCompleteTask();
-        List<VideoTaskInfo> videoTaskInfoList = DbManager.getInstance(getActivity())
-                .getVideoTaskDao().queryBuilder()
-                .where(VideoTaskInfoDao.Properties.TaskState.notEq(VideoTaskState.SUCCESS))
-                .list();
-        mAdapter = new VideoDownloadAdapter(getActivity(), videoTaskInfoList, allNotCompleteTask);
+        List<VideoTaskInfo> infoList = DbManager.getInstance(mContext)
+                .getVideoTaskDao().queryNotFinished();
+        mAdapter = new VideoDownloadAdapter(getActivity(), infoList, allNotCompleteTask);
+        rvDownloading.setLayoutManager( new LinearLayoutManager(mContext));
+        rvDownloading.setAdapter(mAdapter);
     }
 
 

@@ -1,12 +1,15 @@
 package com.hngg.jianshi.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.widget.Switch;
 
 import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTaskInfoDao;
+import com.hngg.jianshi.data.datebase.VideoTaskInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Date: 2021/2/14
@@ -15,6 +18,7 @@ import java.util.Date;
  * Description:
  */
 public class CommonUtil {
+    private static final String TAG = "CommonUtil";
     // private static int mCurrentId = -1;
 
     /**
@@ -36,6 +40,7 @@ public class CommonUtil {
 
     public static String longToDate(long lo) {
         Date date = new Date(lo);
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return sd.format(date);
     }
@@ -61,16 +66,34 @@ public class CommonUtil {
         }
     }
 
-    public void test(Context context) {
-        int uniqueID = generatorUniqueID(context);
-        if (uniqueID == 0) {
-            DbManager dbManager = DbManager.getInstance(context);
+
+    /**
+     * long数据转kb
+     */
+    public static String sizeTranform(long data) {
+        float GB = 1024 * 1024 * 1024F;
+        float MB = 1024 * 1024F;
+        float KB = 1024F;
+        float B = 1F;
+        if (data / GB >= 1)
+            return ((data / GB) * 100) / 100.0 + "gb";
+        else if (data / MB >= 1)
+            return ((data / GB) * 100) / 100.0 + "mb";
+        else if (data / KB >= 1)
+            return ((data / GB) * 100) / 100.0 + "kb";
+        else if (data / B >= 1)
+            return ((data / GB) * 100) / 100.0 + "b";
+        else return data + "b";
+    }
 
 
-            dbManager.getVideoTaskDao()
-                    .queryBuilder()
-                    .orderAsc(VideoTaskInfoDao.Properties.DownId)
-                    .list();
+    private boolean checkID(Context context) {
+        List<VideoTaskInfo> list = DbManager.getInstance(context).getVideoTaskDao().queryAll();
+        if (list != null && list.size() != 0) {
+            LogUtil.i(TAG, "list.get(0).getDownId()" + list.get(0).getDownId());
+            LogUtil.i(TAG, "list.get(list.size()-1).getDownId()"
+                    + list.get(list.size() - 1).getDownId());
         }
+        return false;
     }
 }

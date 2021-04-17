@@ -64,7 +64,7 @@
                         android:layout_height="35dp"
                         android:padding="5dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_collection_before" />
+                        android:src="@drawable/ic_collection" />
 
                     <View
                         android:layout_width="0dp"
@@ -77,7 +77,7 @@
                         android:layout_height="35dp"
                         android:padding="5dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_download_before" />
+                        android:src="@drawable/ic_download" />
 
                     <View
                         android:layout_width="0dp"

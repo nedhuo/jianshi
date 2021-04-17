@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.hngg.jianshi.data.datebase.utils.*;
+
 /**
  * 使用GreenDao对数据库进行管理
  * <p>
@@ -20,7 +22,6 @@ public class DbManager {
     private static DbManager mDbManager;
     private DaoSession mDaoSession;
     private final Context context;
-    private DaoMaster mDaoMaster;
     private DaoMaster.DevOpenHelper mHelper;
 
     /**
@@ -41,16 +42,16 @@ public class DbManager {
     private DbManager(Context context) {
         this.context = context;
         mHelper = new DaoMaster.DevOpenHelper(context, "jianshi.db", null);
-        mDaoMaster = new DaoMaster(getWritableDatabase(context));
-        mDaoSession = mDaoMaster.newSession();
+        DaoMaster daoMaster = new DaoMaster(getWritableDatabase(context));
+        mDaoSession = daoMaster.newSession();
     }
 
-    public DaoSession getDaoSession(){
+    public DaoSession getDaoSession() {
         return mDaoSession;
     }
 
-    public VideoTaskInfoDao getVideoTaskDao() {
-        return mDaoSession.getVideoTaskInfoDao();
+    public VideoTaskInfoUtil getVideoTaskDao() {
+        return new VideoTaskInfoUtil(mDaoSession);
     }
 
     /**

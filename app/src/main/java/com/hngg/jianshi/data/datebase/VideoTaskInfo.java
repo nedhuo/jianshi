@@ -4,6 +4,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.Transient;
 
 /**
  * @Description: java类作用描述
@@ -27,35 +28,60 @@ public class VideoTaskInfo {
 
     private int downId;
 
+    @Index(unique = true)
+    private Long videoId;
+
     private String videoName;
 
     private String poster;
 
     private String filePath;
 
-    @Index(unique = true)
-    private Long videoId;
+    private Long fileSize;
+
+    @Transient
+    private Long speed;
+
+    private int percent;
+
+    private Long downloadSize;
 
     private String url;
 
+    /**
+     * @Link[VideoTaskState]
+     * */
     private int taskState;
 
     private Long createTime;
 
-    @Generated(hash = 2059500070)
-    public VideoTaskInfo(Long id, Long taskId, int downId, String videoName,
-            String poster, String filePath, Long videoId, String url, int taskState,
+    @Generated(hash = 1491496383)
+    public VideoTaskInfo(Long id, Long taskId, int downId, Long videoId,
+            String videoName, String poster, String filePath, Long fileSize,
+            int percent, Long downloadSize, String url, int taskState,
             Long createTime) {
         this.id = id;
         this.taskId = taskId;
         this.downId = downId;
+        this.videoId = videoId;
         this.videoName = videoName;
         this.poster = poster;
         this.filePath = filePath;
-        this.videoId = videoId;
+        this.fileSize = fileSize;
+        this.percent = percent;
+        this.downloadSize = downloadSize;
         this.url = url;
         this.taskState = taskState;
         this.createTime = createTime;
+    }
+
+
+    public Long getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Long speed) {
+        this.speed = speed;
     }
 
     @Generated(hash = 481335027)
@@ -86,6 +112,14 @@ public class VideoTaskInfo {
         this.downId = downId;
     }
 
+    public Long getVideoId() {
+        return this.videoId;
+    }
+
+    public void setVideoId(Long videoId) {
+        this.videoId = videoId;
+    }
+
     public String getVideoName() {
         return this.videoName;
     }
@@ -110,12 +144,28 @@ public class VideoTaskInfo {
         this.filePath = filePath;
     }
 
-    public Long getVideoId() {
-        return this.videoId;
+    public Long getFileSize() {
+        return this.fileSize;
     }
 
-    public void setVideoId(Long videoId) {
-        this.videoId = videoId;
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public int getPercent() {
+        return this.percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
+    }
+
+    public Long getDownloadSize() {
+        return this.downloadSize;
+    }
+
+    public void setDownloadSize(Long downloadSize) {
+        this.downloadSize = downloadSize;
     }
 
     public String getUrl() {
@@ -141,5 +191,6 @@ public class VideoTaskInfo {
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
-    
+
+
 }
