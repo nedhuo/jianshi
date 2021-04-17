@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerDownloadedComponent;
@@ -18,6 +20,8 @@ import com.jess.arms.di.component.AppComponent;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * @Description: java类作用描述
  * @Author: nedhuo
@@ -26,7 +30,10 @@ import java.util.List;
 public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
         implements DownloadedContract.View {
 
+    @BindView(R.id.rv_downloaded)
+    RecyclerView rvDownloaded;
     private List<VideoTaskInfo> mDataList;
+    private DownloadedAdapter mAdapter;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -51,6 +58,10 @@ public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
         List<VideoTaskInfo> taskInfoList = DbManager.getInstance(mContext)
                 .getVideoTaskDao().queryAllComplete();
         mDataList.addAll(taskInfoList);
+        mAdapter = new DownloadedAdapter(mContext, taskInfoList);
+
+        rvDownloaded.setLayoutManager(new LinearLayoutManager(mContext));
+        rvDownloaded.setAdapter(mAdapter);
 
     }
 

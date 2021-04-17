@@ -21,5 +21,6 @@
     <string name="state_pause">暂停</string>
     <string name="state_fail">失败</string>
     <string name="state_complete">下载完成</string>
+    <string name="me_myDownload">我的下载</string>
 
 </resources>
