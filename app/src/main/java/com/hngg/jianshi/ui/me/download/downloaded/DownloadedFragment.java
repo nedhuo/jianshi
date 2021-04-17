@@ -10,8 +10,13 @@ import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerDownloadedComponent;
+import com.hngg.jianshi.data.datebase.DbManager;
+import com.hngg.jianshi.data.datebase.VideoTaskInfo;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description: java类作用描述
@@ -20,6 +25,9 @@ import com.jess.arms.di.component.AppComponent;
  */
 public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
         implements DownloadedContract.View {
+
+    private List<VideoTaskInfo> mDataList;
+
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
         DaggerDownloadedComponent
@@ -39,6 +47,10 @@ public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        mDataList = new ArrayList<>();
+        List<VideoTaskInfo> taskInfoList = DbManager.getInstance(mContext)
+                .getVideoTaskDao().queryAllComplete();
+        mDataList.addAll(taskInfoList);
 
     }
 

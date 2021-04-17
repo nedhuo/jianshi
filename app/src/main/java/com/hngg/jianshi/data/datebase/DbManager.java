@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.hngg.jianshi.data.databse.dao.DaoMaster;
+import com.hngg.jianshi.data.databse.dao.DaoSession;
 import com.hngg.jianshi.data.datebase.utils.*;
 
 /**

@@ -24,12 +24,12 @@ public class VideoTaskInfo {
     @Id(autoincrement = true)
     private Long id;
 
-    private Long taskId;
+    private Long taskId;  //Aria任务ID
 
-    private int downId;
+    private int downId;  //int类型id 不重复  用于通知
 
     @Index(unique = true)
-    private Long videoId;
+    private Long videoId; //视频自带的id
 
     private String videoName;
 

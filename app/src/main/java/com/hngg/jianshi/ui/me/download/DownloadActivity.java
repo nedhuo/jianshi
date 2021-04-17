@@ -2,24 +2,19 @@ package com.hngg.jianshi.ui.me.download;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
-
 import com.hngg.jianshi.component.DaggerDownloadComponent;
 import com.hngg.jianshi.ui.me.download.downloaded.DownloadedFragment;
 import com.hngg.jianshi.ui.me.download.downloading.DownloadingFragment;
@@ -41,7 +36,6 @@ import java.util.List;
 import butterknife.BindView;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
-import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_SET_USER_VISIBLE_HINT;
 
 /**
  * @Description: java类作用描述

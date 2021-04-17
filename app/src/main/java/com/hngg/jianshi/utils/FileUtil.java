@@ -17,6 +17,7 @@ public class FileUtil {
      * Environment.getExternalStorageDirectory().getAbsolutePath()
      * 内部存储/
      */
+    @Deprecated
     public static String getDownloadPath() {
         String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
 //        Context context;
@@ -35,6 +36,23 @@ public class FileUtil {
             }
         }
         return filePath;
+    }
+
+
+    public static String getDownloadPath(Context context) {
+
+        File file = context.getExternalFilesDir("jianshi/video");
+        if (file == null) {
+            return getDownloadPath();
+        } else {
+            Log.i(TAG, file.getPath() + "路径不存在,新建中...");
+            if (!file.mkdirs()) {
+                Log.e(TAG, file + "路径创建失败");
+                Log.e(TAG, "视频存储可能出现异常");
+                return getDownloadPath();
+            }
+        }
+        return file.getPath();
     }
 
     public void checkPathExisted(String path) {

@@ -165,7 +165,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
                 .setThumbImageView(imageView)
                 .setUrl(mVideoData.getPlayUrl())
                 .setCacheWithPlay(true)
-                .setVideoTitle(" ")
+                .setVideoTitle(mVideoData.getVideoTitle())
                 .setIsTouchWiget(true)
                 .setRotateViewAuto(false)
                 .setLockLand(false)

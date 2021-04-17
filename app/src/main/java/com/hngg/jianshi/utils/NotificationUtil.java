@@ -23,13 +23,11 @@ import com.bumptech.glide.request.transition.Transition;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.data.datebase.VideoTaskInfo;
-import com.hngg.jianshi.data.datebase.VideoTaskInfoDao;
 import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.ui.MainActivity;
 import com.hngg.jianshi.widget.DownloadTarget;
 
 import java.util.Enumeration;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -151,7 +149,7 @@ public class NotificationUtil {
                     "DownloadNotification",
                     "通知权限已经被打开" +
                             "\n手机型号:" + android.os.Build.MODEL +
-                            "\nSDK版本:" + android.os.Build.VERSION.SDK +
+                            "\nSDK版本:" + Build.VERSION.SDK_INT +
                             "\n系统版本:" + android.os.Build.VERSION.RELEASE +
                             "\n软件包名:" + mCtx.getPackageName()
             );

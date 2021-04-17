@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
-
 import com.hngg.jianshi.component.DaggerMeComponent;
 import com.hngg.jianshi.ui.me.download.DownloadActivity;
 import com.hngg.jianshi.utils.LogUtil;
@@ -36,6 +35,8 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
     LinearLayout ll_myCollection;
     @BindView(R.id.ll_history)
     LinearLayout ll_history;
+    @BindView(R.id.ll_playInfo)
+    LinearLayout ll_playInfo;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {

@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerCommunityComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
@@ -42,8 +41,6 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
     ClassicsFooter mClassicsFooter;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
-//    @BindView(R.id.tl_community)
-//    TabLayout mTabLayout;
     private RecyclerViewWrapper mAdapter;
 
     @Override

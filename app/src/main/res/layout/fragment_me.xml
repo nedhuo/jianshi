@@ -34,10 +34,9 @@
 
         <ImageView
             android:id="@+id/iv_headImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/default_head" />
+            android:layout_width="@dimen/size_70dp"
+            android:layout_height="@dimen/size_70dp"
+            android:layout_marginEnd="@dimen/size_10dp" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -45,8 +44,9 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/iv_headImage"
             android:layout_toEndOf="@id/iv_headImage"
+            android:maxLines="1"
             android:text="法外狂徒张三"
-            android:textSize="16sp"
+            android:textSize="@dimen/font_16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -71,12 +71,53 @@
             android:src="@drawable/ic_go_flag" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_playInfo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:background="@drawable/selector_item_click"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/size_20dp"
+        android:paddingRight="@dimen/size_20dp">
+
+        <ImageView
+            android:layout_width="@dimen/size_30dp"
+            android:layout_height="@dimen/size_30dp"
+            android:clickable="false"
+            android:scaleType="centerCrop"
+            android:src="@drawable/me_collection" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:clickable="false"
+            android:text="@string/me_playInfo"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/font_14sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:clickable="false" />
+
+        <ImageView
+            android:layout_width="@dimen/size_10dp"
+            android:layout_height="@dimen/size_15dp"
+            android:clickable="false"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_go_flag" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_myCollection"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60dp"
-        android:layout_marginTop="@dimen/size_5dp"
+        android:layout_marginTop="@dimen/size_2dp"
         android:background="@drawable/selector_item_click"
         android:gravity="center_vertical"
         android:orientation="horizontal"

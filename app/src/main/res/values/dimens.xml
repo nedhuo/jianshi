@@ -24,4 +24,5 @@
     <dimen name="size_18dp">18dp</dimen>
     <dimen name="size_77dp">77dp</dimen>
     <dimen name="size_12sp">12sp</dimen>
+    <dimen name="size_70dp">70dp</dimen>
 </resources>

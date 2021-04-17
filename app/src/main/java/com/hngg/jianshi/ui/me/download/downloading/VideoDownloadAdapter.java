@@ -103,8 +103,9 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
                 Aria.download(this).load(taskInfo.getTaskId()).stop();
                 holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_play);
             } else if (taskInfo.getTaskState() == VideoTaskState.STATE_FAIL) {
-                holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
-                long taskId = Aria.download(this).load(taskInfo.getTaskId()).reStart();
+              //  holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
+                Aria.download(this).load(taskInfo.getTaskId()).cancel();
+                long taskId = Aria.download(this).load(taskInfo.getUrl()).create();
                 taskInfo.setTaskId(taskId);
             } else {
                 holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
@@ -118,7 +119,8 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
                 holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_play);
             } else if (taskInfo.getTaskState() == VideoTaskState.STATE_FAIL) {
                 holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
-                long taskId = Aria.download(this).load(taskInfo.getTaskId()).reStart();
+                Aria.download(this).load(taskInfo.getTaskId()).cancel();
+                long taskId = Aria.download(this).load(taskInfo.getUrl()).create();
                 taskInfo.setTaskId(taskId);
             } else {
                 holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
@@ -142,13 +144,6 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
             return;
         }
         switch (taskItem.getState()) {
-            case DownloadEntity.STATE_COMPLETE:
-                DbManager.getInstance(mCtx).getVideoTaskDao()
-                        .updateVideoTaskInfo(mList.get(position));
-                mList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mList.size() - position);
-                return;
             case DownloadEntity.STATE_RUNNING:
                 holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
                 break;
@@ -164,6 +159,9 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
                 holder.tvSpeed.setText(mCtx.getResources().getString(R.string.state_pre));
                 holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
                 break;
+            case DownloadEntity.STATE_FAIL:
+                holder.tvSpeed.setText(mCtx.getResources().getString(R.string.state_fail));
+                holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_redo);
         }
     }
 
@@ -181,26 +179,29 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
         switch (taskItem.getState()) {
             case DownloadEntity.STATE_COMPLETE:
                 taskInfo.setRunning(false);
-                notifyItemChanged(position, taskItem);
+//                notifyItemChanged(position, taskItem);
+                DbManager.getInstance(mCtx).getVideoTaskDao()
+                        .updateVideoTaskInfo(mList.get(position));
+
+                mList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, mList.size() - position);
                 break;
             case DownloadEntity.STATE_RUNNING:
-                taskInfo.setRunning(true);
-                notifyItemChanged(position, taskItem);
-                break;
-            case DownloadEntity.STATE_STOP:
-                taskInfo.setRunning(false);
-                notifyItemChanged(position, taskItem);
-                break;
             case DownloadEntity.STATE_WAIT:
                 taskInfo.setRunning(true);
                 notifyItemChanged(position, taskItem);
                 break;
             case DownloadEntity.STATE_CANCEL:
-                //TODO 待处理
-                taskInfo.setRunning(false);
-                notifyItemChanged(position, taskItem);
+                DbManager.getInstance(mCtx).getVideoTaskDao().delete(taskInfo);
+                mList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, mList.size() - position);
                 break;
+            case DownloadEntity.STATE_STOP:
+
             case DownloadEntity.STATE_FAIL:
+                //TODO 待处理
                 taskInfo.setRunning(false);
                 notifyItemChanged(position, taskItem);
                 break;
@@ -216,13 +217,7 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
         taskInfo.setFileSize(taskItem.getFileSize());
         taskInfo.setPercent(taskItem.getPercent());
         taskInfo.setSpeed(taskItem.getSpeed());
-    }
-
-    /**
-     * 下载完成
-     */
-    private void onDownloadComplete(DownloadTask taskItem) {
-
+        LogUtil.i(TAG, "taskItem.getFileSize()" + taskItem.getFileSize());
     }
 
     private void updateDataFromDb(DownloadTask taskItem) {

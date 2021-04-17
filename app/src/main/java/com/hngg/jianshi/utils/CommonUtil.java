@@ -70,7 +70,9 @@ public class CommonUtil {
     /**
      * long数据转kb
      */
-    public static String sizeTranform(long data) {
+    public static String sizeTranform(Long data) {
+        if (data == null)
+            return "";
         float GB = 1024 * 1024 * 1024F;
         float MB = 1024 * 1024F;
         float KB = 1024F;

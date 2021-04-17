@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
-//import com.hngg.jianshi.component.DaggerRecommendComponent;
-
 import com.hngg.jianshi.component.DaggerRecommendComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.adapter.RecommendAdapter;

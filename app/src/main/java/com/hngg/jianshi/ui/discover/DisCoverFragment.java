@@ -9,9 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
-
 import com.hngg.jianshi.component.DaggerDisCoverComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.adapter.DisCoverAdapter;
