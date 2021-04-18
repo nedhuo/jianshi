@@ -4,9 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.hngg.jianshi.data.databse.dao.DaoMaster;
-import com.hngg.jianshi.data.databse.dao.DaoSession;
-import com.hngg.jianshi.data.datebase.utils.*;
+import com.hngg.jianshi.data.database.dao.DaoMaster;
+import com.hngg.jianshi.data.database.dao.DaoSession;
+import com.hngg.jianshi.data.database.utils.*;
 
 /**
  * 使用GreenDao对数据库进行管理

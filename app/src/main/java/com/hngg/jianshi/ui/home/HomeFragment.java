@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerHomeComponent;
 import com.hngg.jianshi.ui.TourRecommendationActivity;
 import com.hngg.jianshi.ui.search.SearchActivity;
 import com.hngg.jianshi.widget.CustomViewPager;
@@ -48,12 +47,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IView {
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-        DaggerHomeComponent
-                .builder()
-                .appComponent(appComponent)
-                .homeModule(new HomeModule(this))
-                .build()
-                .inject(this);
+//        DaggerHomeComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .homeModule(new HomeModule(this))
+//                .build()
+//                .inject(this);
     }
 
     @Override

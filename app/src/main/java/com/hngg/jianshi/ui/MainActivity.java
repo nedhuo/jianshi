@@ -11,7 +11,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerMainComponent;
 import com.hngg.jianshi.utils.PermissionUtil;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
@@ -44,12 +43,12 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerMainComponent
-                .builder()
-                .appComponent(appComponent)
-                .mainModule(new MainModule(this))
-                .build()
-                .inject(this);
+//        DaggerMainComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .mainModule(new MainModule(this))
+//                .build()
+//                .inject(this);
 
     }
 

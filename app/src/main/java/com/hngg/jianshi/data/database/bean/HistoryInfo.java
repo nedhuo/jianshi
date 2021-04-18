@@ -1,4 +1,4 @@
-package com.hngg.jianshi.data.datebase;
+package com.hngg.jianshi.data.database.bean;
 
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
@@ -8,7 +8,7 @@ import org.greenrobot.greendao.annotation.Index;
  * @Author: nedhuo
  * @Data: 观看历史
  */
-public class BrowsingHistory {
+public class HistoryInfo {
 
     @Id(autoincrement = true)
     private long id;

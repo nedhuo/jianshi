@@ -1,7 +1,5 @@
 package com.hngg.jianshi.ui.home.daily;
 
-import android.util.Log;
-
 
 import com.hngg.jianshi.data.ApiInterface;
 import com.hngg.jianshi.data.KaiYanHttpUtil;
@@ -55,8 +53,8 @@ public class DailyModel extends BaseModel implements DailyContract.Model {
 
     public Observable<DailyRootBean> loadMore(String urlPath) {
         //处理baseUrl重复问题
-        if (urlPath.contains(KaiYanApi.baseUrl)) {
-            urlPath = urlPath.replace(KaiYanApi.baseUrl, "");
+        if (urlPath.contains(KaiYanApi.baseHttpUrl)) {
+            urlPath = urlPath.replace(KaiYanApi.baseHttpUrl, "");
         }
         return httpUtil.getService(ApiInterface.class)
                 .getDailyNextPage(urlPath)

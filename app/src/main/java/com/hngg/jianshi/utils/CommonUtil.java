@@ -2,10 +2,9 @@ package com.hngg.jianshi.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.widget.Switch;
 
 import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTaskInfo;
+import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

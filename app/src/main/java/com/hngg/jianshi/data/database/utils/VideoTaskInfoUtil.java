@@ -1,8 +1,8 @@
-package com.hngg.jianshi.data.datebase.utils;
+package com.hngg.jianshi.data.database.utils;
 
-import com.hngg.jianshi.data.databse.dao.DaoSession;
-import com.hngg.jianshi.data.databse.dao.VideoTaskInfoDao;
-import com.hngg.jianshi.data.datebase.VideoTaskInfo;
+import com.hngg.jianshi.data.database.dao.DaoSession;
+import com.hngg.jianshi.data.database.dao.VideoTaskInfoDao;
+import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.utils.LogUtil;
 

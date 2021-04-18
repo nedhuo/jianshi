@@ -15,4 +15,10 @@
         <item>下载中</item>
         <item>下载完成</item>
     </string-array>
+
+    <string-array name="menu_video" >
+        <item>删除</item>
+        <item>优先下载</item>
+        <item>跳转详情页</item>
+    </string-array>
 </resources>

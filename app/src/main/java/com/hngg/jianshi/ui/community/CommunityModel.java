@@ -6,7 +6,6 @@ import com.hngg.jianshi.data.bean.community.CommunityRootBean;
 import com.hngg.network.KaiYanApi;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
-import com.jess.arms.mvp.IModel;
 
 import javax.inject.Inject;
 
@@ -36,8 +35,8 @@ public class CommunityModel extends BaseModel implements CommunityContract.Model
     }
 
     public Observable<CommunityRootBean> getCommunityNextData(String nextUrl) {
-        if (nextUrl.contains(KaiYanApi.baseUrl)) {
-            nextUrl = nextUrl.replace(KaiYanApi.baseUrl, "");
+        if (nextUrl.contains(KaiYanApi.baseHttpUrl)) {
+            nextUrl = nextUrl.replace(KaiYanApi.baseHttpUrl, "");
         }
         return mHttpUtil.getService(ApiInterface.class)
                 .getCommunityNextPage(nextUrl)

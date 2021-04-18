@@ -12,7 +12,7 @@ import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.download.DownloadEntity;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTaskInfo;
+import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.utils.NotificationUtil;
 
 import java.util.ArrayList;

@@ -9,8 +9,9 @@ package com.hngg.network;
  */
 public class  KaiYanApi {
 
-    public static final String baseUrl = "http://baobab.kaiyanapp.com/";
+    public static final String baseHttpUrl = "http://baobab.kaiyanapp.com/";
 
+    public static final String baseHttpsUrl="https://baobab.kaiyanapp.com/";
     //日常（首页）
     public static final String homePageUrl = "api/v4/tabs/selected";
 

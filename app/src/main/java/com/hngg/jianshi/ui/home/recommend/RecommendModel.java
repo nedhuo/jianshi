@@ -36,8 +36,8 @@ public class RecommendModel extends BaseModel implements RecommendContract.Model
 
     public Observable<RecommendRootBean> getRecommendNextPage(String urlPath) {
         //处理baseUrl重复问题
-        if (urlPath.contains(KaiYanApi.baseUrl)) {
-            urlPath = urlPath.replace(KaiYanApi.baseUrl, "");
+        if (urlPath.contains(KaiYanApi.baseHttpUrl)) {
+            urlPath = urlPath.replace(KaiYanApi.baseHttpUrl, "");
         }
         return httpUtil.getService(ApiInterface.class)
                 .getRecommendNextPage(urlPath)

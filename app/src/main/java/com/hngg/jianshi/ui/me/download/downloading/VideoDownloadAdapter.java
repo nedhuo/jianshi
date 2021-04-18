@@ -13,19 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.download.DownloadEntity;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTaskInfo;
+import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

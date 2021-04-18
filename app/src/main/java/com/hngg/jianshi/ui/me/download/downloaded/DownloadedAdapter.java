@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.data.datebase.VideoTaskInfo;
+import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.GlideUtil;
 

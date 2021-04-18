@@ -1,4 +1,4 @@
-package com.hngg.jianshi.data.datebase;
+package com.hngg.jianshi.data.database.bean;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
