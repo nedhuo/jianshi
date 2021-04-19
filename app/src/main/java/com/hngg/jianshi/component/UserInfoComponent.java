@@ -15,6 +15,6 @@ import dagger.Component;
 
 @ActivityScope
 @Component(modules = UserInfoModule.class, dependencies = AppComponent.class)
-interface UserInfoComponent {
+public interface UserInfoComponent {
     void inject(UserInfoActivity activity);
 }

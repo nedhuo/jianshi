@@ -9,7 +9,7 @@ import javax.inject.Inject;
  * @Author: nedhuo
  * @Data:
  */
-class UserInfoPresenter extends BasePresenter<UserInfoContract.Model, UserInfoContract.View> {
+public class UserInfoPresenter extends BasePresenter<UserInfoContract.Model, UserInfoContract.View> {
 
     @Inject
     UserInfoPresenter(UserInfoContract.Model model, UserInfoContract.View rootView) {

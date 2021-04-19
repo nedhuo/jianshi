@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.hngg.jianshi.component.DaggerUserInfoComponent;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.di.component.DaggerAppComponent;
 
 /**
  * @Description: java类作用描述
@@ -18,8 +20,13 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-
+        DaggerUserInfoComponent.builder()
+                .appComponent(appComponent)
+                .userInfoModule(new UserInfoModule(this))
+                .build()
+                .inject(this);
     }
+
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
