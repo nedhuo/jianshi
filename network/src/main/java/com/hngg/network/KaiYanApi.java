@@ -59,4 +59,24 @@ public class  KaiYanApi {
             "GET /api/v3/messages?udid=d07e6618dd4446629393f593a9b832f7eb0ed504&vc=6030101&vn=6.3.10&size=1080X2207&deviceModel=V1813BT&first_channel=vivo&last_channel=vivo&system_version_code=28 HTTP/1.1";
 
 
+    /**
+     * 用户 UserInfo
+     *
+     * https://baobab.kaiyanapp.com/api/v5/userInfo/tab?id=2171&userType=PGC
+     *
+     * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/works?uid=301178684
+     *
+     * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/index?id=2171&userType=PGC
+     *
+     * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/works?uid=301178684&start=5&num=5
+     * */
+
+    /**
+     * 主题？
+     * http://baobab.kaiyanapp.com/api/v6/tag/index?id=1064
+     *
+     * http://baobab.kaiyanapp.com/api/v1/tag/videos?id=1064
+     *
+     * http://baobab.kaiyanapp.com/api/v6/tag/dynamics?id=1064
+     * */
 }

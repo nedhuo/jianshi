@@ -45,6 +45,7 @@
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.me.download.DownloadActivity" />
         <activity android:name=".ui.calender.CalenderActivity" />
+        <activity android:name=".ui.video.user.UserInfoActivity" />
 
         <service android:name=".service.DownloadService" />
     </application>

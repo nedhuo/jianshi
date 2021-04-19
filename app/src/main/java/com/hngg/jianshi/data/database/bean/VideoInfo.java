@@ -1,8 +1,8 @@
 package com.hngg.jianshi.data.database.bean;
 
-import com.hngg.jianshi.data.databse.dao.DaoSession;
-import com.hngg.jianshi.data.databse.dao.VideoInfoDao;
-import com.hngg.jianshi.data.databse.dao.VideoResolutionInfoDao;
+import com.hngg.jianshi.data.database.dao.DaoSession;
+import com.hngg.jianshi.data.database.dao.VideoInfoDao;
+import com.hngg.jianshi.data.database.dao.VideoResolutionInfoDao;
 
 import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
