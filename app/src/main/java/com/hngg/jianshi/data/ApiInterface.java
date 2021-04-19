@@ -36,6 +36,7 @@ public interface ApiInterface {
 
     //http://baobab.kaiyanapp.com/api/v2/video/248522?udid=9457b933f3bd434ba69e350e1112ec623fc61dee&vc=7000111&vn=7.0.11&size=1080X2207&deviceModel=V1813BT&first_channel=vivo&last_channel=vivo&system_version_code=28
 
+
     //相关回复链接  http://baobab.kaiyanapp.com/api/v2/replies/video?videoId=186856
     @GET("api/v2/replies/video")
     Observable<ReplyRootBean> getVideoReply(@Query("videoId") long id);
