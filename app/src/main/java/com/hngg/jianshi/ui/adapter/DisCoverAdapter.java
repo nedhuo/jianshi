@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
@@ -79,6 +78,9 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             GlideUtil.loadImage(mCtx,data.getIcon(),viewHolder.iv_image);
             viewHolder.tv_title.setText(data.getTitle());
             viewHolder.tv_desc.setText(data.getDescription());
+            holder.itemView.setOnClickListener(v -> {
+
+            });
         }
     }
 
