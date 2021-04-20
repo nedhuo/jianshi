@@ -80,6 +80,6 @@ public class  KaiYanApi {
      * http://baobab.kaiyanapp.com/api/v6/tag/dynamics?id=1064
      *
      * 访问不到里面的数据
-     * http://baobab.kaiyanapp.com/api/v1/tag/1621/?title=%E5%9F%8E%E5%B8%82%E9%87%8C%E7%9A%84%E6%8A%A5%E5%88%8A%E4%BA%AD
+     * http://baobab.kaiyanapp.com/api/v1/tag/1064/?title=%E5%9F%8E%E5%B8%82%E9%87%8C%E7%9A%84%E6%8A%A5%E5%88%8A%E4%BA%AD
      * */
 }

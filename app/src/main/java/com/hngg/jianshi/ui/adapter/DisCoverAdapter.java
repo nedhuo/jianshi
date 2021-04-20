@@ -75,10 +75,11 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (holder instanceof BriefItemViewHolder) {
             BriefItemViewHolder viewHolder = (BriefItemViewHolder) holder;
             Data data = mItemList.get(position).getData();
-            GlideUtil.loadImage(mCtx,data.getIcon(),viewHolder.iv_image);
+            GlideUtil.loadImage(mCtx, data.getIcon(), viewHolder.iv_image);
             viewHolder.tv_title.setText(data.getTitle());
             viewHolder.tv_desc.setText(data.getDescription());
             holder.itemView.setOnClickListener(v -> {
+                /*TODO 待实现，跳转页面*/
 
             });
         }
