@@ -31,5 +31,6 @@ public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffset
         LogUtil.i(TAG, "verticalOffset" + verticalOffset);
     }
 
+
     public abstract void setToolBarAlpha(float alpha);
 }
