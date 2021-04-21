@@ -1,4 +1,4 @@
-package com.hngg.jianshi.ui.video.user;
+package com.hngg.jianshi.ui.tag;
 
 import com.jess.arms.di.scope.ActivityScope;
 
@@ -11,23 +11,23 @@ import dagger.Provides;
  * @Data:
  */
 @Module
-public class UserInfoModule {
-    private UserInfoContract.View view;
+public class TagDetailModule {
+    private TagDetailContract.View view;
 
     //构建UserModule时,将View的实现类传进来,这样就可以提供View的实现类给presenter
-    public UserInfoModule(UserInfoActivity view) {
+    public TagDetailModule(TagDetailActivity view) {
         this.view = view;
     }
 
     @ActivityScope
     @Provides
-    UserInfoContract.View provideUserInfoView() {
+    TagDetailContract.View provideTagDetailView() {
         return this.view;
     }
 
     @ActivityScope
     @Provides
-    UserInfoContract.Model provideUserInfoModel(UserInfoModel model) {
+    TagDetailContract.Model provideTagDetailModel(TagDetailModel model) {
         return model;
     }
 }

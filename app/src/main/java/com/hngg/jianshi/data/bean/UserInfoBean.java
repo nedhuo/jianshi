@@ -8,7 +8,7 @@ import java.util.List;
  * @Data:
  * https://baobab.kaiyanapp.com/api/v5/userInfo/tab?id=2171&userType=PGC
  */
-public class bb {
+public class UserInfoBean {
 
     /**
      * tabInfo : {"tabList":[{"id":0,"name":"首页","apiUrl":"https://baobab.kaiyanapp.com/api/v5/userInfo/tab/index?id=2171&userType=PGC","tabType":0,"nameType":0,"adTrack":null},{"id":1,"name":"作品","apiUrl":"https://baobab.kaiyanapp.com/api/v4/pgcs/videoList?id=2171","tabType":0,"nameType":0,"adTrack":null},{"id":3,"name":"动态","apiUrl":"https://baobab.kaiyanapp.com/api/v5/userInfo/tab/dynamics?id=2171&userType=PGC","tabType":0,"nameType":0,"adTrack":null}],"defaultIdx":0}

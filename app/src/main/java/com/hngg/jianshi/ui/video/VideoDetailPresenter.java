@@ -1,6 +1,7 @@
 package com.hngg.jianshi.ui.video;
 
 import android.content.Intent;
+import android.os.Build;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -117,9 +118,14 @@ public class VideoDetailPresenter extends BasePresenter {
             Toast.makeText(mRootView, "当前视频已下载", Toast.LENGTH_SHORT).show();
             return;
         }
-        //TODO 修改前景Service
+
+        /*开启Service*/
         Intent intent = new Intent(mRootView, DownloadService.class);
-        mRootView.startService(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mRootView.startForegroundService(intent);
+        }else {
+            mRootView.startService(intent);
+        }
 
         /*封装下载数据对象*/
 

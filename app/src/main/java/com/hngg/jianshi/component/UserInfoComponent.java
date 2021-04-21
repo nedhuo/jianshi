@@ -1,7 +1,7 @@
 package com.hngg.jianshi.component;
 
-import com.hngg.jianshi.ui.video.user.UserInfoActivity;
-import com.hngg.jianshi.ui.video.user.UserInfoModule;
+import com.hngg.jianshi.ui.user.UserInfoActivity;
+import com.hngg.jianshi.ui.user.UserInfoModule;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.di.scope.ActivityScope;
 

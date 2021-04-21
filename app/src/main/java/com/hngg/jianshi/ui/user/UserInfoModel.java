@@ -1,4 +1,4 @@
-package com.hngg.jianshi.ui.video.user;
+package com.hngg.jianshi.ui.user;
 
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;

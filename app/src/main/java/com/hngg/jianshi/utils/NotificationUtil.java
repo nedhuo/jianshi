@@ -1,32 +1,34 @@
 package com.hngg.jianshi.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.arialyy.aria.core.download.DownloadEntity;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.Transition;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
+import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.data.datebase.VideoTaskState;
 import com.hngg.jianshi.ui.MainActivity;
 import com.hngg.jianshi.widget.DownloadTarget;
 
 import java.util.Enumeration;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -48,23 +50,26 @@ import static androidx.core.app.NotificationCompat.VISIBILITY_SECRET;
  * 需要注意： 通知工具类是由Service间接控制的，
  * 如果传入Activity的context,会出现Activity已经销毁，还使用context的异常出现
  */
+
 public class NotificationUtil {
+    @SuppressLint("StaticFieldLeak")
     private static NotificationUtil mNotificationUtil;
-    private final ContextWrapper mCtx;
+    private final Service mCtx;
     private final String mChannelName;
     private final String mChannelId;
     private NotificationManager mNotificationManager;
     private NotificationChannel mNotificationChannel;
 
-    private int importance = NotificationManager.IMPORTANCE_DEFAULT;
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private int importance = NotificationManager.IMPORTANCE_HIGH;
     private ConcurrentHashMap<Integer, NotificationCompat.Builder> mOrdinaryMap; //普通通知
     private ConcurrentHashMap<Integer, NotificationCompat.Builder> mKeepAliveMap; //保活通知
     private ConcurrentHashMap<Integer, Notification> mSuccessMap;  //下载成功通知
-    private String mIsApplyNotification_sp = "isApplyNotification";
+    //    private String mIsApplyNotification_sp = "isApplyNotification";
     private static final String TAG = "NotificationUtil";
 
 
-    public static NotificationUtil getInstance(ContextWrapper context) {
+    public static NotificationUtil getInstance(Service context) {
         if (mNotificationUtil == null) {
             synchronized (NotificationUtil.class) {
                 if (mNotificationUtil == null)
@@ -74,7 +79,7 @@ public class NotificationUtil {
         return mNotificationUtil;
     }
 
-    private NotificationUtil(ContextWrapper context) {
+    private NotificationUtil(Service context) {
         mCtx = context;
         mChannelName = "download";
         mChannelId = "niceVideo";
@@ -116,7 +121,7 @@ public class NotificationUtil {
     }
 
 
-    public void showNotification(VideoTaskInfo videoTask) {
+    private void showNotification(VideoTaskInfo videoTask) {
         Notification successBuild = mSuccessMap.get(videoTask.getDownId());
         NotificationCompat.Builder ordinaryBuild = mOrdinaryMap.get(videoTask.getDownId());
         NotificationCompat.Builder keepAliveBuild = mKeepAliveMap.get(videoTask.getDownId());
@@ -136,30 +141,6 @@ public class NotificationUtil {
 
 
     /**
-     * 判断通知权限
-     */
-    private Boolean checkNotifiPermission() {
-        NotificationManagerCompat manager = NotificationManagerCompat.from(mCtx);
-        // areNotificationsEnabled方法的有效性官方只最低支持到API 19，低于19的仍可调用此方法不过只会返回true，即默认为用户已经开启了通知。
-        boolean isOpened = manager.areNotificationsEnabled();
-
-        if (isOpened) {
-            Log.i(
-                    "DownloadNotification",
-                    "通知权限已经被打开" +
-                            "\n手机型号:" + android.os.Build.MODEL +
-                            "\nSDK版本:" + Build.VERSION.SDK_INT +
-                            "\n系统版本:" + android.os.Build.VERSION.RELEASE +
-                            "\n软件包名:" + mCtx.getPackageName()
-            );
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    /**
      * @param taskItem 下载任务
      *                 <p>
      *                 处理逻辑：下载成功，判断是否是KeepAliveNotification
@@ -174,7 +155,7 @@ public class NotificationUtil {
         int downId = videoTask.getDownId();
         NotificationCompat.Builder keepAliveBuilder = mKeepAliveMap.get(downId);
         if (keepAliveBuilder != null) {
-            mSuccessMap.put(downId, mKeepAliveMap.get(downId).build());
+            mSuccessMap.put(downId, Objects.requireNonNull(mKeepAliveMap.get(downId)).build());
             mKeepAliveMap.remove(downId);
 
             if (mKeepAliveMap.size() == 0) {
@@ -199,12 +180,11 @@ public class NotificationUtil {
                 /*切换Map*/
                 Enumeration<Integer> keys = mOrdinaryMap.keys();
                 Integer key = keys.nextElement();
-                Notification value = mOrdinaryMap.get(key).build();
-                if (value != null) {
+                if (mOrdinaryMap.get(key) != null){
+                    Notification value = Objects.requireNonNull(mOrdinaryMap.get(key)).build();
+
                     mSuccessMap.put(key, value);
                     mOrdinaryMap.remove(key);
-                    /*TODO 切换下载成功布局*/
-
                 }
             }
         }
@@ -246,7 +226,8 @@ public class NotificationUtil {
 
         mKeepAliveMap.put(videoTask.getDownId(), builder);
         Notification build = builder.build();
-        mNotificationManager.notify(videoTask.getDownId(), build);
+        mCtx.startForeground(videoTask.getDownId(), build);
+        // mNotificationManager.notify(videoTask.getDownId(), build);
     }
 
     private void createKeepAliveNotification(int key, NotificationCompat.Builder builder) {
@@ -289,13 +270,8 @@ public class NotificationUtil {
 
         mOrdinaryMap.put(videoTask.getDownId(), builder);
         Notification build = builder.build();
-        mNotificationManager.notify(videoTask.getDownId(), build);
-    }
-
-    private void createOrdinaryNotification(int key, NotificationCompat.Builder builder) {
-        builder.setOngoing(false);
-        if (mOrdinaryMap.get(key) == null)
-            mOrdinaryMap.put(key, builder);
+        mCtx.startForeground(videoTask.getDownId(), build);
+        //  mNotificationManager.notify(videoTask.getDownId(), build);
     }
 
 
@@ -309,7 +285,7 @@ public class NotificationUtil {
         }
         int downId = videoTask.getDownId();
         if (mKeepAliveMap.get(downId) != null) {
-            Notification build = mKeepAliveMap.get(downId).build();
+            Notification build = Objects.requireNonNull(mKeepAliveMap.get(downId)).build();
             String downloadSize = taskItem.getConvertCurrentProgress()
                     + "/" + taskItem.getConvertFileSize();
 
@@ -324,8 +300,7 @@ public class NotificationUtil {
             mNotificationManager.notify(downId, build);
 
         } else if (mOrdinaryMap.get(downId) != null) {
-
-            Notification build = mOrdinaryMap.get(downId).build();
+            Notification build = Objects.requireNonNull(mOrdinaryMap.get(downId)).build();
 
             String downloadSize = taskItem.getConvertCurrentProgress()
                     + "/" + taskItem.getConvertFileSize();
@@ -338,7 +313,7 @@ public class NotificationUtil {
 
             mNotificationManager.notify(downId, build);
         } else {
-            Log.i(TAG, "当前通知不存在，正在新建...");
+            LogUtil.i(TAG, "当前通知不存在，正在新建...");
             showNotification(videoTask);
         }
     }
@@ -347,56 +322,52 @@ public class NotificationUtil {
         int downId = videoTask.getDownId();
         if (mKeepAliveMap.get(downId) != null) {
             NotificationCompat.Builder builder = mKeepAliveMap.get(downId);
-            Log.i(TAG, "保活通知下载成功,移入普通通知");
-            builder.setOngoing(false);
-            Notification build = builder.build();
+            LogUtil.i(TAG, "保活通知下载成功,移入普通通知");
+            if (builder != null) {
+                builder.setOngoing(false);
+                Notification build = builder.build();
 
-            String downloadSize = taskItem.getConvertFileSize();
+                String downloadSize = taskItem.getConvertFileSize();
 
-            RemoteViews remoteViews = build.contentView;
-            remoteViews.setTextViewText(R.id.tv_speed, "下载完成");
-            remoteViews.setTextViewText(R.id.tv_size, downloadSize);
-            remoteViews.setProgressBar(R.id.progressView, 100,
-                    100, false);
+                RemoteViews remoteViews = build.contentView;
+                remoteViews.setTextViewText(R.id.tv_speed, "下载完成");
+                remoteViews.setTextViewText(R.id.tv_size, downloadSize);
+                remoteViews.setProgressBar(R.id.progressView, 100,
+                        100, false);
 
-            mNotificationManager.notify(downId, build);
+                mNotificationManager.notify(downId, build);
 
-            updateDbState(videoTask);
+                updateDbState(videoTask);
+            } else {
+                LogUtil.e(TAG, "updateSuccess builder==NULL");
+            }
+
         } else if (mOrdinaryMap.get(downId) != null) {
             NotificationCompat.Builder builder = mOrdinaryMap.get(downId);
+            if (builder != null) {
+                Notification build = builder.build();
 
-            Notification build = builder.build();
+                String downloadSize = taskItem.getConvertFileSize();
+                Log.i(TAG, "普通通知下载成功");
+                RemoteViews remoteViews = build.contentView;
+                remoteViews.setTextViewText(R.id.tv_speed, "下载完成");
+                remoteViews.setTextViewText(R.id.tv_size, downloadSize);
+                remoteViews.setProgressBar(R.id.progressView, 100,
+                        100, false);
 
-            String downloadSize = taskItem.getConvertFileSize();
-            Log.i(TAG, "普通通知下载成功");
-            RemoteViews remoteViews = build.contentView;
-            remoteViews.setTextViewText(R.id.tv_speed, "下载完成");
-            remoteViews.setTextViewText(R.id.tv_size, downloadSize);
-            remoteViews.setProgressBar(R.id.progressView, 100,
-                    100, false);
+                mNotificationManager.notify(downId, build);
 
-            mNotificationManager.notify(downId, build);
+                updateDbState(videoTask);
+            } else {
+                LogUtil.e(TAG, "updateSuccess builder==NULL");
+            }
 
-            updateDbState(videoTask);
         } else {
-            Log.i(TAG, "当前通知不存在，正在新建...");
+            LogUtil.i(TAG, "当前通知不存在，正在新建...");
             showNotification(videoTask);
         }
-
-
     }
 
-
-//    private VideoTaskInfo getVideoTask(DownloadTask taskItem) {
-//        String url = taskItem.getKey();
-//        List<VideoTaskInfo> list = DbManager.getInstance(mCtx).getVideoTaskDao().queryIsExist(url);
-//
-//        if (list.size() == 0) {
-//            Toast.makeText(mCtx, "当前更新下载数据不存在", Toast.LENGTH_SHORT).show();
-//            return null;
-//        }
-//        return list.get(0);
-//    }
 
     private void updateDbState(VideoTaskInfo videoTask) {
         videoTask.setTaskState(VideoTaskState.STATE_COMPLETE);
