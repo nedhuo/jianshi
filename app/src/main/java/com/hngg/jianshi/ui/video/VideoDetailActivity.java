@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
+import com.hngg.jianshi.ui.user.UserInfoActivity;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.network.Observer.BaseObserver;
@@ -79,7 +81,8 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
     TextView tvPersonDesc;
     @BindView(R.id.ib_back)
     ImageButton ibBack;
-
+    @BindView(R.id.item_author)
+    RelativeLayout itemAuthor;
 
     private Data mVideoData;
     private VideoDetailPresenter mPresenter;
@@ -93,7 +96,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         Aria.download(this).register();
         Aria.get(this).getDownloadConfig().setConvertSpeed(true);
         Aria.get(this).getDownloadConfig().setMaxTaskNum(3);
-        Aria.get(this).getDownloadConfig().setMaxSpeed(256);
+        Aria.get(this).getDownloadConfig().setMaxSpeed(1024);
     }
 
     @Override
@@ -146,7 +149,12 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         ivDownload.setOnClickListener(this);
         ivShare.setOnClickListener(this);
 
-        ibBack.setOnClickListener(v-> onBackPressed());
+        ibBack.setOnClickListener(v -> onBackPressed());
+
+        itemAuthor.setOnClickListener(v -> {
+            Intent intent = new Intent(this, UserInfoActivity.class);
+            startActivity(intent);
+        });
     }
 
 

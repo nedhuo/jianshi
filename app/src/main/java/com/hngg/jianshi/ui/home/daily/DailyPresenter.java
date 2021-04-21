@@ -67,8 +67,7 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
     }
 
     public void onRefresh(RefreshLayout refreshlayout) {
-        mModel.refresh().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<DailyRootBean>() {
+        mModel.refresh().subscribe(new BaseObserver<DailyRootBean>() {
                     @Override
                     protected void onSuccess(DailyRootBean dailyRootBean) {
                         mNextUrl = dailyRootBean.getNextPageUrl();

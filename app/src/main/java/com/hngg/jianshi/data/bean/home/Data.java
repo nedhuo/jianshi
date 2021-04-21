@@ -50,8 +50,6 @@ public class Data implements Serializable {
     private WebUrl webUrl;
     private long releaseTime;
     private List<PlayInfo> playInfo;
-    private String campaign;
-    private String waterMarks;
     private boolean ad;
     private String type;
     private String titlePgc;
@@ -62,21 +60,12 @@ public class Data implements Serializable {
     private String brandWebsiteInfo;
     private VideoPosterBean videoPosterBean;
     private int idx;
-    private String shareAdTrack;
-    private String favoriteAdTrack;
-    private String webAdTrack;
     private long date;
-    private String promotion;
     private String descriptionEditor;
     private boolean collected;
     private boolean reallyCollected;
     private boolean played;
     private List<String> subtitles;
-    private String lastViewTime;
-    private String playlists;
-    private String src;
-    private String recallSource;
-    private String recall_source;
 
     private String text;
     private String font;
@@ -85,7 +74,6 @@ public class Data implements Serializable {
     private Header header;
     private List<ItemList> itemList;
     private int count;
-    private String footer;
 
     private boolean autoPlay;
     private Content content;
@@ -740,22 +728,6 @@ public class Data implements Serializable {
         this.playInfo = playInfo;
     }
 
-    public String getCampaign() {
-        return campaign;
-    }
-
-    public void setCampaign(String campaign) {
-        this.campaign = campaign;
-    }
-
-    public String getWaterMarks() {
-        return waterMarks;
-    }
-
-    public void setWaterMarks(String waterMarks) {
-        this.waterMarks = waterMarks;
-    }
-
     public boolean isAd() {
         return ad;
     }
@@ -837,44 +809,12 @@ public class Data implements Serializable {
         this.idx = idx;
     }
 
-    public String getShareAdTrack() {
-        return shareAdTrack;
-    }
-
-    public void setShareAdTrack(String shareAdTrack) {
-        this.shareAdTrack = shareAdTrack;
-    }
-
-    public String getFavoriteAdTrack() {
-        return favoriteAdTrack;
-    }
-
-    public void setFavoriteAdTrack(String favoriteAdTrack) {
-        this.favoriteAdTrack = favoriteAdTrack;
-    }
-
-    public String getWebAdTrack() {
-        return webAdTrack;
-    }
-
-    public void setWebAdTrack(String webAdTrack) {
-        this.webAdTrack = webAdTrack;
-    }
-
     public long getDate() {
         return date;
     }
 
     public void setDate(long date) {
         this.date = date;
-    }
-
-    public String getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(String promotion) {
-        this.promotion = promotion;
     }
 
     public String getDescriptionEditor() {
@@ -915,46 +855,6 @@ public class Data implements Serializable {
 
     public void setSubtitles(List<String> subtitles) {
         this.subtitles = subtitles;
-    }
-
-    public String getLastViewTime() {
-        return lastViewTime;
-    }
-
-    public void setLastViewTime(String lastViewTime) {
-        this.lastViewTime = lastViewTime;
-    }
-
-    public String getPlaylists() {
-        return playlists;
-    }
-
-    public void setPlaylists(String playlists) {
-        this.playlists = playlists;
-    }
-
-    public String getSrc() {
-        return src;
-    }
-
-    public void setSrc(String src) {
-        this.src = src;
-    }
-
-    public String getRecallSource() {
-        return recallSource;
-    }
-
-    public void setRecallSource(String recallSource) {
-        this.recallSource = recallSource;
-    }
-
-    public String getRecall_source() {
-        return recall_source;
-    }
-
-    public void setRecall_source(String recall_source) {
-        this.recall_source = recall_source;
     }
 
     public String getText() {
@@ -1005,12 +905,6 @@ public class Data implements Serializable {
         this.count = count;
     }
 
-    public String getFooter() {
-        return footer;
-    }
 
-    public void setFooter(String footer) {
-        this.footer = footer;
-    }
 
 }

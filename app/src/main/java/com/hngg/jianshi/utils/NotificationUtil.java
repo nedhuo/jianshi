@@ -180,7 +180,7 @@ public class NotificationUtil {
                 /*切换Map*/
                 Enumeration<Integer> keys = mOrdinaryMap.keys();
                 Integer key = keys.nextElement();
-                if (mOrdinaryMap.get(key) != null){
+                if (mOrdinaryMap.get(key) != null) {
                     Notification value = Objects.requireNonNull(mOrdinaryMap.get(key)).build();
 
                     mSuccessMap.put(key, value);

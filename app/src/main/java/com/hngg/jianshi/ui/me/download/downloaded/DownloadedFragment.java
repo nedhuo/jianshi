@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerDownloadedComponent;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.data.datebase.DbManager;
 import com.jess.arms.base.BaseFragment;
@@ -36,12 +37,12 @@ public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerDownloadedComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .downloadedModule(new DownloadedModule(this))
-//                .build()
-//                .inject(this);
+        DaggerDownloadedComponent
+                .builder()
+                .appComponent(appComponent)
+                .downloadedModule(new DownloadedModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override

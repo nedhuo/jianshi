@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerDailyComponent;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
@@ -42,12 +43,12 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerDailyComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .dailyModule(new DailyModule(this))
-//                .build()
-//                .inject(this);
+        DaggerDailyComponent
+                .builder()
+                .appComponent(appComponent)
+                .dailyModule(new DailyModule(this))
+                .build()
+                .inject(this);
     }
 
 

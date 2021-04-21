@@ -15,6 +15,7 @@ import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.download.DownloadEntity;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerDownloadingComponent;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.utils.LogUtil;
@@ -39,12 +40,12 @@ public class DownloadingFragment extends BaseFragment<DownloadingPresenter>
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerDownloadingComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .downloadingModule(new DownloadingModule(this))
-//                .build()
-//                .inject(this);
+        DaggerDownloadingComponent
+                .builder()
+                .appComponent(appComponent)
+                .downloadingModule(new DownloadingModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override

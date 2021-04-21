@@ -19,8 +19,12 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
         implements TagDetailContract.View {
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerTagDetailComponent.builder().appComponent(appComponent)
-                .tagDetailModule(new TagDetailModule(this)).build().inject(this);
+        DaggerTagDetailComponent
+                .builder()
+                .appComponent(appComponent)
+                .tagDetailModule(new TagDetailModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override

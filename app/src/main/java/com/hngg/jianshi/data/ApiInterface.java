@@ -1,5 +1,6 @@
 package com.hngg.jianshi.data;
 
+import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
 import com.hngg.jianshi.data.bean.community.CommunityRootBean;
 import com.hngg.jianshi.data.bean.discover.DisCoverRootBean;
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
@@ -65,6 +66,12 @@ public interface ApiInterface {
     @GET("api/v7/index/tab/discovery")
     Observable<DisCoverRootBean> getDisCoverData();
 
+    /**
+     * UserInfoData
+     * https://baobab.kaiyanapp.com/api/v5/userInfo/tab?id=2171&userType=PGC
+     */
+    @GET("api/v5/userInfo/tab?id=2171&userType=PGC")
+    Observable<UserInfoBean> getUserInfo();
     /**
      * tag http://baobab.kaiyanapp.com/api/v6/tag/index?id=1022&udid=9457b933f3bd434ba69e350e1112ec623fc61dee&vc=7000111&vn=7.0.11
      *

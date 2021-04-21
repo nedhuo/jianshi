@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerCommunityComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.adapter.RecyclerViewWrapper;
 import com.hngg.jianshi.utils.LogUtil;
@@ -44,12 +45,12 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerCommunityComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .communityModule(new CommunityModule(this))
-//                .build()
-//                .inject(this);
+        DaggerCommunityComponent
+                .builder()
+                .appComponent(appComponent)
+                .communityModule(new CommunityModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override

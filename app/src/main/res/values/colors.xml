@@ -18,4 +18,7 @@
 
     <color name="color_item_unpressed">#FFFFFF</color>
     <color name="color_item_pressed">#EFF2FB</color>
+
+
+    <color name="color_CCCCCC">#CCCCCC</color>
 </resources>

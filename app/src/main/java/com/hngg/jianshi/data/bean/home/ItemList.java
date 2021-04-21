@@ -13,8 +13,6 @@ public class ItemList implements Serializable {
 
     private String type;
     private Data data;
-    private String trackingData;
-    private String tag;
     private int id;
     private int adIndex;
     public void setType(String type) {
@@ -29,20 +27,6 @@ public class ItemList implements Serializable {
     }
     public Data getData() {
         return data;
-    }
-
-    public void setTrackingData(String trackingData) {
-        this.trackingData = trackingData;
-    }
-    public String getTrackingData() {
-        return trackingData;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-    public String getTag() {
-        return tag;
     }
 
     public void setId(int id) {

@@ -1,4 +1,4 @@
-package com.hngg.jianshi.data.bean;
+package com.hngg.jianshi.data.bean.userinfo;
 
 import java.util.List;
 
@@ -11,8 +11,76 @@ import java.util.List;
 public class UserInfoBean {
 
     /**
-     * tabInfo : {"tabList":[{"id":0,"name":"首页","apiUrl":"https://baobab.kaiyanapp.com/api/v5/userInfo/tab/index?id=2171&userType=PGC","tabType":0,"nameType":0,"adTrack":null},{"id":1,"name":"作品","apiUrl":"https://baobab.kaiyanapp.com/api/v4/pgcs/videoList?id=2171","tabType":0,"nameType":0,"adTrack":null},{"id":3,"name":"动态","apiUrl":"https://baobab.kaiyanapp.com/api/v5/userInfo/tab/dynamics?id=2171&userType=PGC","tabType":0,"nameType":0,"adTrack":null}],"defaultIdx":0}
-     * pgcInfo : {"dataType":"PgcInfo","id":2171,"icon":"http://img.kaiyanapp.com/0117b9108c7cff43700db8af5e24f2bf.jpeg","name":"开眼科技精选","brief":"344 个视频  /  694408 次收藏  /  469037 次分享","description":"新知识与一切先进生产力","actionUrl":"eyepetizer://pgc/detail/2171/?title=%E5%BC%80%E7%9C%BC%E7%A7%91%E6%8A%80%E7%B2%BE%E9%80%89&userType=PGC&tabIndex=1","area":"","gender":"","registDate":-1,"followCount":541053,"follow":{"itemType":"author","itemId":2171,"followed":false},"self":false,"cover":"http://img.kaiyanapp.com/000d96c25e74024a64a04b596af3b7e4.png","videoCount":344,"shareCount":469037,"collectCount":694408,"myFollowCount":0,"videoCountActionUrl":null,"myFollowCountActionUrl":null,"followCountActionUrl":null,"privateMessageActionUrl":null,"medalsNum":0,"medalsActionUrl":null,"tagNameExport":null,"worksRecCount":0,"worksSelectedCount":0,"shield":{"itemType":"author","itemId":2171,"shielded":false},"expert":false}
+     * tabInfo : {
+     *     "tabList":[
+     *         {
+     *             "id":0,
+     *             "name":"首页",
+     *             "apiUrl":"https://baobab.kaiyanapp.com/api/v5/userInfo/tab/index?id=2171&userType=PGC",
+     *             "tabType":0,
+     *             "nameType":0,
+     *             "adTrack":null
+     *         },
+     *         {
+     *             "id":1,
+     *             "name":"作品",
+     *             "apiUrl":"https://baobab.kaiyanapp.com/api/v4/pgcs/videoList?id=2171",
+     *             "tabType":0,
+     *             "nameType":0,
+     *             "adTrack":null
+     *         },
+     *         {
+     *             "id":3,
+     *             "name":"动态",
+     *             "apiUrl":"https://baobab.kaiyanapp.com/api/v5/userInfo/tab/dynamics?id=2171&userType=PGC",
+     *             "tabType":0,
+     *             "nameType":0,
+     *             "adTrack":null
+     *         }
+     *     ],
+     *     "defaultIdx":0
+     * }
+     *
+     * pgcInfo : {
+     *     "dataType":"PgcInfo",
+     *     "id":2171,
+     *     "icon":"http://img.kaiyanapp.com/0117b9108c7cff43700db8af5e24f2bf.jpeg",
+     *     "name":"开眼科技精选",
+     *     "brief":"344 个视频  /  694218 次收藏  /  468891 次分享",
+     *     "description":"新知识与一切先进生产力",
+     *     "actionUrl":"eyepetizer://pgc/detail/2171/?title=%E5%BC%80%E7%9C%BC%E7%A7%91%E6%8A%80%E7%B2%BE%E9%80%89&userType=PGC&tabIndex=1",
+     *     "area":"",
+     *     "gender":"",
+     *     "registDate":-1,
+     *     "followCount":541044,
+     *     "follow":{
+     *         "itemType":"author",
+     *         "itemId":2171,
+     *         "followed":false
+     *     },
+     *     "self":false,
+     *     "cover":"http://img.kaiyanapp.com/000d96c25e74024a64a04b596af3b7e4.png",
+     *     "videoCount":344,
+     *     "shareCount":468891,
+     *     "collectCount":694218,
+     *     "myFollowCount":0,
+     *     "videoCountActionUrl":null,
+     *     "myFollowCountActionUrl":null,
+     *     "followCountActionUrl":null,
+     *     "privateMessageActionUrl":null,
+     *     "medalsNum":0,
+     *     "medalsActionUrl":null,
+     *     "tagNameExport":null,
+     *     "worksRecCount":0,
+     *     "worksSelectedCount":0,
+     *     "shield":{
+     *         "itemType":"author",
+     *         "itemId":2171,
+     *         "shielded":false
+     *     },
+     *     "expert":false
+     * }
+     *
      */
 
     private TabInfoBean tabInfo;
