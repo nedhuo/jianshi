@@ -131,7 +131,9 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
             }
         });
 
-
+        mTitleList.add("SHOUYE");
+        mTitleList.add("SHOUYE");
+        mTitleList.add("SHOUYE");
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {

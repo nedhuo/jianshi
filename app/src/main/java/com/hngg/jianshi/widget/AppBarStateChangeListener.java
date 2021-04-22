@@ -24,7 +24,7 @@ public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffset
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        int totalOffset = 900;
+        int totalOffset = 870;
         float precent = Math.abs(verticalOffset) / totalOffset;
         float alpha = Math.round(precent * 255);
         setToolBarAlpha(alpha);
