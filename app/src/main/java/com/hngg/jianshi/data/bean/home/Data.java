@@ -3,6 +3,7 @@ package com.hngg.jianshi.data.bean.home;
 import com.hngg.jianshi.data.bean.community.Owner;
 import com.hngg.jianshi.data.bean.recommend.Content;
 import com.hngg.jianshi.data.bean.reply.User;
+import com.hngg.jianshi.data.bean.userinfo.BriefCard;
 
 import java.io.Serializable;
 import java.util.List;
@@ -118,7 +119,25 @@ public class Data implements Serializable {
     private String ugcVideoUrl;
     private boolean userBlocked;
     private String sid;
+    private String dynamicType; //follow
+    private BriefCard briefCard;
 
+
+    public String getDynamicType() {
+        return dynamicType;
+    }
+
+    public void setDynamicType(String dynamicType) {
+        this.dynamicType = dynamicType;
+    }
+
+    public BriefCard getBriefCard() {
+        return briefCard;
+    }
+
+    public void setBriefCard(BriefCard briefCard) {
+        this.briefCard = briefCard;
+    }
 
     public long getVideoId() {
         return videoId;
@@ -904,7 +923,6 @@ public class Data implements Serializable {
     public void setCount(int count) {
         this.count = count;
     }
-
 
 
 }

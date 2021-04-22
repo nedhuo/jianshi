@@ -10,7 +10,7 @@ import java.util.List;
  * @Author: nedhuo
  * @Data:
  */
-public class UserInfo_First_Bean implements Serializable {
+public class UserInfo_HomeBean implements Serializable {
     private List<ItemList> itemList;
     private int count;
     private int total;

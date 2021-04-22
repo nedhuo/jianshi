@@ -108,8 +108,7 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
         });
         magicIndicator.setNavigator(commonNavigator);
 
-        List<Fragment> fragments;
-        fragments = new ArrayList<>();
+        List<Fragment> fragments = new ArrayList<>();
         fragments.add(new DownloadingFragment());
         fragments.add(new DownloadedFragment());
 

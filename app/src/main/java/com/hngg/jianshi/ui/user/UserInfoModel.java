@@ -3,9 +3,9 @@ package com.hngg.jianshi.ui.user;
 import com.hngg.jianshi.data.ApiInterface;
 import com.hngg.jianshi.data.KaiYanHttpUtil;
 import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
-import com.hngg.jianshi.data.bean.userinfo.UserInfo_Dynamic_Bean;
-import com.hngg.jianshi.data.bean.userinfo.UserInfo_First_Bean;
-import com.hngg.jianshi.data.bean.userinfo.UserInfo_Works_Bean;
+import com.hngg.jianshi.data.bean.userinfo.UserInfo_DynamicBean;
+import com.hngg.jianshi.data.bean.userinfo.UserInfo_HomeBean;
+import com.hngg.jianshi.data.bean.userinfo.UserInfo_WorksBean;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
@@ -39,16 +39,21 @@ public class UserInfoModel extends BaseModel implements UserInfoContract.Model {
                 .compose(mHttpUtil.applySchedulers());
     }
 
-    ObservableSource<UserInfo_First_Bean> onRefreshFirstData(String s) {
-        return null;
+    ObservableSource<UserInfo_HomeBean> onRefreshHomeData(String s) {
+        return  mHttpUtil.getService(ApiInterface.class)
+                .getUserInfo_Home()
+                .compose(mHttpUtil.applySchedulers());
     }
 
-    ObservableSource<UserInfo_Works_Bean> onRefreshWorksData(String s) {
-        return null;
+    ObservableSource<UserInfo_WorksBean> onRefreshWorksData(String s) {
+        return  mHttpUtil.getService(ApiInterface.class)
+                .getUserInfo_Works()
+                .compose(mHttpUtil.applySchedulers());
     }
 
-    public ObservableSource<UserInfo_Dynamic_Bean> onRefreshDynamicData(String s) {
-
-        return null;
+    public ObservableSource<UserInfo_DynamicBean> onRefreshDynamicData(String s) {
+        return  mHttpUtil.getService(ApiInterface.class)
+                .getUserInfo_Dynamics()
+                .compose(mHttpUtil.applySchedulers());
     }
 }
