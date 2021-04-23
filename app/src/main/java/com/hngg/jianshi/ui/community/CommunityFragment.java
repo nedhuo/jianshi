@@ -63,6 +63,7 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
     public void initData(@Nullable Bundle savedInstanceState) {
         if (mPresenter == null) {
             LogUtil.e(TAG, "mPresenter为null");
+            return;
         }
         //init 刷新控件
         mRefreshLayout.setRefreshHeader(mClassicsHeader);

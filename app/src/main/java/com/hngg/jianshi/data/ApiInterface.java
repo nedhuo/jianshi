@@ -1,16 +1,15 @@
 package com.hngg.jianshi.data;
 
-import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
 import com.hngg.jianshi.data.bean.community.CommunityRootBean;
 import com.hngg.jianshi.data.bean.discover.DisCoverRootBean;
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.recommend.RecommendRootBean;
 import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
+import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
 import com.hngg.jianshi.data.bean.userinfo.UserInfo_DynamicBean;
 import com.hngg.jianshi.data.bean.userinfo.UserInfo_HomeBean;
 import com.hngg.jianshi.data.bean.userinfo.UserInfo_WorksBean;
-
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -78,25 +77,34 @@ public interface ApiInterface {
 
     /**
      * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/index?id=2171&userType=PGC
+     * @param url
      */
     @GET("api/v5/userInfo/tab/index?id=2171&userType=PGC")
-    Observable<UserInfo_HomeBean> getUserInfo_Home();
+    Observable<UserInfo_HomeBean> getUserInfo_Home(String url);
+
+    @GET()
+    Observable<UserInfo_HomeBean> getUserInfo_NextHome(String url);
+
     /**
      * https://baobab.kaiyanapp.com/api/v4/pgcs/videoList?id=2171
      * nextpage https://baobab.kaiyanapp.com/api/v4/pgcs/videoList?start=10&num=10&id=2171&strategy=date
      */
     @GET("api/v4/pgcs/videoList?id=2171")
     Observable<UserInfo_WorksBean> getUserInfo_Works();
+
+    @GET()
+    Observable<UserInfo_DynamicBean> getUserInfo_NextWorks(String url);
+
     /**
      * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/dynamics?id=2171&userType=PGC
      * nextPage https://baobab.kaiyanapp.com/api/v5/userInfo/tab/dynamics?start=10&num=10&id=2171&userType=PGC
+     * @param url
      */
     @GET("api/v5/userInfo/tab/dynamics?id=2171&userType=PGC")
-    Observable<UserInfo_DynamicBean> getUserInfo_Dynamics();
+    Observable<UserInfo_DynamicBean> getUserInfo_Dynamics(String url);
 
-
-
-
+    @GET()
+    Observable<UserInfo_DynamicBean> getUserInfo_NextDynamics(String url);
 
 
     /**

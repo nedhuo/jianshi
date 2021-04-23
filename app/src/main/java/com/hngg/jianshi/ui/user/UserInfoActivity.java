@@ -22,7 +22,9 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerUserInfoComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
-import com.hngg.jianshi.data.bean.userinfo.UserInfo_HomeBean;
+import com.hngg.jianshi.ui.user.dynamic.UserInfo_DynamicFragment;
+import com.hngg.jianshi.ui.user.home.UserInfo_HomeFragment;
+import com.hngg.jianshi.ui.user.works.UserInfo_WorksFragment;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.jianshi.widget.AppBarStateChangeListener;
@@ -131,62 +133,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
             }
         });
 
-        mTitleList.add("SHOUYE");
-        mTitleList.add("SHOUYE");
-        mTitleList.add("SHOUYE");
-        CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdjustMode(true);
-        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
 
-            @Override
-            public int getCount() {
-                return mTitleList.size();
-            }
-
-            @Override
-            public IPagerTitleView getTitleView(Context context, final int index) {
-                ColorTransitionPagerTitleView titleView =
-                        new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.GRAY);
-                titleView.setSelectedColor(Color.BLACK);
-                titleView.setText(mTitleList.get(index));
-                titleView.setTextSize(14F);
-                //   titleView.setTypeface(Typeface.DEFAULT_BOLD);
-
-                titleView.setOnClickListener(view ->
-                        mViewPager.setCurrentItem(index));
-                return titleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
-                return indicator;
-            }
-        });
-        magicIndicator.setNavigator(commonNavigator);
-
-        List<Fragment> fragments = new ArrayList<>();
-
-        fragments.add(new UserInfo_HomeFragment());
-        fragments.add(new UserInfo_HomeFragment());
-        fragments.add(new UserInfo_HomeFragment());
-
-        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
-                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
-
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
-        });
-        ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
 
     @Override
@@ -221,16 +168,85 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
     public void setTabPageData(String title, List<ItemList> itemLists) {
         mTitleList.add(title);
         mDataList.add(itemLists);
-//        if (title.equals("首页")) {
-//            mTitleList.set(0, title);
-//            mDataList.set(0, itemLists);
-//        } else if (title.equals("作品")) {
-//            mTitleList.set(1, title);
-//            mDataList.set(1, itemLists);
-//        } else {
-//            mTitleList.set(2, title);
-//            mDataList.set(2, itemLists);
-//        }
+        if (mTitleList.size() == 3 & mDataList.size() == 3) {
+            loadFragments();
+        }
+    }
 
+    private void loadFragments() {
+
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new Fragment());
+        fragments.add(new Fragment());
+        fragments.add(new Fragment());
+        ArrayList<String> titleList = new ArrayList<>(mTitleList);
+
+        int index = 0;
+        for (String title : titleList) {
+            if (title.equals("首页")) {
+                UserInfo_HomeFragment userInfo_homeFragment = new UserInfo_HomeFragment();
+                userInfo_homeFragment.setData(mDataList.get(index));
+                mTitleList.set(0, title);
+                fragments.set(0, userInfo_homeFragment);
+            } else if (title.equals("作品")) {
+                UserInfo_WorksFragment userInfo_worksFragment = new UserInfo_WorksFragment();
+                userInfo_worksFragment.setData(mDataList.get(index));
+                mTitleList.set(1, title);
+                fragments.set(1, userInfo_worksFragment);
+            } else if (title.equals("动态")) {
+                UserInfo_DynamicFragment userInfo_dynamicFragment = new UserInfo_DynamicFragment();
+                userInfo_dynamicFragment.setData(mDataList.get(index));
+                mTitleList.set(2, title);
+                fragments.set(2, userInfo_dynamicFragment);
+            }
+            index++;
+        }
+        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
+                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+        });
+
+        CommonNavigator commonNavigator = new CommonNavigator(this);
+        commonNavigator.setAdjustMode(true);
+        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+
+            @Override
+            public int getCount() {
+                return mTitleList.size();
+            }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, final int index) {
+                ColorTransitionPagerTitleView titleView =
+                        new ColorTransitionPagerTitleView(context);
+                titleView.setNormalColor(Color.GRAY);
+                titleView.setSelectedColor(Color.BLACK);
+                titleView.setText(mTitleList.get(index));
+                titleView.setTextSize(14F);
+                //   titleView.setTypeface(Typeface.DEFAULT_BOLD);
+                titleView.setOnClickListener(view ->
+                        mViewPager.setCurrentItem(index));
+                return titleView;
+            }
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
+                return indicator;
+            }
+        });
+        magicIndicator.setNavigator(commonNavigator);
+
+        ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
 }

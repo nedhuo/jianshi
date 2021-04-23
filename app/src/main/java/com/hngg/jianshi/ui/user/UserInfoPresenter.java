@@ -25,14 +25,13 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.Model, Use
     private List<String> mUrlList;
 
     @Inject
-    UserInfoPresenter(UserInfoContract.Model model, UserInfoContract.View rootView) {
+    public UserInfoPresenter(UserInfoContract.Model model, UserInfoContract.View rootView) {
         super(model, rootView);
         mRootView = (UserInfoActivity) rootView;
         mModel = (UserInfoModel) model;
         mTitleList = new ArrayList<>();
         mUrlList = new ArrayList<>();
     }
-
 
     public void initData() {
         mModel.refresh()

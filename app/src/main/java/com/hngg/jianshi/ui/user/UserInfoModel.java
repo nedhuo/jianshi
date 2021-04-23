@@ -41,7 +41,7 @@ public class UserInfoModel extends BaseModel implements UserInfoContract.Model {
 
     ObservableSource<UserInfo_HomeBean> onRefreshHomeData(String s) {
         return  mHttpUtil.getService(ApiInterface.class)
-                .getUserInfo_Home()
+                .getUserInfo_Home(url)
                 .compose(mHttpUtil.applySchedulers());
     }
 
@@ -53,7 +53,7 @@ public class UserInfoModel extends BaseModel implements UserInfoContract.Model {
 
     public ObservableSource<UserInfo_DynamicBean> onRefreshDynamicData(String s) {
         return  mHttpUtil.getService(ApiInterface.class)
-                .getUserInfo_Dynamics()
+                .getUserInfo_Dynamics(url)
                 .compose(mHttpUtil.applySchedulers());
     }
 }

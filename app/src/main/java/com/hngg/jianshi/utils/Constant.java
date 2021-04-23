@@ -23,7 +23,17 @@ public class Constant {
     public static final String PICTURE_BEAN = "ugcBean";
     public static final String PICTURE_BUNDLE = "ugcBundle";
 
+    public static final String USERINFO_BEAN = "videoBean";
+    public static final String USERINFO_BUNDLE = "videoBundle";
 
+    public static final String USERINFO_HOME_BEAN = "videoBean";
+    public static final String USERINFO_HOME_BUNDLE = "videoBundle";
+
+    public static final String USERINFO_WORKS_BEAN = "videoBean";
+    public static final String USERINFO_WORKS_BUNDLE = "videoBundle";
+
+    public static final String USERINFO_DYNAMIC_BEAN = "videoBean";
+    public static final String USERINFO_DYNAMIC_BUNDLE = "videoBundle";
     /**
      * SharedPrefenerce
      */
