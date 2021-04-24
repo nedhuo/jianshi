@@ -270,7 +270,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
                 mPresenter.onDownloadVideo(mVideoData);
                 break;
             case R.id.iv_share:
-                mPresenter.onShare();
+                mPresenter.onShare(mVideoData.getWebUrl().getRaw());
                 break;
             default:
         }

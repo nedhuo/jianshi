@@ -10,14 +10,14 @@ import com.arialyy.aria.core.Aria;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
-import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
+import com.hngg.jianshi.data.datebase.DbManager;
 import com.hngg.jianshi.service.DownloadService;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 import com.hngg.jianshi.utils.DownloadUtil;
+import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.mvp.BasePresenter;
-
 
 import javax.inject.Inject;
 
@@ -123,7 +123,7 @@ public class VideoDetailPresenter extends BasePresenter {
         Intent intent = new Intent(mRootView, DownloadService.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mRootView.startForegroundService(intent);
-        }else {
+        } else {
             mRootView.startService(intent);
         }
 
@@ -144,7 +144,21 @@ public class VideoDetailPresenter extends BasePresenter {
     }
 
 
-    public void onShare() {
+    public void onShare(String raw) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setType("text/plain");//设置分享的格式
+//        if (mRootView.getPackageName() != null)
+//            intent.setPackage(mRootView.getPackageName());
+        intent.putExtra(Intent.EXTRA_TEXT, raw);
+        //需要使用Intent.createChooser，否则会出现别样的应用选择框，您可以试试
+        intent = Intent.createChooser(intent, "Share To");
+        try {
+            mRootView.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtil.e(TAG,"sysShareText Exception:" + e.getMessage());
+        }
 
     }
 }
