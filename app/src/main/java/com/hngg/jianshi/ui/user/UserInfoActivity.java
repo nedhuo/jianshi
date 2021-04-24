@@ -5,12 +5,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -25,6 +25,7 @@ import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
 import com.hngg.jianshi.ui.user.dynamic.UserInfo_DynamicFragment;
 import com.hngg.jianshi.ui.user.home.UserInfo_HomeFragment;
 import com.hngg.jianshi.ui.user.works.UserInfo_WorksFragment;
+import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.jianshi.widget.AppBarStateChangeListener;
@@ -78,14 +79,16 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
     MagicIndicator magicIndicator;
     @BindView(R.id.app_bar)
     AppBarLayout appBar;
-    @BindView(R.id.toolBar)
-    Toolbar toolBar;
     @BindView(R.id.coordinator)
     CoordinatorLayout coordinator;
     @BindView(R.id.vp_userInfo)
     ViewPager mViewPager;
+    @BindView(R.id.ib_back)
+    ImageButton mIbBack;
+
     private List<String> mTitleList;
     private List<List<ItemList>> mDataList;
+    private List<String> mUrlList;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -108,6 +111,10 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+
+        mTitleList = new ArrayList<>();
+        mDataList = new ArrayList<>();
+        mUrlList = new ArrayList<>();
     }
 
     @Override
@@ -116,9 +123,12 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
             LogUtil.e(TAG, "mPresenter为null");
             return;
         }
-        mTitleList = new ArrayList<>();
-        mDataList = new ArrayList<>();
+
         mPresenter.initData();
+
+        mIbBack.setOnClickListener(v -> {
+            onBackPressed();
+        });
     }
 
     @Override
@@ -128,8 +138,12 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
         appBar.addOnOffsetChangedListener(new AppBarStateChangeListener(coordinator) {
             @Override
             public void setToolBarAlpha(float alpha) {
-                toolBar.setAlpha(alpha);
-                LogUtil.d(TAG, "ALPHA更新");
+                if (mIbBack != null) {
+                    mIbBack.setAlpha(1 - alpha);
+                    LogUtil.d(TAG, "ALPHA更新" + alpha);
+                } else {
+                    LogUtil.e(TAG, "mIbBack为null");
+                }
             }
         });
 
@@ -165,55 +179,40 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
     }
 
 
-    public void setTabPageData(String title, List<ItemList> itemLists) {
+    public void setTabPageData(String url, String title) {
         mTitleList.add(title);
-        mDataList.add(itemLists);
-        if (mTitleList.size() == 3 & mDataList.size() == 3) {
+        mUrlList.add(url);
+        LogUtil.i(TAG, "数据长度" + mTitleList.size() + ":" + mUrlList.size());
+        if (mTitleList.size() == 3 && mUrlList.size() == 3) {
             loadFragments();
         }
     }
 
     private void loadFragments() {
-
+        Bundle bundle;
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new Fragment());
-        fragments.add(new Fragment());
-        fragments.add(new Fragment());
-        ArrayList<String> titleList = new ArrayList<>(mTitleList);
 
-        int index = 0;
-        for (String title : titleList) {
-            if (title.equals("首页")) {
-                UserInfo_HomeFragment userInfo_homeFragment = new UserInfo_HomeFragment();
-                userInfo_homeFragment.setData(mDataList.get(index));
-                mTitleList.set(0, title);
-                fragments.set(0, userInfo_homeFragment);
-            } else if (title.equals("作品")) {
-                UserInfo_WorksFragment userInfo_worksFragment = new UserInfo_WorksFragment();
-                userInfo_worksFragment.setData(mDataList.get(index));
-                mTitleList.set(1, title);
-                fragments.set(1, userInfo_worksFragment);
-            } else if (title.equals("动态")) {
-                UserInfo_DynamicFragment userInfo_dynamicFragment = new UserInfo_DynamicFragment();
-                userInfo_dynamicFragment.setData(mDataList.get(index));
-                mTitleList.set(2, title);
-                fragments.set(2, userInfo_dynamicFragment);
-            }
-            index++;
-        }
-        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
-                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
 
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
-        });
+        UserInfo_HomeFragment userInfo_homeFragment = new UserInfo_HomeFragment();
+        bundle = new Bundle();
+        bundle.putStringArray(Constant.USERINFO_HOME_BEAN,
+                new String[]{mTitleList.get(0), mUrlList.get(0)});
+        userInfo_homeFragment.setArguments(bundle);
+        fragments.add(userInfo_homeFragment);
+
+        UserInfo_WorksFragment userInfo_worksFragment = new UserInfo_WorksFragment();
+        bundle = new Bundle();
+        bundle.putStringArray(Constant.USERINFO_WORKS_BEAN,
+                new String[]{mTitleList.get(1), mUrlList.get(1)});
+        userInfo_worksFragment.setArguments(bundle);
+        fragments.add(userInfo_worksFragment);
+
+        UserInfo_DynamicFragment userInfo_dynamicFragment = new UserInfo_DynamicFragment();
+        bundle = new Bundle();
+        bundle.putStringArray(Constant.USERINFO_DYNAMIC_BEAN,
+                new String[]{mTitleList.get(2), mUrlList.get(2)});
+        userInfo_dynamicFragment.setArguments(bundle);
+        fragments.add(userInfo_dynamicFragment);
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
@@ -246,6 +245,20 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
             }
         });
         magicIndicator.setNavigator(commonNavigator);
+        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
+                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+            @NonNull
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+        });
+
 
         ViewPagerHelper.bind(magicIndicator, mViewPager);
     }

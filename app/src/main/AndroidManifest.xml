@@ -37,6 +37,7 @@
         <activity
             android:name=".ui.video.VideoDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.community.UgcPictureActivity" />
         <activity
@@ -47,8 +48,12 @@
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.me.download.DownloadActivity" />
         <activity android:name=".ui.calender.CalenderActivity" />
-        <activity android:name=".ui.user.UserInfoActivity" />
-        <activity android:name=".ui.tag.TagDetailActivity" />
+        <activity
+            android:name=".ui.user.UserInfoActivity"
+            android:launchMode="singleInstance"></activity>
+        <activity
+            android:name=".ui.tag.TagDetailActivity"
+            android:launchMode="singleInstance" />
 
         <service android:name=".service.DownloadService" />
     </application>

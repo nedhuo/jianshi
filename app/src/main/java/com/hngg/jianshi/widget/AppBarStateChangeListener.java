@@ -25,10 +25,17 @@ public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffset
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         int totalOffset = 870;
-        float precent = Math.abs(verticalOffset) / totalOffset;
-        float alpha = Math.round(precent * 255);
+        float precent = Math.abs(verticalOffset) * 1F / totalOffset;
+
+        float alpha = aa(precent);
         setToolBarAlpha(alpha);
         LogUtil.i(TAG, "verticalOffset" + verticalOffset);
+    }
+
+    float aa(float percent) {
+        if (percent > 1)
+            return aa(percent / 10);
+        else return percent;
     }
 
 

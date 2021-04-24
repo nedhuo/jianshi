@@ -77,34 +77,36 @@ public interface ApiInterface {
 
     /**
      * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/index?id=2171&userType=PGC
+     *
      * @param url
      */
-    @GET("api/v5/userInfo/tab/index?id=2171&userType=PGC")
-    Observable<UserInfo_HomeBean> getUserInfo_Home(String url);
+    @GET()
+    Observable<UserInfo_HomeBean> getUserInfo_Home(@Url String url);
 
     @GET()
-    Observable<UserInfo_HomeBean> getUserInfo_NextHome(String url);
+    Observable<UserInfo_HomeBean> getUserInfo_NextHome(@Url String url);
 
     /**
      * https://baobab.kaiyanapp.com/api/v4/pgcs/videoList?id=2171
      * nextpage https://baobab.kaiyanapp.com/api/v4/pgcs/videoList?start=10&num=10&id=2171&strategy=date
      */
-    @GET("api/v4/pgcs/videoList?id=2171")
-    Observable<UserInfo_WorksBean> getUserInfo_Works();
+    @GET()
+    Observable<UserInfo_WorksBean> getUserInfo_Works(@Url String url);
 
     @GET()
-    Observable<UserInfo_DynamicBean> getUserInfo_NextWorks(String url);
+    Observable<UserInfo_DynamicBean> getUserInfo_NextWorks(@Url String url);
 
     /**
      * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/dynamics?id=2171&userType=PGC
      * nextPage https://baobab.kaiyanapp.com/api/v5/userInfo/tab/dynamics?start=10&num=10&id=2171&userType=PGC
+     *
      * @param url
      */
-    @GET("api/v5/userInfo/tab/dynamics?id=2171&userType=PGC")
-    Observable<UserInfo_DynamicBean> getUserInfo_Dynamics(String url);
+    @GET()
+    Observable<UserInfo_DynamicBean> getUserInfo_Dynamics(@Url String url);
 
     @GET()
-    Observable<UserInfo_DynamicBean> getUserInfo_NextDynamics(String url);
+    Observable<UserInfo_DynamicBean> getUserInfo_NextDynamics(@Url String url);
 
 
     /**
