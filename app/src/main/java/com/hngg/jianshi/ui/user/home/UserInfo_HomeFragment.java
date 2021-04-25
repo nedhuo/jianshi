@@ -14,6 +14,7 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerUserInfo_HomeComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.widget.RVWrapperWidget;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
@@ -39,6 +40,7 @@ public class UserInfo_HomeFragment extends BaseFragment<UserInfo_HomePresenter> 
     private List<ItemList> mDataList = new ArrayList<>();
     private String mDataUrl;
     private UserInfo_HomeAdapter mAdapter;
+    private RVWrapperWidget<UserInfo_HomeAdapter> mAdapterWrapper;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -77,9 +79,12 @@ public class UserInfo_HomeFragment extends BaseFragment<UserInfo_HomePresenter> 
         mRefreshLayout.autoRefresh();
 
         mAdapter = new UserInfo_HomeAdapter(getActivity());
+        mAdapterWrapper = new RVWrapperWidget<>(mAdapter, getActivity());
+        mAdapterWrapper.addHeaderView(new View(getActivity()));
+        mAdapterWrapper.addHeaderView(new View(getActivity()));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapterWrapper);
 
     }
 
@@ -88,6 +93,12 @@ public class UserInfo_HomeFragment extends BaseFragment<UserInfo_HomePresenter> 
     }
 
     public void setRvData(List<ItemList> itemList, boolean isUpdate) {
+        if (isUpdate){
+            ArrayList<ItemList> list = new ArrayList<>();
+            list.add(itemList.remove(0));
+            list.add(itemList.remove(0));
+            mAdapterWrapper.setData(list,true);
+        }
         mAdapter.setData(itemList, isUpdate);
     }
 }

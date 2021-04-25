@@ -18,7 +18,6 @@ import com.hngg.jianshi.ui.viewholder.BannerViewHolder;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.youth.banner.adapter.BannerAdapter;
 import com.youth.banner.indicator.CircleIndicator;
-import com.youth.banner.transformer.AlphaPageTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +33,11 @@ import java.util.List;
  * <p>
  * 这个封装类是CommunityFragment定制的，不通用
  */
-public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerViewWrapper<T extends RecyclerView.Adapter> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int BASE_HEADER_ID = 100;
     private static final int BASE_FOOTER_ID = 200;
-    private final CommunityAdapter mAdapter;
+    private final T mAdapter;
     private final Activity mCtx;
     //SparseArray(稀疏数组)，4.4以上，SparseArrayCompat是为了兼容低版本的存在
     // 在Android内部用来替代HashMap<Integer,E>
@@ -46,8 +45,8 @@ public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
     private SparseArrayCompat<View> mFooterViews = new SparseArrayCompat<>();
     private List<ItemList> mItemList;
 
-    public RecyclerViewWrapper(RecyclerView.Adapter adapter, Activity ctx) {
-        mAdapter = (CommunityAdapter) adapter;
+    public RecyclerViewWrapper(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, Activity ctx) {
+        mAdapter = (T) adapter;
         mCtx = ctx;
         mItemList = new ArrayList<>();
     }
@@ -167,7 +166,7 @@ public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
         int position = holder.getLayoutPosition();
         if (isHeaderView(position)) {
             ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-            if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+            if ( lp instanceof StaggeredGridLayoutManager.LayoutParams) {
                 StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
                 p.setFullSpan(true);
             }
@@ -177,12 +176,9 @@ public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
     public void setData(List<ItemList> data, boolean isUpdate) {
         if (isUpdate) {
             mItemList.clear();
-
-            mItemList.add(data.remove(0));
-            mItemList.add(data.remove(0));
+            mItemList.addAll(data);
         }
-        mAdapter.setData(data, isUpdate);
-        mAdapter.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
 
@@ -194,31 +190,10 @@ public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
         final static int ITEM_COLLECTION_ID = 2;
     }
 
-    private class CommunityContentViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView iv_content1;
-        private final ImageView iv_content2;
-        private final TextView tv_title1;
-        private final TextView tv_title2;
-        private final TextView tv_desc1;
-        private final TextView tv_desc2;
-
-        public CommunityContentViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            iv_content1 = itemView.findViewById(R.id.iv_content1);
-            iv_content2 = itemView.findViewById(R.id.iv_content2);
-
-            tv_title1 = itemView.findViewById(R.id.tv_title1);
-            tv_title2 = itemView.findViewById(R.id.tv_title2);
-
-            tv_desc1 = itemView.findViewById(R.id.tv_desc1);
-            tv_desc2 = itemView.findViewById(R.id.tv_desc2);
-        }
-    }
 
     private class BannerViewAdapter extends BannerAdapter<ItemList, BannerViewAdapter.BannerItemViewHolder> {
-        public BannerViewAdapter(List<ItemList> datas) {
+        BannerViewAdapter(List<ItemList> datas) {
             super(datas);
         }
 
@@ -242,11 +217,33 @@ public class RecyclerViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
         class BannerItemViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
 
-            public BannerItemViewHolder(@NonNull ImageView view) {
+            BannerItemViewHolder(@NonNull ImageView view) {
                 super(view);
                 this.imageView = view;
             }
         }
     }
 
+}
+class CommunityContentViewHolder extends RecyclerView.ViewHolder {
+
+    public final ImageView iv_content1;
+    public final ImageView iv_content2;
+    public final TextView tv_title1;
+    public final TextView tv_title2;
+    public final TextView tv_desc1;
+    public final TextView tv_desc2;
+
+    CommunityContentViewHolder(@NonNull View itemView) {
+        super(itemView);
+
+        iv_content1 = itemView.findViewById(R.id.iv_content1);
+        iv_content2 = itemView.findViewById(R.id.iv_content2);
+
+        tv_title1 = itemView.findViewById(R.id.tv_title1);
+        tv_title2 = itemView.findViewById(R.id.tv_title2);
+
+        tv_desc1 = itemView.findViewById(R.id.tv_desc1);
+        tv_desc2 = itemView.findViewById(R.id.tv_desc2);
+    }
 }

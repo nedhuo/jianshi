@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerCommunityComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
+import com.hngg.jianshi.ui.adapter.CommunityAdapter;
 import com.hngg.jianshi.ui.adapter.RecyclerViewWrapper;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
@@ -21,6 +22,7 @@ import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,8 +43,8 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
     ClassicsFooter mClassicsFooter;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
-    private RecyclerViewWrapper mAdapter;
-
+    private RecyclerViewWrapper<CommunityAdapter> mAdapterWrapper;
+    private CommunityAdapter mCommunityAdapter;
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
         DaggerCommunityComponent
@@ -77,7 +79,8 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
             mPresenter.getCommunityData(false);
         });
 
-        mPresenter.initRecyclerView();
+        initRecyclerView();
+
         mPresenter.getCommunityData(true);
     }
 
@@ -87,8 +90,14 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
 
 
     public void setData(List<ItemList> data, boolean isUpdate) {
-        mAdapter.setData(data, isUpdate);
-        mAdapter.notifyDataSetChanged();
+        if (isUpdate){
+            List<ItemList> wrapperData = new ArrayList<>();
+            wrapperData.add(data.remove(0));
+            wrapperData.add(data.remove(0));
+            mAdapterWrapper.setData(wrapperData,isUpdate);
+        }
+        mCommunityAdapter.setData(data, isUpdate);
+
         if (isUpdate && mRefreshLayout.isRefreshing()) {
             mRefreshLayout.finishRefresh();
         } else if (mRefreshLayout.isLoading()) {
@@ -108,17 +117,21 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
         mRefreshLayout.setNoMoreData(true);
     }
 
-    public void initRecyclerView(StaggeredGridLayoutManager layoutManager, RecyclerViewWrapper adapter) {
-        mAdapter = adapter;
+    public void initRecyclerView() {
+        StaggeredGridLayoutManager manager =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mCommunityAdapter = new CommunityAdapter(getActivity());
+        mAdapterWrapper = new RecyclerViewWrapper<>(mCommunityAdapter,getActivity());
+
         //添加头部View
         View headerView1 = LayoutInflater.from(this.getContext())
                 .inflate(R.layout.item_community_content, null, false);
         View headerView2 = LayoutInflater.from(this.getContext())
                 .inflate(R.layout.item_community_banner, null, false);
-        mAdapter.addHeaderView(headerView1);
-        mAdapter.addHeaderView(headerView2);
-        mRv_community.setLayoutManager(layoutManager);
-        mRv_community.setAdapter(adapter);
+        mAdapterWrapper.addHeaderView(headerView1);
+        mAdapterWrapper.addHeaderView(headerView2);
+        mRv_community.setLayoutManager(manager);
+        mRv_community.setAdapter(mAdapterWrapper);
 
         /*不能使用new TabLayout.Tab */
 //        TabLayout.Tab tab = mTabLayout.newTab();

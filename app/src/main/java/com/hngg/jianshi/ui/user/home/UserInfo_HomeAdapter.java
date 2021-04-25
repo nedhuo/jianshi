@@ -39,25 +39,27 @@ class UserInfo_HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        ItemList itemList = mDataList.get(position);
-        if (itemList.getType().equals(DataType.VIDEO_COLLECTION_HORIZONTAL_SCROLL_CARD)) {
-            return DataType.VIDEO_COLLECTION_HORIZONTAL_SCROLL_ID;
-        } else if (itemList.getType().equals(DataType.VIDEO_CARD)) {
-            return DataType.VIDEO_CARD_ID;
-        } else if (itemList.getType().equals(DataType.TEXT_HEADER)) {
-            //todo 待实现
-            return DataType.TEXT_HEADER_ID;
-        } else if (itemList.getType().equals(DataType.TEXT_FOOTER)) {
-            return DataType.TEXT_FOOTER_ID;
-        } else if (itemList.getType().equals(DataType.VIDEO_COLLECTION_BRIEF)) {
-            return DataType.VIDEO_COLLECTION_BRIEF_ID;
-        } else if (itemList.getType().equals(DataType.BRIEF_CARD)) {
-            return DataType.BRIEF_CARD_ID;
-        } else {
-            LogUtil.i(TAG, "mAdapter存在超出管理范围的数据存在");
-            return 12121;
+        if (mDataList.size() > 0) {
+            ItemList itemList = mDataList.get(position);
+            if (itemList.getType().equals(DataType.VIDEO_COLLECTION_HORIZONTAL_SCROLL_CARD)) {
+                return DataType.VIDEO_COLLECTION_HORIZONTAL_SCROLL_ID;
+            } else if (itemList.getType().equals(DataType.VIDEO_CARD)) {
+                return DataType.VIDEO_CARD_ID;
+            } else if (itemList.getType().equals(DataType.TEXT_HEADER)) {
+                //todo 待实现
+                return DataType.TEXT_HEADER_ID;
+            } else if (itemList.getType().equals(DataType.TEXT_FOOTER)) {
+                return DataType.TEXT_FOOTER_ID;
+            } else if (itemList.getType().equals(DataType.VIDEO_COLLECTION_BRIEF)) {
+                return DataType.VIDEO_COLLECTION_BRIEF_ID;
+            } else if (itemList.getType().equals(DataType.BRIEF_CARD)) {
+                return DataType.BRIEF_CARD_ID;
+            } else {
+                LogUtil.i(TAG, "mAdapter存在超出管理范围的数据存在");
+                return DataType.OTHER_ID;
+            }
         }
-
+        return -1;
     }
 
     @NonNull

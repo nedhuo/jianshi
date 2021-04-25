@@ -142,6 +142,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void setData(List<ItemList> data, boolean isUpdate) {
         if (isUpdate) mItemList.clear();
         mItemList.addAll(data);
+        notifyDataSetChanged();
     }
 
 
