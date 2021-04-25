@@ -22,7 +22,7 @@ public class UserInfo_WorksPresenter extends BasePresenter {
         mHttpUtil = new KaiYanHttpUtil();
     }
 
-    void onRefresh(String url) {
+    void onRefresh(String url, RefreshLayout refreshlayout) {
         String worksUrl = url;
         if (url.contains(KaiYanApi.baseHttpUrl)) {
             worksUrl = worksUrl.replace(KaiYanApi.baseHttpUrl, "");
@@ -33,13 +33,14 @@ public class UserInfo_WorksPresenter extends BasePresenter {
                 .subscribe(new BaseObserver<UserInfo_WorksBean>() {
                                @Override
                                protected void onSuccess(UserInfo_WorksBean o) {
-
+                                   mRootView.setRvData(o.getItemList(), true);
                                    mNextUrl = o.getNextPageUrl();
+                                   refreshlayout.finishRefresh();
                                }
 
                                @Override
                                public void onFail(Throwable e) {
-
+                                   refreshlayout.finishRefresh(false);
                                }
                            }
                 );
@@ -61,12 +62,14 @@ public class UserInfo_WorksPresenter extends BasePresenter {
                 .subscribe(new BaseObserver<UserInfo_DynamicBean>() {
                     @Override
                     protected void onSuccess(UserInfo_DynamicBean o) {
-
+                        mRootView.setRvData(o.getItemList(), false);
+                        mNextUrl = o.getNextPageUrl();
+                        refreshLayout.finishLoadMore();
                     }
 
                     @Override
                     public void onFail(Throwable e) {
-
+                        refreshLayout.finishLoadMore(false);
                     }
                 });
     }

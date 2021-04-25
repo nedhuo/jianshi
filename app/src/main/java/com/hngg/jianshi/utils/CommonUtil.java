@@ -25,8 +25,9 @@ public class CommonUtil {
      */
     public static String intToTime(int duration) {
         String time;
-        int minutes = duration / 60;
         int seconds = duration % 60;
+        int minutes = duration / 60;
+
         if (minutes < 10)
             time = "0" + minutes;
         else time = "" + minutes;

@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerUserInfo_WorksComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
-import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.Constant;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
@@ -35,12 +36,17 @@ public class UserInfo_WorksFragment extends BaseFragment<UserInfo_WorksPresenter
     SmartRefreshLayout mRefreshLayout;
 
     private List<ItemList> mDataList = new ArrayList<>();
+    private UserInfo_WorksAdapter mAdapter;
+    private String mDataUrl;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-        DaggerUserInfo_WorksComponent.builder().appComponent(appComponent)
+        DaggerUserInfo_WorksComponent
+                .builder()
+                .appComponent(appComponent)
                 .userInfo_WorksModule(new UserInfo_WorksModule(this))
-                .build().inject(this);
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -50,18 +56,39 @@ public class UserInfo_WorksFragment extends BaseFragment<UserInfo_WorksPresenter
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        if (getArguments() != null) {
+            String[] stringArray;
+            stringArray = getArguments().getStringArray(Constant.USERINFO_HOME_BEAN);
+            assert stringArray != null;
+            mDataUrl = stringArray[1];
+        }
 
+
+        mRefreshLayout.setRefreshHeader(mClassicsHeader);
+        mRefreshLayout.setRefreshFooter(mClassicsFooter);
+        mRefreshLayout.setOnRefreshListener(refreshlayout -> {
+            if (mPresenter != null && mDataUrl != null) {
+                mPresenter.onRefresh(mDataUrl, refreshlayout);
+            }
+        });
+        mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
+            assert mPresenter != null;
+            mPresenter.onLoadMore(refreshlayout);
+        });
+        mRefreshLayout.autoRefresh();
+
+        mAdapter = new UserInfo_WorksAdapter(getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void setData(@Nullable Object data) {
-        if (data!=null){
-            try {
-                mDataList.addAll((List<ItemList>) data);
-                LogUtil.i(TAG, mDataList.size() + "");
-            } catch (Exception e) {
-                //TODO 请求数据
-            }
-        }
+
+    }
+
+    public void setRvData(List<ItemList> itemList, boolean isUpdate) {
+        mAdapter.setData(itemList, isUpdate);
     }
 }

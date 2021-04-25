@@ -2,6 +2,7 @@ package com.hngg.jianshi.data;
 
 public class DataType {
 
+    public final static String OTHER = "other";
     public final static String UGC_PICTURE_CARD = "ugcPicture";
     public final static String VIDEO_CARD = "video";
     public final static String HORIZONTAL_SCROLL_CARD = "horizontalScrollCard";
@@ -19,7 +20,10 @@ public class DataType {
     public final static String REPLY = "reply";
     public final static String VIDEO_COLLECTION_HORIZONTAL_SCROLL_CARD = "videoCollectionOfHorizontalScrollCard";
     public static final String VIDEO_COLLECTION_BRIEF = "videoCollectionWithBrief";
+    public static final String DYNAMIC_INFO_CARD = "DynamicInfoCard";
 
+
+    public static final int DYNAMIC_INFO_CARD_ID = 1900;
     public static final int VIDEO_COLLECTION_BRIEF_ID = 1800;
     public final static int LEFT_ALIGN_TEXT_HEADER_ID = 100;
     public final static int REPLY_ID = 200;
@@ -37,6 +41,6 @@ public class DataType {
     public final static int UGC_PICTURE_ID = 1500;
     public final static int VIDEO_CARD_ID = 1600;
     public final static int VIDEO_COLLECTION_HORIZONTAL_SCROLL_ID = 1700;
-
+    public final static int OTHER_ID = 2314312;
 
 }

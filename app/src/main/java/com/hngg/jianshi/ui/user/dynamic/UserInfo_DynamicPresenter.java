@@ -22,7 +22,7 @@ public class UserInfo_DynamicPresenter extends BasePresenter {
     }
 
 
-    void onRefresh(RefreshLayout refreshLayout, String url) {
+    void onRefresh(String url, RefreshLayout refreshLayout) {
         String dynamicUrl = url;
         if (url.contains(KaiYanApi.baseHttpUrl)) {
             dynamicUrl = dynamicUrl.replace(KaiYanApi.baseHttpUrl, "");
@@ -33,12 +33,14 @@ public class UserInfo_DynamicPresenter extends BasePresenter {
                 .subscribe(new BaseObserver<UserInfo_DynamicBean>() {
                                @Override
                                protected void onSuccess(UserInfo_DynamicBean o) {
-
+                                   refreshLayout.finishRefresh();
+                                   mRootView.setRvData(o.getItemList(), true);
+                                   mNextUrl = o.getNextPageUrl();
                                }
 
                                @Override
                                public void onFail(Throwable e) {
-
+                                   refreshLayout.finishRefresh(false);
                                }
                            }
                 );
@@ -61,12 +63,14 @@ public class UserInfo_DynamicPresenter extends BasePresenter {
                 .subscribe(new BaseObserver<UserInfo_DynamicBean>() {
                                @Override
                                protected void onSuccess(UserInfo_DynamicBean o) {
-
+                                   refreshLayout.finishLoadMore();
+                                   mRootView.setRvData(o.getItemList(), false);
+                                   mNextUrl = o.getNextPageUrl();
                                }
 
                                @Override
                                public void onFail(Throwable e) {
-
+                                   refreshLayout.finishLoadMore(false);
                                }
                            }
                 );
