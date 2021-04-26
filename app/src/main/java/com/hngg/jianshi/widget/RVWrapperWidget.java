@@ -5,11 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.collection.SparseArrayCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.DataType;
@@ -17,8 +17,10 @@ import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.viewholder.BannerViewHolder;
 import com.hngg.jianshi.utils.GlideUtil;
+import com.hngg.jianshi.utils.LogUtil;
 import com.youth.banner.adapter.BannerAdapter;
 import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.util.BannerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
     private SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
     private SparseArrayCompat<View> mFooterViews = new SparseArrayCompat<>();
     private List<ItemList> mDataList;
+    private String TAG = "RVWrapperWidget";
 
     public RVWrapperWidget(RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, Activity ctx) {
         mAdapter = (T) adapter;
@@ -48,7 +51,7 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == DataType.VIDEO_COLLECTION_HORIZONTAL_SCROLL_ID) {
-            View view = LayoutInflater.from(mCtx).inflate(R.layout.item_bannerview, null, false);
+            View view = LayoutInflater.from(mCtx).inflate(R.layout.item_community_banner, parent, false);
             return new BannerViewHolder(view);
         }
         return mAdapter.onCreateViewHolder(parent, viewType);
@@ -70,6 +73,9 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
         UserInfo_HomeBannerAdapter adapter = new UserInfo_HomeBannerAdapter(dataList);
         holder.banner.setAdapter(adapter);
         holder.banner.setIndicator(new CircleIndicator(mCtx));
+        holder.banner.setBannerRound(BannerUtils.dp2px(5));
+  //      holder.banner.setIndicator(new RoundLinesIndicator(mCtx));
+  //      holder.banner.setIndicatorSelectedWidth((int) BannerUtils.dp2px(15));
     }
 
 
@@ -84,7 +90,9 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
             ItemList itemList = mDataList.get(position);
             if (itemList.getType().equals(DataType.VIDEO_COLLECTION_HORIZONTAL_SCROLL_CARD)) {
                 return DataType.VIDEO_COLLECTION_HORIZONTAL_SCROLL_ID;
-            }else {
+            } else if (itemList.getType().equals(DataType.TEXT_HEADER)) {
+                return -1;
+            } else {
                 return -1;
             }
         }
@@ -132,14 +140,6 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
     @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
         mAdapter.onViewAttachedToWindow(holder);
-        int position = holder.getLayoutPosition();
-        if (isHeaderView(position)) {
-            ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-            if (lp instanceof StaggeredGridLayoutManager.LayoutParams) {
-                StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
-                p.setFullSpan(true);
-            }
-        }
     }
 
     public void setData(List<ItemList> data, boolean isUpdate) {
@@ -151,40 +151,38 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
     }
 
 
-}
-
-class UserInfo_HomeBannerAdapter extends BannerAdapter<ItemList,
-        UserInfo_HomeBannerAdapter.BannerItemViewHolder> {
+    class UserInfo_HomeBannerAdapter extends BannerAdapter<ItemList,
+            UserInfo_HomeBannerAdapter.BannerItemViewHolder> {
 
 
-    public UserInfo_HomeBannerAdapter(List<ItemList> datas) {
-        super(datas);
-    }
+        public UserInfo_HomeBannerAdapter(List<ItemList> datas) {
+            super(datas);
+        }
 
-    @Override
-    public BannerItemViewHolder onCreateHolder(ViewGroup parent, int viewType) {
-        ImageView imageView = new ImageView(parent.getContext());
-        //注意，必须设置为match_parent，这个是viewpager2强制要求的
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setBackgroundResource(R.drawable.bg_card_round);
-        return new UserInfo_HomeBannerAdapter.BannerItemViewHolder(imageView);
-    }
+        @Override
+        public BannerItemViewHolder onCreateHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(mCtx).inflate(R.layout.item_banner_video, parent, false);
+            return new UserInfo_HomeBannerAdapter.BannerItemViewHolder(view);
+        }
 
-    @Override
-    public void onBindView(BannerItemViewHolder holder, ItemList data, int position, int size) {
-        Data bannerData = mDatas.get(position).getData();
-        GlideUtil.loadImage(holder.imageView,bannerData.getCover().getFeed(),holder.imageView);
-    }
+        @Override
+        public void onBindView(BannerItemViewHolder holder, ItemList data, int position, int size) {
+            Data bannerData = mDatas.get(position).getData();
+            LogUtil.i(TAG, "bannerData.getCover().getFeed()" + bannerData.getCover().getFeed());
+            GlideUtil.loadImage(mCtx, bannerData.getCover().getFeed(), holder.ivImage);
+            holder.tvTitle.setText( bannerData.getTitle());
+        }
 
-    class BannerItemViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        class BannerItemViewHolder extends RecyclerView.ViewHolder {
+            final ImageView ivImage;
+            final TextView tvTitle;
 
-        public BannerItemViewHolder(@NonNull ImageView view) {
-            super(view);
-            this.imageView = view;
+            public BannerItemViewHolder(@NonNull View view) {
+                super(view);
+                ivImage = view.findViewById(R.id.iv_image);
+                tvTitle = view.findViewById(R.id.tv_title);
+            }
         }
     }
 }
+

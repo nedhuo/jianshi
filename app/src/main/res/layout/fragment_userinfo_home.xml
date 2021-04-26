@@ -6,7 +6,9 @@
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <com.scwang.smart.refresh.header.ClassicsHeader
             android:id="@+id/classicsHeader"

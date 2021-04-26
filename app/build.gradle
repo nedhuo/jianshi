@@ -79,7 +79,7 @@ dependencies {
     implementation 'com.youth.banner:banner:2.1.0'
 
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
-    //gsyVideo
+    //gsyVideou
     implementation 'com.shuyu:GSYVideoPlayer:8.1.0'
 
     implementation 'com.arialyy.aria:core:3.8.15'

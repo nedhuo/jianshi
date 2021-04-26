@@ -18,9 +18,6 @@ import com.jess.arms.di.component.AppComponent;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 
@@ -78,20 +75,12 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     private void initView() {
         mRefreshLayout.setRefreshHeader(mClassicsHeader);
         mRefreshLayout.setRefreshFooter(mClassicsFooter);
-        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                mPresenter.onRefresh(refreshlayout);
-                //refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
-            }
+        mRefreshLayout.setOnRefreshListener(refreshlayout -> {
+            mPresenter.onRefresh(refreshlayout);
         });
-        mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                assert mPresenter != null;
-                mPresenter.onLoadMore(refreshlayout);
-                //refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-            }
+        mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
+            assert mPresenter != null;
+            mPresenter.onLoadMore(refreshlayout);
         });
     }
 
