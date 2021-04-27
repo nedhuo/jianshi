@@ -19,6 +19,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_userInf_works"
                 android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/size_10dp"
+                android:layout_marginEnd="@dimen/size_10dp"
                 android:layout_height="wrap_content" />
 
             <com.scwang.smart.refresh.footer.ClassicsFooter

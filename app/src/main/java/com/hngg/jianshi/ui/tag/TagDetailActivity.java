@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerTagDetailComponent;
+import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 
@@ -19,12 +19,12 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
         implements TagDetailContract.View {
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerTagDetailComponent
-                .builder()
-                .appComponent(appComponent)
-                .tagDetailModule(new TagDetailModule(this))
-                .build()
-                .inject(this);
+//        DaggerTagDetailComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .tagDetailModule(new TagDetailModule(this))
+//                .build()
+//                .inject(this);
     }
 
     @Override
@@ -34,7 +34,10 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        if (mPresenter == null) {
+            LogUtil.i(TAG, "mPresenter为null");
+            return;
+        }
     }
 
     @Override

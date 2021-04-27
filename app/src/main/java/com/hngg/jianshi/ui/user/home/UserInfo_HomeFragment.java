@@ -14,6 +14,7 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerUserInfo_HomeComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.jianshi.widget.RVWrapperWidget;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
@@ -60,8 +61,16 @@ public class UserInfo_HomeFragment extends BaseFragment<UserInfo_HomePresenter> 
         if (getArguments() != null) {
             String[] stringArray;
             stringArray = getArguments().getStringArray(Constant.USERINFO_HOME_BEAN);
-            assert stringArray != null;
-            mDataUrl = stringArray[1];
+            if (stringArray != null) {
+                mDataUrl = stringArray[1];
+            } else {
+                LogUtil.i(TAG, "mDataUrl is null");
+                return;
+            }
+        }
+        if (mPresenter == null) {
+            LogUtil.i(TAG, "mPresenter为null");
+            return;
         }
 
 

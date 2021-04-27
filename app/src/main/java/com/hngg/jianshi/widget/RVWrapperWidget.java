@@ -20,7 +20,6 @@ import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
 import com.youth.banner.adapter.BannerAdapter;
 import com.youth.banner.indicator.CircleIndicator;
-import com.youth.banner.util.BannerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,9 +72,7 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
         UserInfo_HomeBannerAdapter adapter = new UserInfo_HomeBannerAdapter(dataList);
         holder.banner.setAdapter(adapter);
         holder.banner.setIndicator(new CircleIndicator(mCtx));
-        holder.banner.setBannerRound(BannerUtils.dp2px(5));
-  //      holder.banner.setIndicator(new RoundLinesIndicator(mCtx));
-  //      holder.banner.setIndicatorSelectedWidth((int) BannerUtils.dp2px(15));
+        holder.banner.setBannerGalleryEffect(10, 10,5,1);
     }
 
 
@@ -170,7 +167,7 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
             Data bannerData = mDatas.get(position).getData();
             LogUtil.i(TAG, "bannerData.getCover().getFeed()" + bannerData.getCover().getFeed());
             GlideUtil.loadImage(mCtx, bannerData.getCover().getFeed(), holder.ivImage);
-            holder.tvTitle.setText( bannerData.getTitle());
+            holder.tvTitle.setText(bannerData.getTitle());
         }
 
         class BannerItemViewHolder extends RecyclerView.ViewHolder {
@@ -180,7 +177,7 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
             public BannerItemViewHolder(@NonNull View view) {
                 super(view);
                 ivImage = view.findViewById(R.id.iv_image);
-                tvTitle = view.findViewById(R.id.tv_title);
+                tvTitle = view.findViewById(R.id.tv_author);
             }
         }
     }

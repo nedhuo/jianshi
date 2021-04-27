@@ -134,7 +134,7 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public BriefItemViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_image = itemView.findViewById(R.id.iv_image);
-            tv_title = itemView.findViewById(R.id.tv_title);
+            tv_title = itemView.findViewById(R.id.tv_author);
             tv_desc = itemView.findViewById(R.id.tv_desc);
         }
     }

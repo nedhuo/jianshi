@@ -40,7 +40,7 @@ class DownloadedAdapter extends RecyclerView.Adapter<DownloadedAdapter.VideoItem
     @Override
     public VideoItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mCtx)
-                .inflate(R.layout.item_complete_video, parent, false);
+                .inflate(R.layout.item_downloaded_video, parent, false);
         return new VideoItemViewHolder(view);
     }
 
@@ -53,7 +53,7 @@ class DownloadedAdapter extends RecyclerView.Adapter<DownloadedAdapter.VideoItem
     @Override
     public void onBindViewHolder(@NonNull VideoItemViewHolder holder, int position) {
         VideoTaskInfo taskInfo = mDataList.get(position);
-        GlideUtil.loadImage(mCtx,taskInfo.getPoster(),holder.ivImage);
+        GlideUtil.loadImage(mCtx, taskInfo.getPoster(), holder.ivImage);
         holder.tvTitle.setText(taskInfo.getVideoName());
         holder.tvAuthor.setText(CommonUtil.sizeTranform(taskInfo.getFileSize()));
     }
@@ -62,9 +62,9 @@ class DownloadedAdapter extends RecyclerView.Adapter<DownloadedAdapter.VideoItem
 
         @BindView(R.id.checkbox_chose)
         CheckBox checkboxChose;
-        @BindView(R.id.tv_title)
-        TextView tvTitle;
         @BindView(R.id.tv_author)
+        TextView tvTitle;
+        @BindView(R.id.tv_desc)
         TextView tvAuthor;
         @BindView(R.id.iv_menu)
         ImageView ivMenu;
@@ -73,7 +73,7 @@ class DownloadedAdapter extends RecyclerView.Adapter<DownloadedAdapter.VideoItem
 
         public VideoItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

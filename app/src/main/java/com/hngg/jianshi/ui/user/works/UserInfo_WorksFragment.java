@@ -14,6 +14,7 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerUserInfo_WorksComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
@@ -58,9 +59,13 @@ public class UserInfo_WorksFragment extends BaseFragment<UserInfo_WorksPresenter
     public void initData(@Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
             String[] stringArray;
-            stringArray = getArguments().getStringArray(Constant.USERINFO_HOME_BEAN);
-            assert stringArray != null;
-            mDataUrl = stringArray[1];
+            stringArray = getArguments().getStringArray(Constant.USERINFO_WORKS_BEAN);
+            if (stringArray != null) {
+                mDataUrl = stringArray[1];
+            } else {
+                LogUtil.i(TAG, "mDataUrl is null");
+                return;
+            }
         }
 
 

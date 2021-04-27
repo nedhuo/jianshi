@@ -37,7 +37,7 @@
                     android:layout_marginTop="@dimen/size_85dp" />
 
                 <TextView
-                    android:id="@+id/tv_title"
+                    android:id="@+id/tv_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_headImage"
@@ -54,8 +54,8 @@
                     android:id="@+id/tv_personDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_title"
-                    android:layout_alignStart="@id/tv_title"
+                    android:layout_below="@id/tv_author"
+                    android:layout_alignStart="@id/tv_author"
                     android:layout_marginTop="@dimen/size_5dp"
                     android:ellipsize="end"
                     android:maxLines="3"

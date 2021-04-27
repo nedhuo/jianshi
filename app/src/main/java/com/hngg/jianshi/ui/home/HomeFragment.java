@@ -17,6 +17,7 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerHomeComponent;
 import com.hngg.jianshi.ui.TourRecommendationActivity;
 import com.hngg.jianshi.ui.search.SearchActivity;
+import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.jianshi.widget.CustomViewPager;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
@@ -64,7 +65,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IView {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "initData执行");
+        if (mPresenter == null) {
+            LogUtil.i(TAG, "mPresenter为null");
+            return;
+        }
 
         ivRili.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, TourRecommendationActivity.class);

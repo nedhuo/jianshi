@@ -51,7 +51,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
 
     @BindView(R.id.videoPlayer)
     StandardGSYVideoPlayer videoPlayer;
-    @BindView(R.id.tv_title)
+    @BindView(R.id.tv_author)
     TextView tvTitle;
     @BindView(R.id.tv_tag)
     TextView tvTag;

@@ -202,7 +202,7 @@ public class NotificationUtil {
                 new NotificationCompat.Builder(mCtx.getApplicationContext(), mChannelId);
         RemoteViews remoteViews = new RemoteViews(mCtx.getPackageName(), R.layout.notify_download);
 
-        remoteViews.setTextViewText(R.id.tv_title, videoTask.getVideoName());
+        remoteViews.setTextViewText(R.id.tv_author, videoTask.getVideoName());
         Glide.with(mCtx).asBitmap().load(videoTask.getPoster()).into(new DownloadTarget() {
             @Override
             public void onloadSuccess(Bitmap bitmap, Transition<? super Bitmap> transition) {
@@ -246,7 +246,7 @@ public class NotificationUtil {
                 new NotificationCompat.Builder(mCtx.getApplicationContext(), mChannelId);
         RemoteViews remoteViews = new RemoteViews(mCtx.getPackageName(), R.layout.notify_download);
         //TODO 添加view数据
-        remoteViews.setTextViewText(R.id.tv_title, videoTask.getVideoName());
+        remoteViews.setTextViewText(R.id.tv_author, videoTask.getVideoName());
         Glide.with(mCtx).asBitmap().load(videoTask.getPoster()).into(new DownloadTarget() {
             @Override
             public void onloadSuccess(Bitmap bitmap, Transition<? super Bitmap> transition) {

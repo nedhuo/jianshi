@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerDownloadedComponent;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.data.datebase.DbManager;
+import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 
@@ -37,12 +37,12 @@ public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-        DaggerDownloadedComponent
-                .builder()
-                .appComponent(appComponent)
-                .downloadedModule(new DownloadedModule(this))
-                .build()
-                .inject(this);
+//        DaggerDownloadedComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .downloadedModule(new DownloadedModule(this))
+//                .build()
+//                .inject(this);
     }
 
     @Override
@@ -54,6 +54,10 @@ public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        if (mPresenter == null) {
+            LogUtil.i(TAG, "mPresenter为null");
+            return;
+        }
         mDataList = new ArrayList<>();
         List<VideoTaskInfo> taskInfoList = DbManager.getInstance(mContext)
                 .getVideoTaskDao().queryAllComplete();

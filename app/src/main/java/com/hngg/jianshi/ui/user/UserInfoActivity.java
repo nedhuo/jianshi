@@ -61,7 +61,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
     ImageView ivTopImage;
     @BindView(R.id.iv_headImage)
     ImageView ivHeadImage;
-    @BindView(R.id.tv_title)
+    @BindView(R.id.tv_author)
     TextView tvTitle;
     @BindView(R.id.tv_personDesc)
     TextView tvPersonDesc;

@@ -170,7 +170,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             iv_content = view.findViewById(R.id.iv_content);
             iv_flag = view.findViewById(R.id.iv_flag);
             tv_desc = view.findViewById(R.id.tv_desc);
-            tv_name = view.findViewById(R.id.tv_title);
+            tv_name = view.findViewById(R.id.tv_author);
             iv_headImage = view.findViewById(R.id.iv_headImage);
         }
     }

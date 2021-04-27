@@ -15,9 +15,9 @@ import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerDownloadComponent;
 import com.hngg.jianshi.ui.me.download.downloaded.DownloadedFragment;
 import com.hngg.jianshi.ui.me.download.downloading.DownloadingFragment;
+import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 
@@ -57,12 +57,12 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerDownloadComponent
-                .builder()
-                .appComponent(appComponent)
-                .downloadModule(new DownloadModule(this))
-                .build()
-                .inject(this);
+//        DaggerDownloadComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .downloadModule(new DownloadModule(this))
+//                .build()
+//                .inject(this);
     }
 
     @Override
@@ -73,6 +73,10 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
 
+        if (mPresenter == null) {
+            LogUtil.i(TAG, "mPresenter为null");
+            return;
+        }
         CommonNavigator commonNavigator = new CommonNavigator(this);
         String[] stringArray = getResources().getStringArray(R.array.download_page);
         commonNavigator.setAdjustMode(true);

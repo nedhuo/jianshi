@@ -253,7 +253,7 @@ class VideoItemViewHolder extends RecyclerView.ViewHolder {
     CheckBox checkboxChose;
     @BindView(R.id.tv_image)
     ImageView ivImage;
-    @BindView(R.id.tv_title)
+    @BindView(R.id.tv_author)
     TextView tvTitle;
     @BindView(R.id.progressView)
     ProgressBar progressView;

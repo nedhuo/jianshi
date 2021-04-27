@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerMainComponent;
+import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.jianshi.utils.PermissionUtil;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
@@ -64,6 +65,10 @@ public class MainActivity extends BaseActivity<MainPresenter>
      */
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        if (mPresenter == null) {
+            LogUtil.i(TAG, "mPresenter为null");
+            return;
+        }
         assert mPresenter != null;
         mPresenter.initBottomBar();
         mPresenter.initViewPager();

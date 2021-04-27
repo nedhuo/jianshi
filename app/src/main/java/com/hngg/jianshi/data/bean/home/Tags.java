@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author json.cn (i@json.cn)
  * @website http://www.json.cn/java2pojo/
  */
- class Tags implements Serializable {
+ public class Tags implements Serializable {
 
     private int id;
     private String name;

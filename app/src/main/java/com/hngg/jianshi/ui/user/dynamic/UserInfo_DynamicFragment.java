@@ -14,6 +14,7 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerUserInfo_DynamicComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
@@ -60,11 +61,18 @@ public class UserInfo_DynamicFragment extends BaseFragment<UserInfo_DynamicPrese
     public void initData(@Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
             String[] stringArray;
-            stringArray = getArguments().getStringArray(Constant.USERINFO_HOME_BEAN);
-            assert stringArray != null;
-            mDataUrl = stringArray[1];
+            stringArray = getArguments().getStringArray(Constant.USERINFO_DYNAMIC_BEAN);
+            if (stringArray != null) {
+                mDataUrl = stringArray[1];
+            } else {
+                LogUtil.i(TAG, "mDataUrl is null");
+                return;
+            }
         }
-
+        if (mPresenter == null) {
+            LogUtil.i(TAG, "mPresenter为null");
+            return;
+        }
 
         mRefreshLayout.setRefreshHeader(mClassicsHeader);
         mRefreshLayout.setRefreshFooter(mClassicsFooter);
@@ -90,6 +98,6 @@ public class UserInfo_DynamicFragment extends BaseFragment<UserInfo_DynamicPrese
     }
 
     public void setRvData(List<ItemList> itemList, boolean isUpdate) {
-        mAdapter.setData(itemList,isUpdate);
+        mAdapter.setData(itemList, isUpdate);
     }
 }
