@@ -23,6 +23,7 @@ import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 import com.hngg.jianshi.ui.user.UserInfoActivity;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
+import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.network.Observer.BaseObserver;
 import com.shuyu.gsyvideoplayer.GSYBaseActivityDetail;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
@@ -113,7 +114,11 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         //获取页面传递数据
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra(Constant.VIDEO_BUNDLE);
-        mVideoData = (Data) bundle.get(Constant.VIDEO_BEAN);
+        if (bundle != null) {
+            mVideoData = (Data) bundle.get(Constant.VIDEO_BEAN);
+        } else {
+            LogUtil.e(TAG, "接收数据为null");
+        }
     }
 
     private void initView() {
@@ -152,7 +157,11 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         ibBack.setOnClickListener(v -> onBackPressed());
 
         itemAuthor.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constant.USERINFO_BEAN, mVideoData.getAuthor().getId());
+            //bundle.putString(Constant.USERINFO_BEAN, "");
             Intent intent = new Intent(this, UserInfoActivity.class);
+            intent.putExtra(Constant.USERINFO_BUNDLE, bundle);
             startActivity(intent);
         });
     }

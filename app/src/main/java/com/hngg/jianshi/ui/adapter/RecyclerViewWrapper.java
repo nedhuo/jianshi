@@ -131,7 +131,6 @@ public class RecyclerViewWrapper<T extends RecyclerView.Adapter> extends Recycle
         return mFooterViews.size();
     }
 
-
     public void addHeaderView(View view) {
         mHeaderViews.put(mHeaderViews.size() + BASE_HEADER_ID, view);
     }

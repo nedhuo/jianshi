@@ -89,6 +89,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
     private List<String> mTitleList;
     private List<List<ItemList>> mDataList;
     private List<String> mUrlList;
+    private long mAuthorId;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -121,6 +122,18 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
     public void initData(@Nullable Bundle savedInstanceState) {
         if (mPresenter == null) {
             LogUtil.e(TAG, "mPresenter为null");
+            return;
+        }
+        /*接收数据*/
+        Bundle bundleExtra = getIntent().getBundleExtra(Constant.USERINFO_BUNDLE);
+        if (bundleExtra != null) {
+            mAuthorId = bundleExtra.getLong(Constant.USERINFO_BEAN);
+            if (mAuthorId == -1) {
+                LogUtil.e(TAG, "接收数据为null");
+                return;
+            }
+        } else {
+            LogUtil.e(TAG, "接收数据为null");
             return;
         }
 
