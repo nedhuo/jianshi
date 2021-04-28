@@ -179,7 +179,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
      * 网络数据加载异常
      */
     public void showErrorPage() {
-
     }
 
     @SuppressLint("SetTextI18n")
