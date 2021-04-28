@@ -30,20 +30,20 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.Model, Use
         mUrlList = new ArrayList<>();
     }
 
-    public void initData() {
-        mModel.refresh()
+    public void initData(long id, String userType) {
+        mModel.refresh(id, userType)
                 .subscribe(new BaseObserver<UserInfoBean>() {
                                @Override
                                protected void onSuccess(UserInfoBean o) {
-                                   LogUtil.i(TAG, "AAAAAA");
+                                   LogUtil.i(TAG, "onSuccess");
                                    mRootView.setPgcData(o.getPgcInfo());
                                    List<UserInfoBean.TabInfoBean.TabListBean> tabInfoList = o.getTabInfo().getTabList();
                                    for (UserInfoBean.TabInfoBean.TabListBean tabInfo : tabInfoList) {
-                                       mRootView.setTabPageData(tabInfo.getApiUrl(),tabInfo.getName());
+                                       mRootView.setTabPageData(tabInfo.getApiUrl(), tabInfo.getName());
                                        mTitleList.add(tabInfo.getName());
                                        mUrlList.add(tabInfo.getApiUrl());
                                    }
-                                 //  initFragmentData();
+                                   //  initFragmentData();
                                }
 
                                @Override

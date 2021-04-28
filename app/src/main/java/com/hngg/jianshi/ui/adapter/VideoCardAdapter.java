@@ -2,7 +2,6 @@ package com.hngg.jianshi.ui.adapter;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,7 @@ import com.hngg.jianshi.ui.viewholder.VideoViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
+import com.hngg.jianshi.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +94,8 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             try {
                 GlideUtil.loadImage(holder.itemView,data.getAuthor().getIcon(),holder.mIv_icon);
             } catch (Exception e) {
-                Log.i(TAG, "===============");
-                Log.i(TAG, data.getTitle());
+                LogUtil.i(TAG, "===============");
+                LogUtil.i(TAG, data.getTitle());
 
                 Glide.with(holder.itemView)
                         .load("http://img.kaiyanapp.com/ebf307197b634f30b2fa4eb867e908c1.jpeg?" +
@@ -112,8 +112,7 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.VIDEO_BEAN, data);
                 intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
-                mCtx.getActivity().startActivity(intent);
-
+                mCtx.startActivity(intent);
             });
         } else if (viewHolder instanceof TextFooterViewHolder) {
 
@@ -148,7 +147,7 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         switch (itemList.getType()) {
             case DataType.VIDEO:
-                Log.i(TAG, DataType.VIDEO);
+                LogUtil.i(TAG, DataType.VIDEO);
                 return DataType.VIDEO_ID;
 
             case DataType.TEXT_HEADER:

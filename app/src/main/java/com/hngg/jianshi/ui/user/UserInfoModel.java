@@ -25,13 +25,10 @@ public class UserInfoModel extends BaseModel implements UserInfoContract.Model {
         mHttpUtil = new KaiYanHttpUtil();
     }
 
-    UserInfoBean loadMore() {
-        return null;
-    }
 
-    Observable<UserInfoBean> refresh() {
+    Observable<UserInfoBean> refresh(long id, String userType) {
         return mHttpUtil.getService(ApiInterface.class)
-                .getUserInfo()
+                .getUserInfo(id, userType)
                 .compose(mHttpUtil.applySchedulers());
     }
 

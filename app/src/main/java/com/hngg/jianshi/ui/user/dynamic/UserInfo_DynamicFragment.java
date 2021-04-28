@@ -64,6 +64,7 @@ public class UserInfo_DynamicFragment extends BaseFragment<UserInfo_DynamicPrese
             stringArray = getArguments().getStringArray(Constant.USERINFO_DYNAMIC_BEAN);
             if (stringArray != null) {
                 mDataUrl = stringArray[1];
+                LogUtil.i(TAG, "mDataUrl=" + mDataUrl);
             } else {
                 LogUtil.i(TAG, "mDataUrl is null");
                 return;

@@ -37,7 +37,6 @@
         <activity
             android:name=".ui.video.VideoDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.community.UgcPictureActivity" />
         <activity

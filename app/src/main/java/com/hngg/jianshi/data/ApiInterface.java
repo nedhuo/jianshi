@@ -72,8 +72,8 @@ public interface ApiInterface {
      * UserInfoData
      * https://baobab.kaiyanapp.com/api/v5/userInfo/tab?id=2171&userType=PGC
      */
-    @GET("api/v5/userInfo/tab?id=2171&userType=PGC")
-    Observable<UserInfoBean> getUserInfo();
+    @GET("api/v5/userInfo/tab")
+    Observable<UserInfoBean> getUserInfo(@Query("id") long id, @Query("userType") String userType);
 
     /**
      * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/index?id=2171&userType=PGC

@@ -18,7 +18,6 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.flowLayout_history)

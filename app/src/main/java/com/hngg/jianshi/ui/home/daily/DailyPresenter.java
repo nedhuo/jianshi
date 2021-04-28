@@ -1,9 +1,8 @@
 package com.hngg.jianshi.ui.home.daily;
 
-import android.util.Log;
-
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
 import com.hngg.jianshi.ui.adapter.VideoCardAdapter;
+import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -81,26 +80,12 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
 
                     @Override
                     public void onFail(Throwable e) {
-                        Log.e(TAG, Objects.requireNonNull(e.getMessage()));
+                        LogUtil.e(TAG, Objects.requireNonNull(e.getMessage()));
                     }
                 });
 
     }
 
-
-    class DataType {
-        final static String VIDEO = "video";
-        final static String TEXT_HEADER = "textHeader";
-        final static String TEXT_FOOTER = "textFooter";
-        final static String VIDEO_COLLECTION_FOLLOW = "videoCollectionOfFollow";
-        final static String VIDEO_COLLECTION_COVER = "videoCollectionForCover";
-
-        final static int VIDEO_ID = 1;
-        final static int TEXT_HEADER_ID = 2;
-        final static int TEXT_FOOTER_ID = 3;
-        final static int VIDEO_COLLECTION_FOLLOW_ID = 4;
-        final static int VIDEO_COLLECTION_COVER_ID = 5;
-    }
 }
 
 

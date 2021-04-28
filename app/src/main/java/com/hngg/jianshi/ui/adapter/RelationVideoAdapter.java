@@ -20,6 +20,7 @@ import com.hngg.jianshi.ui.viewholder.VideoSmallCardViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
+import com.hngg.jianshi.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +29,11 @@ import java.util.List;
  * Date: 2021/2/17
  * Timer: 11:19
  * Author: nedhuo
- * Description:
+ * Description:aa
  */
 public class RelationVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final String TAG = "RelationVideoAdapter";
+    private static final String TAG = "RelationVideoAdapter";
     private final Activity mCtx;
     private List<ItemList> mItemList;
 
@@ -219,21 +220,20 @@ public class RelationVideoAdapter extends RecyclerView.Adapter<RecyclerView.View
             VideoSmallCardViewHolder videoHolder = (VideoSmallCardViewHolder) holder;
             GlideUtil.loadImage(mCtx, data.getCover().getFeed(), videoHolder.iv_videoImage);
             videoHolder.tv_videoTitle.setText(data.getTitle());
-            videoHolder.tv_videoCategory.setText("#" + data.getCategory());
+            String category = "#" + data.getCategory();
+            videoHolder.tv_videoCategory.setText(category);
             videoHolder.tv_VideoDuration.setText(CommonUtil.intToTime(data.getDuration()));
 
-            videoHolder.ll_smallCard.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mCtx, VideoDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(Constant.VIDEO_BEAN, data);
-                    intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
-                    mCtx.startActivity(intent);
-                    mCtx.finish();
-                }
+            videoHolder.ll_smallCard.setOnClickListener(v -> {
+                Intent intent = new Intent(mCtx, VideoDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constant.VIDEO_BEAN, data);
+                intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
+                mCtx.startActivity(intent);
+                mCtx.finish();
             });
         } else {
+            LogUtil.i(TAG, "");
         }
     }
 

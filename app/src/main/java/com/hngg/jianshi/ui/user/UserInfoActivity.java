@@ -125,9 +125,11 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
             return;
         }
         /*接收数据*/
+        String userType = "PGC";
         Bundle bundleExtra = getIntent().getBundleExtra(Constant.USERINFO_BUNDLE);
         if (bundleExtra != null) {
-            mAuthorId = bundleExtra.getLong(Constant.USERINFO_BEAN);
+            mAuthorId = bundleExtra.getLong(Constant.USERINFO_BEAN_ID);
+            userType = bundleExtra.getString(Constant.USERINFO_BEAN_TYPE);
             if (mAuthorId == -1) {
                 LogUtil.e(TAG, "接收数据为null");
                 return;
@@ -137,7 +139,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
             return;
         }
 
-        mPresenter.initData();
+        mPresenter.initData(mAuthorId, userType);
 
         mIbBack.setOnClickListener(v -> {
             onBackPressed();
