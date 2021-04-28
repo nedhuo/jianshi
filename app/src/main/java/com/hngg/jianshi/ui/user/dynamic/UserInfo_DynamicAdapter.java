@@ -1,5 +1,7 @@
 package com.hngg.jianshi.ui.user.dynamic;
 
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -7,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.DataType;
 import com.hngg.jianshi.data.bean.home.ItemList;
+import com.hngg.jianshi.ui.viewholder.DynamicInfoViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +34,7 @@ class UserInfo_DynamicAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         ItemList itemList = mDataList.get(position);
-        if (itemList.getType().equals(DataType.DYNAMIC_INFO_CARD)){
+        if (itemList.getType().equals(DataType.DYNAMIC_INFO_CARD)) {
             return DataType.DYNAMIC_INFO_CARD_ID;
         }
         return DataType.OTHER_ID;
@@ -40,10 +44,9 @@ class UserInfo_DynamicAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == DataType.DYNAMIC_INFO_CARD_ID) {
-            //TODO 待实现
-            TextView textView = new TextView(mCtx);
-            return new RecyclerView.ViewHolder(textView) {
-            };
+            View inflate = LayoutInflater.from(mCtx)
+                    .inflate(R.layout.item_dynamic_info, parent, false);
+            return new DynamicInfoViewHolder(inflate);
         } else {
             TextView textView = new TextView(mCtx);
             return new RecyclerView.ViewHolder(textView) {
@@ -52,7 +55,7 @@ class UserInfo_DynamicAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
     }
 
