@@ -1,4 +1,4 @@
-package com.hngg.jianshi.data.datebase;
+package com.hngg.jianshi.data.database;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

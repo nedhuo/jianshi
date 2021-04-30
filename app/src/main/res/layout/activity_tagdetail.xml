@@ -1,72 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:background="@color/bg_app_main">
 
-
+    <!--       -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
-
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+            android:id="@+id/collapsingLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:statusBarScrim="@android:color/transparent">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <!--            <include layout="@layout/header" />-->
-            <androidx.appcompat.widget.Toolbar
+            <!--                划走的内容-->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/bg_app_main"
-                app:layout_collapseMode="pin">
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_topImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_250dp" />
+
+                <ImageView
+                    android:id="@+id/iv_headImage"
+                    android:layout_width="@dimen/size_80dp"
+                    android:layout_height="@dimen/size_80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/size_85dp" />
 
                 <ImageButton
-                    android:id="@+id/ib_back"
+                    android:id="@+id/ib_share"
                     android:layout_width="@dimen/size_40dp"
                     android:layout_height="@dimen/size_40dp"
-                    android:layout_margin="@dimen/size_5dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/size_5dp"
+                    android:alpha="1"
+                    android:background="@null"
                     android:padding="@dimen/size_5dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_back_black" />
-            </androidx.appcompat.widget.Toolbar>
+                    android:src="@drawable/ic_share" />
+
+                <TextView
+                    android:id="@+id/tv_tagTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_headImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:ellipsize="end"
+                    android:maxWidth="@dimen/size_200dp"
+                    android:maxLines="1"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_personDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_tagTitle"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:textSize="@dimen/font_14sp" />
+
+            </RelativeLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <!--        <include layout="@layout/inside_fixed_bar" />-->
-        <androidx.appcompat.widget.Toolbar
+        <!--吸顶的内容-->
+        <!--        占位-->
+        <View
+            android:id="@+id/place_holder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_app_main">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@null"
+            android:visibility="gone" />
 
-            <ImageButton
-                android:layout_width="@dimen/size_40dp"
-                android:layout_height="@dimen/size_40dp"
-                android:layout_margin="@dimen/size_5dp"
-                android:padding="@dimen/size_5dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_back_black" />
-        </androidx.appcompat.widget.Toolbar>
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magicIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+
+    <ImageButton
+        android:id="@+id/ib_back"
+        android:layout_width="@dimen/size_40dp"
+        android:layout_height="@dimen/size_40dp"
+        android:layout_marginStart="@dimen/size_5dp"
+        android:alpha="1"
+        android:background="@null"
+        android:padding="@dimen/size_5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_back_black" />
+
+
+    <!--    <androidx.core.widget.NestedScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        >-->
+    <!--    </androidx.core.widget.NestedScrollView>-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_userInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -116,6 +116,11 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         Bundle bundle = intent.getBundleExtra(Constant.VIDEO_BUNDLE);
         if (bundle != null) {
             mVideoData = (Data) bundle.get(Constant.VIDEO_BEAN);
+            if (mVideoData==null){
+                LogUtil.e(TAG, "接收数据为null");
+                return;
+            }
+            LogUtil.i(TAG, mVideoData.toString());
         } else {
             LogUtil.e(TAG, "接收数据为null");
         }

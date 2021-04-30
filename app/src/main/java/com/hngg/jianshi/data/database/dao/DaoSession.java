@@ -8,10 +8,12 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
+import com.hngg.jianshi.data.database.bean.PlayInfo;
 import com.hngg.jianshi.data.database.bean.VideoInfo;
 import com.hngg.jianshi.data.database.bean.VideoResolutionInfo;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 
+import com.hngg.jianshi.data.database.dao.PlayInfoDao;
 import com.hngg.jianshi.data.database.dao.VideoInfoDao;
 import com.hngg.jianshi.data.database.dao.VideoResolutionInfoDao;
 import com.hngg.jianshi.data.database.dao.VideoTaskInfoDao;
@@ -25,10 +27,12 @@ import com.hngg.jianshi.data.database.dao.VideoTaskInfoDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
+    private final DaoConfig playInfoDaoConfig;
     private final DaoConfig videoInfoDaoConfig;
     private final DaoConfig videoResolutionInfoDaoConfig;
     private final DaoConfig videoTaskInfoDaoConfig;
 
+    private final PlayInfoDao playInfoDao;
     private final VideoInfoDao videoInfoDao;
     private final VideoResolutionInfoDao videoResolutionInfoDao;
     private final VideoTaskInfoDao videoTaskInfoDao;
@@ -36,6 +40,9 @@ public class DaoSession extends AbstractDaoSession {
     public DaoSession(Database db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
+
+        playInfoDaoConfig = daoConfigMap.get(PlayInfoDao.class).clone();
+        playInfoDaoConfig.initIdentityScope(type);
 
         videoInfoDaoConfig = daoConfigMap.get(VideoInfoDao.class).clone();
         videoInfoDaoConfig.initIdentityScope(type);
@@ -46,19 +53,26 @@ public class DaoSession extends AbstractDaoSession {
         videoTaskInfoDaoConfig = daoConfigMap.get(VideoTaskInfoDao.class).clone();
         videoTaskInfoDaoConfig.initIdentityScope(type);
 
+        playInfoDao = new PlayInfoDao(playInfoDaoConfig, this);
         videoInfoDao = new VideoInfoDao(videoInfoDaoConfig, this);
         videoResolutionInfoDao = new VideoResolutionInfoDao(videoResolutionInfoDaoConfig, this);
         videoTaskInfoDao = new VideoTaskInfoDao(videoTaskInfoDaoConfig, this);
 
+        registerDao(PlayInfo.class, playInfoDao);
         registerDao(VideoInfo.class, videoInfoDao);
         registerDao(VideoResolutionInfo.class, videoResolutionInfoDao);
         registerDao(VideoTaskInfo.class, videoTaskInfoDao);
     }
     
     public void clear() {
+        playInfoDaoConfig.clearIdentityScope();
         videoInfoDaoConfig.clearIdentityScope();
         videoResolutionInfoDaoConfig.clearIdentityScope();
         videoTaskInfoDaoConfig.clearIdentityScope();
+    }
+
+    public PlayInfoDao getPlayInfoDao() {
+        return playInfoDao;
     }
 
     public VideoInfoDao getVideoInfoDao() {

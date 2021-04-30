@@ -1,4 +1,4 @@
-package com.hngg.jianshi.data.datebase;
+package com.hngg.jianshi.data;
 
 import com.arialyy.aria.orm.annotation.Ignore;
 

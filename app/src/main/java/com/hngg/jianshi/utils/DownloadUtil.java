@@ -4,9 +4,9 @@ import android.app.Activity;
 
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.database.dao.VideoTaskInfoDao;
-import com.hngg.jianshi.data.datebase.DbManager;
+import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
-import com.hngg.jianshi.data.datebase.VideoTaskState;
+import com.hngg.jianshi.data.VideoTaskState;
 
 import java.util.List;
 

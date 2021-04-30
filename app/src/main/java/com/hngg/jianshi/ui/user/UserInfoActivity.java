@@ -20,6 +20,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerUserInfoComponent;
+import com.hngg.jianshi.data.RandomData;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
 import com.hngg.jianshi.ui.user.dynamic.UserInfo_DynamicFragment;
@@ -183,13 +184,19 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
 
     @SuppressLint("SetTextI18n")
     public void setPgcData(UserInfoBean.PgcInfoBean pgcInfo) {
-        GlideUtil.loadImage(this, pgcInfo.getCover(), ivTopImage);
+        if (pgcInfo.getCover() == null) {
+            GlideUtil.loadImage(this, RandomData.obtainUserInfoBg(), ivTopImage);
+        } else {
+            GlideUtil.loadImage(this, pgcInfo.getCover(), ivTopImage);
+        }
+
         GlideUtil.loadCircleImage(this, pgcInfo.getIcon(), ivHeadImage);
         tvTitle.setText(pgcInfo.getName());
         tvPersonDesc.setText(pgcInfo.getDescription());
         tvWorksCount.setText("" + pgcInfo.getVideoCount());
         tvFollowCount.setText("" + pgcInfo.getFollowCount());
         tvFansCount.setText("" + pgcInfo.getCollectCount());
+        LogUtil.i(TAG, pgcInfo.toString());
     }
 
 
@@ -199,6 +206,9 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
         LogUtil.i(TAG, "数据长度" + mTitleList.size() + ":" + mUrlList.size());
         if (mTitleList.size() == 3 && mUrlList.size() == 3) {
             loadFragments();
+        }
+        if (mTitleList.size() == 4) {
+            LogUtil.i(TAG, "title=" + mTitleList.get(3) + "url=" + mUrlList.get(3));
         }
     }
 

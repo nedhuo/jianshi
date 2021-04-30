@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
-import com.hngg.jianshi.data.datebase.DbManager;
+import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;

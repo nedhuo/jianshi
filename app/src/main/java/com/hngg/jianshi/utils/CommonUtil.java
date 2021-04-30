@@ -3,7 +3,7 @@ package com.hngg.jianshi.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
-import com.hngg.jianshi.data.datebase.DbManager;
+import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 
 import java.text.SimpleDateFormat;

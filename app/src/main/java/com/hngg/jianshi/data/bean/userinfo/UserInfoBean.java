@@ -464,6 +464,15 @@ public class UserInfoBean {
             public void setFollowed(boolean followed) {
                 this.followed = followed;
             }
+
+            @Override
+            public String toString() {
+                return "FollowBean{" +
+                        "itemType='" + itemType + '\'' +
+                        ", itemId=" + itemId +
+                        ", followed=" + followed +
+                        '}';
+            }
         }
 
         public static class ShieldBean {
@@ -500,6 +509,44 @@ public class UserInfoBean {
             public void setShielded(boolean shielded) {
                 this.shielded = shielded;
             }
+
+            @Override
+            public String toString() {
+                return "ShieldBean{" +
+                        "itemType='" + itemType + '\'' +
+                        ", itemId=" + itemId +
+                        ", shielded=" + shielded +
+                        '}';
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "PgcInfoBean{" +
+                    "dataType='" + dataType + '\'' +
+                    ", id=" + id +
+                    ", icon='" + icon + '\'' +
+                    ", name='" + name + '\'' +
+                    ", brief='" + brief + '\'' +
+                    ", description='" + description + '\'' +
+                    ", actionUrl='" + actionUrl + '\'' +
+                    ", area='" + area + '\'' +
+                    ", gender='" + gender + '\'' +
+                    ", registDate=" + registDate +
+                    ", followCount=" + followCount +
+                    ", follow=" + follow +
+                    ", self=" + self +
+                    ", cover='" + cover + '\'' +
+                    ", videoCount=" + videoCount +
+                    ", shareCount=" + shareCount +
+                    ", collectCount=" + collectCount +
+                    ", myFollowCount=" + myFollowCount +
+                    ", medalsNum=" + medalsNum +
+                    ", worksRecCount=" + worksRecCount +
+                    ", worksSelectedCount=" + worksSelectedCount +
+                    ", shield=" + shield +
+                    ", expert=" + expert +
+                    '}';
         }
     }
 }

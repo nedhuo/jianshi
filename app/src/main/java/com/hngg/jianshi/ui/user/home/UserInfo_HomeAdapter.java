@@ -25,7 +25,7 @@ import com.hngg.jianshi.utils.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-class UserInfo_HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class UserInfo_HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = "UserInfo_HomeAdapter";
     private final List<ItemList> mDataList;

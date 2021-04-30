@@ -22,8 +22,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.Transition;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
-import com.hngg.jianshi.data.datebase.DbManager;
-import com.hngg.jianshi.data.datebase.VideoTaskState;
+import com.hngg.jianshi.data.database.DbManager;
+import com.hngg.jianshi.data.VideoTaskState;
 import com.hngg.jianshi.ui.MainActivity;
 import com.hngg.jianshi.widget.DownloadTarget;
 

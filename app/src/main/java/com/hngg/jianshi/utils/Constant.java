@@ -41,4 +41,6 @@ public class Constant {
 
     public static final String SP_NAME = "jianshi";
     public static final String UNIQUE_ID = "uniqueId";
+    public static final String TAGDETAIL_BEAN = "tagDetail_bean";
+    public static final String TAGDETAIL_BUNDLE = "tagDetail_bundle";
 }

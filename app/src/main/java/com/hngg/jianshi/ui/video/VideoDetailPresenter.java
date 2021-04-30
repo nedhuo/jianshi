@@ -11,7 +11,7 @@ import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
-import com.hngg.jianshi.data.datebase.DbManager;
+import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.service.DownloadService;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
