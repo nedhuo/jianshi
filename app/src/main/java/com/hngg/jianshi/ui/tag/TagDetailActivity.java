@@ -42,7 +42,6 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
         if (mPresenter == null) {
             LogUtil.i(TAG, "mPresenter为null");
             return;
-
         }
         /*接收数据*/
         String userType = "PGC";
