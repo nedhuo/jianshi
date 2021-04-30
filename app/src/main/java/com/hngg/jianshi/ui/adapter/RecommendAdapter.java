@@ -97,7 +97,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             viewHolder.banner.setAdapter(adapter);
             viewHolder.banner.setIndicator(new CircleIndicator(mCtx));
             //添加画廊效果
-            viewHolder.banner.setBannerGalleryMZ(20);
+            viewHolder.banner.setBannerGalleryMZ(20, 1);
             //(可以和其他PageTransformer组合使用，比如AlphaPageTransformer，注意但和其他带有缩放的PageTransformer会显示冲突)
             //添加透明效果(画廊配合透明效果更棒)
             //viewHolder.banner.addPageTransformer(new AlphaPageTransformer());
