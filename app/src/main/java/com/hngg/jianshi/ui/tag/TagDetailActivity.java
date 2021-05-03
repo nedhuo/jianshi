@@ -157,6 +157,7 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
         if (mPresenter != null) {
             mPresenter.onRefresh(mTagId,0);
             mPresenter.onRefresh(mTagId,1);
+
         }
 
     }
