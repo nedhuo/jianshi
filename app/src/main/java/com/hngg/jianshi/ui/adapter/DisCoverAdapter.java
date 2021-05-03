@@ -1,6 +1,8 @@
 package com.hngg.jianshi.ui.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
+import com.hngg.jianshi.ui.tag.TagDetailActivity;
 import com.hngg.jianshi.ui.viewholder.BannerViewHolder;
 import com.hngg.jianshi.ui.viewholder.TextHeaderViewHolder;
+import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
+import com.hngg.jianshi.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +85,12 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.tv_desc.setText(data.getDescription());
             holder.itemView.setOnClickListener(v -> {
                 /*TODO 待实现，跳转页面*/
-
+                LogUtil.i(TAG, data.getId() + "");
+                Intent intent = new Intent(mCtx, TagDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putLong(Constant.TAGDETAIL_BEAN, data.getId());
+                intent.putExtra(Constant.TAGDETAIL_BUNDLE, bundle);
+                mCtx.startActivity(intent);
             });
         }
     }

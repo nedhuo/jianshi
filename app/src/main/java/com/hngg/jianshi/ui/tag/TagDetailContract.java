@@ -14,8 +14,11 @@ import io.reactivex.Observable;
 public class TagDetailContract {
     interface View extends IView{
         void setTabInfo(TagInfoBean.TabInfo tabInfo);
+
+        void setTagInfo(TagInfoBean.TagInfo tagInfo);
     }
     interface Model extends IModel {
         Observable<TagInfoBean> onRefresh(long tagId);
+
     }
 }

@@ -1,20 +1,21 @@
 package com.hngg.jianshi.utils;
 
-import android.util.Log;
+import timber.log.Timber;
 
 /**
  * 集中管理，方便后期处理
  */
 public class LogUtil {
+
     public static void i(String tag, String msg) {
-        Log.i(tag, msg);
+        Timber.i(msg);
     }
 
     public static void e(String tag, String msg) {
-        Log.e(tag, msg);
+        Timber.e(msg);
     }
 
     public static void d(String tag, String msg) {
-        Log.d(tag, msg);
+        Timber.d(msg);
     }
 }

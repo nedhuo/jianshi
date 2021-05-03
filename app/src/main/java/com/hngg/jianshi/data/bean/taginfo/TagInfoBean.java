@@ -138,6 +138,26 @@ public class TagInfoBean implements Serializable {
             return shareLinkUrl;
         }
 
+        @Override
+        public String toString() {
+            return "TagInfo{" +
+                    "dataType='" + dataType + '\'' +
+                    ", id=" + id +
+                    ", name='" + name + '\'' +
+                    ", description='" + description + '\'' +
+                    ", headerImage='" + headerImage + '\'' +
+                    ", bgPicture='" + bgPicture + '\'' +
+                    ", actionUrl='" + actionUrl + '\'' +
+                    ", recType=" + recType +
+                    ", follow=" + follow +
+                    ", tagFollowCount=" + tagFollowCount +
+                    ", tagVideoCount=" + tagVideoCount +
+                    ", tagDynamicCount=" + tagDynamicCount +
+                    ", childTabList=" + childTabList +
+                    ", lookCount=" + lookCount +
+                    ", shareLinkUrl='" + shareLinkUrl + '\'' +
+                    '}';
+        }
     }
 
     public TabInfo getTabInfo() {

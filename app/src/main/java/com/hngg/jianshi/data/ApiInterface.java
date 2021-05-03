@@ -7,6 +7,8 @@ import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.recommend.RecommendRootBean;
 import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
 import com.hngg.jianshi.data.bean.taginfo.TagInfoBean;
+import com.hngg.jianshi.data.bean.taginfo.TagInfoDynamicBean;
+import com.hngg.jianshi.data.bean.taginfo.TagInfoVideosBean;
 import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
 import com.hngg.jianshi.data.bean.userinfo.UserInfo_DynamicBean;
 import com.hngg.jianshi.data.bean.userinfo.UserInfo_HomeBean;
@@ -111,17 +113,21 @@ public interface ApiInterface {
 
     /**
      * tag http://baobab.kaiyanapp.com/api/v6/tag/index?id=1022&udid=9457b933f3bd434ba69e350e1112ec623fc61dee&vc=7000111&vn=7.0.11
-     *
-     *      apiUrl=http://baobab.kaiyanapp.com/api/v1/tag/videos?id=1022
-     *      apiUrl=http://baobab.kaiyanapp.com/api/v6/tag/dynamics?id=1022
-     * */
+     * <p>
+     * apiUrl=http://baobab.kaiyanapp.com/api/v1/tag/videos?id=1022
+     * apiUrl=http://baobab.kaiyanapp.com/api/v6/tag/dynamics?id=1022
+     */
     @GET("api/v6/tag/index")
     Observable<TagInfoBean> getTagDetailBean(@Query("id") long tagId);
 
     @GET("api/v1/tag/videos")
-    Observable<TagInfoBean> getTagDetai_recommend(@Query("id") long tagId);
+    Observable<TagInfoVideosBean> getTagDetail_recommend(@Query("id") long tagId);
+    @GET()
+    Observable<TagInfoVideosBean> getTagDetail_nextVideos(@Url String videoNextUrl);
     @GET("api/v6/tag/dynamics")
-    Observable<TagInfoBean> getTagDetai_dynamic(@Query("id") long tagId);
+    Observable<TagInfoDynamicBean> getTagDetail_dynamic(@Query("id") long tagId);
+    @GET()
+    Observable<TagInfoDynamicBean> getTagDetail_nextDynamic(@Url String dynamicNextUrl);
 
 
 

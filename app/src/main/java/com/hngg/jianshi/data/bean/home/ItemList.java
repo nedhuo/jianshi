@@ -43,4 +43,13 @@ public class ItemList implements Serializable {
         return adIndex;
     }
 
+    @Override
+    public String toString() {
+        return "ItemList{" +
+                "type='" + type + '\'' +
+                ", data=" + data +
+                ", id=" + id +
+                ", adIndex=" + adIndex +
+                '}';
+    }
 }

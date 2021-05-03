@@ -30,17 +30,17 @@
                     android:layout_height="@dimen/size_250dp" />
 
                 <ImageView
-                    android:id="@+id/iv_headImage"
-                    android:layout_width="@dimen/size_80dp"
-                    android:layout_height="@dimen/size_80dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/size_85dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.8"
+                    android:src="@color/bg_font_black" />
 
                 <ImageButton
                     android:id="@+id/ib_share"
-                    android:layout_width="@dimen/size_40dp"
-                    android:layout_height="@dimen/size_40dp"
+                    android:layout_width="@dimen/size_35dp"
+                    android:layout_height="@dimen/size_35dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/size_5dp"
                     android:layout_marginEnd="@dimen/size_5dp"
                     android:alpha="1"
                     android:background="@null"
@@ -52,18 +52,17 @@
                     android:id="@+id/tv_tagTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/iv_headImage"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/size_10dp"
+                    android:layout_marginTop="@dimen/size_90dp"
                     android:ellipsize="end"
                     android:maxWidth="@dimen/size_200dp"
                     android:maxLines="1"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/font_16sp"
+                    android:textSize="@dimen/font_20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_personDesc"
+                    android:id="@+id/tv_tagDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_tagTitle"
@@ -71,7 +70,10 @@
                     android:layout_marginTop="@dimen/size_5dp"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:textSize="@dimen/font_14sp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/font_16sp"
+                    android:textStyle="bold" />
+
 
             </RelativeLayout>
 
@@ -112,7 +114,7 @@
     <!--        >-->
     <!--    </androidx.core.widget.NestedScrollView>-->
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_userInfo"
+        android:id="@+id/vp_tagDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
