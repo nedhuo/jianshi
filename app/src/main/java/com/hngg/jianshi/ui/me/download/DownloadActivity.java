@@ -18,6 +18,7 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.ui.me.download.downloaded.DownloadedFragment;
 import com.hngg.jianshi.ui.me.download.downloading.DownloadingFragment;
 import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.StatusBarUtil;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 
@@ -72,6 +73,7 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
 
         if (mPresenter == null) {
             LogUtil.i(TAG, "mPresenter为null");

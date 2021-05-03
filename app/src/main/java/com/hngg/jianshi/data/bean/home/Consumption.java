@@ -50,4 +50,13 @@ public class Consumption implements Serializable {
         return realCollectionCount;
     }
 
+    @Override
+    public String toString() {
+        return "Consumption{" +
+                "collectionCount=" + collectionCount +
+                ", shareCount=" + shareCount +
+                ", replyCount=" + replyCount +
+                ", realCollectionCount=" + realCollectionCount +
+                '}';
+    }
 }

@@ -1,6 +1,6 @@
 package com.hngg.jianshi.utils;
 
-import timber.log.Timber;
+import android.util.Log;
 
 /**
  * 集中管理，方便后期处理
@@ -8,14 +8,14 @@ import timber.log.Timber;
 public class LogUtil {
 
     public static void i(String tag, String msg) {
-        Timber.i(msg);
+        Log.i(tag, msg);
     }
 
     public static void e(String tag, String msg) {
-        Timber.e(msg);
+        Log.e(tag, msg);
     }
 
     public static void d(String tag, String msg) {
-        Timber.d(msg);
+        Log.d(tag, msg);
     }
 }

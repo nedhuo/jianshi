@@ -1,6 +1,5 @@
 package com.hngg.jianshi.ui.me.download.downloading;
 
-import com.hngg.jianshi.ui.me.MeContract;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
@@ -11,7 +10,7 @@ import javax.inject.Inject;
  * @Author: nedhuo
  * @Data:
  */
-public class DownloadingModel extends BaseModel implements DownloadingContract.Model {
+public class DownloadingModel extends BaseModel {
     @Inject
     public DownloadingModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);

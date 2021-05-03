@@ -21,8 +21,10 @@ public class DataType {
     public final static String VIDEO_COLLECTION_HORIZONTAL_SCROLL_CARD = "videoCollectionOfHorizontalScrollCard";
     public static final String VIDEO_COLLECTION_BRIEF = "videoCollectionWithBrief";
     public static final String DYNAMIC_INFO_CARD = "DynamicInfoCard";
+    public static final String PICTURE_FOLLOW_CARD = "pictureFollowCard";
 
 
+    public static final int PICTURE_FOLLOW_ID = 2000;
     public static final int DYNAMIC_INFO_CARD_ID = 1900;
     public static final int VIDEO_COLLECTION_BRIEF_ID = 1800;
     public final static int LEFT_ALIGN_TEXT_HEADER_ID = 100;

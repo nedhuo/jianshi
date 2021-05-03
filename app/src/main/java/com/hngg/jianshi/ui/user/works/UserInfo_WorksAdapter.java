@@ -16,6 +16,7 @@ import com.hngg.jianshi.data.DataType;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.home.Tags;
+import com.hngg.jianshi.ui.tag.TagDetailActivity;
 import com.hngg.jianshi.ui.video.VideoDetailActivity;
 import com.hngg.jianshi.ui.viewholder.Video2ViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
@@ -23,7 +24,6 @@ import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,11 +93,16 @@ class UserInfo_WorksAdapter extends RecyclerView.Adapter {
                     return textView;
                 }
             });
-            holder.tagFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-                @Override
-                public boolean onTagClick(View view, int position, FlowLayout parent) {
-                    return false;
-                }
+            holder.tagFlowLayout.setOnTagClickListener((view, position1, parent) -> {
+                Intent intent = new Intent(mCtx, TagDetailActivity.class);
+                Bundle bundle = new Bundle();
+                Tags tags = data.getTags().get(position1);
+                bundle.putString(Constant.TAGDETAIL_TITLE, tags.getName());
+                bundle.putString(Constant.TAGDETAIL_DESC, tags.getDesc());
+                bundle.putLong(Constant.TAGDETAIL_BEAN, tags.getId());//id
+                intent.putExtra(Constant.TAGDETAIL_BUNDLE, bundle);
+                mCtx.startActivity(intent);
+                return true;
             });
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(mCtx, VideoDetailActivity.class);

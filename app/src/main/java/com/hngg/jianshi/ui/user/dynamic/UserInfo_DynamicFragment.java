@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerUserInfo_DynamicComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.LogUtil;
@@ -44,12 +43,12 @@ public class UserInfo_DynamicFragment extends BaseFragment<UserInfo_DynamicPrese
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-        DaggerUserInfo_DynamicComponent
-                .builder()
-                .appComponent(appComponent)
-                .userInfo_DynamicModule(new UserInfo_DynamicModule(this))
-                .build()
-                .inject(this);
+//        DaggerUserInfo_DynamicComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .userInfo_DynamicModule(new UserInfo_DynamicModule(this))
+//                .build()
+//                .inject(this);
     }
 
     @Override

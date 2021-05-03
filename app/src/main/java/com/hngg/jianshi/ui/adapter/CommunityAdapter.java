@@ -76,15 +76,12 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 viewHolder.tv_desc.setText(data.getDescription());
                 viewHolder.iv_flag.setImageResource(R.drawable.ic_storage);
 
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mCtx, UgcPictureActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(Constant.PICTURE_BEAN, data);
-                        intent.putExtra(Constant.PICTURE_BUNDLE, bundle);
-                        mCtx.startActivity(intent);
-                    }
+                viewHolder.itemView.setOnClickListener(v -> {
+                    Intent intent = new Intent(mCtx, UgcPictureActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(Constant.PICTURE_BEAN, data);
+                    intent.putExtra(Constant.PICTURE_BUNDLE, bundle);
+                    mCtx.startActivity(intent);
                 });
             } else if (DataType.VIDEO_CARD.equals(content.getType())) {
                 Glide.with((viewHolder).iv_content)

@@ -159,4 +159,25 @@ public class Header implements Serializable {
         return actionUrl;
     }
 
+    @Override
+    public String toString() {
+        return "Header{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", textAlign='" + textAlign + '\'' +
+                ", cover='" + cover + '\'' +
+                ", label=" + label +
+                ", actionUrl='" + actionUrl + '\'' +
+                ", icon='" + icon + '\'' +
+                ", iconType='" + iconType + '\'' +
+                ", description='" + description + '\'' +
+                ", time=" + time +
+                ", followType='" + followType + '\'' +
+                ", showHateVideo=" + showHateVideo +
+                ", tagId=" + tagId +
+                ", tagName='" + tagName + '\'' +
+                ", issuerName='" + issuerName + '\'' +
+                ", topShow=" + topShow +
+                '}';
+    }
 }

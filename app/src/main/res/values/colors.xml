@@ -13,6 +13,9 @@
     <color name="colorBlack_shade">#88000000</color>
     <color name="bg_font_black">#40ffffff</color>
 
+    <color name="color_statusBar">@color/colorWhite</color>
+    <color name="color_statusBar_font">@color/colorBlack</color>
+
     <color name="color_selected_flow">#CCCCCC</color>
     <color name="color_select_flow">#F7F7F7</color>
 
@@ -22,4 +25,5 @@
 
     <color name="color_CCCCCC">#CCCCCC</color>
     <color name="color_66CCFF">#66ccff</color>
+    <color name="color_2BB3D5">#2BB3D5</color>
 </resources>

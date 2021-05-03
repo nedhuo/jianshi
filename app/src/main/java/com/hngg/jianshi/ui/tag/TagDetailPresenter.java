@@ -52,32 +52,35 @@ public class TagDetailPresenter extends BasePresenter<TagDetailContract.Model, T
                 @Override
                 protected void onSuccess(TagInfoVideosBean o) {
                     mVideosNextUrl = o.getNextPageUrl();
-                    mRootView.setFragmentData(o.getItemList(), position);
+                    mRootView.setFragmentData(o.getItemList(), position, true);
                 }
 
                 @Override
                 public void onFail(Throwable e) {
+                    mRootView.setFragmentData(null, position, true);
                     LogUtil.e(TAG, e.getMessage());
                 }
             });
         } else if (position == 1) {
             mModel.onRefreshDynamic(tagId).subscribe(new BaseObserver<TagInfoDynamicBean>() {
 
-
                 @Override
                 protected void onSuccess(TagInfoDynamicBean o) {
                     mDynamicNextUrl = o.getNextPageUrl();
-                    mRootView.setFragmentData(o.getItemList(), position);
+                    mRootView.setFragmentData(o.getItemList(), position, true);
                 }
 
                 @Override
                 public void onFail(Throwable e) {
+                    mRootView.setFragmentData(null, position, true);
                     LogUtil.e(TAG, e.getMessage());
                 }
             });
         } else {
+            mRootView.setFragmentData(null, position, true);
         }
     }
+
 
     public void onLoadMore(int position) {
         if (position == 0) {
@@ -86,16 +89,17 @@ public class TagDetailPresenter extends BasePresenter<TagDetailContract.Model, T
                     @Override
                     protected void onSuccess(TagInfoVideosBean o) {
                         mDynamicNextUrl = o.getNextPageUrl();
-                        mRootView.setFragmentData(o.getItemList(), position);
+                        mRootView.setFragmentData(o.getItemList(), position, false);
                     }
 
                     @Override
                     public void onFail(Throwable e) {
+                        mRootView.setFragmentData(null, position, false);
                         LogUtil.e(TAG, e.getMessage());
                     }
                 });
             } else {
-
+                mRootView.setFragmentData(null, position, false);
             }
         } else if (position == 1) {
             if (mDynamicNextUrl != null && !mDynamicNextUrl.equals("")) {
@@ -103,17 +107,36 @@ public class TagDetailPresenter extends BasePresenter<TagDetailContract.Model, T
                     @Override
                     protected void onSuccess(TagInfoDynamicBean o) {
                         mDynamicNextUrl = o.getNextPageUrl();
-                        mRootView.setFragmentData(o.getItemList(), position);
+                        mRootView.setFragmentData(o.getItemList(), position, false);
                     }
 
                     @Override
                     public void onFail(Throwable e) {
+                        mRootView.setFragmentData(null, position, false);
                         LogUtil.e(TAG, e.getMessage());
                     }
                 });
             } else {
-
+                mRootView.setFragmentData(null, position, false);
             }
         }
+    }
+
+
+    /**
+     * 处理无数据情况
+     * */
+    public void onRefresh(String url) {
+        mModel.onRefresh(url).subscribe(new BaseObserver<TagInfoVideosBean>() {
+            @Override
+            protected void onSuccess(TagInfoVideosBean o) {
+                mRootView.setFragmentData(o.getItemList(), 0, true);
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+
+            }
+        });
     }
 }

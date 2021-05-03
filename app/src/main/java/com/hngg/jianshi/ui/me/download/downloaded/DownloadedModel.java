@@ -11,10 +11,10 @@ import javax.inject.Inject;
  * @Data:
  */
 
-class DownloadedModel extends BaseModel implements DownloadedContract.Model{
+public class DownloadedModel extends BaseModel implements DownloadedContract.Model{
+
     @Inject
     public DownloadedModel(IRepositoryManager repositoryManager) {
-
         super(repositoryManager);
     }
 

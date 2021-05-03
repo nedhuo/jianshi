@@ -85,9 +85,11 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.tv_desc.setText(data.getDescription());
             holder.itemView.setOnClickListener(v -> {
                 /*TODO 待实现，跳转页面*/
-                LogUtil.i(TAG, data.getId() + "");
+                LogUtil.i(TAG, data.toString());
                 Intent intent = new Intent(mCtx, TagDetailActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putString(Constant.TAGDETAIL_TITLE, data.getTitle());
+                bundle.putString(Constant.TAGDETAIL_DESC, data.getDescription());
                 bundle.putLong(Constant.TAGDETAIL_BEAN, data.getId());
                 intent.putExtra(Constant.TAGDETAIL_BUNDLE, bundle);
                 mCtx.startActivity(intent);

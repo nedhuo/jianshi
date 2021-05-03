@@ -46,5 +46,9 @@
     <dimen name="size_35dp">35dp</dimen>
     <dimen name="size_90dp">90dp</dimen>
     <dimen name="font_20sp">20sp</dimen>
+    <dimen name="size_100dp">100dp</dimen>
+    <dimen name="size_300dp">300dp</dimen>
+    <dimen name="size_7dp">7dp</dimen>
+    <dimen name="size_25dp">25dp</dimen>
 
 </resources>

@@ -19,7 +19,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerUserInfoComponent;
 import com.hngg.jianshi.data.RandomData;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
@@ -29,6 +28,7 @@ import com.hngg.jianshi.ui.user.works.UserInfo_WorksFragment;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.StatusBarUtil;
 import com.hngg.jianshi.widget.AppBarStateChangeListener;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
@@ -94,12 +94,12 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerUserInfoComponent
-                .builder()
-                .appComponent(appComponent)
-                .userInfoModule(new UserInfoModule(this))
-                .build()
-                .inject(this);
+//        DaggerUserInfoComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .userInfoModule(new UserInfoModule(this))
+//                .build()
+//                .inject(this);
     }
 
 
@@ -121,6 +121,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this);
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
         if (mPresenter == null) {
             LogUtil.e(TAG, "mPresenter为null");
             return;

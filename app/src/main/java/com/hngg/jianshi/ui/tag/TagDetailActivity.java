@@ -17,8 +17,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerTagDetailComponent;
+import com.hngg.jianshi.data.RandomData;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.taginfo.TagInfoBean;
 import com.hngg.jianshi.ui.tag.dynamic.TagDetail_DynamicFragment;
@@ -26,6 +27,7 @@ import com.hngg.jianshi.ui.tag.video.TagDetail_VideoFragment;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.StatusBarUtil;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 
@@ -42,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
@@ -66,11 +69,18 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
     @BindView(R.id.iv_topImage)
     ImageView mTopImage;
     @BindView(R.id.tv_tagDesc)
-    TextView mTagDesc;
+    TextView mTvDesc;
     @BindView(R.id.tv_tagTitle)
-    TextView mTagTitle;
-
+    TextView mTvTitle;
+    @BindView(R.id.ib_share)
+    ImageButton ibShare;
+    @BindView(R.id.collapsingLayout)
+    CollapsingToolbarLayout collapsingLayout;
+    private TagDetail_VideoFragment mVideoFragment;
+    private TagDetail_DynamicFragment mDynamicFragment;
     private long mTagId;
+    private String mTagTitle;
+    private String mTagDesc;
     private List<String> mTitleData;
     private List<String> mUrlData;
     //title,data
@@ -100,14 +110,15 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
         return false;
     });
 
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerTagDetailComponent
-                .builder()
-                .appComponent(appComponent)
-                .tagDetailModule(new TagDetailModule(this))
-                .build()
-                .inject(this);
+//        DaggerTagDetailComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .tagDetailModule(new TagDetailModule(this))
+//                .build()
+//                .inject(this);
     }
 
     @Override
@@ -117,15 +128,20 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this);
+
+        mIbBack.setOnClickListener(v -> onBackPressed());
+
         if (mPresenter == null) {
             LogUtil.i(TAG, "mPresenter为null");
             return;
         }
-
         /*接收数据*/
         Bundle bundleExtra = getIntent().getBundleExtra(Constant.TAGDETAIL_BUNDLE);
         if (bundleExtra != null) {
             mTagId = bundleExtra.getLong(Constant.TAGDETAIL_BEAN);
+            mTagTitle = bundleExtra.getString(Constant.TAGDETAIL_TITLE);
+            mTagDesc = bundleExtra.getString(Constant.TAGDETAIL_DESC);
             if (mTagId == -1) {
                 LogUtil.e(TAG, "接收数据为null");
                 return;
@@ -137,8 +153,18 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
         mTitleData = new ArrayList<>();
         mUrlData = new ArrayList<>();
         mFragments = new ArrayList<>();
+        mFragments.add(null);
+        mFragments.add(null);
 
         mPresenter.initData(mTagId);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
     }
 
     @Override
@@ -154,12 +180,11 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
             mTitleData.add(tab.getName());
             mUrlData.add(tab.getApiUrl());
         }
+        LogUtil.i(TAG, mUrlData.get(0));
         if (mPresenter != null) {
-            mPresenter.onRefresh(mTagId,0);
-            mPresenter.onRefresh(mTagId,1);
-
+            mPresenter.onRefresh(mTagId, 0);
+            mPresenter.onRefresh(mTagId, 1);
         }
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -167,47 +192,60 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
     public void setTagInfo(TagInfoBean.TagInfo tagInfo) {
         if (tagInfo == null) {
             LogUtil.e(TAG, "tagInfo数据为null");
+            String bg = RandomData.obtainUserInfoBg();
+            StatusBarUtil.setFontColorByImage(this, bg);
+            GlideUtil.loadImage(this, bg, mTopImage);
+            if (mTagTitle != null && !mTagTitle.equals("")) {
+                mTvTitle.setText("#" + mTagTitle);
+            }
+            if (mTagDesc != null && !mTagDesc.equals("")) {
+                mTvDesc.setText(mTagDesc);
+            }
             return;
         }
-        GlideUtil.loadImage(this, tagInfo.getHeaderImage(), mTopImage);
+        StatusBarUtil.setFontColorByImage(this, tagInfo.getBgPicture());
+        GlideUtil.loadImage(this, tagInfo.getBgPicture(), mTopImage);
         LogUtil.i(TAG, tagInfo.toString());
-        mTagTitle.setText("#" + tagInfo.getName());
-        mTagDesc.setText(tagInfo.getDescription());
+        mTvTitle.setText("#" + tagInfo.getName());
+        mTvDesc.setText(tagInfo.getDescription());
     }
 
-    public void setFragmentData(List<ItemList> itemList, int position) {
-        TagDetail_VideoFragment videoFragment;
-        TagDetail_DynamicFragment dynamicFragment;
-
-        if (mFragments.size() < position + 1 || mFragments.get(position) == null) {
-            if (position == 0) {
-                videoFragment = new TagDetail_VideoFragment();
-                videoFragment.setData(itemList);
+    public void setFragmentData(List<ItemList> itemList, int position, boolean isUpdate) {
+        if (position == 0) {
+            if (mVideoFragment == null) {
+                if (itemList == null || itemList.size() == 0) {
+                    //加载随机数据
+                    mPresenter.onRefresh(RandomData.obtainTagDetailVideosData());
+                    return;
+                }
+                mVideoFragment = new TagDetail_VideoFragment();
+                mVideoFragment.setData(itemList, isUpdate);
                 //设置Handler
-                videoFragment.setHandler(mHandler);
-                mFragments.add(videoFragment);
-            } else if (position == 1) {
-                dynamicFragment = new TagDetail_DynamicFragment();
-                dynamicFragment.setData(itemList);
-                dynamicFragment.setHandler(mHandler);
-                mFragments.add(dynamicFragment);
-            }
+                mVideoFragment.setHandler(mHandler);
+                mFragments.set(0, mVideoFragment);
 
-        } else {
-            if (position == 0) {
-                videoFragment = (TagDetail_VideoFragment) mFragments.get(position);
-                videoFragment.setData(itemList);
-                mFragments.add(videoFragment);
-            } else if (position == 1) {
-                dynamicFragment = (TagDetail_DynamicFragment) mFragments.get(position);
-                dynamicFragment.setData(itemList);
-                mFragments.add(dynamicFragment);
+                if (mFragments.get(0) != null && mFragments.get(1) != null) {
+                    initFragmentPage();
+                }
+            } else {
+                mVideoFragment.setData(itemList, isUpdate);
+            }
+        } else if (position == 1) {
+            if (mDynamicFragment == null) {
+                mDynamicFragment = new TagDetail_DynamicFragment();
+                mDynamicFragment.setData(itemList, isUpdate);
+                mDynamicFragment.setHandler(mHandler);
+                mFragments.set(1, mDynamicFragment);
+
+                if (mFragments.get(0) != null && mFragments.get(1) != null) {
+                    initFragmentPage();
+                }
+            } else {
+                mDynamicFragment.setData(itemList, isUpdate);
             }
         }
 
-        if (mFragments.size() >= 2) {
-            initFragmentPage();
-        }
+
     }
 
     private void initFragmentPage() {
@@ -259,5 +297,12 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
 
 
         ViewPagerHelper.bind(magicIndicator, mViewPager);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

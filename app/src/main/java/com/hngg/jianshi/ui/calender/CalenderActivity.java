@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.hngg.jianshi.R;
+import com.hngg.jianshi.utils.StatusBarUtil;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 
@@ -26,7 +28,7 @@ public class CalenderActivity extends BaseActivity {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
     }
 
 }

@@ -63,4 +63,15 @@ public class Content implements Serializable {
         return adIndex;
     }
 
+    @Override
+    public String toString() {
+        return "Content{" +
+                "type='" + type + '\'' +
+                ", data=" + data +
+                ", trackingData='" + trackingData + '\'' +
+                ", tag='" + tag + '\'' +
+                ", id=" + id +
+                ", adIndex=" + adIndex +
+                '}';
+    }
 }

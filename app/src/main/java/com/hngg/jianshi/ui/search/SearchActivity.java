@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.utils.StatusBarUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -51,6 +52,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
+
         mRecommendArray = getResources().getStringArray(R.array.recommend_search);
         /*TODO 数据库查询搜索记录数据 取十个或者二十个 时间排序*/
 

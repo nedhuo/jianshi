@@ -16,6 +16,13 @@
         android:layout_height="300dp"
         android:layout_gravity="center" />
 
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_alignParentBottom="true"-->
+    <!--    android:background="@color/colorBlack_shade"-->
+    <!--    android:orientation="vertical"-->
+    <!--    android:paddingTop="@dimen/size_20dp"-->
+    <!--    android:paddingBottom="@dimen/size_20dp"-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -30,10 +37,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/exo_white"
+            android:textColor="@color/colorWhite"
             android:textSize="15sp" />
 
         <RelativeLayout
+            android:id="@+id/rl_personInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

@@ -53,4 +53,9 @@ class TagDetailModel extends BaseModel implements TagDetailContract.Model {
         return mHttpUtil.getService(ApiInterface.class)
                 .getTagDetail_nextDynamic(dynamicNextUrl).compose(mHttpUtil.applySchedulers());
     }
+
+    public Observable<TagInfoVideosBean> onRefresh(String url) {
+        return mHttpUtil.getService(ApiInterface.class)
+                .getTagDetail_nextVideos(url).compose(mHttpUtil.applySchedulers());
+    }
 }

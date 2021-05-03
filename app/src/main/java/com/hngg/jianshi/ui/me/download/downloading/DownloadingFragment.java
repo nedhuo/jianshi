@@ -1,5 +1,6 @@
 package com.hngg.jianshi.ui.me.download.downloading;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +16,10 @@ import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.download.DownloadEntity;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
+import com.hngg.jianshi.base.BaseFragment;
 import com.hngg.jianshi.data.database.DbManager;
+import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.utils.LogUtil;
-import com.jess.arms.base.BaseFragment;
-import com.jess.arms.di.component.AppComponent;
 
 import java.util.List;
 
@@ -30,54 +30,28 @@ import butterknife.BindView;
  * @Author: nedhuo
  * @Data:
  */
-public class DownloadingFragment extends BaseFragment<DownloadingPresenter>
-        implements DownloadingContract.View {
+public class DownloadingFragment extends BaseFragment {
 
     @BindView(R.id.rv_downloading)
     RecyclerView rvDownloading;
     private VideoDownloadAdapter mAdapter;
+    private Activity mContext = getActivity();
 
+    @Nullable
     @Override
-    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerDownloadingComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .downloadingModule(new DownloadingModule(this))
-//                .build()
-//                .inject(this);
-    }
-
-    @Override
-    public View initView(@NonNull LayoutInflater inflater,
-                         @Nullable ViewGroup container,
-                         @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_downloading, container, false);
     }
 
     @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
-        if (mPresenter == null) {
-            LogUtil.i(TAG, "mPresenter为null");
-            return;
-        }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Aria.download(this).register();
         List<DownloadEntity> allNotCompleteTask = Aria.download(this).getAllNotCompleteTask();
         List<VideoTaskInfo> infoList = DbManager.getInstance(mContext)
                 .getVideoTaskDao().queryNotFinished();
         mAdapter = new VideoDownloadAdapter(getActivity(), infoList, allNotCompleteTask);
-        rvDownloading.setLayoutManager( new LinearLayoutManager(mContext));
+        rvDownloading.setLayoutManager(new LinearLayoutManager(mContext));
         rvDownloading.setAdapter(mAdapter);
-    }
-
-
-    @Override
-    public void setData(@Nullable Object data) {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
     }
 
 
@@ -86,6 +60,7 @@ public class DownloadingFragment extends BaseFragment<DownloadingPresenter>
         super.onDestroyView();
         Aria.download(this).unRegister();
     }
+
 
     /**
      * 下载监听

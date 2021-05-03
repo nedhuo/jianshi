@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerUserInfo_WorksComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.LogUtil;
@@ -42,12 +41,12 @@ public class UserInfo_WorksFragment extends BaseFragment<UserInfo_WorksPresenter
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-        DaggerUserInfo_WorksComponent
-                .builder()
-                .appComponent(appComponent)
-                .userInfo_WorksModule(new UserInfo_WorksModule(this))
-                .build()
-                .inject(this);
+//        DaggerUserInfo_WorksComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .userInfo_WorksModule(new UserInfo_WorksModule(this))
+//                .build()
+//                .inject(this);
     }
 
     @Override

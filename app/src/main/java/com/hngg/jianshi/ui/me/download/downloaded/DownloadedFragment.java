@@ -1,5 +1,6 @@
 package com.hngg.jianshi.ui.me.download.downloaded;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
+import com.hngg.jianshi.base.BaseFragment;
 import com.hngg.jianshi.data.database.DbManager;
-import com.hngg.jianshi.utils.LogUtil;
-import com.jess.arms.base.BaseFragment;
-import com.jess.arms.di.component.AppComponent;
+import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,37 +26,24 @@ import butterknife.BindView;
  * @Author: nedhuo
  * @Data:
  */
-public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
-        implements DownloadedContract.View {
+public class DownloadedFragment extends BaseFragment {
 
     @BindView(R.id.rv_downloaded)
     RecyclerView rvDownloaded;
     private List<VideoTaskInfo> mDataList;
     private DownloadedAdapter mAdapter;
+    private Activity mContext = getActivity();
 
-    @Override
-    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerDownloadedComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .downloadedModule(new DownloadedModule(this))
-//                .build()
-//                .inject(this);
-    }
 
+    @Nullable
     @Override
-    public View initView(@NonNull LayoutInflater inflater,
-                         @Nullable ViewGroup container,
-                         @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_downloaded, container, false);
     }
 
+
     @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
-        if (mPresenter == null) {
-            LogUtil.i(TAG, "mPresenter为null");
-            return;
-        }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mDataList = new ArrayList<>();
         List<VideoTaskInfo> taskInfoList = DbManager.getInstance(mContext)
                 .getVideoTaskDao().queryAllComplete();
@@ -66,18 +52,10 @@ public class DownloadedFragment extends BaseFragment<DownloadedPresenter>
 
         rvDownloaded.setLayoutManager(new LinearLayoutManager(mContext));
         rvDownloaded.setAdapter(mAdapter);
-
     }
 
-    @Override
-    public void setData(@Nullable Object data) {
 
-    }
 
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
 
 
 }

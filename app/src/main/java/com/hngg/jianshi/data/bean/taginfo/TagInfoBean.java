@@ -30,7 +30,6 @@ public class TagInfoBean implements Serializable {
         private long tagFollowCount;
         private int tagVideoCount;
         private int tagDynamicCount;
-        private List<String> childTabList;
         private long lookCount;
         private String shareLinkUrl;
         public void setDataType(String dataType) {
@@ -117,13 +116,6 @@ public class TagInfoBean implements Serializable {
             return tagDynamicCount;
         }
 
-        public void setChildTabList(List<String> childTabList) {
-            this.childTabList = childTabList;
-        }
-        public List<String> getChildTabList() {
-            return childTabList;
-        }
-
         public void setLookCount(long lookCount) {
             this.lookCount = lookCount;
         }
@@ -153,7 +145,6 @@ public class TagInfoBean implements Serializable {
                     ", tagFollowCount=" + tagFollowCount +
                     ", tagVideoCount=" + tagVideoCount +
                     ", tagDynamicCount=" + tagDynamicCount +
-                    ", childTabList=" + childTabList +
                     ", lookCount=" + lookCount +
                     ", shareLinkUrl='" + shareLinkUrl + '\'' +
                     '}';

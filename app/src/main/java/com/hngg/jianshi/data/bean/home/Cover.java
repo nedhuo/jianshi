@@ -58,4 +58,14 @@ public class Cover implements Serializable {
         return homepage;
     }
 
+    @Override
+    public String toString() {
+        return "Cover{" +
+                "feed='" + feed + '\'' +
+                ", detail='" + detail + '\'' +
+                ", blurred='" + blurred + '\'' +
+                ", sharing='" + sharing + '\'' +
+                ", homepage='" + homepage + '\'' +
+                '}';
+    }
 }

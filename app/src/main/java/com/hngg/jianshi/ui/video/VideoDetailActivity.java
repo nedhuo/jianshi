@@ -24,6 +24,7 @@ import com.hngg.jianshi.ui.user.UserInfoActivity;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.StatusBarUtil;
 import com.hngg.network.Observer.BaseObserver;
 import com.shuyu.gsyvideoplayer.GSYBaseActivityDetail;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
@@ -111,6 +112,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
      * 加载从
      */
     private void initData() {
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
         //获取页面传递数据
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra(Constant.VIDEO_BUNDLE);
@@ -165,9 +167,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
             Bundle bundle = new Bundle();
             bundle.putLong(Constant.USERINFO_BEAN_ID, mVideoData.getAuthor().getId());
             LogUtil.i(TAG," mVideoData.getUserType()"+ mVideoData.getUserType());
-          //  LogUtil.i(TAG," mVideoData.getUser().getUserType()"+ mVideoData.getUser().getUserType());
             bundle.putString(Constant.USERINFO_BEAN_TYPE, "PGC");
-            //bundle.putString(Constant.USERINFO_BEAN, "");
             Intent intent = new Intent(this, UserInfoActivity.class);
             intent.putExtra(Constant.USERINFO_BUNDLE, bundle);
             startActivity(intent);

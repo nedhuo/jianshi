@@ -1,18 +1,20 @@
 package com.hngg.jianshi.ui.community;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.GlideUtil;
 import com.shuyu.gsyvideoplayer.GSYBaseActivityDetail;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -39,7 +41,10 @@ public class CommunityVideoActivity extends GSYBaseActivityDetail {
     TextView tvName;
     @BindView(R.id.tv_personDesc)
     TextView tvPersonDesc;
+    @BindView(R.id.rl_personInfo)
+    RelativeLayout mPersonInfo;
     private Data mVideoData;
+    private Activity mCtx = this;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +64,8 @@ public class CommunityVideoActivity extends GSYBaseActivityDetail {
     public GSYVideoOptionBuilder getGSYVideoOptionBuilder() {
         //内置封面可参考SampleCoverVideo
         ImageView imageView = new ImageView(this);
-        Glide.with(this).load(mVideoData.getCover().getFeed()).centerCrop().into(imageView);
+        GlideUtil.loadImage(this, mVideoData.getCover().getFeed(), imageView);
+        //Glide.with(this).load(mVideoData.getCover().getFeed()).centerCrop().into(imageView);
         //  loadCover(imageView,);
         return new GSYVideoOptionBuilder()
                 .setThumbImageView(imageView)
@@ -109,5 +115,8 @@ public class CommunityVideoActivity extends GSYBaseActivityDetail {
         tvName.setText(mVideoData.getOwner().getNickname());
         tvDescription.setText(mVideoData.getDescription());
         tvPersonDesc.setText(mVideoData.getOwner().getDescription());
+        mPersonInfo.setOnClickListener(v -> {
+            //此处无法查询
+        });
     }
 }
