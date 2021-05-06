@@ -89,7 +89,6 @@ public class SearchActivity extends BaseActivity {
         mFl_recommend.setOnTagClickListener((view, position, parent) -> {
             Toast.makeText(this, mRecommendArray[position], Toast.LENGTH_SHORT).show();
             return true;
-
         });
 
         mTv_cancel.setOnClickListener(v -> onBackPressed());
