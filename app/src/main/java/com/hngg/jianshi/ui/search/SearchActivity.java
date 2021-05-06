@@ -99,6 +99,5 @@ public class SearchActivity extends BaseActivity {
         mRecommendArray = getResources().getStringArray(R.array.recommend_search);
         /*TODO 数据库查询搜索记录数据 取十个或者二十个 时间排序*/
         List<SearchInfo> searchInfos = mSearchInfoDao.queryAll();
-
     }
 }
