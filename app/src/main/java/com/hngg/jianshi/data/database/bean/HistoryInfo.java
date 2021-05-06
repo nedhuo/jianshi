@@ -21,9 +21,7 @@ public class HistoryInfo {
     private String poster;
 
     private String videoName;
-
-    private String filePath;
-
+    
     private long browsingTime;
 
     private long videoTime;

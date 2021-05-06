@@ -21,7 +21,9 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
+        CollectionInfoDao.createTable(db, ifNotExists);
         PlayInfoDao.createTable(db, ifNotExists);
+        SearchInfoDao.createTable(db, ifNotExists);
         VideoInfoDao.createTable(db, ifNotExists);
         VideoResolutionInfoDao.createTable(db, ifNotExists);
         VideoTaskInfoDao.createTable(db, ifNotExists);
@@ -29,7 +31,9 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
+        CollectionInfoDao.dropTable(db, ifExists);
         PlayInfoDao.dropTable(db, ifExists);
+        SearchInfoDao.dropTable(db, ifExists);
         VideoInfoDao.dropTable(db, ifExists);
         VideoResolutionInfoDao.dropTable(db, ifExists);
         VideoTaskInfoDao.dropTable(db, ifExists);
@@ -51,7 +55,9 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
+        registerDaoClass(CollectionInfoDao.class);
         registerDaoClass(PlayInfoDao.class);
+        registerDaoClass(SearchInfoDao.class);
         registerDaoClass(VideoInfoDao.class);
         registerDaoClass(VideoResolutionInfoDao.class);
         registerDaoClass(VideoTaskInfoDao.class);

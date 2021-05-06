@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerUserInfo_HomeComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.LogUtil;
@@ -44,9 +45,9 @@ public class UserInfo_HomeFragment extends BaseFragment<UserInfo_HomePresenter> 
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerUserInfo_HomeComponent.builder().appComponent(appComponent)
-//                .userInfo_HomeModule(new UserInfo_HomeModule(this))
-//                .build().inject(this);
+        DaggerUserInfo_HomeComponent.builder().appComponent(appComponent)
+                .userInfo_HomeModule(new UserInfo_HomeModule(this))
+                .build().inject(this);
     }
 
     @Override

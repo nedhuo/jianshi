@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="300dp"
     android:orientation="vertical">
 
     <ImageView
@@ -14,9 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/iv_content"
-        android:layout_marginLeft="@dimen/size_15dp"
-        android:layout_marginRight="@dimen/size_15dp"
-        android:layout_marginBottom="@dimen/size_20dp">
+        android:background="#80ffffff"
+        android:paddingLeft="@dimen/size_15dp"
+        android:paddingTop="@dimen/size_10dp"
+        android:paddingRight="@dimen/size_15dp"
+        android:paddingBottom="@dimen/size_20dp">
 
         <ImageView
             android:id="@+id/iv_headImage"
@@ -32,7 +34,7 @@
             android:layout_toRightOf="@id/iv_headImage"
             android:maxLines="1"
             android:text="aaaa"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorWhite"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -46,7 +48,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="aaaa"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorWhite"
             android:textSize="14sp"
             android:textStyle="bold" />
 

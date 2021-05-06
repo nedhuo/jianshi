@@ -53,6 +53,7 @@
         <activity
             android:name=".ui.tag.TagDetailActivity"
             android:launchMode="singleInstance" />
+        <activity android:name=".ui.discover.ranking.RankingActivity" />
 
         <service android:name=".service.DownloadService" />
     </application>

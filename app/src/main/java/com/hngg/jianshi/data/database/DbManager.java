@@ -6,7 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.hngg.jianshi.data.database.dao.DaoMaster;
 import com.hngg.jianshi.data.database.dao.DaoSession;
-import com.hngg.jianshi.data.database.utils.*;
+import com.hngg.jianshi.data.database.utils.CollectionInfoUtil;
+import com.hngg.jianshi.data.database.utils.HistoryInfoUtil;
+import com.hngg.jianshi.data.database.utils.PlayerInfoUtil;
+import com.hngg.jianshi.data.database.utils.SearchInfoUtil;
+import com.hngg.jianshi.data.database.utils.VideoTaskInfoUtil;
 
 /**
  * 使用GreenDao对数据库进行管理
@@ -54,6 +58,22 @@ public class DbManager {
 
     public VideoTaskInfoUtil getVideoTaskDao() {
         return new VideoTaskInfoUtil(mDaoSession);
+    }
+
+    public SearchInfoUtil getSearchInfoDao() {
+        return new SearchInfoUtil(mDaoSession);
+    }
+
+    public PlayerInfoUtil getPlayerInfoDao() {
+        return new PlayerInfoUtil(mDaoSession);
+    }
+
+    public CollectionInfoUtil getCollectionInfoDao() {
+        return new CollectionInfoUtil(mDaoSession);
+    }
+
+    public HistoryInfoUtil getHistoryInfoDao() {
+        return new HistoryInfoUtil(mDaoSession);
     }
 
     /**

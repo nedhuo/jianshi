@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerUserInfoComponent;
 import com.hngg.jianshi.data.RandomData;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.userinfo.UserInfoBean;
@@ -94,12 +95,12 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter>
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-//        DaggerUserInfoComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .userInfoModule(new UserInfoModule(this))
-//                .build()
-//                .inject(this);
+        DaggerUserInfoComponent
+                .builder()
+                .appComponent(appComponent)
+                .userInfoModule(new UserInfoModule(this))
+                .build()
+                .inject(this);
     }
 
 

@@ -1,17 +1,21 @@
 package com.hngg.jianshi.ui.discover;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerDisCoverComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.adapter.DisCoverAdapter;
+import com.hngg.jianshi.ui.discover.ranking.RankingActivity;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.scwang.smart.refresh.header.ClassicsHeader;
@@ -40,17 +44,19 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
     RecyclerView mRvDiscover;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    @BindView(R.id.ib_ranking)
+    ImageButton ibRanking;
 
     private DisCoverAdapter mAdapter;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerDisCoverComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .disCoverModule(new DisCoverModule(this))
-//                .build()
-//                .inject(this);
+        DaggerDisCoverComponent
+                .builder()
+                .appComponent(appComponent)
+                .disCoverModule(new DisCoverModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -61,7 +67,7 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        if (mPresenter!=null){
+        if (mPresenter != null) {
             //init 刷新控件
             mRefreshLayout.setRefreshHeader(mClassicsHeader);
             mRefreshLayout.setOnRefreshListener(refreshlayout -> {
@@ -74,6 +80,10 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
             mPresenter.getCommunityData(true);
 
         }
+        ibRanking.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, RankingActivity.class);
+            startActivity(intent);
+        });
 
     }
 

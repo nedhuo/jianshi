@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
         android:background="@color/colorWhite">
@@ -15,12 +15,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:text="@string/discover"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/font_16sp"
             android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
+
+        <ImageButton
+            android:id="@+id/ib_ranking"
+            android:layout_width="@dimen/size_35dp"
+            android:layout_height="@dimen/size_35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/size_10dp"
+            android:background="@null"
+            android:padding="@dimen/size_5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_rank" />
+
+
+    </RelativeLayout>
 
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout

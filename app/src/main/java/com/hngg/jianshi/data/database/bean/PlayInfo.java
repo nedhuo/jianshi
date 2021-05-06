@@ -2,7 +2,6 @@ package com.hngg.jianshi.data.database.bean;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -17,13 +16,13 @@ public class PlayInfo {
     private Long id;
 
     private Long videoId;
-    private String title;
+    private String videoName;
     private String category;
     private String description;
     private int duration;   //时长
-
+    private String poster;
     private String playUrl;
-    private Long fileSize;
+    private Long videoSize;
     private String filePath;
 
     private Long authorId;
@@ -33,19 +32,20 @@ public class PlayInfo {
 
     private Long seekTime; //当前进度
 
-    @Generated(hash = 1292466478)
-    public PlayInfo(Long id, Long videoId, String title, String category,
-            String description, int duration, String playUrl, Long fileSize,
-            String filePath, Long authorId, String authorName, String authorIcon,
-            String authorDesc, Long seekTime) {
+    @Generated(hash = 277248303)
+    public PlayInfo(Long id, Long videoId, String videoName, String category,
+            String description, int duration, String poster, String playUrl,
+            Long videoSize, String filePath, Long authorId, String authorName,
+            String authorIcon, String authorDesc, Long seekTime) {
         this.id = id;
         this.videoId = videoId;
-        this.title = title;
+        this.videoName = videoName;
         this.category = category;
         this.description = description;
         this.duration = duration;
+        this.poster = poster;
         this.playUrl = playUrl;
-        this.fileSize = fileSize;
+        this.videoSize = videoSize;
         this.filePath = filePath;
         this.authorId = authorId;
         this.authorName = authorName;
@@ -74,12 +74,12 @@ public class PlayInfo {
         this.videoId = videoId;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getVideoName() {
+        return this.videoName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
     }
 
     public String getCategory() {
@@ -106,6 +106,14 @@ public class PlayInfo {
         this.duration = duration;
     }
 
+    public String getPoster() {
+        return this.poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
     public String getPlayUrl() {
         return this.playUrl;
     }
@@ -114,12 +122,12 @@ public class PlayInfo {
         this.playUrl = playUrl;
     }
 
-    public Long getFileSize() {
-        return this.fileSize;
+    public Long getVideoSize() {
+        return this.videoSize;
     }
 
-    public void setFileSize(Long fileSize) {
-        this.fileSize = fileSize;
+    public void setVideoSize(Long videoSize) {
+        this.videoSize = videoSize;
     }
 
     public String getFilePath() {
@@ -169,4 +177,6 @@ public class PlayInfo {
     public void setSeekTime(Long seekTime) {
         this.seekTime = seekTime;
     }
+
+
 }

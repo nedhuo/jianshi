@@ -8,12 +8,16 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
+import com.hngg.jianshi.data.database.bean.CollectionInfo;
 import com.hngg.jianshi.data.database.bean.PlayInfo;
+import com.hngg.jianshi.data.database.bean.SearchInfo;
 import com.hngg.jianshi.data.database.bean.VideoInfo;
 import com.hngg.jianshi.data.database.bean.VideoResolutionInfo;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 
+import com.hngg.jianshi.data.database.dao.CollectionInfoDao;
 import com.hngg.jianshi.data.database.dao.PlayInfoDao;
+import com.hngg.jianshi.data.database.dao.SearchInfoDao;
 import com.hngg.jianshi.data.database.dao.VideoInfoDao;
 import com.hngg.jianshi.data.database.dao.VideoResolutionInfoDao;
 import com.hngg.jianshi.data.database.dao.VideoTaskInfoDao;
@@ -27,12 +31,16 @@ import com.hngg.jianshi.data.database.dao.VideoTaskInfoDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
+    private final DaoConfig collectionInfoDaoConfig;
     private final DaoConfig playInfoDaoConfig;
+    private final DaoConfig searchInfoDaoConfig;
     private final DaoConfig videoInfoDaoConfig;
     private final DaoConfig videoResolutionInfoDaoConfig;
     private final DaoConfig videoTaskInfoDaoConfig;
 
+    private final CollectionInfoDao collectionInfoDao;
     private final PlayInfoDao playInfoDao;
+    private final SearchInfoDao searchInfoDao;
     private final VideoInfoDao videoInfoDao;
     private final VideoResolutionInfoDao videoResolutionInfoDao;
     private final VideoTaskInfoDao videoTaskInfoDao;
@@ -41,8 +49,14 @@ public class DaoSession extends AbstractDaoSession {
             daoConfigMap) {
         super(db);
 
+        collectionInfoDaoConfig = daoConfigMap.get(CollectionInfoDao.class).clone();
+        collectionInfoDaoConfig.initIdentityScope(type);
+
         playInfoDaoConfig = daoConfigMap.get(PlayInfoDao.class).clone();
         playInfoDaoConfig.initIdentityScope(type);
+
+        searchInfoDaoConfig = daoConfigMap.get(SearchInfoDao.class).clone();
+        searchInfoDaoConfig.initIdentityScope(type);
 
         videoInfoDaoConfig = daoConfigMap.get(VideoInfoDao.class).clone();
         videoInfoDaoConfig.initIdentityScope(type);
@@ -53,26 +67,40 @@ public class DaoSession extends AbstractDaoSession {
         videoTaskInfoDaoConfig = daoConfigMap.get(VideoTaskInfoDao.class).clone();
         videoTaskInfoDaoConfig.initIdentityScope(type);
 
+        collectionInfoDao = new CollectionInfoDao(collectionInfoDaoConfig, this);
         playInfoDao = new PlayInfoDao(playInfoDaoConfig, this);
+        searchInfoDao = new SearchInfoDao(searchInfoDaoConfig, this);
         videoInfoDao = new VideoInfoDao(videoInfoDaoConfig, this);
         videoResolutionInfoDao = new VideoResolutionInfoDao(videoResolutionInfoDaoConfig, this);
         videoTaskInfoDao = new VideoTaskInfoDao(videoTaskInfoDaoConfig, this);
 
+        registerDao(CollectionInfo.class, collectionInfoDao);
         registerDao(PlayInfo.class, playInfoDao);
+        registerDao(SearchInfo.class, searchInfoDao);
         registerDao(VideoInfo.class, videoInfoDao);
         registerDao(VideoResolutionInfo.class, videoResolutionInfoDao);
         registerDao(VideoTaskInfo.class, videoTaskInfoDao);
     }
     
     public void clear() {
+        collectionInfoDaoConfig.clearIdentityScope();
         playInfoDaoConfig.clearIdentityScope();
+        searchInfoDaoConfig.clearIdentityScope();
         videoInfoDaoConfig.clearIdentityScope();
         videoResolutionInfoDaoConfig.clearIdentityScope();
         videoTaskInfoDaoConfig.clearIdentityScope();
     }
 
+    public CollectionInfoDao getCollectionInfoDao() {
+        return collectionInfoDao;
+    }
+
     public PlayInfoDao getPlayInfoDao() {
         return playInfoDao;
+    }
+
+    public SearchInfoDao getSearchInfoDao() {
+        return searchInfoDao;
     }
 
     public VideoInfoDao getVideoInfoDao() {

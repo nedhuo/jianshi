@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerCommunityComponent;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.adapter.CommunityAdapter;
 import com.hngg.jianshi.ui.adapter.RecyclerViewWrapper;
@@ -44,14 +45,15 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
     SmartRefreshLayout mRefreshLayout;
     private RecyclerViewWrapper<CommunityAdapter> mAdapterWrapper;
     private CommunityAdapter mCommunityAdapter;
+
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerCommunityComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .communityModule(new CommunityModule(this))
-//                .build()
-//                .inject(this);
+        DaggerCommunityComponent
+                .builder()
+                .appComponent(appComponent)
+                .communityModule(new CommunityModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -89,11 +91,11 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
 
 
     public void setData(List<ItemList> data, boolean isUpdate) {
-        if (isUpdate){
+        if (isUpdate) {
             List<ItemList> wrapperData = new ArrayList<>();
             wrapperData.add(data.remove(0));
             wrapperData.add(data.remove(0));
-            mAdapterWrapper.setData(wrapperData,isUpdate);
+            mAdapterWrapper.setData(wrapperData, isUpdate);
         }
         mCommunityAdapter.setData(data, isUpdate);
 
@@ -120,7 +122,7 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
         StaggeredGridLayoutManager manager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mCommunityAdapter = new CommunityAdapter(getActivity());
-        mAdapterWrapper = new RecyclerViewWrapper<>(mCommunityAdapter,getActivity());
+        mAdapterWrapper = new RecyclerViewWrapper<>(mCommunityAdapter, getActivity());
 
         //添加头部View
         View headerView1 = LayoutInflater.from(this.getContext())

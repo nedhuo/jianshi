@@ -1,7 +1,9 @@
 package com.hngg.jianshi.data;
 
+import com.hngg.jianshi.data.bean.SearchBean;
 import com.hngg.jianshi.data.bean.community.CommunityRootBean;
 import com.hngg.jianshi.data.bean.discover.DisCoverRootBean;
+import com.hngg.jianshi.data.bean.discover.RankingBean;
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.recommend.RecommendRootBean;
@@ -122,12 +124,34 @@ public interface ApiInterface {
 
     @GET("api/v1/tag/videos")
     Observable<TagInfoVideosBean> getTagDetail_recommend(@Query("id") long tagId);
+
     @GET()
     Observable<TagInfoVideosBean> getTagDetail_nextVideos(@Url String videoNextUrl);
+
     @GET("api/v6/tag/dynamics")
     Observable<TagInfoDynamicBean> getTagDetail_dynamic(@Query("id") long tagId);
+
     @GET()
     Observable<TagInfoDynamicBean> getTagDetail_nextDynamic(@Url String dynamicNextUrl);
+
+    /**
+     * 排行
+     * */
+    @GET("http://baobab.kaiyanapp.com/api/v3/ranklist")
+    Observable<RankingBean> getRanking(@Query("strategy") String strategy, @Query("num") int num);
+
+    @GET("http://baobab.kaiyanapp.com/api/v3/ranklist")
+    Observable<RankingBean> getRanking_next(@Query("strategy") String strategy, @Query("num") int num);
+
+    /**
+     *
+     * http://baobab.kaiyanapp.com/api/v1/search?&num=10&start=10&query=%E2%80%9C%E5%B9%BF%E5%91%8A%E2%80%9D
+     * */
+    @GET("http://baobab.kaiyanapp.com/api/v1/search")
+    Observable<SearchBean> getQueryData(@Query("num")int num, @Query("query")String query);
+
+    @GET()
+    Observable<SearchBean> getQueryNextData(@Url String url);
 
 
 
@@ -141,7 +165,7 @@ public interface ApiInterface {
 
     /**
      * strategy : monthly, weekly, historical
-     * http://baobab.kaiyanapp.com/api/v3/ranklist?num=10&strategy=monthly
+     * http://baobab.kaiyanapp.com/api/v3/ranklist?num=10&start=10&strategy=monthly
      */
 
 

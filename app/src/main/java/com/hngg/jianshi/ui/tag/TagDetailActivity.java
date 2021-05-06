@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerTagDetailComponent;
 import com.hngg.jianshi.data.RandomData;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.taginfo.TagInfoBean;
@@ -113,12 +114,12 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-//        DaggerTagDetailComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .tagDetailModule(new TagDetailModule(this))
-//                .build()
-//                .inject(this);
+        DaggerTagDetailComponent
+                .builder()
+                .appComponent(appComponent)
+                .tagDetailModule(new TagDetailModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override

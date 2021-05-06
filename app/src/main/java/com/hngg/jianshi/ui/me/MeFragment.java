@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerMeComponent;
 import com.hngg.jianshi.ui.me.download.DownloadActivity;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
@@ -39,12 +40,12 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-//        DaggerMeComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .meModule(new MeModule(this))
-//                .build()
-//                .inject(this);
+        DaggerMeComponent
+                .builder()
+                .appComponent(appComponent)
+                .meModule(new MeModule(this))
+                .build()
+                .inject(this);
     }
 
 
