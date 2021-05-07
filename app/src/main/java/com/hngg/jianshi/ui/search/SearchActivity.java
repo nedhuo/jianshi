@@ -82,6 +82,7 @@ public class SearchActivity extends BaseActivity {
             Toast.makeText(this, mSearchList.get(position), Toast.LENGTH_SHORT).show();
             mPresenter.onRefresh(mSearchList.get(position));
             return true;
+
         });
 
         mFl_recommend.setAdapter(new TagAdapter<String>(mRecommendList) {
