@@ -75,7 +75,6 @@ public class SearchActivity extends BaseActivity {
                                 parent, false);
                 ((TextView) view).setText(s);
                 return view;
-
             }
         });
 
