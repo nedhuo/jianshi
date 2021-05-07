@@ -20,6 +20,8 @@ import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,11 +40,12 @@ public class SearchActivity extends BaseActivity {
     EditText mEt_input;
     @BindView(R.id.tv_deleteHistory)
     TextView mTv_deleteHistory;
-    private String[] mRecommendArray;
 
     private Activity mCtx = this;
     private SearchPresenter<SearchActivity> mPresenter;
     private SearchInfoUtil mSearchInfoDao;
+    private List<String> mSearchList;
+    private List<String> mRecommendList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,13 +55,19 @@ public class SearchActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         mPresenter = new SearchPresenter<>(this);
+        mSearchList = new ArrayList<>();
         mSearchInfoDao = DbManager.getInstance(this).getSearchInfoDao();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSearchInfoDao = DbManager.getInstance(this).getSearchInfoDao();
+    }
 
     @Override
     protected void initView() {
-        mFl_history.setAdapter(new TagAdapter<String>(mRecommendArray) {
+        mFl_history.setAdapter(new TagAdapter<String>(mSearchList) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 View view = LayoutInflater.from(mCtx)
@@ -70,12 +79,12 @@ public class SearchActivity extends BaseActivity {
         });
 
         mFl_history.setOnTagClickListener((view, position, parent) -> {
-            Toast.makeText(this, mRecommendArray[position], Toast.LENGTH_SHORT).show();
-            mPresenter.onRefresh(mRecommendArray[position]);
+            Toast.makeText(this, mSearchList.get(position), Toast.LENGTH_SHORT).show();
+            mPresenter.onRefresh(mSearchList.get(position));
             return true;
         });
 
-        mFl_recommend.setAdapter(new TagAdapter<String>(mRecommendArray) {
+        mFl_recommend.setAdapter(new TagAdapter<String>(mRecommendList) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 View view = LayoutInflater.from(mCtx)
@@ -87,7 +96,8 @@ public class SearchActivity extends BaseActivity {
         });
 
         mFl_recommend.setOnTagClickListener((view, position, parent) -> {
-            Toast.makeText(this, mRecommendArray[position], Toast.LENGTH_SHORT).show();
+            mPresenter.onRefresh(mRecommendList.get(position));
+            Toast.makeText(this, mRecommendList.get(position), Toast.LENGTH_SHORT).show();
             return true;
         });
 
@@ -96,8 +106,13 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mRecommendArray = getResources().getStringArray(R.array.recommend_search);
-        /*TODO 数据库查询搜索记录数据 取十个或者二十个 时间排序*/
+        String[] recommendArray = getResources().getStringArray(R.array.recommend_search);
+        mRecommendList = Arrays.asList(recommendArray);
+
         List<SearchInfo> searchInfos = mSearchInfoDao.queryAll();
+        for (SearchInfo searchInfo : searchInfos) {
+            mSearchList.add(searchInfo.getSearchField());
+        }
+
     }
 }
