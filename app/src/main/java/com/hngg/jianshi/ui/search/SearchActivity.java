@@ -76,7 +76,6 @@ public class SearchActivity extends BaseActivity {
                 ((TextView) view).setText(s);
                 return view;
             }
-
         });
 
         mFl_history.setOnTagClickListener((view, position, parent) -> {
