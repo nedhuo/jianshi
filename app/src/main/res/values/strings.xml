@@ -25,5 +25,6 @@
     <string name="works">作品</string>
     <string name="follows">关注度</string>
     <string name="fans">粉丝</string>
+    <string name="search_result">搜索结果</string>
 
 </resources>

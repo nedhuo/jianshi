@@ -1,20 +1,26 @@
 package com.hngg.jianshi.ui.search;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.base.BaseActivity;
+import com.hngg.jianshi.data.bean.home.Data;
+import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.SearchInfo;
 import com.hngg.jianshi.data.database.utils.SearchInfoUtil;
+import com.hngg.jianshi.utils.Constant;
+import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.jianshi.utils.StatusBarUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -27,7 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchActivity extends BaseActivity {
+public class SearchActivity extends BaseActivity implements TextView.OnEditorActionListener {
     @BindView(R.id.flowLayout_history)
     TagFlowLayout mFl_history;
 
@@ -42,10 +48,11 @@ public class SearchActivity extends BaseActivity {
     TextView mTv_deleteHistory;
 
     private Activity mCtx = this;
-    private SearchPresenter<SearchActivity> mPresenter;
+    private SearchPresenter mPresenter;
     private SearchInfoUtil mSearchInfoDao;
     private List<String> mSearchList;
     private List<String> mRecommendList;
+    private String mSearchField;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +61,7 @@ public class SearchActivity extends BaseActivity {
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
 
-        mPresenter = new SearchPresenter<>(this);
+        mPresenter = new SearchPresenter(this);
         mSearchList = new ArrayList<>();
         mSearchInfoDao = DbManager.getInstance(this).getSearchInfoDao();
     }
@@ -62,11 +69,12 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mSearchInfoDao = DbManager.getInstance(this).getSearchInfoDao();
-    }
 
-    @Override
-    protected void initView() {
+        List<SearchInfo> searchInfos = mSearchInfoDao.queryAll();
+        for (SearchInfo searchInfo : searchInfos) {
+            mSearchList.add(searchInfo.getSearchField());
+        }
+
         mFl_history.setAdapter(new TagAdapter<String>(mSearchList) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
@@ -78,11 +86,18 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
-        mFl_history.setOnTagClickListener((view, position, parent) -> {
-            Toast.makeText(this, mSearchList.get(position), Toast.LENGTH_SHORT).show();
-            mPresenter.onRefresh(mSearchList.get(position));
-            return true;
+    }
 
+    @Override
+    protected void initView() {
+
+        mFl_history.setOnTagClickListener((view, position, parent) -> {
+            mEt_input.setText(mSearchList.get(position));
+            //   Toast.makeText(this, mSearchList.get(position), Toast.LENGTH_SHORT).show();
+            mSearchField = mSearchList.get(position);
+          //  mPresenter.onRefresh(mSearchList.get(position));
+            jumpPage(mSearchList.get(position));
+            return true;
         });
 
         mFl_recommend.setAdapter(new TagAdapter<String>(mRecommendList) {
@@ -97,12 +112,16 @@ public class SearchActivity extends BaseActivity {
         });
 
         mFl_recommend.setOnTagClickListener((view, position, parent) -> {
-            mPresenter.onRefresh(mRecommendList.get(position));
-            Toast.makeText(this, mRecommendList.get(position), Toast.LENGTH_SHORT).show();
+            mEt_input.setText(mRecommendList.get(position));
+            mSearchField = mRecommendList.get(position);
+        //    mPresenter.onRefresh(mRecommendList.get(position));
+            jumpPage(mRecommendList.get(position));
             return true;
         });
 
         mTv_cancel.setOnClickListener(v -> onBackPressed());
+
+        mEt_input.setOnEditorActionListener(this);
     }
 
     @Override
@@ -110,10 +129,51 @@ public class SearchActivity extends BaseActivity {
         String[] recommendArray = getResources().getStringArray(R.array.recommend_search);
         mRecommendList = Arrays.asList(recommendArray);
 
-        List<SearchInfo> searchInfos = mSearchInfoDao.queryAll();
-        for (SearchInfo searchInfo : searchInfos) {
-            mSearchList.add(searchInfo.getSearchField());
-        }
 
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        switch (actionId) {
+            case EditorInfo.IME_ACTION_GO:
+            case EditorInfo.IME_ACTION_SEARCH:
+            case EditorInfo.IME_ACTION_SEND:
+            case EditorInfo.IME_ACTION_NEXT:
+            case EditorInfo.IME_ACTION_DONE:
+                String text = mEt_input.getText().toString();
+                if ((text = checkInput(text)) != null) {
+                    mSearchField = text;
+                 //   mPresenter.onRefresh(text);
+                    jumpPage(text);
+                }
+                LogUtil.i(TAG, "搜索" + text);
+                break;
+        }
+        return false;
+    }
+
+    private String checkInput(String str) {
+        String trim = str.trim();
+        if ("".equals(trim)) {
+            return null;
+        }
+        return trim;
+    }
+
+    @Override
+    public void setData(List<ItemList> itemList, boolean isUpdate) {
+
+    }
+
+    public void setData(Data videoData) {
+
+    }
+
+    public void jumpPage(String searchField){
+        Intent intent = new Intent(this, SearchResultActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.SEARCH_FIELD, mSearchField);
+     //   bundle.putSerializable(Constant.SEARCH_VIDEO_DATA, videoData);
+        startActivity(intent);
     }
 }

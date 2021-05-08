@@ -9,6 +9,7 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.hngg.jianshi.data.database.bean.CollectionInfo;
+import com.hngg.jianshi.data.database.bean.HistoryInfo;
 import com.hngg.jianshi.data.database.bean.PlayInfo;
 import com.hngg.jianshi.data.database.bean.SearchInfo;
 import com.hngg.jianshi.data.database.bean.VideoInfo;
@@ -16,6 +17,7 @@ import com.hngg.jianshi.data.database.bean.VideoResolutionInfo;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 
 import com.hngg.jianshi.data.database.dao.CollectionInfoDao;
+import com.hngg.jianshi.data.database.dao.HistoryInfoDao;
 import com.hngg.jianshi.data.database.dao.PlayInfoDao;
 import com.hngg.jianshi.data.database.dao.SearchInfoDao;
 import com.hngg.jianshi.data.database.dao.VideoInfoDao;
@@ -32,6 +34,7 @@ import com.hngg.jianshi.data.database.dao.VideoTaskInfoDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig collectionInfoDaoConfig;
+    private final DaoConfig historyInfoDaoConfig;
     private final DaoConfig playInfoDaoConfig;
     private final DaoConfig searchInfoDaoConfig;
     private final DaoConfig videoInfoDaoConfig;
@@ -39,6 +42,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig videoTaskInfoDaoConfig;
 
     private final CollectionInfoDao collectionInfoDao;
+    private final HistoryInfoDao historyInfoDao;
     private final PlayInfoDao playInfoDao;
     private final SearchInfoDao searchInfoDao;
     private final VideoInfoDao videoInfoDao;
@@ -51,6 +55,9 @@ public class DaoSession extends AbstractDaoSession {
 
         collectionInfoDaoConfig = daoConfigMap.get(CollectionInfoDao.class).clone();
         collectionInfoDaoConfig.initIdentityScope(type);
+
+        historyInfoDaoConfig = daoConfigMap.get(HistoryInfoDao.class).clone();
+        historyInfoDaoConfig.initIdentityScope(type);
 
         playInfoDaoConfig = daoConfigMap.get(PlayInfoDao.class).clone();
         playInfoDaoConfig.initIdentityScope(type);
@@ -68,6 +75,7 @@ public class DaoSession extends AbstractDaoSession {
         videoTaskInfoDaoConfig.initIdentityScope(type);
 
         collectionInfoDao = new CollectionInfoDao(collectionInfoDaoConfig, this);
+        historyInfoDao = new HistoryInfoDao(historyInfoDaoConfig, this);
         playInfoDao = new PlayInfoDao(playInfoDaoConfig, this);
         searchInfoDao = new SearchInfoDao(searchInfoDaoConfig, this);
         videoInfoDao = new VideoInfoDao(videoInfoDaoConfig, this);
@@ -75,6 +83,7 @@ public class DaoSession extends AbstractDaoSession {
         videoTaskInfoDao = new VideoTaskInfoDao(videoTaskInfoDaoConfig, this);
 
         registerDao(CollectionInfo.class, collectionInfoDao);
+        registerDao(HistoryInfo.class, historyInfoDao);
         registerDao(PlayInfo.class, playInfoDao);
         registerDao(SearchInfo.class, searchInfoDao);
         registerDao(VideoInfo.class, videoInfoDao);
@@ -84,6 +93,7 @@ public class DaoSession extends AbstractDaoSession {
     
     public void clear() {
         collectionInfoDaoConfig.clearIdentityScope();
+        historyInfoDaoConfig.clearIdentityScope();
         playInfoDaoConfig.clearIdentityScope();
         searchInfoDaoConfig.clearIdentityScope();
         videoInfoDaoConfig.clearIdentityScope();
@@ -93,6 +103,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public CollectionInfoDao getCollectionInfoDao() {
         return collectionInfoDao;
+    }
+
+    public HistoryInfoDao getHistoryInfoDao() {
+        return historyInfoDao;
     }
 
     public PlayInfoDao getPlayInfoDao() {

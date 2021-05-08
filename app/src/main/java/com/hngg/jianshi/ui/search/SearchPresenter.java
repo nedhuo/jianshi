@@ -1,5 +1,6 @@
 package com.hngg.jianshi.ui.search;
 
+import com.hngg.jianshi.base.BaseActivity;
 import com.hngg.jianshi.base.BasePresenter;
 import com.hngg.jianshi.data.ApiInterface;
 import com.hngg.jianshi.data.KaiYanHttpUtil;
@@ -7,11 +8,11 @@ import com.hngg.jianshi.data.bean.SearchBean;
 import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.network.Observer.BaseObserver;
 
-public class SearchPresenter<T> extends BasePresenter<T> {
+public class SearchPresenter extends BasePresenter<BaseActivity> {
     private KaiYanHttpUtil mHttpUtil;
     private String mNextPageUrl;
 
-    public SearchPresenter(T t) {
+    public SearchPresenter(BaseActivity t) {
         super(t);
         mHttpUtil = new KaiYanHttpUtil();
     }
@@ -24,10 +25,12 @@ public class SearchPresenter<T> extends BasePresenter<T> {
                     @Override
                     protected void onSuccess(SearchBean o) {
                         mNextPageUrl = o.getNextPageUrl();
+                        mRootView.setData(o.getItemList(),true);
                     }
 
                     @Override
                     public void onFail(Throwable e) {
+                        mRootView.setData(null,true);
                         LogUtil.e(TAG, e.getMessage());
                     }
                 });
@@ -35,6 +38,7 @@ public class SearchPresenter<T> extends BasePresenter<T> {
 
     public void onLoadMore() {
         if (mNextPageUrl == null || mNextPageUrl.equals("")) {
+            mRootView.setData(null,false);
             return;
         }
     }

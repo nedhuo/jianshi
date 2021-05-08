@@ -1,5 +1,6 @@
 package com.hngg.jianshi.ui.discover.ranking;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RankingAdapter extends BaseAdapter<RecyclerView.ViewHolder> {
-    private final FragmentActivity mCtx;
+    private final Activity mCtx;
     private final List<ItemList> mDataList;
 
-    RankingAdapter(FragmentActivity activity) {
+    public RankingAdapter(Activity activity) {
         mCtx = activity;
         mDataList = new ArrayList<>();
     }
@@ -37,6 +37,7 @@ public class RankingAdapter extends BaseAdapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         String type = mDataList.get(position).getType();
+        LogUtil.i(TAG, type);
         if (type.equals(DataType.VIDEO_CARD)) {
             return DataType.VIDEO_CARD_ID;
         }

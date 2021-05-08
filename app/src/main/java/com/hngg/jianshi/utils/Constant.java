@@ -45,4 +45,8 @@ public class Constant {
     public static final String TAGDETAIL_BUNDLE = "tagDetail_bundle";
     public static final String TAGDETAIL_TITLE = "tagDetail_title";
     public static final String TAGDETAIL_DESC = "tagDetail_desc";
+
+    public static final String SEARCH_VIDEO_DATA = "videoData";
+    public static final String SEARCH_FIELD = "searchField";
+    public static final String SEARCH_BUNDLE = "bundle";
 }

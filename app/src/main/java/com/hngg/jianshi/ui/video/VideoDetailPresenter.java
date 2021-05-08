@@ -92,19 +92,6 @@ public class VideoDetailPresenter extends BasePresenter {
         this.mRootView = null;
     }
 
-    /**
-     * @return true  表示未收藏，已经将其收藏
-     * false 表示已收藏，已取消收藏，或者收藏失败
-     */
-    boolean checkAndCollection(Data videoData) {
-        if (true) {
-            /*从数据库移除*/
-            return false;
-        } else {
-            /*添加到数据库*/
-            return true;
-        }
-    }
 
 
     /**

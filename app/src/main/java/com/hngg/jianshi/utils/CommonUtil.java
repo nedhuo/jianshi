@@ -6,9 +6,16 @@ import android.content.Context;
 import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Date: 2021/2/14
@@ -97,5 +104,45 @@ public class CommonUtil {
                     + list.get(list.size() - 1).getDownId());
         }
         return false;
+    }
+
+
+    /**
+     * 获取文件大小
+     */
+    public static void getUrlFileLength(String videoUrl) {
+
+        try {
+            new Thread(
+                    () -> {
+                        Request request = new Request.Builder()
+                                .url(videoUrl)
+                                .addHeader(
+                                        "User-Agent",
+                                        "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:0.9.4)"
+                                )
+                                .addHeader("Content-Type", "application/json")
+                                .addHeader("lang", "zh")
+                                .build();
+
+                        OkHttpClient httpClient = new OkHttpClient();
+                        Call call = httpClient.newCall(request);
+                        call.enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                //response.body().contentLength();
+                            }
+                        });
+
+                    }
+            ).start();
+        } catch (Exception e) {
+            LogUtil.e(TAG, e.getMessage());
+        }
     }
 }

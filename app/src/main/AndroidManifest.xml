@@ -49,11 +49,14 @@
         <activity android:name=".ui.calender.CalenderActivity" />
         <activity
             android:name=".ui.user.UserInfoActivity"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".ui.tag.TagDetailActivity"
             android:launchMode="singleInstance" />
         <activity android:name=".ui.discover.ranking.RankingActivity" />
+        <activity
+            android:name=".ui.search.SearchResultActivity"
+            android:launchMode="singleTask" />
 
         <service android:name=".service.DownloadService" />
     </application>

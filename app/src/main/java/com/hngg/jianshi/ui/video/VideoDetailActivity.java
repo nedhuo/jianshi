@@ -1,5 +1,6 @@
 package com.hngg.jianshi.ui.video;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,9 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
+import com.hngg.jianshi.data.database.DbManager;
+import com.hngg.jianshi.data.database.utils.CollectionInfoUtil;
+import com.hngg.jianshi.data.database.utils.HistoryInfoUtil;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 import com.hngg.jianshi.ui.user.UserInfoActivity;
@@ -89,6 +94,10 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
     private Data mVideoData;
     private VideoDetailPresenter mPresenter;
     private final String TAG = "VideoDetailActivity";
+    private CollectionInfoUtil mCollectionDao;
+    private HistoryInfoUtil mHistoryDao;
+    private boolean mIsCollection = false;
+    private Activity mCtx = this;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,14 +127,26 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         Bundle bundle = intent.getBundleExtra(Constant.VIDEO_BUNDLE);
         if (bundle != null) {
             mVideoData = (Data) bundle.get(Constant.VIDEO_BEAN);
-            if (mVideoData==null){
+            if (mVideoData == null) {
                 LogUtil.e(TAG, "接收数据为null");
                 return;
             }
+            mCollectionDao = DbManager.getInstance(this).getCollectionInfoDao();
+            mHistoryDao = DbManager.getInstance(this).getHistoryInfoDao();
+
+            mIsCollection = mCollectionDao.queryIsExist(mVideoData.getId());
+            if (mIsCollection) {
+                ivCollection.setImageDrawable(getDrawable(R.drawable.ic_collection_fill));
+            }else {
+                ivCollection.setImageDrawable(getDrawable(R.drawable.ic_collection));
+            }
+            mHistoryDao.add(mVideoData);
             LogUtil.i(TAG, mVideoData.toString());
         } else {
             LogUtil.e(TAG, "接收数据为null");
         }
+
+
     }
 
     private void initView() {
@@ -166,7 +187,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         itemAuthor.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putLong(Constant.USERINFO_BEAN_ID, mVideoData.getAuthor().getId());
-            LogUtil.i(TAG," mVideoData.getUserType()"+ mVideoData.getUserType());
+            LogUtil.i(TAG, " mVideoData.getUserType()" + mVideoData.getUserType());
             bundle.putString(Constant.USERINFO_BEAN_TYPE, "PGC");
             Intent intent = new Intent(this, UserInfoActivity.class);
             intent.putExtra(Constant.USERINFO_BUNDLE, bundle);
@@ -281,7 +302,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_collection:
-                mPresenter.checkAndCollection(mVideoData);
+                checkAndCollection(mVideoData);
                 break;
             case R.id.iv_download:
                 mPresenter.onDownloadVideo(mVideoData);
@@ -292,4 +313,30 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
             default:
         }
     }
+
+    /**
+     * @return true  表示未收藏，已经将其收藏
+     * false 表示已收藏，已取消收藏，或者收藏失败
+     */
+    void checkAndCollection(Data videoData) {
+        if (mIsCollection) {
+            /*从数据库移除*/
+            boolean isSuccess = mCollectionDao.cancelCollection(videoData);
+            if (isSuccess) {
+                mIsCollection = false;
+                Toast.makeText(mCtx, "取消收藏", Toast.LENGTH_SHORT).show();
+                ivCollection.setImageDrawable(getDrawable(R.drawable.ic_collection));
+            }
+        } else {
+            /*添加到数据库*/
+            boolean isSuccess = mCollectionDao.onCollection(videoData);
+            if (isSuccess) {
+                Toast.makeText(mCtx, "收藏成功", Toast.LENGTH_SHORT).show();
+                mIsCollection = true;
+                ivCollection.setImageDrawable(getDrawable(R.drawable.ic_collection_fill));
+            }
+
+        }
+    }
+
 }
