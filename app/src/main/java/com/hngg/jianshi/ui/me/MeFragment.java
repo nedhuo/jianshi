@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -12,9 +13,11 @@ import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerMeComponent;
+import com.hngg.jianshi.data.RandomData;
 import com.hngg.jianshi.ui.me.collection.CollectionActivity;
 import com.hngg.jianshi.ui.me.download.DownloadActivity;
 import com.hngg.jianshi.ui.me.history.HistoryActivity;
+import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
@@ -39,6 +42,10 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
     LinearLayout ll_history;
     @BindView(R.id.ll_playInfo)
     LinearLayout ll_playInfo;
+    @BindView(R.id.iv_background)
+    ImageView ivBackground;
+    @BindView(R.id.iv_headImage)
+    ImageView ivHeadImage;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -60,6 +67,8 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
+
+
     }
 
     /**
@@ -67,6 +76,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
      */
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        //    Glide.with(getActivity()).load(R.drawable.defalut_photo).bitmapTransform(new BlurTransformation( 15)).into(mImageView);
+        GlideUtil.loadBlurImage(this.getContext(), RandomData.obtainImageData(), ivBackground);
+        GlideUtil.loadCircleImage(this.getContext(), RandomData.obtainImageData(), ivHeadImage);
         ll_myDownload.setOnClickListener(this);
         ll_history.setOnClickListener(this);
         ll_myCollection.setOnClickListener(this);

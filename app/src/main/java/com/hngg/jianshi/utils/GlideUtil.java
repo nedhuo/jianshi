@@ -6,6 +6,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.jess.arms.http.imageloader.glide.BlurTransformation;
+
 
 public class GlideUtil {
     public static void loadImage(Context context, String imageUrl, ImageView view) {
@@ -13,7 +16,7 @@ public class GlideUtil {
                 .load(imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .centerCrop()
-              //  .placeholder(R.mipmap.ic_launcher)
+                //  .placeholder(R.mipmap.ic_launcher)
                 .into(view);
     }
 
@@ -22,7 +25,7 @@ public class GlideUtil {
                 .load(imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .centerCrop()
-            //    .placeholder(R.mipmap.ic_launcher)
+                //    .placeholder(R.mipmap.ic_launcher)
                 .into(view);
     }
 
@@ -30,7 +33,7 @@ public class GlideUtil {
         Glide.with(context)
                 .load(imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-           //     .placeholder(R.mipmap.ic_launcher)
+                //     .placeholder(R.mipmap.ic_launcher)
                 .centerCrop()
                 .into(view);
     }
@@ -39,7 +42,7 @@ public class GlideUtil {
         Glide.with(context)
                 .load(imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-           //     .placeholder(R.mipmap.ic_launcher)
+                //     .placeholder(R.mipmap.ic_launcher)
                 .centerCrop()
                 .circleCrop()
                 .into(view);
@@ -49,9 +52,16 @@ public class GlideUtil {
         Glide.with(context)
                 .load(imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            //    .placeholder(R.mipmap.ic_launcher)
+                //    .placeholder(R.mipmap.ic_launcher)
                 .centerCrop()
                 .circleCrop()
+                .into(view);
+    }
+
+    public static void loadBlurImage(Context context, String imageUrl, ImageView view) {
+        Glide.with(context).load(imageUrl)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)//缓存
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(25)))
                 .into(view);
     }
 }

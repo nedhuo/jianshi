@@ -31,4 +31,9 @@ public class RandomData {
         int i = random.nextInt(5);
         return strings[i];
     }
+
+    public static String obtainImageData() {
+        String imageUrl = "http://b.hiphotos.baidu.com/image/pic/item/359b033b5bb5c9ea5c0e3c23d139b6003bf3b374.jpg";
+        return imageUrl;
+    }
 }

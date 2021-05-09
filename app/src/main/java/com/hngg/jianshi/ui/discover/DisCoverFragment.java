@@ -26,6 +26,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Date: 2020/11/19
@@ -66,6 +67,12 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+    }
+
+    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         if (mPresenter != null) {
             //init 刷新控件
@@ -75,10 +82,8 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
                 mPresenter.getCommunityData(true);
             });
 
-
             mPresenter.initRecyclerView();
             mPresenter.getCommunityData(true);
-
         }
         ibRanking.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, RankingActivity.class);
