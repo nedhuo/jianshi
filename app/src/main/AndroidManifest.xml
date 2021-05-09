@@ -57,6 +57,9 @@
         <activity
             android:name=".ui.search.SearchResultActivity"
             android:launchMode="singleTask" />
+        <activity android:name=".ui.me.collection.CollectionActivity" />
+        <activity android:name=".ui.me.history.HistoryActivity" />
+        <activity android:name=".ui.me.playinfo.PlayInfoActivity" />
 
         <service android:name=".service.DownloadService" />
     </application>

@@ -48,7 +48,8 @@ public class CommonUtil {
     public static String longToDate(long lo) {
         Date date = new Date(lo);
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+     //   SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sd = new SimpleDateFormat("MM-dd HH:mm");
         return sd.format(date);
     }
 

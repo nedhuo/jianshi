@@ -15,6 +15,7 @@ import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.component.DaggerDownloadComponent;
 import com.hngg.jianshi.ui.me.download.downloaded.DownloadedFragment;
 import com.hngg.jianshi.ui.me.download.downloading.DownloadingFragment;
 import com.hngg.jianshi.utils.LogUtil;
@@ -58,12 +59,12 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-//        DaggerDownloadComponent
-//                .builder()
-//                .appComponent(appComponent)
-//                .downloadModule(new DownloadModule(this))
-//                .build()
-//                .inject(this);
+        DaggerDownloadComponent
+                .builder()
+                .appComponent(appComponent)
+                .downloadModule(new DownloadModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override

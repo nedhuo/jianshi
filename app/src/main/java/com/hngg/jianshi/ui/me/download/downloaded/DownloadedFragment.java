@@ -1,6 +1,5 @@
 package com.hngg.jianshi.ui.me.download.downloaded;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @Description: java类作用描述
@@ -32,7 +32,6 @@ public class DownloadedFragment extends BaseFragment {
     RecyclerView rvDownloaded;
     private List<VideoTaskInfo> mDataList;
     private DownloadedAdapter mAdapter;
-    private Activity mContext = getActivity();
 
 
     @Nullable
@@ -45,17 +44,18 @@ public class DownloadedFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mDataList = new ArrayList<>();
-        List<VideoTaskInfo> taskInfoList = DbManager.getInstance(mContext)
+        ButterKnife.bind(this, view);
+        List<VideoTaskInfo> taskInfoList = DbManager.getInstance(getActivity())
                 .getVideoTaskDao().queryAllComplete();
         mDataList.addAll(taskInfoList);
-        mAdapter = new DownloadedAdapter(mContext, taskInfoList);
+        mAdapter = new DownloadedAdapter(getActivity(), taskInfoList);
 
-        rvDownloaded.setLayoutManager(new LinearLayoutManager(mContext));
+        rvDownloaded.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvDownloaded.setAdapter(mAdapter);
     }
 
-
-
-
-
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
 }

@@ -26,5 +26,7 @@
     <string name="follows">关注度</string>
     <string name="fans">粉丝</string>
     <string name="search_result">搜索结果</string>
+    <string name="collection_list">收藏列表</string>
+    <string name="history_list">历史列表</string>
 
 </resources>

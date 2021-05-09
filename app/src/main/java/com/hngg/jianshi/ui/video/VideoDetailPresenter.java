@@ -1,7 +1,6 @@
 package com.hngg.jianshi.ui.video;
 
 import android.content.Intent;
-import android.os.Build;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,8 +9,8 @@ import com.arialyy.aria.core.Aria;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
-import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.data.database.DbManager;
+import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.service.DownloadService;
 import com.hngg.jianshi.ui.adapter.RelationVideoAdapter;
 import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
@@ -93,7 +92,6 @@ public class VideoDetailPresenter extends BasePresenter {
     }
 
 
-
     /**
      * 2. 查询是否存在该任务
      * 3. 开始下载
@@ -106,14 +104,15 @@ public class VideoDetailPresenter extends BasePresenter {
             return;
         }
 
+        //TODO 前景Service待优化
         /*开启Service*/
         Intent intent = new Intent(mRootView, DownloadService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mRootView.startForegroundService(intent);
-        } else {
-            mRootView.startService(intent);
-        }
-
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            mRootView.startForegroundService(intent);
+//        } else {
+//            mRootView.startService(intent);
+//        }
+        mRootView.startService(intent);
         /*封装下载数据对象*/
 
         VideoTaskInfo taskInfo = DownloadUtil.createVideoTaskInfo(mRootView, videoData);
@@ -144,7 +143,7 @@ public class VideoDetailPresenter extends BasePresenter {
             mRootView.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtil.e(TAG,"sysShareText Exception:" + e.getMessage());
+            LogUtil.e(TAG, "sysShareText Exception:" + e.getMessage());
         }
 
     }

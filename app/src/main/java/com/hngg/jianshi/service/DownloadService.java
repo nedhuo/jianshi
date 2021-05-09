@@ -65,8 +65,6 @@ public class DownloadService extends Service {
         int position = indexVideoTask(taskItem);
         if (position == -1) {
             Log.i(TAG, "查询更新数据");
-
-
         }
     }
 
@@ -82,7 +80,6 @@ public class DownloadService extends Service {
             updateVideoTaskData();
             //updateVideoTaskData();
             Log.i(TAG,"VideoList数据"+mVideoList.size());
-
         }
     }
 
@@ -109,7 +106,6 @@ public class DownloadService extends Service {
 
 
     private int indexVideoTask(DownloadTask taskItem) {
-
         for (VideoTaskInfo videoTaskInfo : mVideoList) {
             if (videoTaskInfo.getUrl().equals(taskItem.getKey())) {
                 return mVideoList.indexOf(videoTaskInfo);

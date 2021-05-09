@@ -19,18 +19,18 @@ public class SearchPresenter extends BasePresenter<BaseActivity> {
 
     public void onRefresh(String query) {
         mHttpUtil.getService(ApiInterface.class)
-                .getQueryData(10, query)
+                .getQueryData("\"" + query + "\"")
                 .compose(mHttpUtil.applySchedulers())
                 .subscribe(new BaseObserver<SearchBean>() {
                     @Override
                     protected void onSuccess(SearchBean o) {
                         mNextPageUrl = o.getNextPageUrl();
-                        mRootView.setData(o.getItemList(),true);
+                        mRootView.setData(o.getItemList(), true);
                     }
 
                     @Override
                     public void onFail(Throwable e) {
-                        mRootView.setData(null,true);
+                        mRootView.setData(null, true);
                         LogUtil.e(TAG, e.getMessage());
                     }
                 });
@@ -38,8 +38,24 @@ public class SearchPresenter extends BasePresenter<BaseActivity> {
 
     public void onLoadMore() {
         if (mNextPageUrl == null || mNextPageUrl.equals("")) {
-            mRootView.setData(null,false);
+            mRootView.setData(null, false);
             return;
         }
+        mHttpUtil.getService(ApiInterface.class)
+                .getQueryNextData(mNextPageUrl)
+                .compose(mHttpUtil.applySchedulers())
+                .subscribe(new BaseObserver<SearchBean>() {
+                    @Override
+                    protected void onSuccess(SearchBean o) {
+                        mNextPageUrl = o.getNextPageUrl();
+                        mRootView.setData(o.getItemList(), false);
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        mRootView.setData(null, false);
+                        LogUtil.e(TAG, e.getMessage());
+                    }
+                });
     }
 }

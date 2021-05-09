@@ -65,9 +65,15 @@ public class RankingAdapter extends BaseAdapter<RecyclerView.ViewHolder> {
             Data data = mDataList.get(position).getData();
             LogUtil.i(TAG, data.toString());
             GlideUtil.loadImage(mCtx, data.getCover().getFeed(), holder.ivContent);
-            GlideUtil.loadCircleImage(mCtx, data.getAuthor().getIcon(), holder.ivHeadImage);
+            if (data.getAuthor() != null) {
+                GlideUtil.loadCircleImage(mCtx, data.getAuthor().getIcon(), holder.ivHeadImage);
+                holder.tvPersonDesc.setText(data.getAuthor().getName());
+            } else if (data.getProvider() != null) {
+                GlideUtil.loadCircleImage(mCtx, data.getProvider().getIcon(), holder.ivHeadImage);
+                holder.tvPersonDesc.setText(data.getProvider().getName());
+            }
             holder.tvTitle.setText(data.getTitle());
-            holder.tvPersonDesc.setText(data.getAuthor().getName());
+
 
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();

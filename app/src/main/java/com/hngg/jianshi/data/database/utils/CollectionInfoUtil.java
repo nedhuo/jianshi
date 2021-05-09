@@ -4,7 +4,6 @@ import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.database.bean.CollectionInfo;
 import com.hngg.jianshi.data.database.dao.CollectionInfoDao;
 import com.hngg.jianshi.data.database.dao.DaoSession;
-import com.hngg.jianshi.utils.LogUtil;
 
 import java.util.List;
 
@@ -16,9 +15,8 @@ public class CollectionInfoUtil {
         mDaoSession = daoSession;
     }
 
-    public List<CollectionInfo> queryNotFinished() {
-        return mDaoSession.getCollectionInfoDao().queryBuilder()
-                .list();
+    public List<CollectionInfo> queryAll() {
+        return mDaoSession.getCollectionInfoDao().queryBuilder().list();
     }
 
     /**
@@ -27,7 +25,7 @@ public class CollectionInfoUtil {
     public boolean queryIsExist(long videoId) {
         List<CollectionInfo> list = mDaoSession.getCollectionInfoDao().queryBuilder()
                 .where(CollectionInfoDao.Properties.VideoId.eq(videoId)).list();
-        if (list.size() == 0) {
+        if (list == null || list.size() == 0) {
             return false;
         }
         return true;
@@ -57,7 +55,6 @@ public class CollectionInfoUtil {
         collectionInfo.setDuration(videoData.getDuration());
         collectionInfo.setPlayUrl(videoData.getPlayUrl());
         collectionInfo.setPoster(videoData.getCover().getFeed());
-        LogUtil.i(TAG, videoData.toString());
         collectionInfo.setVideoDesc(videoData.getDescription());
         collectionInfo.setVideoId(videoData.getId());
         collectionInfo.setVideoName(videoData.getTitle());

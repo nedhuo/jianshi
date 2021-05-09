@@ -66,6 +66,8 @@ public class SearchResultActivity extends BaseActivity {
         mRefreshLayout.setOnRefreshListener(refreshlayout -> {
             if (mSearchField != null && !mSearchField.equals("")) {
                 mPresenter.onRefresh(mSearchField);
+            } else {
+                mRefreshLayout.finishRefresh();
             }
         });
         mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
@@ -87,6 +89,7 @@ public class SearchResultActivity extends BaseActivity {
         if (itemList == null || itemList.size() == 0) {
             mRefreshLayout.finishRefreshWithNoMoreData();
             mRefreshLayout.finishLoadMoreWithNoMoreData();
+            return;
         } else {
             mRefreshLayout.finishLoadMore();
             mRefreshLayout.finishRefresh();

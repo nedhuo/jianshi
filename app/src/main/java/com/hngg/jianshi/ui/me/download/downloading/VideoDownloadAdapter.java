@@ -101,7 +101,7 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
                 Aria.download(this).load(taskInfo.getTaskId()).stop();
                 holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_play);
             } else if (taskInfo.getTaskState() == VideoTaskState.STATE_FAIL) {
-              //  holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
+                //  holder.btnStateChange.setBackgroundResource(R.drawable.ic_video_pause);
                 Aria.download(this).load(taskInfo.getTaskId()).cancel();
                 long taskId = Aria.download(this).load(taskInfo.getUrl()).create();
                 taskInfo.setTaskId(taskId);
@@ -245,6 +245,14 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
                 return mList.indexOf(videoTaskInfo);
         }
         return -1;
+    }
+
+    public void setData(List<VideoTaskInfo> videoTaskInfos, boolean isUpdate) {
+        if (isUpdate) {
+            mList.clear();
+        }
+        mList.addAll(videoTaskInfos);
+        notifyDataSetChanged();
     }
 }
 

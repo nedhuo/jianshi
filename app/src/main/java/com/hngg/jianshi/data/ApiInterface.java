@@ -136,7 +136,7 @@ public interface ApiInterface {
 
     /**
      * 排行
-     * */
+     */
     @GET("http://baobab.kaiyanapp.com/api/v3/ranklist")
     Observable<RankingBean> getRanking(@Query("strategy") String strategy, @Query("num") int num);
 
@@ -144,15 +144,18 @@ public interface ApiInterface {
     Observable<RankingBean> getRanking_next(@Query("strategy") String strategy, @Query("num") int num);
 
     /**
-     *
-     * http://baobab.kaiyanapp.com/api/v1/search?&num=10&start=10&query=%E2%80%9C%E5%B9%BF%E5%91%8A%E2%80%9D
-     * */
+     * @Part会自动添加双引号 http://baobab.kaiyanapp.com/api/v1/search?&num=10&start=10&query=%E2%80%9C%E5%B9%BF%E5%91%8A%E2%80%9D
+     * "http://baobab.kaiyanapp.com/api/v1/search?query=\"query\""
+     */
+
     @GET("http://baobab.kaiyanapp.com/api/v1/search")
-    Observable<SearchBean> getQueryData(@Query("num")int num, @Query("query")String query);
+    Observable<SearchBean> getQueryData(@Query(value = "query", encoded = true) String query);
+
+//    @GET("http://baobab.kaiyanapp.com/api/v1/search?query=\"{query}\"\"")
+//    Observable<SearchBean> getQueryData(@Path("query") String query);
 
     @GET()
     Observable<SearchBean> getQueryNextData(@Url String url);
-
 
 
     //http://baobab.kaiyanapp.com/api/v3/tag/videos?tagId=24&strategy=shareCount
@@ -190,5 +193,12 @@ public interface ApiInterface {
      *
      * http://baobab.kaiyanapp.com/api/v1/follow/myFansList?uid=301178695
      * 内嵌链接 ： eyepetizer://pgc/detail/303084692/?title=%E5%BC%80%E7%9C%BC%E7%94%A8%E6%88%B7_gq909j&userType=NORMAL&tabIndex=0
+     * */
+
+    /**
+     * @Fie;d的使用
+     *  @FormUrlEncoded
+     *  @POST("v1/login")
+     *  Call<ResponseBody> userLogin(@Field("phone") String phone, @Field("password") String password);
      * */
 }

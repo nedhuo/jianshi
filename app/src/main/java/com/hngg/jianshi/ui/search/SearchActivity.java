@@ -71,10 +71,10 @@ public class SearchActivity extends BaseActivity implements TextView.OnEditorAct
         super.onResume();
 
         List<SearchInfo> searchInfos = mSearchInfoDao.queryAll();
+        mSearchList.clear();
         for (SearchInfo searchInfo : searchInfos) {
             mSearchList.add(searchInfo.getSearchField());
         }
-
         mFl_history.setAdapter(new TagAdapter<String>(mSearchList) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
@@ -95,7 +95,7 @@ public class SearchActivity extends BaseActivity implements TextView.OnEditorAct
             mEt_input.setText(mSearchList.get(position));
             //   Toast.makeText(this, mSearchList.get(position), Toast.LENGTH_SHORT).show();
             mSearchField = mSearchList.get(position);
-          //  mPresenter.onRefresh(mSearchList.get(position));
+            //  mPresenter.onRefresh(mSearchList.get(position));
             jumpPage(mSearchList.get(position));
             return true;
         });
@@ -114,7 +114,7 @@ public class SearchActivity extends BaseActivity implements TextView.OnEditorAct
         mFl_recommend.setOnTagClickListener((view, position, parent) -> {
             mEt_input.setText(mRecommendList.get(position));
             mSearchField = mRecommendList.get(position);
-        //    mPresenter.onRefresh(mRecommendList.get(position));
+            //    mPresenter.onRefresh(mRecommendList.get(position));
             jumpPage(mRecommendList.get(position));
             return true;
         });
@@ -128,28 +128,29 @@ public class SearchActivity extends BaseActivity implements TextView.OnEditorAct
     protected void initData() {
         String[] recommendArray = getResources().getStringArray(R.array.recommend_search);
         mRecommendList = Arrays.asList(recommendArray);
-
-
     }
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        LogUtil.i(TAG, actionId + ":actionId");
         switch (actionId) {
             case EditorInfo.IME_ACTION_GO:
             case EditorInfo.IME_ACTION_SEARCH:
             case EditorInfo.IME_ACTION_SEND:
             case EditorInfo.IME_ACTION_NEXT:
             case EditorInfo.IME_ACTION_DONE:
+            case EditorInfo.IME_ACTION_NONE:
+            case EditorInfo.IME_ACTION_UNSPECIFIED:
                 String text = mEt_input.getText().toString();
                 if ((text = checkInput(text)) != null) {
                     mSearchField = text;
-                 //   mPresenter.onRefresh(text);
+                    //   mPresenter.onRefresh(text);
                     jumpPage(text);
                 }
                 LogUtil.i(TAG, "搜索" + text);
                 break;
         }
-        return false;
+        return true;
     }
 
     private String checkInput(String str) {
@@ -169,11 +170,21 @@ public class SearchActivity extends BaseActivity implements TextView.OnEditorAct
 
     }
 
-    public void jumpPage(String searchField){
+    public void jumpPage(String searchField) {
+        /*保存数据库*/
+        persistentInfo(searchField);
         Intent intent = new Intent(this, SearchResultActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(Constant.SEARCH_FIELD, mSearchField);
-     //   bundle.putSerializable(Constant.SEARCH_VIDEO_DATA, videoData);
+        //   bundle.putSerializable(Constant.SEARCH_VIDEO_DATA, videoData);
+        intent.putExtra(Constant.SEARCH_BUNDLE, bundle);
         startActivity(intent);
+    }
+
+    /**
+     * 储存数据库
+     */
+    private void persistentInfo(String searchField) {
+        mSearchInfoDao.add(searchField);
     }
 }

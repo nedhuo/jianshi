@@ -137,9 +137,10 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
             mIsCollection = mCollectionDao.queryIsExist(mVideoData.getId());
             if (mIsCollection) {
                 ivCollection.setImageDrawable(getDrawable(R.drawable.ic_collection_fill));
-            }else {
+            } else {
                 ivCollection.setImageDrawable(getDrawable(R.drawable.ic_collection));
             }
+            /*加入历史纪录*/
             mHistoryDao.add(mVideoData);
             LogUtil.i(TAG, mVideoData.toString());
         } else {
@@ -187,7 +188,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         itemAuthor.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putLong(Constant.USERINFO_BEAN_ID, mVideoData.getAuthor().getId());
-            LogUtil.i(TAG, " mVideoData.getUserType()" + mVideoData.getUserType());
+         //   LogUtil.i(TAG, " mVideoData.getUserType()" + mVideoData.getUserType());
             bundle.putString(Constant.USERINFO_BEAN_TYPE, "PGC");
             Intent intent = new Intent(this, UserInfoActivity.class);
             intent.putExtra(Constant.USERINFO_BUNDLE, bundle);

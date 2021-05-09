@@ -12,7 +12,9 @@ import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerMeComponent;
+import com.hngg.jianshi.ui.me.collection.CollectionActivity;
 import com.hngg.jianshi.ui.me.download.DownloadActivity;
+import com.hngg.jianshi.ui.me.history.HistoryActivity;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
@@ -83,17 +85,21 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.ll_myDownload:
                 LogUtil.i(TAG, "ll_myDownload");
-                Intent intent = new Intent(this.getActivity(), DownloadActivity.class);
+                intent = new Intent(this.getActivity(), DownloadActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_myCollection:
-                LogUtil.i(TAG, "ll_myCollection");
+                intent = new Intent(this.getActivity(), CollectionActivity.class);
+                startActivity(intent);
 
                 break;
             case R.id.ll_history:
+                intent = new Intent(this.getActivity(), HistoryActivity.class);
+                startActivity(intent);
                 LogUtil.i(TAG, "ll_history");
 
                 break;

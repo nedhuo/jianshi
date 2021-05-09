@@ -1,6 +1,5 @@
 package com.hngg.jianshi.ui.me.download.downloading;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +23,7 @@ import com.hngg.jianshi.utils.LogUtil;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @Description: java类作用描述
@@ -35,7 +35,6 @@ public class DownloadingFragment extends BaseFragment {
     @BindView(R.id.rv_downloading)
     RecyclerView rvDownloading;
     private VideoDownloadAdapter mAdapter;
-    private Activity mContext = getActivity();
 
     @Nullable
     @Override
@@ -46,14 +45,21 @@ public class DownloadingFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Aria.download(this).register();
+        ButterKnife.bind(this, view);
         List<DownloadEntity> allNotCompleteTask = Aria.download(this).getAllNotCompleteTask();
-        List<VideoTaskInfo> infoList = DbManager.getInstance(mContext)
+        List<VideoTaskInfo> infoList = DbManager.getInstance(getActivity())
                 .getVideoTaskDao().queryNotFinished();
         mAdapter = new VideoDownloadAdapter(getActivity(), infoList, allNotCompleteTask);
-        rvDownloading.setLayoutManager(new LinearLayoutManager(mContext));
+        rvDownloading.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvDownloading.setAdapter(mAdapter);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        List<VideoTaskInfo> videoTaskInfos = DbManager.getInstance(getActivity()).getVideoTaskDao().queryNotFinished();
+        mAdapter.setData(videoTaskInfos,true);
+    }
 
     @Override
     public void onDestroyView() {
