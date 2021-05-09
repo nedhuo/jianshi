@@ -35,6 +35,7 @@ public class GlideUtil {
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 //     .placeholder(R.mipmap.ic_launcher)
                 .centerCrop()
+                .
                 .into(view);
     }
 

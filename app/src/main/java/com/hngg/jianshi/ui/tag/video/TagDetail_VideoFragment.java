@@ -71,7 +71,6 @@ public class TagDetail_VideoFragment extends Fragment {
      * content
      */
     public void setData(List<ItemList> itemList, boolean isUpdate) {
-        LogUtil.i(TAG, itemList.toString());
         if (mDataList == null) {
             mDataList = new ArrayList<>();
         }
