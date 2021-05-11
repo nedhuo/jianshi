@@ -2,6 +2,7 @@ package com.hngg.jianshi.ui.me.history;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,8 @@ public class HistoryActivity extends BaseActivity {
     ImageButton ibBack;
     @BindView(R.id.rv_history)
     RecyclerView rvHistory;
+    @BindView(R.id.tv_delete)
+    TextView tvDelete;
     private HistoryInfoUtil mHistoryDao;
     private HistoryAdapter mAdapter;
 
@@ -54,6 +57,10 @@ public class HistoryActivity extends BaseActivity {
         rvHistory.setLayoutManager(manager);
         mAdapter = new HistoryAdapter(this);
         rvHistory.setAdapter(mAdapter);
+
+        tvDelete.setOnClickListener(v -> {
+            //TODO 删除历史纪录
+        });
     }
 
     @Override
