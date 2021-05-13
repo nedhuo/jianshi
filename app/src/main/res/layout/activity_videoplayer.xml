@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.hngg.jianshi.widget.CustomVideoPlayer
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:id="@+id/viewPlayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

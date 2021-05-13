@@ -32,11 +32,18 @@ public class VideoTaskInfoDao extends AbstractDao<VideoTaskInfo, Long> {
         public final static Property Poster = new Property(5, String.class, "poster", false, "POSTER");
         public final static Property FilePath = new Property(6, String.class, "filePath", false, "FILE_PATH");
         public final static Property FileSize = new Property(7, Long.class, "fileSize", false, "FILE_SIZE");
-        public final static Property Percent = new Property(8, int.class, "percent", false, "PERCENT");
-        public final static Property DownloadSize = new Property(9, Long.class, "downloadSize", false, "DOWNLOAD_SIZE");
-        public final static Property Url = new Property(10, String.class, "url", false, "URL");
-        public final static Property TaskState = new Property(11, int.class, "taskState", false, "TASK_STATE");
-        public final static Property CreateTime = new Property(12, Long.class, "createTime", false, "CREATE_TIME");
+        public final static Property Duration = new Property(8, int.class, "duration", false, "DURATION");
+        public final static Property Category = new Property(9, String.class, "category", false, "CATEGORY");
+        public final static Property Description = new Property(10, String.class, "description", false, "DESCRIPTION");
+        public final static Property AuthorId = new Property(11, Long.class, "authorId", false, "AUTHOR_ID");
+        public final static Property AuthorName = new Property(12, String.class, "authorName", false, "AUTHOR_NAME");
+        public final static Property AuthorIcon = new Property(13, String.class, "authorIcon", false, "AUTHOR_ICON");
+        public final static Property AuthorDesc = new Property(14, String.class, "authorDesc", false, "AUTHOR_DESC");
+        public final static Property Percent = new Property(15, int.class, "percent", false, "PERCENT");
+        public final static Property DownloadSize = new Property(16, Long.class, "downloadSize", false, "DOWNLOAD_SIZE");
+        public final static Property Url = new Property(17, String.class, "url", false, "URL");
+        public final static Property TaskState = new Property(18, int.class, "taskState", false, "TASK_STATE");
+        public final static Property CreateTime = new Property(19, Long.class, "createTime", false, "CREATE_TIME");
     }
 
 
@@ -60,11 +67,18 @@ public class VideoTaskInfoDao extends AbstractDao<VideoTaskInfo, Long> {
                 "\"POSTER\" TEXT," + // 5: poster
                 "\"FILE_PATH\" TEXT," + // 6: filePath
                 "\"FILE_SIZE\" INTEGER," + // 7: fileSize
-                "\"PERCENT\" INTEGER NOT NULL ," + // 8: percent
-                "\"DOWNLOAD_SIZE\" INTEGER," + // 9: downloadSize
-                "\"URL\" TEXT," + // 10: url
-                "\"TASK_STATE\" INTEGER NOT NULL ," + // 11: taskState
-                "\"CREATE_TIME\" INTEGER);"); // 12: createTime
+                "\"DURATION\" INTEGER NOT NULL ," + // 8: duration
+                "\"CATEGORY\" TEXT," + // 9: category
+                "\"DESCRIPTION\" TEXT," + // 10: description
+                "\"AUTHOR_ID\" INTEGER," + // 11: authorId
+                "\"AUTHOR_NAME\" TEXT," + // 12: authorName
+                "\"AUTHOR_ICON\" TEXT," + // 13: authorIcon
+                "\"AUTHOR_DESC\" TEXT," + // 14: authorDesc
+                "\"PERCENT\" INTEGER NOT NULL ," + // 15: percent
+                "\"DOWNLOAD_SIZE\" INTEGER," + // 16: downloadSize
+                "\"URL\" TEXT," + // 17: url
+                "\"TASK_STATE\" INTEGER NOT NULL ," + // 18: taskState
+                "\"CREATE_TIME\" INTEGER);"); // 19: createTime
         // Add Indexes
         db.execSQL("CREATE UNIQUE INDEX " + constraint + "IDX_VIDEO_TASK_INFO_VIDEO_ID ON \"VIDEO_TASK_INFO\"" +
                 " (\"VIDEO_ID\" ASC);");
@@ -115,22 +129,53 @@ public class VideoTaskInfoDao extends AbstractDao<VideoTaskInfo, Long> {
         if (fileSize != null) {
             stmt.bindLong(8, fileSize);
         }
-        stmt.bindLong(9, entity.getPercent());
+        stmt.bindLong(9, entity.getDuration());
+ 
+        String category = entity.getCategory();
+        if (category != null) {
+            stmt.bindString(10, category);
+        }
+ 
+        String description = entity.getDescription();
+        if (description != null) {
+            stmt.bindString(11, description);
+        }
+ 
+        Long authorId = entity.getAuthorId();
+        if (authorId != null) {
+            stmt.bindLong(12, authorId);
+        }
+ 
+        String authorName = entity.getAuthorName();
+        if (authorName != null) {
+            stmt.bindString(13, authorName);
+        }
+ 
+        String authorIcon = entity.getAuthorIcon();
+        if (authorIcon != null) {
+            stmt.bindString(14, authorIcon);
+        }
+ 
+        String authorDesc = entity.getAuthorDesc();
+        if (authorDesc != null) {
+            stmt.bindString(15, authorDesc);
+        }
+        stmt.bindLong(16, entity.getPercent());
  
         Long downloadSize = entity.getDownloadSize();
         if (downloadSize != null) {
-            stmt.bindLong(10, downloadSize);
+            stmt.bindLong(17, downloadSize);
         }
  
         String url = entity.getUrl();
         if (url != null) {
-            stmt.bindString(11, url);
+            stmt.bindString(18, url);
         }
-        stmt.bindLong(12, entity.getTaskState());
+        stmt.bindLong(19, entity.getTaskState());
  
         Long createTime = entity.getCreateTime();
         if (createTime != null) {
-            stmt.bindLong(13, createTime);
+            stmt.bindLong(20, createTime);
         }
     }
 
@@ -173,22 +218,53 @@ public class VideoTaskInfoDao extends AbstractDao<VideoTaskInfo, Long> {
         if (fileSize != null) {
             stmt.bindLong(8, fileSize);
         }
-        stmt.bindLong(9, entity.getPercent());
+        stmt.bindLong(9, entity.getDuration());
+ 
+        String category = entity.getCategory();
+        if (category != null) {
+            stmt.bindString(10, category);
+        }
+ 
+        String description = entity.getDescription();
+        if (description != null) {
+            stmt.bindString(11, description);
+        }
+ 
+        Long authorId = entity.getAuthorId();
+        if (authorId != null) {
+            stmt.bindLong(12, authorId);
+        }
+ 
+        String authorName = entity.getAuthorName();
+        if (authorName != null) {
+            stmt.bindString(13, authorName);
+        }
+ 
+        String authorIcon = entity.getAuthorIcon();
+        if (authorIcon != null) {
+            stmt.bindString(14, authorIcon);
+        }
+ 
+        String authorDesc = entity.getAuthorDesc();
+        if (authorDesc != null) {
+            stmt.bindString(15, authorDesc);
+        }
+        stmt.bindLong(16, entity.getPercent());
  
         Long downloadSize = entity.getDownloadSize();
         if (downloadSize != null) {
-            stmt.bindLong(10, downloadSize);
+            stmt.bindLong(17, downloadSize);
         }
  
         String url = entity.getUrl();
         if (url != null) {
-            stmt.bindString(11, url);
+            stmt.bindString(18, url);
         }
-        stmt.bindLong(12, entity.getTaskState());
+        stmt.bindLong(19, entity.getTaskState());
  
         Long createTime = entity.getCreateTime();
         if (createTime != null) {
-            stmt.bindLong(13, createTime);
+            stmt.bindLong(20, createTime);
         }
     }
 
@@ -208,11 +284,18 @@ public class VideoTaskInfoDao extends AbstractDao<VideoTaskInfo, Long> {
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // poster
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // filePath
             cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7), // fileSize
-            cursor.getInt(offset + 8), // percent
-            cursor.isNull(offset + 9) ? null : cursor.getLong(offset + 9), // downloadSize
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // url
-            cursor.getInt(offset + 11), // taskState
-            cursor.isNull(offset + 12) ? null : cursor.getLong(offset + 12) // createTime
+            cursor.getInt(offset + 8), // duration
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // category
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // description
+            cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11), // authorId
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // authorName
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // authorIcon
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // authorDesc
+            cursor.getInt(offset + 15), // percent
+            cursor.isNull(offset + 16) ? null : cursor.getLong(offset + 16), // downloadSize
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // url
+            cursor.getInt(offset + 18), // taskState
+            cursor.isNull(offset + 19) ? null : cursor.getLong(offset + 19) // createTime
         );
         return entity;
     }
@@ -227,11 +310,18 @@ public class VideoTaskInfoDao extends AbstractDao<VideoTaskInfo, Long> {
         entity.setPoster(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setFilePath(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setFileSize(cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7));
-        entity.setPercent(cursor.getInt(offset + 8));
-        entity.setDownloadSize(cursor.isNull(offset + 9) ? null : cursor.getLong(offset + 9));
-        entity.setUrl(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setTaskState(cursor.getInt(offset + 11));
-        entity.setCreateTime(cursor.isNull(offset + 12) ? null : cursor.getLong(offset + 12));
+        entity.setDuration(cursor.getInt(offset + 8));
+        entity.setCategory(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setDescription(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setAuthorId(cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11));
+        entity.setAuthorName(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setAuthorIcon(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setAuthorDesc(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setPercent(cursor.getInt(offset + 15));
+        entity.setDownloadSize(cursor.isNull(offset + 16) ? null : cursor.getLong(offset + 16));
+        entity.setUrl(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setTaskState(cursor.getInt(offset + 18));
+        entity.setCreateTime(cursor.isNull(offset + 19) ? null : cursor.getLong(offset + 19));
      }
     
     @Override

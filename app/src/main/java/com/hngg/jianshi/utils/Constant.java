@@ -49,4 +49,8 @@ public class Constant {
     public static final String SEARCH_VIDEO_DATA = "videoData";
     public static final String SEARCH_FIELD = "searchField";
     public static final String SEARCH_BUNDLE = "bundle";
+
+    public static final String PLAYER_DATA = "playerData";
+    public static final String PLAYER_VIDEO_ID = "playerVideoId";
+    public static final String PLAYER_BUNDLE = "playerBundle";
 }

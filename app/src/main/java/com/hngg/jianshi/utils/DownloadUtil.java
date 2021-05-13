@@ -28,12 +28,18 @@ public class DownloadUtil {
         }
         taskInfo.setCreateTime(System.currentTimeMillis());
         taskInfo.setDownId(uniqueId);
-        taskInfo.setPoster(videoData.getAuthor().getIcon());
+        taskInfo.setPoster(videoData.getCover().getFeed());
         taskInfo.setFilePath(FileUtil.getDownloadPath());
         taskInfo.setTaskState(VideoTaskState.STATE_OTHER);
         taskInfo.setUrl(videoData.getPlayUrl());
         taskInfo.setVideoId(videoData.getId());
         taskInfo.setVideoName(videoData.getTitle());
+        taskInfo.setAuthorDesc(videoData.getAuthor().getDescription());
+        taskInfo.setAuthorIcon(videoData.getAuthor().getIcon());
+        taskInfo.setAuthorId((long) videoData.getAuthor().getId());
+        taskInfo.setAuthorName(videoData.getAuthor().getName());
+        taskInfo.setDuration(videoData.getDuration());
+        taskInfo.setDescription(videoData.getDescription());
 
         LogUtil.i(TAG, "当前生成ID$uniqueId");
         return taskInfo;

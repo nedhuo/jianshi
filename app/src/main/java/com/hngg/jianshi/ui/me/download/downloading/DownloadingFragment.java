@@ -35,6 +35,7 @@ public class DownloadingFragment extends BaseFragment {
     @BindView(R.id.rv_downloading)
     RecyclerView rvDownloading;
     private VideoDownloadAdapter mAdapter;
+    private boolean mIsDeleteState;
 
     @Nullable
     @Override
@@ -57,8 +58,9 @@ public class DownloadingFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        List<VideoTaskInfo> videoTaskInfos = DbManager.getInstance(getActivity()).getVideoTaskDao().queryNotFinished();
-        mAdapter.setData(videoTaskInfos,true);
+        List<VideoTaskInfo> videoTaskInfos = DbManager.getInstance(getActivity())
+                .getVideoTaskDao().queryNotFinished();
+        mAdapter.setData(videoTaskInfos, true);
     }
 
     @Override
@@ -67,6 +69,13 @@ public class DownloadingFragment extends BaseFragment {
         Aria.download(this).unRegister();
     }
 
+
+    public void setDeleteEditState(boolean isDeleteState) {
+        mIsDeleteState = isDeleteState;
+        if (mAdapter!=null){
+            mAdapter.setEditDelete(isDeleteState);
+        }
+    }
 
     /**
      * 下载监听

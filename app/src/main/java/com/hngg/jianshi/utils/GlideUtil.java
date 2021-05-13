@@ -10,8 +10,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.jess.arms.http.imageloader.glide.BlurTransformation;
 
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
-
 
 public class GlideUtil {
     public static void loadImage(Context context, String imageUrl, ImageView view) {
@@ -29,7 +27,7 @@ public class GlideUtil {
 
         Glide.with(context)
                 .load(imageUrl)
-                .transition(withCrossFade(factory))
+//                .transition(withCrossFade(factory))
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .centerCrop()
                 //    .placeholder(R.mipmap.ic_launcher)

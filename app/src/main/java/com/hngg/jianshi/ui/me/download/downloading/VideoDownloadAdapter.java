@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -17,9 +18,9 @@ import com.arialyy.aria.core.Aria;
 import com.arialyy.aria.core.download.DownloadEntity;
 import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.data.VideoTaskState;
 import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
-import com.hngg.jianshi.data.VideoTaskState;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
@@ -40,6 +41,7 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
     private final FragmentActivity mCtx;
     private final String TAG = "VideoDownloadAdapter";
     private final List<DownloadEntity> mAriaList;
+    private boolean mIsDeleteState = false;
 
     VideoDownloadAdapter(FragmentActivity activity,
                          List<VideoTaskInfo> videoTaskInfoList,
@@ -72,6 +74,12 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull VideoItemViewHolder holder, int position) {
         setVideoData(holder, position);
+
+        if (mIsDeleteState) {
+            Toast.makeText(mCtx, "编辑删除状态" + true, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(mCtx, "编辑删除状态" + false, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -177,7 +185,7 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
         switch (taskItem.getState()) {
             case DownloadEntity.STATE_COMPLETE:
                 taskInfo.setRunning(false);
-//                notifyItemChanged(position, taskItem);
+                notifyItemChanged(position, taskItem);
                 DbManager.getInstance(mCtx).getVideoTaskDao()
                         .updateVideoTaskInfo(mList.get(position));
 
@@ -253,6 +261,10 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
         }
         mList.addAll(videoTaskInfos);
         notifyDataSetChanged();
+    }
+
+    public void setEditDelete(boolean isDeleteState) {
+        mIsDeleteState = isDeleteState;
     }
 }
 

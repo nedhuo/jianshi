@@ -4,24 +4,21 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.utils.LogUtil;
+import com.shuyu.gsyvideoplayer.player.IjkPlayerManager;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer;
-import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoViewBridge;
 
 import moe.codeest.enviews.ENDownloadView;
 import moe.codeest.enviews.ENPlayView;
-import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 
 public class CustomVideoPlayer extends StandardGSYVideoPlayer {
 
@@ -33,29 +30,26 @@ public class CustomVideoPlayer extends StandardGSYVideoPlayer {
     private ENPlayView mIvStart;
     private LinearLayout mRlPlayButton;
     private boolean isSeek = false; //seekTo操作标志位
-    private boolean isLoadUi = false; //处理ExoPlayer闪烁问题
+   // private boolean isLoadUi = false; //处理ExoPlayer闪烁问题
 
 
     public CustomVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);
-        //    this.context = context;
     }
 
     public CustomVideoPlayer(Context context) {
         super(context);
-        //     this.context = context;
     }
 
     public CustomVideoPlayer(Context context, AttributeSet attrs) {
         super(context, attrs);
-        //    this.context = context;
     }
 
 
     @Override
     protected void init(final Context context) {
-        PlayerFactory.setPlayManager(Exo2PlayerManager.class);
-
+       // PlayerFactory.setPlayManager(Exo2PlayerManager.class);
+        PlayerFactory.setPlayManager(IjkPlayerManager.class);
         super.init(context);
         //
         ivShare = findViewById(R.id.iv_share);
@@ -69,7 +63,7 @@ public class CustomVideoPlayer extends StandardGSYVideoPlayer {
 
     @Override
     public int getLayoutId() {
-        return R.layout.custom_video_player;
+        return R.layout.detail_video_player;
     }
 
 
@@ -148,25 +142,6 @@ public class CustomVideoPlayer extends StandardGSYVideoPlayer {
     }
 
 
-    @Override
-    public GSYBaseVideoPlayer startWindowFullscreen(Context context, boolean actionBar, boolean statusBar) {
-        LogUtil.i(TAG, "startWindowFullscreen");
-        return super.startWindowFullscreen(context, actionBar, statusBar);
-    }
-
-    @Override
-    protected void resolveNormalVideoShow(View oldF, ViewGroup vp, GSYVideoPlayer gsyVideoPlayer) {
-        LogUtil.i(TAG, "resolveNormalVideoShow");
-        //   ivShare.setVisibility(View.VISIBLE);
-        super.resolveNormalVideoShow(oldF, vp, gsyVideoPlayer);
-    }
-
-    @Override
-    protected void resolveFullVideoShow(Context context, GSYBaseVideoPlayer gsyVideoPlayer, FrameLayout frameLayout) {
-        LogUtil.i(TAG, "resolveFullVideoShow");
-        //   ivShare.setVisibility(View.GONE);
-        super.resolveFullVideoShow(context, gsyVideoPlayer, frameLayout);
-    }
 
     /**
      * 处理锁屏屏幕触摸逻辑
@@ -217,11 +192,11 @@ public class CustomVideoPlayer extends StandardGSYVideoPlayer {
             changeSeekBehaviorShow();
             return;
         }
-        if (!isLoadUi) {
-            //解决ExoPlayer闪烁问题
-            isLoadUi = true;
-            return;
-        }
+//        if (!isLoadUi) {
+//            //解决ExoPlayer闪烁问题
+//            isLoadUi = true;
+//            return;
+//        }
 
         LogUtil.i(TAG, "changeUiToPlayingShow");
         super.changeUiToPlayingShow();
@@ -386,14 +361,14 @@ public class CustomVideoPlayer extends StandardGSYVideoPlayer {
     @Override
     protected void lockTouchLogic() {
         if (mLockCurScreen) {
-            mLockScreen.setImageResource(R.drawable.ic_player_unlock);
+            mLockScreen.setImageResource(R.drawable.ic_player_unlock_white);
             mLockCurScreen = false;
             changeUiToPauseShow();
             if (mOrientationUtils != null)
                 mOrientationUtils.setEnable(false);
         } else {
             //TODO 图片未出，待替换
-            mLockScreen.setImageResource(R.drawable.lock);
+            mLockScreen.setImageResource(R.drawable.ic_player_lock_white);
             mLockCurScreen = true;
             hideAllWidget();
             if (mOrientationUtils != null)

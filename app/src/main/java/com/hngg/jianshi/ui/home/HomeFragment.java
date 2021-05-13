@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
@@ -18,7 +19,6 @@ import com.hngg.jianshi.component.DaggerHomeComponent;
 import com.hngg.jianshi.ui.TourRecommendationActivity;
 import com.hngg.jianshi.ui.search.SearchActivity;
 import com.hngg.jianshi.utils.LogUtil;
-import com.hngg.jianshi.widget.CustomViewPager;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.mvp.IView;
@@ -38,7 +38,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IView {
     @BindView(R.id.tl_home)
     TabLayout mTabLayout;
     @BindView(R.id.vp_home)
-    CustomViewPager mViewPager;
+    ViewPager mViewPager;
 
     @Inject
     HomePresenter mPresenter;
@@ -99,6 +99,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IView {
     void initViewPager(FragmentPagerAdapter adapter) {
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(0);
+        mViewPager.clearAnimation();
     }
 
     /**
@@ -108,6 +109,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IView {
      */
     void initTabLayout() {
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        TabLayout.ViewPagerOnTabSelectedListener tabSelectedListener = new TabLayout.ViewPagerOnTabSelectedListener(mViewPager);
+        mTabLayout.addOnTabSelectedListener(tabSelectedListener);
     }
 }

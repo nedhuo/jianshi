@@ -17,6 +17,7 @@ import com.hngg.jianshi.data.RandomData;
 import com.hngg.jianshi.ui.me.collection.CollectionActivity;
 import com.hngg.jianshi.ui.me.download.DownloadActivity;
 import com.hngg.jianshi.ui.me.history.HistoryActivity;
+import com.hngg.jianshi.ui.me.playinfo.PlayInfoActivity;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
@@ -82,6 +83,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
         ll_myDownload.setOnClickListener(this);
         ll_history.setOnClickListener(this);
         ll_myCollection.setOnClickListener(this);
+        ll_playInfo.setOnClickListener(this);
     }
 
     @Override
@@ -99,6 +101,11 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+            case R.id.ll_playInfo:
+                LogUtil.i(TAG, "ll_playInfo");
+                intent = new Intent(this.getActivity(), PlayInfoActivity.class);
+                startActivity(intent);
+                break;
             case R.id.ll_myDownload:
                 LogUtil.i(TAG, "ll_myDownload");
                 intent = new Intent(this.getActivity(), DownloadActivity.class);

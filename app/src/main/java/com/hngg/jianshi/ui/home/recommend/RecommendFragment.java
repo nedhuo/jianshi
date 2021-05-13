@@ -24,6 +24,7 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Date: 2020/11/19
@@ -60,10 +61,17 @@ public class RecommendFragment extends BaseFragment<RecommendPresent>
         return inflater.inflate(R.layout.fragment_recommend, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+    }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+
         if (mPresenter == null) {
+            ;
             LogUtil.i(TAG, "mPresenter为null");
             return;
         }

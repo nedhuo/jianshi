@@ -3,7 +3,8 @@ package com.hngg.jianshi.ui.me.download;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,9 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.arialyy.annotations.Download;
 import com.arialyy.aria.core.Aria;
-import com.arialyy.aria.core.task.DownloadTask;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerDownloadComponent;
 import com.hngg.jianshi.ui.me.download.downloaded.DownloadedFragment;
@@ -50,11 +49,19 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
     MagicIndicator magicIndicator;
     @BindView(R.id.vp_download)
     ViewPager mViewPager;
+    @BindView(R.id.ib_back)
+    ImageButton ibBack;
+    @BindView(R.id.tv_delete)
+    TextView tvDelete;
+
+
+    private boolean mIsDeleteState = false;
+    private DownloadingFragment mDownloadingFragment;
+    private DownloadedFragment mDownloadedFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Aria.download(this).register();
     }
 
     @Override
@@ -80,6 +87,8 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
             LogUtil.i(TAG, "mPresenter为null");
             return;
         }
+        ibBack.setOnClickListener(v -> onBackPressed());
+
         CommonNavigator commonNavigator = new CommonNavigator(this);
         String[] stringArray = getResources().getStringArray(R.array.download_page);
         commonNavigator.setAdjustMode(true);
@@ -116,8 +125,10 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
         magicIndicator.setNavigator(commonNavigator);
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new DownloadingFragment());
-        fragments.add(new DownloadedFragment());
+        mDownloadingFragment = new DownloadingFragment();
+        mDownloadedFragment = new DownloadedFragment();
+        fragments.add(mDownloadingFragment);
+        fragments.add(mDownloadedFragment);
 
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
                 BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -133,6 +144,21 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
             }
         });
         ViewPagerHelper.bind(magicIndicator, mViewPager);
+
+        tvDelete.setOnClickListener(v -> {
+            //点击切换状态
+            mIsDeleteState = !mIsDeleteState;
+            int currentItem = mViewPager.getCurrentItem();
+            if (currentItem == 0) {
+                if (mDownloadingFragment != null) {
+                    mDownloadingFragment.setDeleteEditState(mIsDeleteState);
+                }
+            } else {
+                if (mDownloadedFragment != null) {
+                    mDownloadedFragment.setDeleteEditState(mIsDeleteState);
+                }
+            }
+        });
     }
 
 
@@ -141,35 +167,5 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
         super.onDestroy();
         Aria.download(this).unRegister();
     }
-
-
-    @Download.onTaskRunning
-    protected void onTaskRunning(DownloadTask task) {
-        Log.i(TAG, "taskRunning");
-    }
-
-    @Download.onTaskComplete
-    protected void onTaskComplete(DownloadTask task) {
-        Log.i(TAG, "taskComplete");
-        //在这里处理任务完成的状态
-    }
-
-    @Download.onTaskStart
-    protected void onTaskStart(DownloadTask taskItem) {
-
-    }
-
-    @Download.onTaskStop
-    protected void onTaskStop(DownloadTask taskItem) {
-    }
-
-    @Download.onTaskCancel
-    protected void onTaskCancel(DownloadTask taskItem) {
-    }
-
-    @Download.onTaskFail
-    protected void onTaskFail(DownloadTask taskItem) {
-    }
-
 
 }

@@ -74,4 +74,13 @@ public class VideoTaskInfoUtil {
                 .where(VideoTaskInfoDao.Properties.TaskState.eq(VideoTaskState.STATE_COMPLETE))
                 .list();
     }
+
+    public VideoTaskInfo queryByVideoId(long videoId) {
+        List<VideoTaskInfo> list = mDaoSession.getVideoTaskInfoDao().queryBuilder()
+                .where(VideoTaskInfoDao.Properties.VideoId.eq(videoId)).list();
+        if (list != null && list.size() >= 1) {
+            return list.get(0);
+        }
+        return null;
+    }
 }

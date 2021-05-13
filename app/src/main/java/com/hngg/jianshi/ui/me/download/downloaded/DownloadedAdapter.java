@@ -1,6 +1,8 @@
 package com.hngg.jianshi.ui.me.download.downloaded;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
+import com.hngg.jianshi.ui.VideoPlayerActivity;
 import com.hngg.jianshi.utils.CommonUtil;
+import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
 
 import java.util.List;
@@ -56,6 +60,23 @@ class DownloadedAdapter extends RecyclerView.Adapter<DownloadedAdapter.VideoItem
         GlideUtil.loadImage(mCtx, taskInfo.getPoster(), holder.ivImage);
         holder.tvTitle.setText(taskInfo.getVideoName());
         holder.tvAuthor.setText(CommonUtil.sizeTranform(taskInfo.getFileSize()));
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(mCtx, VideoPlayerActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constant.PLAYER_VIDEO_ID, taskInfo.getVideoId());
+            //    bundle.putSerializable(Constant.PLAYER_BUNDLE,taskInfo);
+            intent.putExtra(Constant.PLAYER_BUNDLE, bundle);
+            mCtx.startActivity(intent);
+        });
+
+    }
+
+    public void setData(List<VideoTaskInfo> videoTaskInfos, boolean isUpdate) {
+        if (isUpdate) {
+            mDataList.clear();
+        }
+        mDataList.addAll(videoTaskInfos);
+        notifyDataSetChanged();
     }
 
     class VideoItemViewHolder extends RecyclerView.ViewHolder {

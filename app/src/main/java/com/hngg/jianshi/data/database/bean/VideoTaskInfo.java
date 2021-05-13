@@ -1,10 +1,10 @@
 package com.hngg.jianshi.data.database.bean;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.Transient;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * @Description: java类作用描述
@@ -38,6 +38,13 @@ public class VideoTaskInfo {
     private String filePath;
 
     private Long fileSize;
+    private int duration;
+    private String category;
+    private String description;
+    private Long authorId;
+    private String authorName;
+    private String authorIcon;
+    private String authorDesc;
 
     @Transient
     private Long speed;
@@ -58,11 +65,12 @@ public class VideoTaskInfo {
 
     private Long createTime;
 
-    @Generated(hash = 1491496383)
+    @Generated(hash = 74490904)
     public VideoTaskInfo(Long id, Long taskId, int downId, Long videoId,
             String videoName, String poster, String filePath, Long fileSize,
-            int percent, Long downloadSize, String url, int taskState,
-            Long createTime) {
+            int duration, String category, String description, Long authorId,
+            String authorName, String authorIcon, String authorDesc, int percent,
+            Long downloadSize, String url, int taskState, Long createTime) {
         this.id = id;
         this.taskId = taskId;
         this.downId = downId;
@@ -71,27 +79,18 @@ public class VideoTaskInfo {
         this.poster = poster;
         this.filePath = filePath;
         this.fileSize = fileSize;
+        this.duration = duration;
+        this.category = category;
+        this.description = description;
+        this.authorId = authorId;
+        this.authorName = authorName;
+        this.authorIcon = authorIcon;
+        this.authorDesc = authorDesc;
         this.percent = percent;
         this.downloadSize = downloadSize;
         this.url = url;
         this.taskState = taskState;
         this.createTime = createTime;
-    }
-
-    public boolean isRunning() {
-        return isRunning;
-    }
-
-    public void setRunning(boolean running) {
-        isRunning = running;
-    }
-
-    public Long getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(Long speed) {
-        this.speed = speed;
     }
 
     @Generated(hash = 481335027)
@@ -162,6 +161,62 @@ public class VideoTaskInfo {
         this.fileSize = fileSize;
     }
 
+    public int getDuration() {
+        return this.duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public String getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getAuthorId() {
+        return this.authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getAuthorName() {
+        return this.authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getAuthorIcon() {
+        return this.authorIcon;
+    }
+
+    public void setAuthorIcon(String authorIcon) {
+        this.authorIcon = authorIcon;
+    }
+
+    public String getAuthorDesc() {
+        return this.authorDesc;
+    }
+
+    public void setAuthorDesc(String authorDesc) {
+        this.authorDesc = authorDesc;
+    }
+
     public int getPercent() {
         return this.percent;
     }
@@ -203,4 +258,19 @@ public class VideoTaskInfo {
     }
 
 
+    public Long getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Long speed) {
+        this.speed = speed;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
 }

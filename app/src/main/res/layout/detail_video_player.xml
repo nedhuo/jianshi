@@ -97,7 +97,7 @@
                 android:layout_width="@dimen/size_32dp"
                 android:layout_height="@dimen/size_32dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_player_rewind" />
+                android:src="@drawable/ic_player_rewind_white" />
 
             <TextView
                 android:layout_width="0dp"
@@ -121,7 +121,7 @@
                 android:layout_height="@dimen/size_32dp"
                 android:padding="@dimen/size_5dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_player_forward" />
+                android:src="@drawable/ic_player_forward_white" />
 
             <TextView
                 android:layout_width="0dp"
@@ -149,7 +149,7 @@
         android:layout_height="1.5dp"
         android:layout_alignParentBottom="true"
         android:max="100"
-        android:progressDrawable="@drawable/video_progress" />
+        android:progressDrawable="@drawable/progress_video" />
 
     <ImageView
         android:id="@+id/back_tiny"

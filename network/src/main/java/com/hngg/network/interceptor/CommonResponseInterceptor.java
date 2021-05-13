@@ -1,10 +1,8 @@
 package com.hngg.network.interceptor;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.io.IOException;
-import java.text.DateFormat;
 
 import okhttp3.Interceptor;
 import okhttp3.Response;
@@ -18,12 +16,19 @@ import okhttp3.Response;
 public class CommonResponseInterceptor implements Interceptor {
     private final String TAG = "ResponseInterceptor";
 
+    //IOException, SocketTimeoutException
     @Override
     public Response intercept(Chain chain) throws IOException {
         long l = System.currentTimeMillis();
-        Response response = chain.proceed(chain.request());
+        //TODO  SocketTimeoutException: timeout 异常
+        try {
+            Response response = chain.proceed(chain.request());
+            return response;
+        } catch (Exception e) {
+            Log.i(TAG, "requestTime:" + (System.currentTimeMillis() - l));
+            return null;
+        }
 
-        Log.i(TAG, "requestTime:" + (System.currentTimeMillis() - l));
-        return response;
+
     }
 }
