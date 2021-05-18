@@ -53,4 +53,5 @@ public class Constant {
     public static final String PLAYER_DATA = "playerData";
     public static final String PLAYER_VIDEO_ID = "playerVideoId";
     public static final String PLAYER_BUNDLE = "playerBundle";
+    public static final String WEBVIEW_URL = "webViewUrl";
 }

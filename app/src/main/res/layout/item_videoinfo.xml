@@ -12,7 +12,8 @@
         android:id="@+id/iv_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_130dp"
-        android:background="@drawable/bg_card_round" />
+        android:scaleType="centerCrop"
+        android:background="@drawable/shape_card_white" />
 
     <TextView
         android:id="@+id/tv_time"

@@ -67,7 +67,6 @@ public class TagDetail_DynamicFragment extends Fragment {
     }
 
     public void setData(List<ItemList> itemList, boolean isUpdate) {
-        LogUtil.i(TAG, itemList.toString());
         if (mDataList == null) {
             mDataList = new ArrayList<>();
         }
@@ -85,6 +84,7 @@ public class TagDetail_DynamicFragment extends Fragment {
             LogUtil.e(TAG, "数据为null");
             return;
         }
+        LogUtil.i(TAG, itemList.toString());
         mDataList.addAll(itemList);
         if (mAdapter != null) {
             mAdapter.setData(mDataList);

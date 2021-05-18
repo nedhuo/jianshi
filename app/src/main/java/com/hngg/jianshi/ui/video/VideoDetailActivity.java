@@ -252,7 +252,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
                         List<ItemList> itemList = videoBean.getItemList();
                         adapter.setData(itemList);
                         adapter.notifyDataSetChanged();
-                        Timber.i("videoRelation数据已返回");
+                        LogUtil.i(TAG,"videoRelation数据已返回");
                     }
 
                     @Override

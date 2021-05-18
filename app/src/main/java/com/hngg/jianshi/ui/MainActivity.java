@@ -79,7 +79,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new PermissionUtil().checkPermissions(this);
+        PermissionUtil.checkPermissions(this);
+        PermissionUtil.getNotification(this);
     }
 
     /**

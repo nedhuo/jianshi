@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.base.BaseFragment;
 import com.hngg.jianshi.data.bean.home.ItemList;
+import com.hngg.jianshi.ui.adapter.RankingAdapter;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;

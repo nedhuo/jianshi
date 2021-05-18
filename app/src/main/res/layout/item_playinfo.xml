@@ -12,6 +12,7 @@
 
         <ImageView
             android:id="@+id/iv_content"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -29,7 +30,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="@dimen/size_2dp"
             android:layout_marginBottom="@dimen/size_2dp"
-            android:background="@drawable/bg_time_white"
+            android:background="@drawable/shape_time_white"
             android:textColor="@color/colorBlack" />
     </RelativeLayout>
 

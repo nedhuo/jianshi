@@ -11,6 +11,7 @@
         android:layout_width="@dimen/size_45dp"
         android:layout_height="@dimen/size_45dp"
         android:layout_marginTop="@dimen/size_10dp"
+        android:scaleType="centerCrop"
         android:layout_marginEnd="@dimen/size_5dp" />
 
     <!--title-->
@@ -64,7 +65,7 @@
         android:layout_below="@id/flowLayout_tag"
         android:layout_marginTop="@dimen/size_5dp"
         android:layout_marginBottom="@dimen/size_10dp"
-        android:background="@drawable/bg_card_round" />
+        android:background="@drawable/shape_card_white" />
 
 
     <View

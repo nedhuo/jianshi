@@ -9,8 +9,9 @@
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="60dp"
+        android:scaleType="centerCrop"
         android:layout_height="60dp"
-        android:background="@drawable/bg_card_round" />
+        android:background="@drawable/shape_card_white" />
 
     <TextView
         android:id="@+id/tv_author"

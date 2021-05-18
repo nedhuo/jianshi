@@ -1,4 +1,4 @@
-package com.hngg.jianshi.ui.discover.ranking;
+package com.hngg.jianshi.ui.adapter;
 
 import android.app.Activity;
 import android.content.Intent;

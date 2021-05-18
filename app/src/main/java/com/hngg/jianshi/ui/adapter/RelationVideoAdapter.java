@@ -29,7 +29,7 @@ import java.util.List;
  * Date: 2021/2/17
  * Timer: 11:19
  * Author: nedhuo
- * Description:aa
+ * Description:loadRectangleImage
  */
 public class RelationVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -218,7 +218,7 @@ public class RelationVideoAdapter extends RecyclerView.Adapter<RecyclerView.View
             ((TextHeaderViewHolder) holder).mTvHeaderTime.setText(data.getText());
         } else if (holder instanceof VideoSmallCardViewHolder) {
             VideoSmallCardViewHolder videoHolder = (VideoSmallCardViewHolder) holder;
-            GlideUtil.loadImage(mCtx, data.getCover().getFeed(), videoHolder.iv_videoImage);
+            GlideUtil.loadRectangleImage(mCtx, data.getCover().getFeed(), videoHolder.iv_videoImage, 5);
             videoHolder.tv_videoTitle.setText(data.getTitle());
             String category = "#" + data.getCategory();
             videoHolder.tv_videoCategory.setText(category);

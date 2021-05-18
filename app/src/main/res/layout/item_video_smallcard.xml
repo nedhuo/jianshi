@@ -17,6 +17,7 @@
         <ImageView
             android:id="@+id/iv_videoList_image"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="match_parent" />
 
         <TextView
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/bg_time_black"
+            android:background="@drawable/shape_time_black"
             android:paddingLeft="4dp"
             android:paddingTop="2dp"
             android:paddingEnd="2dp"

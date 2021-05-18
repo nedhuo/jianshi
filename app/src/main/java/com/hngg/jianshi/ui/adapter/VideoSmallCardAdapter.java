@@ -55,7 +55,7 @@ public class VideoSmallCardAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Data videoData = mItemList.get(position).getData();
         VideoSmallCardViewHolder viewHolder = (VideoSmallCardViewHolder) holder;
-        GlideUtil.loadImage(holder.itemView,videoData.getCover().getFeed(),viewHolder.iv_videoImage);
+        GlideUtil.loadRectangleImage(holder.itemView, videoData.getCover().getFeed(), viewHolder.iv_videoImage, 5);
 
         viewHolder.tv_videoTitle.setText(videoData.getTitle());
         viewHolder.tv_videoCategory.setText(videoData.getCategory());

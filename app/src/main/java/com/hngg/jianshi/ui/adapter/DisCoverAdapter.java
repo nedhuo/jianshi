@@ -72,7 +72,7 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof BannerViewHolder) {
             BannerViewHolder viewHolder = (BannerViewHolder) holder;
             List<ItemList> itemList = mItemList.get(position).getData().getItemList();
-            viewHolder.banner.setAdapter(new BannerViewAdapter(itemList, TAG));
+            viewHolder.banner.setAdapter(new BannerViewAdapter(itemList,mCtx, TAG));
 
         } else if (holder instanceof TextHeaderViewHolder) {
             TextHeaderViewHolder viewHolder = (TextHeaderViewHolder) holder;
@@ -84,7 +84,6 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.tv_title.setText(data.getTitle());
             viewHolder.tv_desc.setText(data.getDescription());
             holder.itemView.setOnClickListener(v -> {
-                /*TODO 待实现，跳转页面*/
                 LogUtil.i(TAG, data.toString());
                 Intent intent = new Intent(mCtx, TagDetailActivity.class);
                 Bundle bundle = new Bundle();

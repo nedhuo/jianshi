@@ -96,14 +96,13 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             } catch (Exception e) {
                 LogUtil.i(TAG, "===============");
                 LogUtil.i(TAG, data.getTitle());
-
                 Glide.with(holder.itemView)
                         .load("http://img.kaiyanapp.com/ebf307197b634f30b2fa4eb867e908c1.jpeg?" +
                                 "imageMogr2/quality/60/format/jpg")
                         .circleCrop()
                         .into(holder.mIv_icon);
             }
-            GlideUtil.loadImage(holder.itemView,data.getCover().getFeed(),holder.mIv_content);
+            GlideUtil.loadRectangleImage(holder.itemView,data.getCover().getFeed(),holder.mIv_content,10);
             holder.mTv_title.setText(data.getTitle());
             holder.mTv_desc.setText(data.getDescription());
             holder.mTv_duration.setText(CommonUtil.intToTime(data.getDuration()));

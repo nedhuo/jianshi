@@ -69,9 +69,7 @@ public class RecommendFragment extends BaseFragment<RecommendPresent>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
         if (mPresenter == null) {
-            ;
             LogUtil.i(TAG, "mPresenter为null");
             return;
         }
@@ -104,8 +102,12 @@ public class RecommendFragment extends BaseFragment<RecommendPresent>
      *                 flag
      */
     public void setData(List<ItemList> data, boolean isUpdate) {
-        mAdapter.setData((List<ItemList>) data, isUpdate);
+        mAdapter.setData(data, isUpdate);
         mAdapter.notifyDataSetChanged();
+        if (mRefreshLayout == null) {
+            LogUtil.e(TAG, "mRefreshLayout为null");
+            return;
+        }
         if (isUpdate && mRefreshLayout.isRefreshing()) {
             mRefreshLayout.finishRefresh();
         } else if (mRefreshLayout.isLoading()) {

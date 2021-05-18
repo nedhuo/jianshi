@@ -15,6 +15,7 @@ import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.Header;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.viewholder.Video2ViewHolder;
+import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
 
@@ -77,7 +78,7 @@ public class TagDetailVideosAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             GlideUtil.loadCircleImage(mCtx, header.getIcon(), holder.ivHead);
             holder.tvAuthor.setText(header.getTitle());
             holder.tvAuthorDesc.setText(header.getDescription());
-
+            holder.tvDuration.setText(CommonUtil.intToTime(data1.getDuration()));
             GlideUtil.loadImage(mCtx, data1.getCover().getFeed(), holder.ivContent);
             holder.tvDesc.setText(data1.getDescription());
         }

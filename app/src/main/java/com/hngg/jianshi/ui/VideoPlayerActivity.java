@@ -21,6 +21,7 @@ import com.hngg.jianshi.data.database.utils.PlayerInfoUtil;
 import com.hngg.jianshi.data.database.utils.VideoTaskInfoUtil;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.StatusBarUtil;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
@@ -48,6 +49,7 @@ public class VideoPlayerActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
         setContentView(R.layout.activity_videoplayer);
         ButterKnife.bind(this);
         mPlayerInfoDao = DbManager.getInstance(this).getPlayerInfoDao();
@@ -139,9 +141,11 @@ public class VideoPlayerActivity extends BaseActivity {
                 .build(videoPlayer);
 
 
-            videoPlayer.getFullscreenButton().setOnClickListener(v -> {
+        videoPlayer.getFullscreenButton().setOnClickListener(v -> {
             //直接横屏
             mOrientationUtils.resolveByClick();
+
+            videoPlayer.getBackButton().setOnClickListener(v1 -> onBackPressed());
 
             //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
             videoPlayer.startWindowFullscreen(mCtx, true, true);

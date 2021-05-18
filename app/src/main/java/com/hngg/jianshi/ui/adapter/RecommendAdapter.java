@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
+import com.hngg.jianshi.ui.discover.ranking.RankingActivity;
+import com.hngg.jianshi.ui.search.SearchResultActivity;
 import com.hngg.jianshi.ui.video.VideoDetailActivity;
 import com.hngg.jianshi.ui.viewholder.BannerViewHolder;
 import com.hngg.jianshi.ui.viewholder.TextHeaderViewHolder;
@@ -73,27 +75,39 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         Data data = mItemList.get(position).getData();
         if (holder instanceof TextHeaderViewHolder) {
             ((TextHeaderViewHolder) holder).mTvHeaderTime.setText(data.getText());
+            if (data.getText().equals("本周排行") || data.getText().equals("查看全部热门排行")) {
+                holder.itemView.setOnClickListener(V -> {
+                    Intent intent = new Intent(mCtx, RankingActivity.class);
+                    mCtx.startActivity(intent);
+                });
+            } else {
+                holder.itemView.setOnClickListener(V -> {
+                    Intent intent = new Intent(mCtx, SearchResultActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constant.SEARCH_FIELD, data.getText());
+                    //   bundle.putSerializable(Constant.SEARCH_VIDEO_DATA, videoData);
+                    intent.putExtra(Constant.SEARCH_BUNDLE, bundle);
+                    mCtx.startActivity(intent);
+                });
+            }
         } else if (holder instanceof VideoSmallCardViewHolder) {
             VideoSmallCardViewHolder videoHolder = (VideoSmallCardViewHolder) holder;
-            GlideUtil.loadImage(mCtx, data.getCover().getFeed(), videoHolder.iv_videoImage);
+            GlideUtil.loadRectangleImage(mCtx, data.getCover().getFeed(), videoHolder.iv_videoImage, 20);
 
             videoHolder.tv_videoTitle.setText(data.getTitle());
             videoHolder.tv_videoCategory.setText("#" + data.getCategory());
             videoHolder.tv_VideoDuration.setText(CommonUtil.intToTime(data.getDuration()));
 
-            videoHolder.ll_smallCard.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mCtx, VideoDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(Constant.VIDEO_BEAN, data);
-                    intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
-                    mCtx.startActivity(intent);
-                }
+            videoHolder.ll_smallCard.setOnClickListener(v -> {
+                Intent intent = new Intent(mCtx, VideoDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constant.VIDEO_BEAN, data);
+                intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
+                mCtx.startActivity(intent);
             });
         } else if (holder instanceof BannerViewHolder) {
             BannerViewHolder viewHolder = (BannerViewHolder) holder;
-            BannerViewAdapter adapter = new BannerViewAdapter(data.getItemList(), TAG);
+            BannerViewAdapter adapter = new BannerViewAdapter(data.getItemList(),mCtx, TAG);
             viewHolder.banner.setAdapter(adapter);
             viewHolder.banner.setIndicator(new CircleIndicator(mCtx));
             //添加画廊效果
@@ -106,7 +120,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             VideoViewHolder viewHolder = (VideoViewHolder) holder;
             Data videoBean = data.getContent().getData();
             GlideUtil.loadCircleImage(mCtx, videoBean.getAuthor().getIcon(), viewHolder.mIv_icon);
-            GlideUtil.loadImage(mCtx, videoBean.getCover().getFeed(), viewHolder.mIv_content);
+            GlideUtil.loadRectangleImage(mCtx, videoBean.getCover().getFeed(), viewHolder.mIv_content, 20);
 
             viewHolder.mTv_title.setText(videoBean.getTitle());
             viewHolder.mTv_desc.setText(videoBean.getDescription());

@@ -72,7 +72,7 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
         UserInfo_HomeBannerAdapter adapter = new UserInfo_HomeBannerAdapter(dataList);
         holder.banner.setAdapter(adapter);
         holder.banner.setIndicator(new CircleIndicator(mCtx));
-        holder.banner.setBannerGalleryEffect(10, 10,5,1);
+        holder.banner.setBannerGalleryEffect(10, 10, 5, 1);
     }
 
 
@@ -166,7 +166,7 @@ public class RVWrapperWidget<T extends RecyclerView.Adapter> extends RecyclerVie
         public void onBindView(BannerItemViewHolder holder, ItemList data, int position, int size) {
             Data bannerData = mDatas.get(position).getData();
             LogUtil.i(TAG, "bannerData.getCover().getFeed()" + bannerData.getCover().getFeed());
-            GlideUtil.loadImage(mCtx, bannerData.getCover().getFeed(), holder.ivImage);
+            GlideUtil.loadRectangleImage(mCtx, bannerData.getCover().getFeed(), holder.ivImage, 20);
             holder.tvTitle.setText(bannerData.getTitle());
         }
 

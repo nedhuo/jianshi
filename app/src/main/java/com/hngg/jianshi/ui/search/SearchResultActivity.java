@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.base.BaseActivity;
 import com.hngg.jianshi.data.bean.home.ItemList;
-import com.hngg.jianshi.ui.discover.ranking.RankingAdapter;
+import com.hngg.jianshi.ui.adapter.RankingAdapter;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.LogUtil;
 import com.scwang.smart.refresh.footer.ClassicsFooter;

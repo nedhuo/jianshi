@@ -61,10 +61,11 @@
         android:id="@+id/iv_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_170dp"
+        android:scaleType="centerCrop"
         android:layout_below="@id/flowLayout_tag"
         android:layout_marginTop="@dimen/size_5dp"
         android:layout_marginBottom="@dimen/size_10dp"
-        android:background="@drawable/bg_card_round" />
+        android:background="@drawable/shape_card_white" />
 
 
     <!--时间-->
@@ -76,7 +77,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_time_black"
+        android:background="@drawable/shape_time_black"
         android:gravity="center"
         android:padding="3dp"
         android:text=""
