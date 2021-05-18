@@ -14,6 +14,7 @@ import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.HistoryInfo;
 import com.hngg.jianshi.data.database.utils.HistoryInfoUtil;
 import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.StatusBarUtil;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class HistoryActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
         setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
     }

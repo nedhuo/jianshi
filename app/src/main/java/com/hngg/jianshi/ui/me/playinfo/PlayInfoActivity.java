@@ -14,6 +14,7 @@ import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.PlayInfo;
 import com.hngg.jianshi.data.database.utils.PlayerInfoUtil;
 import com.hngg.jianshi.ui.adapter.PlayInfoAdapter;
+import com.hngg.jianshi.utils.StatusBarUtil;
 import com.hngg.jianshi.widget.BottomDeleteDialog;
 import com.hngg.jianshi.widget.PlayInfoCallBack;
 
@@ -40,6 +41,7 @@ public class PlayInfoActivity extends BaseActivity implements PlayInfoCallBack {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
         setContentView(R.layout.activity_playinfo);
         ButterKnife.bind(this);
         mDeleteList = new ArrayList<>();
@@ -118,14 +120,14 @@ public class PlayInfoActivity extends BaseActivity implements PlayInfoCallBack {
                     if (mDeleteList != null && mDeleteList.size() > 0) {
                         mPlayerInfoDao.deleteList(mDeleteList);
                         mPlayInfoList = mPlayerInfoDao.queryAll();
-                        mAdapter.setData(mPlayInfoList,true);
+                        mAdapter.setData(mPlayInfoList, true);
                     }
                 }
 
                 @Override
                 public void onCancelListener() {
                     mDeleteList.clear();
-                    mIsDeleteState=false;
+                    mIsDeleteState = false;
                     mAdapter.setEditDelete(false);
                 }
             };

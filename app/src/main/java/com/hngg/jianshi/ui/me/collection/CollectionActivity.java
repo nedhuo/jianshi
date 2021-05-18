@@ -13,6 +13,7 @@ import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.CollectionInfo;
 import com.hngg.jianshi.data.database.utils.CollectionInfoUtil;
 import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.StatusBarUtil;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class CollectionActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
         setContentView(R.layout.activity_collection);
         ButterKnife.bind(this);
     }
