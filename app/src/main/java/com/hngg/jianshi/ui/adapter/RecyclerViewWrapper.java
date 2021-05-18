@@ -16,6 +16,7 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.viewholder.BannerViewHolder;
 import com.hngg.jianshi.utils.GlideUtil;
+import com.hngg.jianshi.utils.LogUtil;
 import com.youth.banner.adapter.BannerAdapter;
 import com.youth.banner.indicator.CircleIndicator;
 
@@ -39,6 +40,7 @@ public class RecyclerViewWrapper<T extends RecyclerView.Adapter> extends Recycle
     private static final int BASE_FOOTER_ID = 200;
     private final T mAdapter;
     private final Activity mCtx;
+    private static final String TAG = "RecyclerViewWrapper";
     //SparseArray(稀疏数组)，4.4以上，SparseArrayCompat是为了兼容低版本的存在
     // 在Android内部用来替代HashMap<Integer,E>
     private SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
@@ -77,14 +79,15 @@ public class RecyclerViewWrapper<T extends RecyclerView.Adapter> extends Recycle
                 CommunityContentViewHolder viewHolder = (CommunityContentViewHolder) holder;
                 List<ItemList> itemList = mItemList.get(position).getData().getItemList();
 
-                GlideUtil.loadImage(mCtx,
+                GlideUtil.loadRectangleImage(mCtx,
                         itemList.get(0).getData().getBgPicture(),
-                        viewHolder.iv_content1);
+                        viewHolder.iv_content1, 5);
                 viewHolder.tv_title1.setText(itemList.get(0).getData().getTitle());
                 viewHolder.tv_desc1.setText(itemList.get(0).getData().getSubTitle());
-                GlideUtil.loadImage(mCtx,
+                LogUtil.i(TAG, itemList.get(0).getData().toString());
+                GlideUtil.loadRectangleImage(mCtx,
                         itemList.get(1).getData().getBgPicture(),
-                        viewHolder.iv_content2);
+                        viewHolder.iv_content2, 5);
 
                 viewHolder.tv_title2.setText(itemList.get(1).getData().getTitle());
                 viewHolder.tv_desc2.setText(itemList.get(1).getData().getSubTitle());
@@ -165,7 +168,7 @@ public class RecyclerViewWrapper<T extends RecyclerView.Adapter> extends Recycle
         int position = holder.getLayoutPosition();
         if (isHeaderView(position)) {
             ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-            if ( lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+            if (lp instanceof StaggeredGridLayoutManager.LayoutParams) {
                 StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
                 p.setFullSpan(true);
             }
@@ -190,7 +193,6 @@ public class RecyclerViewWrapper<T extends RecyclerView.Adapter> extends Recycle
     }
 
 
-
     private class BannerViewAdapter extends BannerAdapter<ItemList, BannerViewAdapter.BannerItemViewHolder> {
         BannerViewAdapter(List<ItemList> datas) {
             super(datas);
@@ -210,7 +212,8 @@ public class RecyclerViewWrapper<T extends RecyclerView.Adapter> extends Recycle
         @Override
         public void onBindView(BannerItemViewHolder holder, ItemList data, int position, int size) {
             String imageUrl = data.getData().getImage();
-            GlideUtil.loadImage(holder.imageView,imageUrl,holder.imageView);
+            LogUtil.i(TAG, data.getData().toString());
+            GlideUtil.loadImage(holder.imageView, imageUrl, holder.imageView);
         }
 
         class BannerItemViewHolder extends RecyclerView.ViewHolder {
@@ -224,6 +227,7 @@ public class RecyclerViewWrapper<T extends RecyclerView.Adapter> extends Recycle
     }
 
 }
+
 class CommunityContentViewHolder extends RecyclerView.ViewHolder {
 
     public final ImageView iv_content1;

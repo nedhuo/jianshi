@@ -51,4 +51,9 @@ public class PlayerInfoUtil {
         return list.get(0);
     }
 
+    public void deleteList(List<PlayInfo> mDeleteList) {
+        //for (PlayInfo playInfo : mDeleteList) {
+            mDaoSession.getPlayInfoDao().deleteInTx(mDeleteList);
+      //  }
+    }
 }

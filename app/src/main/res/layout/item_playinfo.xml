@@ -12,15 +12,19 @@
 
         <ImageView
             android:id="@+id/iv_content"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
         <CheckBox
             android:id="@+id/cb_selected"
-            android:layout_width="@dimen/size_20dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/size_20dp"
-            android:padding="@dimen/size_5dp" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:padding="@dimen/size_5dp"
+
+            android:theme="@style/CheckBox" />
 
         <TextView
             android:id="@+id/tv_duration"

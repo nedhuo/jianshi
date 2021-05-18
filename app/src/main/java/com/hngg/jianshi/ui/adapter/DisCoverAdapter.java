@@ -72,15 +72,19 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof BannerViewHolder) {
             BannerViewHolder viewHolder = (BannerViewHolder) holder;
             List<ItemList> itemList = mItemList.get(position).getData().getItemList();
-            viewHolder.banner.setAdapter(new BannerViewAdapter(itemList,mCtx, TAG));
+            viewHolder.banner.setAdapter(new BannerViewAdapter(itemList, mCtx, TAG));
 
         } else if (holder instanceof TextHeaderViewHolder) {
             TextHeaderViewHolder viewHolder = (TextHeaderViewHolder) holder;
-            viewHolder.mTvHeaderTime.setText(mItemList.get(position).getData().getText());
+            String text = mItemList.get(position).getData().getText();
+            viewHolder.mTvHeaderTime.setText(text);
+            if (text.equals("查看全部分类")) {
+                //TODO 跳转分类页面
+            }
         } else if (holder instanceof BriefItemViewHolder) {
             BriefItemViewHolder viewHolder = (BriefItemViewHolder) holder;
             Data data = mItemList.get(position).getData();
-            GlideUtil.loadImage(mCtx, data.getIcon(), viewHolder.iv_image);
+            GlideUtil.loadRectangleImage(mCtx, data.getIcon(), viewHolder.iv_image, 5);
             viewHolder.tv_title.setText(data.getTitle());
             viewHolder.tv_desc.setText(data.getDescription());
             holder.itemView.setOnClickListener(v -> {

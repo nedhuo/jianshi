@@ -14,6 +14,7 @@ import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.PlayInfo;
 import com.hngg.jianshi.data.database.utils.PlayerInfoUtil;
 import com.hngg.jianshi.ui.adapter.PlayInfoAdapter;
+import com.hngg.jianshi.widget.BottomDeleteDialog;
 import com.hngg.jianshi.widget.PlayInfoCallBack;
 
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class PlayInfoActivity extends BaseActivity implements PlayInfoCallBack {
     private List<PlayInfo> mPlayInfoList;
     private List<PlayInfo> mDeleteList;
     private PlayInfoAdapter mAdapter;
+    private boolean mIsDeleteState = false;
+    private BottomDeleteDialog mDeleteDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +60,6 @@ public class PlayInfoActivity extends BaseActivity implements PlayInfoCallBack {
     protected void initView() {
         ibBack.setOnClickListener(v -> onBackPressed());
 
-
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         rvPlayerInfo.setLayoutManager(layoutManager);
         mAdapter = new PlayInfoAdapter(this);
@@ -65,17 +67,27 @@ public class PlayInfoActivity extends BaseActivity implements PlayInfoCallBack {
         mAdapter.setData(mPlayInfoList, true);
 
         tvDelete.setOnClickListener(v -> {
-            if (mAdapter.mIsDeleteState) {
+            if (mIsDeleteState) {
+                mIsDeleteState = false;
                 mAdapter.setEditDelete(false);
                 mDeleteList.clear();
+                openDeleteDialog(false);
             } else {
+                mIsDeleteState = true;
                 mAdapter.setEditDelete(true);
+                openDeleteDialog(true);
             }
         });
     }
 
     @Override
     public void onDeleteListChange(PlayInfo playInfo, boolean isChecked) {
+        if (!mIsDeleteState) {
+            //如果当前状态为非删除编辑状态
+            mIsDeleteState = true;
+            mAdapter.setEditDelete(true);
+            openDeleteDialog(true);
+        }
         if (mDeleteList.contains(playInfo)) {
             if (!isChecked) {
                 mDeleteList.remove(playInfo);
@@ -88,5 +100,40 @@ public class PlayInfoActivity extends BaseActivity implements PlayInfoCallBack {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
 
+        mIsDeleteState = false;
+        mDeleteList.clear();
+        mAdapter.setEditDelete(false);
+        openDeleteDialog(false);
+    }
+
+    public void openDeleteDialog(boolean isEdit) {
+        if (mDeleteDialog == null) {
+            mDeleteDialog = new BottomDeleteDialog(this) {
+                @Override
+                public void onDeleteListener() {
+                    if (mDeleteList != null && mDeleteList.size() > 0) {
+                        mPlayerInfoDao.deleteList(mDeleteList);
+                        mPlayInfoList = mPlayerInfoDao.queryAll();
+                        mAdapter.setData(mPlayInfoList,true);
+                    }
+                }
+
+                @Override
+                public void onCancelListener() {
+                    mDeleteList.clear();
+                    mIsDeleteState=false;
+                    mAdapter.setEditDelete(false);
+                }
+            };
+        }
+        if (isEdit) {
+            mDeleteDialog.show();
+        } else {
+            mDeleteDialog.dismiss();
+        }
+    }
 }

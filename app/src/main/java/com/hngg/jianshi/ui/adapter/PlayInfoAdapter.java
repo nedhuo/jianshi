@@ -19,6 +19,7 @@ import com.hngg.jianshi.ui.viewholder.PlayInfoViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
+import com.hngg.jianshi.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,19 +58,38 @@ public class PlayInfoAdapter extends BaseAdapter {
                 int progress = (int) (playInfo.getSeekTime() / 10 / playInfo.getDuration());
                 ((PlayInfoViewHolder) holder).progressBar.setProgress(progress);
             }
+
             if (mIsDeleteState) {
+                //删除编辑状态
                 ((PlayInfoViewHolder) holder).cbSelected.setVisibility(View.VISIBLE);
             } else {
                 ((PlayInfoViewHolder) holder).cbSelected.setVisibility(View.GONE);
             }
 
-            holder.itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(mCtx, VideoPlayerActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putLong(Constant.PLAYER_VIDEO_ID, playInfo.getVideoId());
-                intent.putExtra(Constant.PLAYER_BUNDLE,bundle);
-                mCtx.startActivity(intent);
+            holder.itemView.setOnLongClickListener(v -> {
+                if (!mIsDeleteState) {
+                    mCtx.onDeleteListChange(playInfo, true);
+                }
+                return true;
             });
+
+            holder.itemView.setOnClickListener(v -> {
+                if (mIsDeleteState) {
+                    if (((PlayInfoViewHolder) holder).cbSelected.isChecked()) {
+                        ((PlayInfoViewHolder) holder).cbSelected.setChecked(false);
+                    } else {
+                        ((PlayInfoViewHolder) holder).cbSelected.setChecked(true);
+                    }
+                } else {
+                    Intent intent = new Intent(mCtx, VideoPlayerActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong(Constant.PLAYER_VIDEO_ID, playInfo.getVideoId());
+                    intent.putExtra(Constant.PLAYER_BUNDLE, bundle);
+                    mCtx.startActivity(intent);
+                }
+            });
+
+
             ((PlayInfoViewHolder) holder).cbSelected.setOnCheckedChangeListener((buttonView, isChecked) ->
                     mCtx.onDeleteListChange(playInfo, isChecked));
         }
@@ -90,5 +110,7 @@ public class PlayInfoAdapter extends BaseAdapter {
 
     public void setEditDelete(boolean isDeleteState) {
         mIsDeleteState = isDeleteState;
+        LogUtil.i(TAG, "mIsDeleteState=" + mIsDeleteState);
+        notifyDataSetChanged();
     }
 }

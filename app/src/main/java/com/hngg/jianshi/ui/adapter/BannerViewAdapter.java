@@ -67,10 +67,10 @@ public class BannerViewAdapter extends BannerAdapter<ItemList,
             GlideUtil.loadImage(holder.imageView, bannerData.getImage(), holder.imageView);
             GlideUtil.loadImage(holder.imageView, bannerData.getImage(), holder.imageView);
             holder.itemView.setOnClickListener(v -> {
-                LogUtil.i(TAG, "" + bannerData.getWebUrl().getRaw());
-                Intent intent = new Intent(mCtx, WebViewActivity.class);
-                intent.putExtra(Constant.WEBVIEW_URL, bannerData.getWebUrl().getRaw());
-                mCtx.startActivity(intent);
+                LogUtil.i(TAG, "" + bannerData.toString());
+//                Intent intent = new Intent(mCtx, WebViewActivity.class);
+//                intent.putExtra(Constant.WEBVIEW_URL, bannerData.getWebUrl().getRaw());
+//                mCtx.startActivity(intent);
             });
         }
 
