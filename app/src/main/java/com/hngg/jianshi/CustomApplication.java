@@ -20,6 +20,4 @@ public class CustomApplication extends BaseApplication {
         NineGridView.setImageLoader(new GlideImageLoader());
         Utils.init(this);
     }
-
-
 }
