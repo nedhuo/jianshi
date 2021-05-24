@@ -60,7 +60,7 @@ public class PermissionUtil {
 
 
     public static void getNotification(Activity context) {
-        if (isNotificationEnabled(context)) {
+        if (!isNotificationEnabled(context)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context)
                     .setCancelable(true)
                     .setTitle("检测到通知权限未开启!")

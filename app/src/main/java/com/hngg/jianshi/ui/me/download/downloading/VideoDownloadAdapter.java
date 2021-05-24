@@ -173,6 +173,7 @@ class VideoDownloadAdapter extends RecyclerView.Adapter<VideoItemViewHolder> {
 
 
     void updateState(DownloadTask taskItem) {
+        if (taskItem == null) return;
         int position = indexVideoTask(taskItem.getKey());
         if (position == -1) {
             updateDataFromDb(taskItem);

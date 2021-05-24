@@ -48,6 +48,7 @@ public class RecommendPresent extends BasePresenter<RecommendContract.Model, Rec
                         @Override
                         public void onFail(Throwable e) {
                             Timber.e(e,TAG);
+                            mRootView.setData(null, true);
                         }
                     });
         }else  if (!mNextPageUrl.equals("") && mNextPageUrl != null) {
@@ -62,6 +63,7 @@ public class RecommendPresent extends BasePresenter<RecommendContract.Model, Rec
                         @Override
                         public void onFail(Throwable e) {
                             Timber.e(e, TAG);
+                            mRootView.setData(null, true);
                         }
                     });
         } else {

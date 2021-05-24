@@ -21,13 +21,15 @@ import com.arialyy.aria.core.task.DownloadTask;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.Transition;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
-import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.VideoTaskState;
+import com.hngg.jianshi.data.database.DbManager;
+import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
 import com.hngg.jianshi.ui.MainActivity;
 import com.hngg.jianshi.widget.DownloadTarget;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -54,9 +56,10 @@ import static androidx.core.app.NotificationCompat.VISIBILITY_SECRET;
 public class NotificationUtil {
     @SuppressLint("StaticFieldLeak")
     private static NotificationUtil mNotificationUtil;
-    private final Service mCtx;
+    private final Context mCtx;
     private final String mChannelName;
     private final String mChannelId;
+    private final List<Integer> mPrepareList;
     private NotificationManager mNotificationManager;
     private NotificationChannel mNotificationChannel;
 
@@ -80,7 +83,7 @@ public class NotificationUtil {
     }
 
     private NotificationUtil(Service context) {
-        mCtx = context;
+        mCtx = Utils.getContext();
         mChannelName = "download";
         mChannelId = "niceVideo";
         mNotificationChannel = obtainChannel();
@@ -88,6 +91,7 @@ public class NotificationUtil {
         mOrdinaryMap = new ConcurrentHashMap<>();
         mKeepAliveMap = new ConcurrentHashMap<>();
         mSuccessMap = new ConcurrentHashMap<>();
+        mPrepareList = new ArrayList<>();
     }
 
     private NotificationChannel obtainChannel() {
@@ -125,18 +129,30 @@ public class NotificationUtil {
         Notification successBuild = mSuccessMap.get(videoTask.getDownId());
         NotificationCompat.Builder ordinaryBuild = mOrdinaryMap.get(videoTask.getDownId());
         NotificationCompat.Builder keepAliveBuild = mKeepAliveMap.get(videoTask.getDownId());
-        if (successBuild != null || ordinaryBuild != null || keepAliveBuild != null) {
+        if (successBuild != null || ordinaryBuild != null || keepAliveBuild != null
+                || mPrepareList.contains(videoTask.getDownId())) {
             Log.i(TAG, "当前通知已存在");
             return;
         }
+        try {
+            if (mKeepAliveMap.size() == 0) {
+                Log.i(TAG, "创建保活通知" + videoTask.getPoster());
+                mPrepareList.add(videoTask.getDownId());
+                createKeepAliveNotification(videoTask);
 
-        if (mKeepAliveMap.size() == 0) {
-            Log.i(TAG, "创建保活通知");
-            createKeepAliveNotification(videoTask);
-        } else {
-            Log.i(TAG, "创建普通通知");
-            createOrdinaryNotification(videoTask);
+
+            } else {
+                Log.i(TAG, "创建普通通知" + videoTask.getPoster());
+                mPrepareList.add(videoTask.getDownId());
+                createOrdinaryNotification(videoTask);
+
+
+            }
+        } catch (Exception e) {
+            LogUtil.e(TAG, e.getMessage());
+            e.printStackTrace();
         }
+
     }
 
 
@@ -203,12 +219,13 @@ public class NotificationUtil {
         RemoteViews remoteViews = new RemoteViews(mCtx.getPackageName(), R.layout.notify_download);
 
         remoteViews.setTextViewText(R.id.tv_author, videoTask.getVideoName());
-        Glide.with(mCtx).asBitmap().load(videoTask.getPoster()).into(new DownloadTarget() {
+        Glide.with(mCtx).asBitmap().load(videoTask.getPoster()).error(R.mipmap.ic_launcher).into(new DownloadTarget() {
             @Override
             public void onloadSuccess(Bitmap bitmap, Transition<? super Bitmap> transition) {
                 remoteViews.setImageViewBitmap(R.id.notify_image, bitmap);
             }
         });
+
 
         Intent intent = new Intent(mCtx, MainActivity.class);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -226,8 +243,8 @@ public class NotificationUtil {
 
         mKeepAliveMap.put(videoTask.getDownId(), builder);
         Notification build = builder.build();
-        mCtx.startForeground(videoTask.getDownId(), build);
-        // mNotificationManager.notify(videoTask.getDownId(), build);
+        //  mCtx.startForeground(videoTask.getDownId(), build);
+        mNotificationManager.notify(videoTask.getDownId(), build);
     }
 
     private void createKeepAliveNotification(int key, NotificationCompat.Builder builder) {
@@ -247,12 +264,14 @@ public class NotificationUtil {
         RemoteViews remoteViews = new RemoteViews(mCtx.getPackageName(), R.layout.notify_download);
         //TODO 添加view数据
         remoteViews.setTextViewText(R.id.tv_author, videoTask.getVideoName());
-        Glide.with(mCtx).asBitmap().load(videoTask.getPoster()).into(new DownloadTarget() {
+        //TODO 待修复
+        Glide.with(mCtx).asBitmap().load(videoTask.getPoster()).error(R.mipmap.ic_launcher).into(new DownloadTarget() {
             @Override
             public void onloadSuccess(Bitmap bitmap, Transition<? super Bitmap> transition) {
                 remoteViews.setImageViewBitmap(R.id.notify_image, bitmap);
             }
         });
+
 
         Intent intent = new Intent(mCtx, MainActivity.class);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -270,8 +289,8 @@ public class NotificationUtil {
 
         mOrdinaryMap.put(videoTask.getDownId(), builder);
         Notification build = builder.build();
-        mCtx.startForeground(videoTask.getDownId(), build);
-        //  mNotificationManager.notify(videoTask.getDownId(), build);
+        //    mCtx.startForeground(videoTask.getDownId(), build);
+        mNotificationManager.notify(videoTask.getDownId(), build);
     }
 
 
@@ -336,7 +355,7 @@ public class NotificationUtil {
                         100, false);
 
                 mNotificationManager.notify(downId, build);
-
+                mKeepAliveMap.remove(downId);
                 updateDbState(videoTask);
             } else {
                 LogUtil.e(TAG, "updateSuccess builder==NULL");

@@ -1,7 +1,7 @@
 package com.hngg.jianshi;
 
 import com.arialyy.aria.core.Aria;
-import com.hngg.jianshi.utils.PermissionUtil;
+import com.hngg.jianshi.utils.Utils;
 import com.hngg.jianshi.widget.GlideImageLoader;
 import com.jess.arms.base.BaseApplication;
 import com.lzy.ninegrid.NineGridView;
@@ -18,10 +18,8 @@ public class CustomApplication extends BaseApplication {
         super.onCreate();
         Aria.download(this).register();
         NineGridView.setImageLoader(new GlideImageLoader());
-
+        Utils.init(this);
     }
-
-
 
 
 }

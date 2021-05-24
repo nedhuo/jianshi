@@ -32,8 +32,11 @@ public class TagDetailVideosAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         if (mDataList == null) {
             mDataList = new ArrayList<>();
         }
-        mDataList.addAll(dataList);
-
+        try {
+            mDataList.addAll(dataList);
+        } catch (Exception e) {
+            LogUtil.e(TAG, "mDataList为null");
+        }
     }
 
     @Override

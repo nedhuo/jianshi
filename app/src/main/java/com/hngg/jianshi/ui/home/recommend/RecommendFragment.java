@@ -102,6 +102,14 @@ public class RecommendFragment extends BaseFragment<RecommendPresent>
      *                 flag
      */
     public void setData(List<ItemList> data, boolean isUpdate) {
+        if (data==null){
+            if (isUpdate && mRefreshLayout.isRefreshing()) {
+                mRefreshLayout.finishRefresh(false);
+            } else if (mRefreshLayout.isLoading()) {
+                mRefreshLayout.finishLoadMore(false);
+            }
+            return;
+        }
         mAdapter.setData(data, isUpdate);
         mAdapter.notifyDataSetChanged();
         if (mRefreshLayout == null) {

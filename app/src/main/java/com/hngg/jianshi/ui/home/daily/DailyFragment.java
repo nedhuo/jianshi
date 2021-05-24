@@ -78,6 +78,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         mRefreshLayout.setOnRefreshListener(refreshlayout -> {
             assert mPresenter != null;
             mPresenter.onRefresh(refreshlayout);
+
         });
         mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
             assert mPresenter != null;

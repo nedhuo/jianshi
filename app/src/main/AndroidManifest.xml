@@ -49,10 +49,10 @@
         <activity android:name=".ui.calender.CalenderActivity" />
         <activity
             android:name=".ui.user.UserInfoActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.tag.TagDetailActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleTask" />
         <activity android:name=".ui.discover.ranking.RankingActivity" />
         <activity
             android:name=".ui.search.SearchResultActivity"

@@ -29,6 +29,7 @@ import com.hngg.jianshi.ui.user.UserInfoActivity;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.PermissionUtil;
 import com.hngg.jianshi.utils.StatusBarUtil;
 import com.hngg.network.Observer.BaseObserver;
 import com.shuyu.gsyvideoplayer.GSYBaseActivityDetail;
@@ -104,6 +105,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videodetail);
         ButterKnife.bind(this);
+
         Aria.download(this).register();
         Aria.get(this).getDownloadConfig().setConvertSpeed(true);
         Aria.get(this).getDownloadConfig().setMaxTaskNum(3);
@@ -148,6 +150,12 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         }
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PermissionUtil.getNotification(this);
     }
 
     private void initView() {

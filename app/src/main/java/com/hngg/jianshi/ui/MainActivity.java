@@ -2,7 +2,9 @@ package com.hngg.jianshi.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +45,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @BindView(R.id.bnv_main)
     BottomNavigationView mBottomBar;
+    private long firstTime = 0;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -80,7 +83,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PermissionUtil.checkPermissions(this);
-        PermissionUtil.getNotification(this);
+
     }
 
     /**
@@ -129,9 +132,8 @@ public class MainActivity extends BaseActivity<MainPresenter>
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-      //  EasyPermissions
-       //         .onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-
+        //  EasyPermissions
+        //         .onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
 
@@ -146,6 +148,21 @@ public class MainActivity extends BaseActivity<MainPresenter>
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
 
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 2000) {
+                Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                firstTime = secondTime;
+                return true;
+            } else {
+                System.exit(0);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

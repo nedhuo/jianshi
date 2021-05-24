@@ -57,6 +57,7 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
 
                         @Override
                         public void onFail(Throwable e) {
+                            refreshlayout.finishRefresh(false);
                             Timber.e(e);
                         }
                     });
@@ -67,22 +68,23 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
 
     public void onRefresh(RefreshLayout refreshlayout) {
         mModel.refresh().subscribe(new BaseObserver<DailyRootBean>() {
-                    @Override
-                    protected void onSuccess(DailyRootBean dailyRootBean) {
-                        mNextUrl = dailyRootBean.getNextPageUrl();
-                        mAdapter.removeData();
-                        mAdapter.setData(dailyRootBean.getItemList());
-                        mAdapter.notifyDataSetChanged();
-                        if (refreshlayout != null) {
-                            refreshlayout.finishRefresh();
-                        }
-                    }
+            @Override
+            protected void onSuccess(DailyRootBean dailyRootBean) {
+                mNextUrl = dailyRootBean.getNextPageUrl();
+                mAdapter.removeData();
+                mAdapter.setData(dailyRootBean.getItemList());
+                mAdapter.notifyDataSetChanged();
+                if (refreshlayout != null) {
+                    refreshlayout.finishRefresh();
+                }
+            }
 
-                    @Override
-                    public void onFail(Throwable e) {
-                        LogUtil.e(TAG, Objects.requireNonNull(e.getMessage()));
-                    }
-                });
+            @Override
+            public void onFail(Throwable e) {
+                refreshlayout.finishRefresh(false);
+                LogUtil.e(TAG, Objects.requireNonNull(e.getMessage()));
+            }
+        });
 
     }
 
