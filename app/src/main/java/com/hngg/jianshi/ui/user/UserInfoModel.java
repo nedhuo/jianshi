@@ -29,7 +29,8 @@ public class UserInfoModel extends BaseModel implements UserInfoContract.Model {
     Observable<UserInfoBean> refresh(long id, String userType) {
         return mHttpUtil.getService(ApiInterface.class)
                 .getUserInfo(id, userType)
-                .compose(mHttpUtil.applySchedulers());
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 
 //    ObservableSource<UserInfo_HomeBean> onRefreshHomeData(String s) {

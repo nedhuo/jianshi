@@ -31,31 +31,43 @@ class TagDetailModel extends BaseModel implements TagDetailContract.Model {
     @Override
     public Observable<TagInfoBean> onRefresh(long tagId) {
         return mHttpUtil.getService(ApiInterface.class)
-                .getTagDetailBean(tagId).compose(mHttpUtil.applySchedulers());
+                .getTagDetailBean(tagId)
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 
     public Observable<TagInfoVideosBean> onRefreshVideos(long tagId) {
         return mHttpUtil.getService(ApiInterface.class)
-                .getTagDetail_recommend(tagId).compose(mHttpUtil.applySchedulers());
+                .getTagDetail_recommend(tagId)
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 
     public Observable<TagInfoDynamicBean> onRefreshDynamic(long tagId) {
         return mHttpUtil.getService(ApiInterface.class)
-                .getTagDetail_dynamic(tagId).compose(mHttpUtil.applySchedulers());
+                .getTagDetail_dynamic(tagId)
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 
     public Observable<TagInfoVideosBean> onLoadMoreVideos(String videoNextUrl) {
         return mHttpUtil.getService(ApiInterface.class)
-                .getTagDetail_nextVideos(videoNextUrl).compose(mHttpUtil.applySchedulers());
+                .getTagDetail_nextVideos(videoNextUrl)
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 
     public Observable<TagInfoDynamicBean> onLoadMoreDynamic(String dynamicNextUrl) {
         return mHttpUtil.getService(ApiInterface.class)
-                .getTagDetail_nextDynamic(dynamicNextUrl).compose(mHttpUtil.applySchedulers());
+                .getTagDetail_nextDynamic(dynamicNextUrl)
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 
     public Observable<TagInfoVideosBean> onRefresh(String url) {
         return mHttpUtil.getService(ApiInterface.class)
-                .getTagDetail_nextVideos(url).compose(mHttpUtil.applySchedulers());
+                .getTagDetail_nextVideos(url)
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 }

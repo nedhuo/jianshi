@@ -30,6 +30,7 @@ public class UserInfo_DynamicPresenter extends BasePresenter {
         mHttpUtil.getService(ApiInterface.class)
                 .getUserInfo_Dynamics(dynamicUrl)
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<UserInfo_DynamicBean>() {
                                @Override
                                protected void onSuccess(UserInfo_DynamicBean o) {
@@ -60,6 +61,7 @@ public class UserInfo_DynamicPresenter extends BasePresenter {
         mHttpUtil.getService(ApiInterface.class)
                 .getUserInfo_NextDynamics(dynamicUrl)
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<UserInfo_DynamicBean>() {
                                @Override
                                protected void onSuccess(UserInfo_DynamicBean o) {

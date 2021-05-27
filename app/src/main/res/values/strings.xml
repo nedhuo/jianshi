@@ -30,5 +30,13 @@
     <string name="history_list">历史列表</string>
     <string name="video_detail">视频详情</string>
     <string name="look_history">观看历史</string>
+    <string name="restart">重启</string>
+    <string name="error_occurred_explanation">发生意外错误。\n抱歉，给您带来不便。</string>
+    <string name="close_app">关闭程序</string>
+    <string name="error_details">错误日志</string>
+    <string name="error_details_title">错误详情</string>
+    <string name="error_details_close">关闭</string>
+    <string name="error_details_clipboard_label">错误信息</string>
+    <string name="error_details_copy">复制错误信息</string>
 
 </resources>

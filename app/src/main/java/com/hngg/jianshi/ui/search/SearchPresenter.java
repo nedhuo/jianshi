@@ -21,6 +21,7 @@ public class SearchPresenter extends BasePresenter<BaseActivity> {
         mHttpUtil.getService(ApiInterface.class)
                 .getQueryData("\"" + query + "\"")
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<SearchBean>() {
                     @Override
                     protected void onSuccess(SearchBean o) {
@@ -44,6 +45,7 @@ public class SearchPresenter extends BasePresenter<BaseActivity> {
         mHttpUtil.getService(ApiInterface.class)
                 .getQueryNextData(mNextPageUrl)
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<SearchBean>() {
                     @Override
                     protected void onSuccess(SearchBean o) {

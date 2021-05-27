@@ -5,7 +5,6 @@ import com.hngg.jianshi.data.ApiInterface;
 import com.hngg.jianshi.data.KaiYanHttpUtil;
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
 import com.hngg.jianshi.data.bean.home.ItemList;
-import com.hngg.network.KaiYanApi;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
@@ -48,16 +47,14 @@ public class DailyModel extends BaseModel implements DailyContract.Model {
     public Observable<DailyRootBean> refresh() {
         return httpUtil.getService(ApiInterface.class)
                 .getDailyData()
-                .compose(httpUtil.applySchedulers());
+                .compose(httpUtil.applySchedulers())
+                .compose(httpUtil.exceptionTransformer());
     }
 
     public Observable<DailyRootBean> loadMore(String urlPath) {
-        //处理baseUrl重复问题
-        if (urlPath.contains(KaiYanApi.baseHttpUrl)) {
-            urlPath = urlPath.replace(KaiYanApi.baseHttpUrl, "");
-        }
         return httpUtil.getService(ApiInterface.class)
                 .getDailyNextPage(urlPath)
-                .compose(httpUtil.applySchedulers());
+                .compose(httpUtil.applySchedulers())
+                .compose(httpUtil.exceptionTransformer());
     }
 }

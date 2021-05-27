@@ -31,14 +31,16 @@ public class VideoDetailModel implements VideoDetailContract.Model {
     public Observable<ReplyRootBean> getVideoReply(long id) {
         return httpUtil.getService(ApiInterface.class)
                 .getVideoReply(id)
-                .compose(httpUtil.applySchedulers());
+                .compose(httpUtil.applySchedulers())
+                .compose(httpUtil.exceptionTransformer());
     }
 
     public Observable<RelationVideoBean> getRelationVideo(long id) {
 
         return httpUtil.getService(ApiInterface.class)
                 .getRelationVideo(String.valueOf(id))
-                .compose(httpUtil.applySchedulers());
+                .compose(httpUtil.applySchedulers())
+                .compose(httpUtil.exceptionTransformer());
     }
 
     @Override

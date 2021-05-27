@@ -1,7 +1,11 @@
 package com.hngg.network;
 
-import com.hngg.network.interceptor.CommonRequestInterceptor;
-import com.hngg.network.interceptor.CommonResponseInterceptor;
+import com.hngg.network.errorhandler.HttpErrorHandler;
+import com.hngg.network.http.interceptor.BaseInterceptor;
+import com.hngg.network.http.interceptor.CacheInterceptor;
+import com.hngg.network.http.interceptor.logging.Level;
+import com.hngg.network.http.interceptor.logging.LoggingInterceptor;
+import com.hngg.network.utils.Utils;
 
 import java.util.HashMap;
 
@@ -13,7 +17,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -33,15 +37,12 @@ import static com.hngg.network.KaiYanApi.baseHttpUrl;
  */
 public abstract class BaseHttpUtil {
     private final String TAG = "HttpUtils";
-    private static INetworkRequiredInfo iNetworkRequiredInfo;
     private static HashMap<String, Retrofit> retrofitHashMap = new HashMap<>();
 
     /**
      *
      */
-    public void init(INetworkRequiredInfo networkRequiredInfo) {
-        iNetworkRequiredInfo = networkRequiredInfo;
-
+    public void init() {
     }
 
     /**
@@ -85,17 +86,16 @@ public abstract class BaseHttpUtil {
      */
     private OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
-        if (iNetworkRequiredInfo != null && iNetworkRequiredInfo.isDebug()) {
-            HttpLoggingInterceptor loggingInterceptor =
-                    new HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-            okHttpClientBuilder.addInterceptor(loggingInterceptor);
-        }
-
-
-//        okHttpClientBuilder.addInterceptor()
-        okHttpClientBuilder.addInterceptor(new CommonRequestInterceptor());
-        okHttpClientBuilder.addInterceptor(new CommonResponseInterceptor());
+        okHttpClientBuilder.addInterceptor(new LoggingInterceptor.Builder()//构建者模式
+                .loggable(BuildConfig.DEBUG) //是否开启日志打印
+                .setLevel(Level.BASIC) //打印的等级
+                .log(Platform.INFO) // 打印类型
+                .request("Request") // request的Tag
+                .response("Response")// Response的Tag
+                .addHeader("log-header", "I am the log request header.") // 添加打印头, 注意 key 和 value 都不能是中文
+                .build());
+        okHttpClientBuilder.addInterceptor(new BaseInterceptor(null));
+        okHttpClientBuilder.addInterceptor(new CacheInterceptor(Utils.getContext()));
         return okHttpClientBuilder.build();
     }
 
@@ -106,10 +106,24 @@ public abstract class BaseHttpUtil {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
-                Observable<T> observable = upstream.subscribeOn(Schedulers.io())
+                return upstream.subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
-                //observable.subscribe(observer);
-                return observable;
+            }
+        };
+    }
+
+    /**
+     * 对网络异常进行处理
+     *
+     * @return
+     */
+    public <T> ObservableTransformer<T,T> exceptionTransformer() {
+        return new ObservableTransformer<T,T> () {
+            @Override
+            public ObservableSource<T> apply(Observable<T> observable) {
+                return observable
+                        .onErrorResumeNext(new HttpErrorHandler<T>());
             }
         };
     }

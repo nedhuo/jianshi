@@ -30,6 +30,7 @@ public class UserInfo_WorksPresenter extends BasePresenter {
         mHttpUtil.getService(ApiInterface.class)
                 .getUserInfo_Works(worksUrl)
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<UserInfo_WorksBean>() {
                                @Override
                                protected void onSuccess(UserInfo_WorksBean o) {
@@ -59,6 +60,7 @@ public class UserInfo_WorksPresenter extends BasePresenter {
         mHttpUtil.getService(ApiInterface.class)
                 .getUserInfo_NextWorks(worksUrl)
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<UserInfo_DynamicBean>() {
                     @Override
                     protected void onSuccess(UserInfo_DynamicBean o) {

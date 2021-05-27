@@ -68,7 +68,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Content content = mItemList.get(position).getData().getContent();
             Data data = content.getData();
             if (DataType.UGC_PICTURE_CARD.equals(content.getType())) {
-                GlideUtil.loadImage(viewHolder.iv_content,data.getUrl(),viewHolder.iv_content);
+                GlideUtil.loadImage(viewHolder.iv_content, data.getUrl(), viewHolder.iv_content);
                 GlideUtil.loadCircleImage(viewHolder.iv_headImage,
                         data.getOwner().getAvatar(),
                         viewHolder.iv_headImage);
@@ -137,6 +137,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public void setData(List<ItemList> data, boolean isUpdate) {
+        if (data == null) return;
         if (isUpdate) mItemList.clear();
         mItemList.addAll(data);
         notifyDataSetChanged();

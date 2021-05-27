@@ -35,6 +35,7 @@ public class UserInfo_HomePresenter extends BasePresenter {
         mHttpUtil.getService(ApiInterface.class)
                 .getUserInfo_Home(homeUrl)
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<UserInfo_HomeBean>() {
                                @Override
                                protected void onSuccess(UserInfo_HomeBean o) {
@@ -64,6 +65,7 @@ public class UserInfo_HomePresenter extends BasePresenter {
         mHttpUtil.getService(ApiInterface.class)
                 .getUserInfo_NextHome(homeUrl)
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<UserInfo_HomeBean>() {
                                @Override
                                protected void onSuccess(UserInfo_HomeBean o) {

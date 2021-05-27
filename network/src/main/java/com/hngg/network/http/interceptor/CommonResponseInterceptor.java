@@ -1,6 +1,4 @@
-package com.hngg.network.interceptor;
-
-import android.util.Log;
+package com.hngg.network.http.interceptor;
 
 import java.io.IOException;
 
@@ -21,13 +19,8 @@ public class CommonResponseInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         long l = System.currentTimeMillis();
         //TODO  SocketTimeoutException: timeout 异常
-        try {
-            Response response = chain.proceed(chain.request());
-            return response;
-        } catch (Exception e) {
-            Log.i(TAG, "requestTime:" + (System.currentTimeMillis() - l));
-            return null;
-        }
+
+        return chain.proceed(chain.request());
 
 
     }

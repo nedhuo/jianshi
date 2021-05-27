@@ -3,10 +3,8 @@ package com.hngg.jianshi.ui.home.recommend;
 import com.hngg.jianshi.data.ApiInterface;
 import com.hngg.jianshi.data.KaiYanHttpUtil;
 import com.hngg.jianshi.data.bean.recommend.RecommendRootBean;
-import com.hngg.network.KaiYanApi;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
-
 
 import javax.inject.Inject;
 
@@ -31,16 +29,14 @@ public class RecommendModel extends BaseModel implements RecommendContract.Model
     public Observable<RecommendRootBean> getRecommendData() {
         return httpUtil.getService(ApiInterface.class)
                 .getRecommendData()
-                .compose(httpUtil.applySchedulers());
+                .compose(httpUtil.applySchedulers())
+                .compose(httpUtil.exceptionTransformer());
     }
 
     public Observable<RecommendRootBean> getRecommendNextPage(String urlPath) {
-        //处理baseUrl重复问题
-        if (urlPath.contains(KaiYanApi.baseHttpUrl)) {
-            urlPath = urlPath.replace(KaiYanApi.baseHttpUrl, "");
-        }
         return httpUtil.getService(ApiInterface.class)
                 .getRecommendNextPage(urlPath)
-                .compose(httpUtil.applySchedulers());
+                .compose(httpUtil.applySchedulers())
+                .compose(httpUtil.exceptionTransformer());
     }
 }

@@ -23,6 +23,7 @@ public class DailyRankPresenter extends BasePresenter<BaseFragment> {
         mHttpUtil.getService(ApiInterface.class)
                 .getRanking(strategy, 10)
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<RankingBean>() {
                     @Override
                     protected void onSuccess(RankingBean o) {
@@ -46,6 +47,7 @@ public class DailyRankPresenter extends BasePresenter<BaseFragment> {
         mHttpUtil.getService(ApiInterface.class)
                 .getRanking(strategy, 10)
                 .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer())
                 .subscribe(new BaseObserver<RankingBean>() {
                     @Override
                     protected void onSuccess(RankingBean o) {

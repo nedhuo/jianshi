@@ -31,6 +31,7 @@ public class DisCoverModel extends BaseModel implements DisCoverContract.Model {
     public Observable<DisCoverRootBean> getDisCoverData() {
         return mHttpUtil.getService(ApiInterface.class)
                 .getDisCoverData()
-                .compose(mHttpUtil.applySchedulers());
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 }

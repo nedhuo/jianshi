@@ -11,9 +11,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import timber.log.Timber;
-
 /**
  * Date: 2020/11/19
  * Timer: 19:36
@@ -44,7 +41,7 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
 
     public void onLoadMore(RefreshLayout refreshlayout) {
         if (mNextUrl != null && !mNextUrl.equals("")) {
-            mModel.loadMore(mNextUrl).observeOn(AndroidSchedulers.mainThread())
+            mModel.loadMore(mNextUrl)
                     .subscribe(new BaseObserver<DailyRootBean>() {
                         @Override
                         protected void onSuccess(DailyRootBean dailyRootBean) {
@@ -58,7 +55,7 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
                         @Override
                         public void onFail(Throwable e) {
                             refreshlayout.finishRefresh(false);
-                            Timber.e(e);
+                            LogUtil.e(TAG, Objects.requireNonNull(e.getMessage()));
                         }
                     });
         } else {
@@ -81,7 +78,9 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
 
             @Override
             public void onFail(Throwable e) {
-                refreshlayout.finishRefresh(false);
+                if (refreshlayout != null) {
+                    refreshlayout.finishRefresh(false);
+                }
                 LogUtil.e(TAG, Objects.requireNonNull(e.getMessage()));
             }
         });

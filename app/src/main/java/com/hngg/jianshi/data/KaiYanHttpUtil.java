@@ -3,7 +3,6 @@ package com.hngg.jianshi.data;
 import android.util.Log;
 
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
-import com.hngg.jianshi.utils.CustomNetwork;
 import com.hngg.network.BaseHttpUtil;
 import com.hngg.network.errorhandler.ExceptionHandle;
 
@@ -18,7 +17,7 @@ import okhttp3.Interceptor;
  */
 public class KaiYanHttpUtil extends BaseHttpUtil {
     public KaiYanHttpUtil(){
-        init(new CustomNetwork());
+        init();
     }
 
     private String TAG = "KaiYanHttpUtil";

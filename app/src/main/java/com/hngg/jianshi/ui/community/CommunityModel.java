@@ -3,7 +3,6 @@ package com.hngg.jianshi.ui.community;
 import com.hngg.jianshi.data.ApiInterface;
 import com.hngg.jianshi.data.KaiYanHttpUtil;
 import com.hngg.jianshi.data.bean.community.CommunityRootBean;
-import com.hngg.network.KaiYanApi;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
@@ -31,16 +30,15 @@ public class CommunityModel extends BaseModel implements CommunityContract.Model
     public Observable<CommunityRootBean> getCommunityData() {
         return mHttpUtil.getService(ApiInterface.class)
                 .getCommunityData()
-                .compose(mHttpUtil.applySchedulers());
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 
     public Observable<CommunityRootBean> getCommunityNextData(String nextUrl) {
-        if (nextUrl.contains(KaiYanApi.baseHttpUrl)) {
-            nextUrl = nextUrl.replace(KaiYanApi.baseHttpUrl, "");
-        }
         return mHttpUtil.getService(ApiInterface.class)
                 .getCommunityNextPage(nextUrl)
-                .compose(mHttpUtil.applySchedulers());
+                .compose(mHttpUtil.applySchedulers())
+                .compose(mHttpUtil.exceptionTransformer());
     }
 
 }

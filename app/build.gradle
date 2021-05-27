@@ -8,7 +8,7 @@ apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "com.hngg.jianshi"
         minSdkVersion 23
@@ -68,10 +68,12 @@ dependencies {
     implementation rootProject.ext.dependencies["design"]
 
     implementation rootProject.ext.dependencies["butterknife"]
+
+    implementation rootProject.ext.dependencies["canary-release"]
+
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     //Butterknife 插件, 很多人因为没加这个而报错, 切记!!!
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
-    implementation project(path: ':network')//依赖插件
 
     //刷新
     implementation 'com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1'
@@ -105,5 +107,7 @@ dependencies {
     implementation 'com.android.support:palette-v7:23.0.0'
     //九图排列
     implementation 'com.lzy.widget:ninegridview:0.2.0'
+
+    implementation project(path: ':network')//依赖插件
 }
 

@@ -2,12 +2,13 @@ package com.hngg.jianshi.ui.community;
 
 import com.hngg.jianshi.data.bean.community.CommunityRootBean;
 import com.hngg.jianshi.ui.adapter.CommunityAdapter;
+import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Date: 2021/2/20
@@ -37,29 +38,43 @@ public class CommunityPresenter extends BasePresenter
     public void getCommunityData(boolean isUpdate) {
         if (isUpdate) {
 
-            mDisposable = mModel.getCommunityData()
-                    .subscribe(new Consumer<CommunityRootBean>() {
+            mModel.getCommunityData()
+                    .subscribe(new BaseObserver<CommunityRootBean>() {
                         @Override
-                        public void accept(CommunityRootBean rootBean) throws Exception {
+                        protected void onSuccess(CommunityRootBean rootBean) {
                             mNextPageUrl = rootBean.getNextPageUrl();
-                            mRootView.setData(rootBean.getItemList(), true);
+                            mRootView.setData(rootBean.getItemList(), true, false);
+                        }
+
+                        @Override
+                        public void onFail(Throwable e) {
+                            LogUtil.e(TAG, "数据错误" + e.getMessage());
+                            mRootView.setData(null, true, false);
                         }
                     });
-        } else if (!mNextPageUrl.equals("") && mNextPageUrl != null) {
-            mDisposable = mModel.getCommunityNextData(mNextPageUrl)
-                    .subscribe(new Consumer<CommunityRootBean>() {
+        }
+    }
+
+    public void onLoadMore() {
+        if (!mNextPageUrl.equals("")) {
+            mModel.getCommunityNextData(mNextPageUrl)
+                    .subscribe(new BaseObserver<CommunityRootBean>() {
                         @Override
-                        public void accept(CommunityRootBean rootBean) throws Exception {
+                        protected void onSuccess(CommunityRootBean rootBean) {
                             mNextPageUrl = rootBean.getNextPageUrl();
-                            mRootView.setData(rootBean.getItemList(), false);
+                            mRootView.setData(rootBean.getItemList(), false, false);
+                        }
+
+                        @Override
+                        public void onFail(Throwable e) {
+                            LogUtil.e(TAG, "数据错误" + e.getMessage());
+                            mRootView.setData(null, false, false);
                         }
                     });
         } else {
-            mRootView.notifyNoData();
+            mRootView.setData(null, false, true);
         }
-
     }
-
 
 
     @Override

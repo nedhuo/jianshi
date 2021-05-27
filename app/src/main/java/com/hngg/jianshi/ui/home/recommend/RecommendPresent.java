@@ -5,16 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hngg.jianshi.data.bean.recommend.RecommendRootBean;
 import com.hngg.jianshi.ui.adapter.RecommendAdapter;
+import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
 
-
 import javax.inject.Inject;
 
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
-
-import timber.log.Timber;
 
 /**
  * Date: 2020/11/19
@@ -23,10 +20,10 @@ import timber.log.Timber;
  * Description:
  */
 public class RecommendPresent extends BasePresenter<RecommendContract.Model, RecommendContract.View> {
-    RecommendModel mModel = (RecommendModel) super.mModel;
-    RecommendFragment mRootView = (RecommendFragment) super.mRootView;
-    private String mNextPageUrl;
-    private final String TAG="RecommendPresent";
+    private RecommendModel mModel = (RecommendModel) super.mModel;
+    private RecommendFragment mRootView = (RecommendFragment) super.mRootView;
+    private String mNextPageUrl = "";
+    private final String TAG = "RecommendPresent";
 
     @Inject
     public RecommendPresent(RecommendContract.Model model, RecommendContract.View rootView) {
@@ -34,24 +31,26 @@ public class RecommendPresent extends BasePresenter<RecommendContract.Model, Rec
     }
 
 
-    public void obtainRecommendData(boolean isUpdate) {
-        if(isUpdate){
-            mModel.getRecommendData()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BaseObserver<RecommendRootBean>() {
-                        @Override
-                        protected void onSuccess(RecommendRootBean rootBean) {
-                            mNextPageUrl = rootBean.getNextPageUrl();
-                            mRootView.setData(rootBean.getItemList(), true);
-                        }
+    public void onRefresh() {
+        mModel.getRecommendData()
+                .subscribe(new BaseObserver<RecommendRootBean>() {
+                    @Override
+                    protected void onSuccess(RecommendRootBean rootBean) {
+                        mNextPageUrl = rootBean.getNextPageUrl();
+                        mRootView.setData(rootBean.getItemList(), true);
+                    }
 
-                        @Override
-                        public void onFail(Throwable e) {
-                            Timber.e(e,TAG);
-                            mRootView.setData(null, true);
-                        }
-                    });
-        }else  if (!mNextPageUrl.equals("") && mNextPageUrl != null) {
+                    @Override
+                    public void onFail(Throwable e) {
+                        LogUtil.e(TAG, "推荐页面数据加载失败" + e.getMessage());
+                        mRootView.setData(null, true);
+                    }
+                });
+
+    }
+
+    public void onLoadMore() {
+        if (!mNextPageUrl.equals("")) {
             mModel.getRecommendNextPage(mNextPageUrl).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseObserver<RecommendRootBean>() {
                         @Override
@@ -62,14 +61,14 @@ public class RecommendPresent extends BasePresenter<RecommendContract.Model, Rec
 
                         @Override
                         public void onFail(Throwable e) {
-                            Timber.e(e, TAG);
-                            mRootView.setData(null, true);
+                            LogUtil.e(TAG, "推荐页面数据加载失败" + e.getMessage());
+                            mRootView.setData(null, false);
                         }
                     });
         } else {
-            mRootView.notifyNoData();
+            LogUtil.e(TAG, "推荐页面无更多数据");
+            mRootView.setData(null, false);
         }
-
     }
 
 

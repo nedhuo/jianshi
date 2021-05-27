@@ -65,6 +65,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.webview.WebViewActivity" />
+        <activity android:name=".ui.crash.DefaultErrorActivity" />
 
         <service android:name=".service.DownloadService" />
     </application>

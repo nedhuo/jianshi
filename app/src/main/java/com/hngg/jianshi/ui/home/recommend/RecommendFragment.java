@@ -78,16 +78,16 @@ public class RecommendFragment extends BaseFragment<RecommendPresent>
         mRefreshLayout.setRefreshFooter(mClassicsFooter);
         mRefreshLayout.setOnRefreshListener(refreshlayout -> {
             assert mPresenter != null;
-            mPresenter.obtainRecommendData(true);
+            mPresenter.onRefresh();
         });
         mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
             assert mPresenter != null;
-            mPresenter.obtainRecommendData(false);
+            mPresenter.onLoadMore();
         });
 
         //init RecyclerView 与 数据
         mPresenter.initRecyclerView();
-        mPresenter.obtainRecommendData(true);
+        mPresenter.onRefresh();
     }
 
 
@@ -102,23 +102,10 @@ public class RecommendFragment extends BaseFragment<RecommendPresent>
      *                 flag
      */
     public void setData(List<ItemList> data, boolean isUpdate) {
-        if (data==null){
-            if (isUpdate && mRefreshLayout.isRefreshing()) {
-                mRefreshLayout.finishRefresh(false);
-            } else if (mRefreshLayout.isLoading()) {
-                mRefreshLayout.finishLoadMore(false);
-            }
-            return;
-        }
         mAdapter.setData(data, isUpdate);
-        mAdapter.notifyDataSetChanged();
-        if (mRefreshLayout == null) {
-            LogUtil.e(TAG, "mRefreshLayout为null");
-            return;
-        }
-        if (isUpdate && mRefreshLayout.isRefreshing()) {
+        if (isUpdate) {
             mRefreshLayout.finishRefresh();
-        } else if (mRefreshLayout.isLoading()) {
+        } else {
             mRefreshLayout.finishLoadMore();
         }
     }

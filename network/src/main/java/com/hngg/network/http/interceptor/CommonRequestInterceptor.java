@@ -1,6 +1,4 @@
-package com.hngg.network.interceptor;
-
-import android.util.Log;
+package com.hngg.network.http.interceptor;
 
 import java.io.IOException;
 

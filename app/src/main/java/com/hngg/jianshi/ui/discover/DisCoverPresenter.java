@@ -5,12 +5,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.data.bean.discover.DisCoverRootBean;
 import com.hngg.jianshi.ui.adapter.DisCoverAdapter;
+import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
-
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 
 /**
@@ -20,25 +19,33 @@ import io.reactivex.functions.Consumer;
  * Description:
  */
 public class DisCoverPresenter extends BasePresenter<DisCoverContract.Model, DisCoverContract.View> {
-    DisCoverModel mModel = (DisCoverModel) super.mModel;
-    DisCoverFragment mRootView = (DisCoverFragment) super.mRootView;
-    private final String TAG = "DisCoverPresenter";
-    private Disposable mDisposable;
+    private DisCoverModel mModel = (DisCoverModel) super.mModel;
+    private DisCoverFragment mRootView = (DisCoverFragment) super.mRootView;
 
     @Inject
     DisCoverPresenter(DisCoverContract.Model model, DisCoverContract.View rootView) {
         super(model, rootView);
     }
 
-    public void getCommunityData(boolean isUpdate) {
-
-        mDisposable = mModel.getDisCoverData()
-                .subscribe(new Consumer<DisCoverRootBean>() {
+    void getCommunityData() {
+        mModel.getDisCoverData()
+                .subscribe(new BaseObserver<DisCoverRootBean>() {
                     @Override
-                    public void accept(DisCoverRootBean rootBean) throws Exception {
-                        mRootView.setData(rootBean.getItemList(), isUpdate);
+                    protected void onSuccess(DisCoverRootBean o) {
+                        mRootView.setData(o.getItemList(), true, false);
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        LogUtil.e(TAG, e.getMessage());
+                        mRootView.setData(null, true, false);
                     }
                 });
+    }
+
+
+    public void onLoadMore() {
+        mRootView.setData(null, false, true);
     }
 
     public void initRecyclerView() {
@@ -48,11 +55,4 @@ public class DisCoverPresenter extends BasePresenter<DisCoverContract.Model, Dis
         mRootView.initRecyclerView(adapter, layoutManager);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mDisposable != null && mDisposable.isDisposed()) {
-            mDisposable.dispose();
-        }
-    }
 }

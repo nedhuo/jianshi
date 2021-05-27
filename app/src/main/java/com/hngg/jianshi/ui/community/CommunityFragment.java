@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Date: 2021/2/20
@@ -63,6 +64,12 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        ButterKnife.bind(this, view);
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         if (mPresenter == null) {
             LogUtil.e(TAG, "mPresenter为null");
@@ -90,19 +97,28 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
     }
 
 
-    public void setData(List<ItemList> data, boolean isUpdate) {
-        if (isUpdate) {
-            List<ItemList> wrapperData = new ArrayList<>();
-            wrapperData.add(data.remove(0));
-            wrapperData.add(data.remove(0));
-            mAdapterWrapper.setData(wrapperData, isUpdate);
-        }
-        mCommunityAdapter.setData(data, isUpdate);
-
-        if (isUpdate && mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.finishRefresh();
-        } else if (mRefreshLayout.isLoading()) {
-            mRefreshLayout.finishLoadMore();
+    /**
+     * 设置RecyclerView数据
+     */
+    public void setData(List<ItemList> data, boolean isUpdate, boolean noMoreData) {
+        if (data != null) {
+            if (isUpdate) {
+                List<ItemList> wrapperData = new ArrayList<>();
+                wrapperData.add(data.remove(0));
+                wrapperData.add(data.remove(0));
+                mAdapterWrapper.setData(wrapperData, true);
+                mCommunityAdapter.setData(data, true);
+                mRefreshLayout.finishRefresh(0, true, noMoreData);
+            } else {
+                mCommunityAdapter.setData(data, false);
+                mRefreshLayout.finishLoadMore(0, true, noMoreData);
+            }
+        } else {
+            if (isUpdate) {
+                mRefreshLayout.finishRefresh(0, false, noMoreData);
+            } else {
+                mRefreshLayout.finishLoadMore(0, false, noMoreData);
+            }
         }
     }
 

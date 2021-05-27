@@ -78,12 +78,11 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
             //init 刷新控件
             mRefreshLayout.setRefreshHeader(mClassicsHeader);
             mRefreshLayout.setOnRefreshListener(refreshlayout -> {
-                assert mPresenter != null;
-                mPresenter.getCommunityData(true);
+                mPresenter.getCommunityData();
             });
 
             mPresenter.initRecyclerView();
-            mPresenter.getCommunityData(true);
+            mPresenter.getCommunityData();
         }
         ibRanking.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, RankingActivity.class);
@@ -97,11 +96,21 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
 
     }
 
-    public void setData(List<ItemList> data, boolean isUpdate) {
-        mAdapter.setData(data, isUpdate);
-        mAdapter.notifyDataSetChanged();
-        if (isUpdate && mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.finishRefresh();
+    public void setData(List<ItemList> data, boolean isUpdate, boolean noMoreData) {
+        if (data != null) {
+            if (isUpdate) {
+                mAdapter.setData(data, true);
+                mRefreshLayout.finishRefresh(0, true, noMoreData);
+            } else {
+                mAdapter.setData(data, false);
+                mRefreshLayout.finishLoadMore(0, true, noMoreData);
+            }
+        } else {
+            if (isUpdate) {
+                mRefreshLayout.finishRefresh(0, false, noMoreData);
+            } else {
+                mRefreshLayout.finishLoadMore(0, false, noMoreData);
+            }
         }
     }
 
