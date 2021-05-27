@@ -79,17 +79,15 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
         mRefreshLayout.setRefreshHeader(mClassicsHeader);
         mRefreshLayout.setRefreshFooter(mClassicsFooter);
         mRefreshLayout.setOnRefreshListener(refreshlayout -> {
-            assert mPresenter != null;
-            mPresenter.getCommunityData(true);
+            mPresenter.getCommunityData();
         });
         mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
-            assert mPresenter != null;
-            mPresenter.getCommunityData(false);
+            mPresenter.onLoadMore();
         });
 
         initRecyclerView();
 
-        mPresenter.getCommunityData(true);
+        mPresenter.getCommunityData();
     }
 
     @Override

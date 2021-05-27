@@ -23,6 +23,7 @@ public class CustomApplication extends BaseApplication {
         NineGridView.setImageLoader(new GlideImageLoader());
         Utils.init(this);
         com.hngg.network.utils.Utils.init(this);
+        com.blankj.utilcode.util.Utils.init(this);
         //内存泄漏检测
         if (!LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);

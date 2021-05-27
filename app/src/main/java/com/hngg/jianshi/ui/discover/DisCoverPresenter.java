@@ -3,6 +3,7 @@ package com.hngg.jianshi.ui.discover;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.hngg.jianshi.data.bean.discover.DisCoverRootBean;
 import com.hngg.jianshi.ui.adapter.DisCoverAdapter;
 import com.hngg.jianshi.utils.LogUtil;
@@ -39,6 +40,7 @@ public class DisCoverPresenter extends BasePresenter<DisCoverContract.Model, Dis
                     public void onFail(Throwable e) {
                         LogUtil.e(TAG, e.getMessage());
                         mRootView.setData(null, true, false);
+                        ToastUtils.showShort(e.getMessage());
                     }
                 });
     }

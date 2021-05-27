@@ -123,7 +123,8 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void setData(List<ItemList> data, boolean isUpdate) {
         if (isUpdate) mItemList.clear();
-        mItemList = data;
+        mItemList.addAll(data);
+        notifyDataSetChanged();
     }
 
 

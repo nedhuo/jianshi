@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerMainComponent;
@@ -74,7 +75,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
             LogUtil.i(TAG, "mPresenter为null");
             return;
         }
-        assert mPresenter != null;
         mPresenter.initBottomBar();
         mPresenter.initViewPager();
     }
@@ -123,7 +123,6 @@ public class MainActivity extends BaseActivity<MainPresenter>
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-
         return super.dispatchTouchEvent(ev);
     }
 
@@ -140,14 +139,13 @@ public class MainActivity extends BaseActivity<MainPresenter>
     //权限允许
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
+        LogUtils.i(TAG, "onPermissionsGranted");
     }
 
     //拒绝授权
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-
-        }
+        LogUtils.i(TAG, "onPermissionsDenied");
     }
 
     @Override
@@ -155,7 +153,7 @@ public class MainActivity extends BaseActivity<MainPresenter>
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             long secondTime = System.currentTimeMillis();
             if (secondTime - firstTime > 2000) {
-                Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("再按一次退出程序");
                 firstTime = secondTime;
                 return true;
             } else {

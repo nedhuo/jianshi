@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -92,7 +93,7 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (viewHolder instanceof VideoViewHolder) {
             VideoViewHolder holder = (VideoViewHolder) viewHolder;
             try {
-                GlideUtil.loadImage(holder.itemView,data.getAuthor().getIcon(),holder.mIv_icon);
+                GlideUtil.loadImage(holder.itemView, data.getAuthor().getIcon(), holder.mIv_icon);
             } catch (Exception e) {
                 LogUtil.i(TAG, "===============");
                 LogUtil.i(TAG, data.getTitle());
@@ -102,16 +103,17 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         .circleCrop()
                         .into(holder.mIv_icon);
             }
-            GlideUtil.loadRectangleImage(holder.itemView,data.getCover().getFeed(),holder.mIv_content,10);
+            GlideUtil.loadRectangleImage(holder.itemView, data.getCover().getFeed(), holder.mIv_content, 10);
             holder.mTv_title.setText(data.getTitle());
             holder.mTv_desc.setText(data.getDescription());
             holder.mTv_duration.setText(CommonUtil.intToTime(data.getDuration()));
             holder.cardVideo.setOnClickListener(v -> {
                 Intent intent = new Intent(mCtx.getActivity(), VideoDetailActivity.class);
+
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.VIDEO_BEAN, data);
                 intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
-                mCtx.startActivity(intent);
+                mCtx.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(mCtx.getActivity(), holder.mIv_content, "test").toBundle());
             });
         } else if (viewHolder instanceof TextFooterViewHolder) {
 

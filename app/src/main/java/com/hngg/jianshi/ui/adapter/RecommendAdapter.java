@@ -1,16 +1,19 @@
 package com.hngg.jianshi.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
+import com.hngg.jianshi.base.BaseAdapter;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
 import com.hngg.jianshi.ui.discover.ranking.RankingActivity;
@@ -23,10 +26,12 @@ import com.hngg.jianshi.ui.viewholder.VideoViewHolder;
 import com.hngg.jianshi.utils.CommonUtil;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.youth.banner.indicator.CircleIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Date: 2021/2/18
@@ -34,7 +39,7 @@ import java.util.List;
  * Author: nedhuo
  * Description:
  */
-public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecommendAdapter extends BaseAdapter<RecyclerView.ViewHolder> {
 
     private List<ItemList> mItemList;
     private final Activity mCtx;
@@ -67,44 +72,54 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         .inflate(R.layout.item_video_smallcard, parent, false);
                 return new VideoSmallCardViewHolder(view);
         }
-        return null;
+        TextView textView = new TextView(mCtx);
+        textView.setHeight(0);
+        return new RecyclerView.ViewHolder(textView) {
+        };
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Data data = mItemList.get(position).getData();
         if (holder instanceof TextHeaderViewHolder) {
             ((TextHeaderViewHolder) holder).mTvHeaderTime.setText(data.getText());
             if (data.getText().equals("本周排行") || data.getText().equals("查看全部热门排行")) {
-                holder.itemView.setOnClickListener(V -> {
-                    Intent intent = new Intent(mCtx, RankingActivity.class);
-                    mCtx.startActivity(intent);
-                });
+                RxView.clicks(holder.itemView)
+                        .throttleFirst(1, TimeUnit.SECONDS)
+                        .subscribe(o -> {
+                            Intent intent = new Intent(mCtx, RankingActivity.class);
+                            mCtx.startActivity(intent);
+                        });
             } else {
-                holder.itemView.setOnClickListener(V -> {
-                    Intent intent = new Intent(mCtx, SearchResultActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Constant.SEARCH_FIELD, data.getText());
-                    //   bundle.putSerializable(Constant.SEARCH_VIDEO_DATA, videoData);
-                    intent.putExtra(Constant.SEARCH_BUNDLE, bundle);
-                    mCtx.startActivity(intent);
-                });
+                RxView.clicks(holder.itemView)
+                        .throttleFirst(1, TimeUnit.SECONDS)
+                        .subscribe(o -> {
+                            Intent intent = new Intent(mCtx, SearchResultActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constant.SEARCH_FIELD, data.getText());
+                            //   bundle.putSerializable(Constant.SEARCH_VIDEO_DATA, videoData);
+                            intent.putExtra(Constant.SEARCH_BUNDLE, bundle);
+                            mCtx.startActivity(intent);
+                        });
             }
         } else if (holder instanceof VideoSmallCardViewHolder) {
             VideoSmallCardViewHolder videoHolder = (VideoSmallCardViewHolder) holder;
-            GlideUtil.loadRectangleImage(mCtx, data.getCover().getFeed(), videoHolder.iv_videoImage, 20);
+            GlideUtil.loadRectangleImage(mCtx, data.getCover().getFeed(), videoHolder.iv_videoImage, 5);
 
             videoHolder.tv_videoTitle.setText(data.getTitle());
             videoHolder.tv_videoCategory.setText("#" + data.getCategory());
             videoHolder.tv_VideoDuration.setText(CommonUtil.intToTime(data.getDuration()));
 
-            videoHolder.ll_smallCard.setOnClickListener(v -> {
-                Intent intent = new Intent(mCtx, VideoDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Constant.VIDEO_BEAN, data);
-                intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
-                mCtx.startActivity(intent);
-            });
+            RxView.clicks(holder.itemView)
+                    .throttleFirst(1, TimeUnit.SECONDS)
+                    .subscribe(o -> {
+                        Intent intent = new Intent(mCtx, VideoDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Constant.VIDEO_BEAN, data);
+                        intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
+                        mCtx.startActivity(intent);
+                    });
         } else if (holder instanceof BannerViewHolder) {
             BannerViewHolder viewHolder = (BannerViewHolder) holder;
             BannerViewAdapter adapter = new BannerViewAdapter(data.getItemList(), mCtx, TAG);
@@ -119,19 +134,21 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (holder instanceof VideoViewHolder) {
             VideoViewHolder viewHolder = (VideoViewHolder) holder;
             Data videoBean = data.getContent().getData();
-            GlideUtil.loadCircleImage(mCtx, videoBean.getAuthor().getIcon(), viewHolder.mIv_icon);
-            GlideUtil.loadRectangleImage(mCtx, videoBean.getCover().getFeed(), viewHolder.mIv_content, 20);
+            GlideUtil.loadRectangleImage(mCtx, videoBean.getAuthor().getIcon(), viewHolder.mIv_icon, 2);
+            GlideUtil.loadRectangleImage(mCtx, videoBean.getCover().getFeed(), viewHolder.mIv_content, 10);
 
             viewHolder.mTv_title.setText(videoBean.getTitle());
             viewHolder.mTv_desc.setText(videoBean.getDescription());
             viewHolder.mTv_duration.setText(CommonUtil.intToTime(videoBean.getDuration()));
-            viewHolder.cardVideo.setOnClickListener(v -> {
-                Intent intent = new Intent(mCtx, VideoDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Constant.VIDEO_BEAN, videoBean);
-                intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
-                mCtx.startActivity(intent);
-            });
+            RxView.clicks(holder.itemView)
+                    .throttleFirst(1, TimeUnit.SECONDS)
+                    .subscribe(o -> {
+                        Intent intent = new Intent(mCtx, VideoDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Constant.VIDEO_BEAN, videoBean);
+                        intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
+                        mCtx.startActivity(intent);
+                    });
         } else {
 
         }

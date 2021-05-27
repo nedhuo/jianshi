@@ -4,27 +4,28 @@
     android:id="@+id/cardVideo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:layout_marginLeft="@dimen/size_10dp"
+    android:layout_marginRight="@dimen/size_10dp"
     android:background="@drawable/selector_item_click"
-    android:paddingBottom="10dp">
+    android:paddingBottom="@dimen/size_10dp">
 
     <ImageView
         android:id="@+id/iv_dailyItem_content"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="@dimen/size_170dp"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_marginBottom="@dimen/size_5dp"
         android:scaleType="centerCrop"
-        android:layout_marginBottom="5dp"
+        android:transitionName="test"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <!--headImage-->
     <ImageView
         android:id="@+id/iv_dailyItem_head"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="@dimen/size_45dp"
+        android:layout_height="@dimen/size_45dp"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:layout_marginEnd="@dimen/size_5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_dailyItem_content" />
 
@@ -33,14 +34,14 @@
         android:id="@+id/tv_dailyItem_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="@dimen/size_10dp"
+        android:layout_marginTop="@dimen/size_7dp"
         android:layout_marginEnd="@dimen/size_10dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        android:text=""
         android:textColor="@color/colorBlack"
-        android:textSize="15sp"
+        android:textSize="@dimen/font_15sp"
         app:layout_constraintLeft_toRightOf="@id/iv_dailyItem_head"
         app:layout_constraintTop_toBottomOf="@id/iv_dailyItem_content" />
     <!--desc-->
@@ -48,12 +49,12 @@
         android:id="@+id/tv_dailyItem_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="@dimen/size_10dp"
+        android:layout_marginTop="@dimen/size_5dp"
         android:layout_marginEnd="@dimen/size_10dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="asssssssssssss"
+        android:text=""
         app:layout_constraintLeft_toRightOf="@id/iv_dailyItem_head"
         app:layout_constraintTop_toBottomOf="@id/tv_dailyItem_title" />
     <!--时间-->
@@ -61,8 +62,8 @@
         android:id="@+id/tv_dailyItem_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="@dimen/size_10dp"
+        android:layout_marginBottom="@dimen/size_10dp"
         android:background="@drawable/shape_time_black"
         android:gravity="center"
         android:padding="3dp"
