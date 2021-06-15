@@ -12,12 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerDailyComponent;
+import com.hngg.jianshi.data.bean.home.ItemList;
+import com.hngg.jianshi.ui.adapter.VideoCardAdapter;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -37,6 +41,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     ClassicsFooter mClassicsFooter;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    private VideoCardAdapter mAdapter;
 
 
     @Override
@@ -57,14 +62,26 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        if (mPresenter != null) {
-            initView();
-
-            mPresenter.initView();
-        } else {
+        if (mPresenter == null) {
             LogUtil.e(TAG, "mPresenter为null");
+            return;
         }
 
+        //init 刷新控件
+        mRefreshLayout.setRefreshHeader(mClassicsHeader);
+        mRefreshLayout.setRefreshFooter(mClassicsFooter);
+        mRefreshLayout.setOnRefreshListener(refreshlayout -> {
+            mPresenter.onRefresh();
+        });
+        mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
+            mPresenter.onLoadMore();
+        });
+
+        //init RecyclerView 与 数据
+        mAdapter = new VideoCardAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        mPresenter.onRefresh();
     }
 
     @Override
@@ -72,26 +89,29 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     }
 
-    private void initView() {
-        mRefreshLayout.setRefreshHeader(mClassicsHeader);
-        mRefreshLayout.setRefreshFooter(mClassicsFooter);
-        mRefreshLayout.setOnRefreshListener(refreshlayout -> {
-            assert mPresenter != null;
-            mPresenter.onRefresh(refreshlayout);
 
-        });
-        mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
-            assert mPresenter != null;
-            mPresenter.onLoadMore(refreshlayout);
-        });
-    }
-
-    @Override
-    public void initRecyclerView(RecyclerView.Adapter adapter) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.mContext);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(adapter);
+    /**
+     * @param isUpdate true 表示首页数据，数据集合清空在添加数据
+     *                 false 表示非首页数据，添加到列表
+     *                 <p>
+     *                 flag
+     */
+    public void setData(List<ItemList> data, boolean isUpdate, boolean noMoreData) {
+        if (data != null) {
+            if (isUpdate) {
+                mAdapter.setData(data, true);
+                mRefreshLayout.finishRefresh(0, true, noMoreData);
+            } else {
+                mAdapter.setData(data, false);
+                mRefreshLayout.finishLoadMore(0, true, noMoreData);
+            }
+        } else {
+            if (isUpdate) {
+                mRefreshLayout.finishRefresh(0, false, noMoreData);
+            } else {
+                mRefreshLayout.finishLoadMore(0, false, noMoreData);
+            }
+        }
     }
 
     @Override

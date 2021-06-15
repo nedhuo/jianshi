@@ -2,14 +2,11 @@ package com.hngg.jianshi.ui.community;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.hngg.jianshi.data.bean.community.CommunityRootBean;
-import com.hngg.jianshi.ui.adapter.CommunityAdapter;
 import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
-
-import io.reactivex.disposables.Disposable;
 
 /**
  * Date: 2021/2/20
@@ -23,8 +20,6 @@ public class CommunityPresenter extends BasePresenter
     CommunityFragment mRootView = (CommunityFragment) super.mRootView;
     private String mNextPageUrl;
     private final String TAG = "CommunityPresent";
-    private Disposable mDisposable;
-    private CommunityAdapter mCommunityAdapter;
 
     @Inject
     public CommunityPresenter(CommunityContract.Model model, CommunityContract.View rootView) {
@@ -53,7 +48,7 @@ public class CommunityPresenter extends BasePresenter
     }
 
     public void onLoadMore() {
-        if (!mNextPageUrl.equals("")) {
+        if (mNextPageUrl != null && !mNextPageUrl.equals("")) {
             mModel.getCommunityNextData(mNextPageUrl)
                     .subscribe(new BaseObserver<CommunityRootBean>() {
                         @Override
@@ -71,14 +66,6 @@ public class CommunityPresenter extends BasePresenter
         } else {
             mRootView.setData(null, false, true);
         }
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mDisposable != null && mDisposable.isDisposed())
-            mDisposable.dispose();
     }
 
 }

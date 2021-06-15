@@ -77,11 +77,9 @@ public class RecommendFragment extends BaseFragment<RecommendPresent>
         mRefreshLayout.setRefreshHeader(mClassicsHeader);
         mRefreshLayout.setRefreshFooter(mClassicsFooter);
         mRefreshLayout.setOnRefreshListener(refreshlayout -> {
-            assert mPresenter != null;
             mPresenter.onRefresh();
         });
         mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
-            assert mPresenter != null;
             mPresenter.onLoadMore();
         });
 

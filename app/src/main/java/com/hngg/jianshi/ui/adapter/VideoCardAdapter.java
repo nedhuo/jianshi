@@ -1,5 +1,6 @@
 package com.hngg.jianshi.ui.adapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,21 +38,26 @@ import java.util.List;
  */
 public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final String TAG = "CardAdapter";
-    private final Fragment mCtx;
+    private final Activity mCtx;
     private List<ItemList> mItemList;
 
 
     public VideoCardAdapter(Fragment ctx) {
         mItemList = new ArrayList<>();
-        mCtx = ctx;
+        mCtx = ctx.getActivity();
     }
 
     public void removeData() {
         mItemList.clear();
     }
 
-    public void setData(List<ItemList> itemList) {
+    public void setData(List<ItemList> itemList, boolean isUpdate) {
+        if (itemList == null) return;
+        if (isUpdate) {
+            mItemList.clear();
+        }
         mItemList.addAll(itemList);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -60,21 +66,21 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         View view;
         switch (viewType) {
             case DataType.VIDEO_ID:
-                view = LayoutInflater.from(mCtx.getActivity()).
+                view = LayoutInflater.from(mCtx).
                         inflate(R.layout.item_video_card, parent, false);
                 return new VideoViewHolder(view);
             case DataType.TEXT_HEADER_ID:
-                view = LayoutInflater.from(mCtx.getActivity()).
+                view = LayoutInflater.from(mCtx).
                         inflate(R.layout.item_header, parent, false);
                 return new TextHeaderViewHolder(view);
             case DataType.TEXT_FOOTER_ID:
-                view = LayoutInflater.from(mCtx.getActivity()).
+                view = LayoutInflater.from(mCtx).
                         inflate(R.layout.item_footer, parent, false);
                 return new TextFooterViewHolder(view);
             case DataType.VIDEO_COLLECTION_FOLLOW_ID:
 
             case DataType.VIDEO_COLLECTION_COVER_ID:
-                view = LayoutInflater.from(mCtx.getActivity()).
+                view = LayoutInflater.from(mCtx).
                         inflate(R.layout.item_collection_smallcard, parent, false);
                 return new VideoCoverViewHolder(view, mCtx);
             default:
@@ -108,12 +114,12 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.mTv_desc.setText(data.getDescription());
             holder.mTv_duration.setText(CommonUtil.intToTime(data.getDuration()));
             holder.cardVideo.setOnClickListener(v -> {
-                Intent intent = new Intent(mCtx.getActivity(), VideoDetailActivity.class);
+                Intent intent = new Intent(mCtx, VideoDetailActivity.class);
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.VIDEO_BEAN, data);
                 intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
-                mCtx.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(mCtx.getActivity(), holder.mIv_content, "test").toBundle());
+                mCtx.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(mCtx, holder.mIv_content, "test").toBundle());
             });
         } else if (viewHolder instanceof TextFooterViewHolder) {
 
@@ -128,7 +134,7 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (viewHolder instanceof VideoCoverViewHolder) {
             //videoSmallCard
             VideoCoverViewHolder holder = (VideoCoverViewHolder) viewHolder;
-            VideoSmallCardAdapter adapter = new VideoSmallCardAdapter(mCtx.getActivity());
+            VideoSmallCardAdapter adapter = new VideoSmallCardAdapter(mCtx);
             holder.mRecyclerView.setAdapter(adapter);
             adapter.setData(data.getItemList());
             adapter.notifyDataSetChanged();

@@ -35,6 +35,12 @@ android {
         daoPackage 'com.hngg.jianshi.data.database.dao'
         targetGenDir 'src/main/java'
     }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 
 }
 
@@ -110,5 +116,7 @@ dependencies {
 
     implementation project(path: ':network')//依赖插件
     implementation project(path: ':utilcode')
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
 }
 

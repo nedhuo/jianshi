@@ -1,11 +1,10 @@
 package com.hngg.jianshi.ui.home.daily;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.hngg.jianshi.data.bean.home.DailyRootBean;
-import com.hngg.jianshi.ui.adapter.VideoCardAdapter;
 import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
 
 import java.util.Objects;
 
@@ -20,7 +19,6 @@ import javax.inject.Inject;
 public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyContract.View> {
     private DailyFragment mRootView;
     private DailyModel mModel;
-    private VideoCardAdapter mAdapter;
     private String mNextUrl;
 
     @Inject
@@ -30,61 +28,46 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
         mModel = (DailyModel) model;
     }
 
-    public void initView() {
-        //先设置Adapter
-        mAdapter = new VideoCardAdapter(mRootView);
-        mRootView.initRecyclerView(mAdapter);
 
-        //请求数据
-        onRefresh(null);
+
+
+    public void onRefresh() {
+        mModel.refresh().subscribe(new BaseObserver<DailyRootBean>() {
+            @Override
+            protected void onSuccess(DailyRootBean dailyRootBean) {
+                mNextUrl = dailyRootBean.getNextPageUrl();
+                mRootView.setData(dailyRootBean.getItemList(), true, false);
+            }
+
+            @Override
+            public void onFail(Throwable e) {
+                mRootView.setData(null, true, false);
+                LogUtil.e(TAG, Objects.requireNonNull(e.getMessage()));
+                ToastUtils.showShort(e.getMessage());
+            }
+        });
     }
 
-    public void onLoadMore(RefreshLayout refreshlayout) {
+    public void onLoadMore() {
         if (mNextUrl != null && !mNextUrl.equals("")) {
             mModel.loadMore(mNextUrl)
                     .subscribe(new BaseObserver<DailyRootBean>() {
                         @Override
                         protected void onSuccess(DailyRootBean dailyRootBean) {
                             mNextUrl = dailyRootBean.getNextPageUrl();
-                            mAdapter.setData(dailyRootBean.getItemList());
-                            mAdapter.notifyDataSetChanged();
-
-                            refreshlayout.finishLoadMore();
+                            mRootView.setData(dailyRootBean.getItemList(), false, false);
                         }
 
                         @Override
                         public void onFail(Throwable e) {
-                            refreshlayout.finishRefresh(false);
+                            mRootView.setData(null, false, false);
                             LogUtil.e(TAG, Objects.requireNonNull(e.getMessage()));
+                            ToastUtils.showShort(e.getMessage());
                         }
                     });
         } else {
-            refreshlayout.setNoMoreData(true);
+            mRootView.setData(null, false, true);
         }
-    }
-
-    public void onRefresh(RefreshLayout refreshlayout) {
-        mModel.refresh().subscribe(new BaseObserver<DailyRootBean>() {
-            @Override
-            protected void onSuccess(DailyRootBean dailyRootBean) {
-                mNextUrl = dailyRootBean.getNextPageUrl();
-                mAdapter.removeData();
-                mAdapter.setData(dailyRootBean.getItemList());
-                mAdapter.notifyDataSetChanged();
-                if (refreshlayout != null) {
-                    refreshlayout.finishRefresh();
-                }
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                if (refreshlayout != null) {
-                    refreshlayout.finishRefresh(false);
-                }
-                LogUtil.e(TAG, Objects.requireNonNull(e.getMessage()));
-            }
-        });
-
     }
 
 }

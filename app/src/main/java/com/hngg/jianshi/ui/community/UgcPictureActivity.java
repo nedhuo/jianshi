@@ -19,6 +19,7 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
+import com.hngg.jianshi.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,7 @@ public class UgcPictureActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
         setContentView(R.layout.activity_ugcpicture);
         ButterKnife.bind(this);
 

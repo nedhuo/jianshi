@@ -1,15 +1,12 @@
 package com.hngg.jianshi.ui.viewholder;
 
+import android.content.Context;
 import android.view.View;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Date: 2021/2/14
@@ -19,9 +16,9 @@ import butterknife.ButterKnife;
  */
 public class VideoCoverViewHolder extends RecyclerView.ViewHolder {
     public RecyclerView mRecyclerView;
-    private Fragment mCtx;
+    private Context mCtx;
 
-    public VideoCoverViewHolder(View itemView, Fragment ctx) {
+    public VideoCoverViewHolder(View itemView, Context ctx) {
         super(itemView);
         mRecyclerView = itemView.findViewById(R.id.rv_videoList);
         mCtx = ctx;
@@ -29,7 +26,7 @@ public class VideoCoverViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void initView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mCtx.getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mCtx);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
     }
