@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hngg.jianshi.R;
@@ -81,7 +82,7 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
                 mPresenter.getCommunityData();
             });
 
-            mPresenter.initRecyclerView();
+            initRecyclerView();
             mPresenter.getCommunityData();
         }
         ibRanking.setOnClickListener(v -> {
@@ -119,18 +120,21 @@ public class DisCoverFragment extends BaseFragment<DisCoverPresenter>
 
     }
 
-    /**
-     * mPresenter通知View 没有更多数据了
-     */
-    public void notifyNoData() {
-        mRefreshLayout.setNoMoreData(true);
+
+    public void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        mAdapter = new DisCoverAdapter(getActivity());
+        mRvDiscover.setLayoutManager(layoutManager);
+        mRvDiscover.setAdapter(mAdapter);
     }
 
-    public void initRecyclerView(DisCoverAdapter adapter, RecyclerView.LayoutManager layoutManager) {
-        mAdapter = adapter;
-        //添加头部View
 
-        mRvDiscover.setLayoutManager(layoutManager);
-        mRvDiscover.setAdapter(adapter);
+    @Override
+    public void onDestroy() {
+        if (mAdapter != null)
+            mAdapter.onDestory();
+        mAdapter = null;
+        super.onDestroy();
     }
 }

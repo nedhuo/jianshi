@@ -14,13 +14,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.arialyy.aria.core.Aria;
 import com.hngg.jianshi.R;
-import com.hngg.jianshi.component.DaggerDownloadComponent;
+import com.hngg.jianshi.base.BaseActivity;
+import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.ui.me.download.downloaded.DownloadedFragment;
 import com.hngg.jianshi.ui.me.download.downloading.DownloadingFragment;
-import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.jianshi.utils.StatusBarUtil;
-import com.jess.arms.base.BaseActivity;
-import com.jess.arms.di.component.AppComponent;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -35,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
@@ -43,7 +42,7 @@ import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CU
  * @Author: nedhuo
  * @Data:
  */
-public class DownloadActivity extends BaseActivity<DownloadPresenter> {
+public class DownloadActivity extends BaseActivity {
 
     @BindView(R.id.indicator_download)
     MagicIndicator magicIndicator;
@@ -62,31 +61,15 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void setupActivityComponent(@NonNull AppComponent appComponent) {
-        DaggerDownloadComponent
-                .builder()
-                .appComponent(appComponent)
-                .downloadModule(new DownloadModule(this))
-                .build()
-                .inject(this);
-    }
-
-    @Override
-    public int initView(@Nullable Bundle savedInstanceState) {
-        return R.layout.activity_download;
-    }
-
-    @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
         StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
+        setContentView(R.layout.activity_download);
+        ButterKnife.bind(this);
 
-        if (mPresenter == null) {
-            LogUtil.i(TAG, "mPresenter为null");
-            return;
-        }
+        initData();
+    }
+
+
+    public void initData() {
         ibBack.setOnClickListener(v -> onBackPressed());
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
@@ -164,8 +147,9 @@ public class DownloadActivity extends BaseActivity<DownloadPresenter> {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         Aria.download(this).unRegister();
+        DbManager.cancel();
+        super.onDestroy();
     }
 
 }

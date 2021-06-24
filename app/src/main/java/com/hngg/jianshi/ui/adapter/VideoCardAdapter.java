@@ -119,7 +119,9 @@ public class VideoCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.VIDEO_BEAN, data);
                 intent.putExtra(Constant.VIDEO_BUNDLE, bundle);
-                mCtx.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(mCtx, holder.mIv_content, "test").toBundle());
+                mCtx.startActivity(intent,
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(mCtx,
+                                holder.mIv_content, "test").toBundle());
             });
         } else if (viewHolder instanceof TextFooterViewHolder) {
 

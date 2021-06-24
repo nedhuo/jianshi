@@ -235,6 +235,7 @@ public class NotificationUtil {
         builder.setWhen(System.currentTimeMillis())
                 //设置小图标（通知栏没有下拉的图标）
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("见识")
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setOngoing(true)  //进行中通知
                 .setAutoCancel(false)

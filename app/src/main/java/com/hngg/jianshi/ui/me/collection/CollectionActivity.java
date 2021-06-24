@@ -66,4 +66,11 @@ public class CollectionActivity extends BaseActivity {
         mAdapter.setData(collectionInfos, true);
         LogUtil.i(TAG, "数据长度" + collectionInfos.size());
     }
+
+    @Override
+    protected void onDestroy() {
+        //否则会出现内存泄露异常
+        DbManager.cancel();
+        super.onDestroy();
+    }
 }

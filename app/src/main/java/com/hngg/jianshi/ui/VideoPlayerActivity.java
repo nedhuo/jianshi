@@ -46,6 +46,7 @@ public class VideoPlayerActivity extends BaseActivity {
     private VideoPlayerActivity mCtx = this;
     private VideoTaskInfoUtil mVideoTaskDao;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,12 +188,14 @@ public class VideoPlayerActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+
         if (isPlay) {
             videoPlayer.getCurrentPlayer().release();
         }
-        if (mOrientationUtils != null)
+        if (mOrientationUtils != null) {
             mOrientationUtils.releaseListener();
+        }
+        super.onDestroy();
     }
 
 
@@ -222,7 +225,7 @@ public class VideoPlayerActivity extends BaseActivity {
 
     private String getUrl() {
 //        String url = "file://"+ Environment.getExternalStorageDirectory().getPath() + "Download/132451525666042.mp4";
-        String url = "file:/" + mPlayerInfo.getFilePath() + mPlayerInfo.getVideoName() + ".mp4";
+        String url = "file:/" + mPlayerInfo.getFilePath() + "/" + mPlayerInfo.getVideoName() + ".mp4";
         LogUtil.i(TAG, "URL" + url);
         //String url = "android.resource://" + getPackageName() + "/" + R.raw.test;
         //注意，用ijk模式播放raw视频，这个必须打开

@@ -78,4 +78,8 @@ public class CollectionInfoUtil {
         }
         return false;
     }
+
+    public void clear(){
+        mDaoSession.clear();
+    }
 }

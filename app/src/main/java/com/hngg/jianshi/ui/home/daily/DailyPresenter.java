@@ -29,8 +29,6 @@ public class DailyPresenter extends BasePresenter<DailyContract.Model, DailyCont
     }
 
 
-
-
     public void onRefresh() {
         mModel.refresh().subscribe(new BaseObserver<DailyRootBean>() {
             @Override

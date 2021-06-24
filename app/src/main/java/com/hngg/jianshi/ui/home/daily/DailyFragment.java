@@ -118,4 +118,11 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     public void showMessage(@NonNull String message) {
 
     }
+
+
+    @Override
+    public void onDestroyView() {
+        mAdapter = null;
+        super.onDestroyView();
+    }
 }

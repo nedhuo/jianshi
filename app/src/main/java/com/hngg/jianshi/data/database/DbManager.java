@@ -44,6 +44,10 @@ public class DbManager {
         return mDbManager;
     }
 
+    public static void cancel() {
+        mDbManager = null;
+    }
+
 
     private DbManager(Context context) {
         this.context = context;

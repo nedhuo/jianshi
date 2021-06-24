@@ -129,7 +129,7 @@ public class TagDetailActivity extends BaseActivity<TagDetailPresenter>
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        StatusBarUtil.setTransparent(this);
+//        StatusBarUtil.setTransparent(this);
         ButterKnife.bind(this);
 
         mIbBack.setOnClickListener(v -> onBackPressed());

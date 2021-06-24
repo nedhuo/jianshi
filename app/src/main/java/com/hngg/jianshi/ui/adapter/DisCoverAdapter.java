@@ -21,7 +21,9 @@ import com.hngg.jianshi.ui.viewholder.TextHeaderViewHolder;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
 import com.hngg.jianshi.utils.LogUtil;
+import com.youth.banner.Banner;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +37,11 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final Activity mCtx;
     private List<ItemList> mItemList;
     private final String TAG = "DisCoverAdapter";
+    private BannerViewAdapter mBannerAdapter;
 
     public DisCoverAdapter(Activity ctx) {
-        mCtx = ctx;
+        WeakReference<Activity> weakReference = new WeakReference<>(ctx);
+        mCtx = weakReference.get();
         mItemList = new ArrayList<>();
     }
 
@@ -72,7 +76,9 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof BannerViewHolder) {
             BannerViewHolder viewHolder = (BannerViewHolder) holder;
             List<ItemList> itemList = mItemList.get(position).getData().getItemList();
-            viewHolder.banner.setAdapter(new BannerViewAdapter(itemList, mCtx, TAG));
+            Banner banner = viewHolder.banner;
+            mBannerAdapter = new BannerViewAdapter(itemList, mCtx, TAG);
+            banner.setAdapter(mBannerAdapter);
 
         } else if (holder instanceof TextHeaderViewHolder) {
             TextHeaderViewHolder viewHolder = (TextHeaderViewHolder) holder;
@@ -152,6 +158,12 @@ public class DisCoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             iv_image = itemView.findViewById(R.id.iv_image);
             tv_title = itemView.findViewById(R.id.tv_author);
             tv_desc = itemView.findViewById(R.id.tv_desc);
+        }
+    }
+
+    public void onDestory() {
+        if (mBannerAdapter != null) {
+            mBannerAdapter = null;
         }
     }
 

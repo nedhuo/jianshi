@@ -51,10 +51,7 @@ public class DisCoverPresenter extends BasePresenter<DisCoverContract.Model, Dis
     }
 
     public void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mRootView.getContext());
-        layoutManager.setOrientation(RecyclerView.VERTICAL);
-        DisCoverAdapter adapter = new DisCoverAdapter(mRootView.getActivity());
-        mRootView.initRecyclerView(adapter, layoutManager);
+
     }
 
 }

@@ -19,7 +19,6 @@ import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.utils.Constant;
 import com.hngg.jianshi.utils.GlideUtil;
-import com.hngg.jianshi.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +52,45 @@ public class UgcPictureActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
+     //   StatusBarUtil.setTransparent(this);
+      //  StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
+        // 隐藏状态栏 隐藏后是黑色的
+        //   getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //    requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // hide statusbar of Android
+        // could also be done later
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        //   getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        //   getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // 全屏展示
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                // 全屏显示，隐藏状态栏和导航栏，拉出状态栏和导航栏显示一会儿后消失。
+//                getWindow().getDecorView().setSystemUiVisibility(
+//                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                                | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+//            } else {
+//                // 全屏显示，隐藏状态栏
+//                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+//            }
+//        }
+
+
+//        getWindow().
+//                setFlags(
+//                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+//                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
+        // 显示状态栏
+        //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_ugcpicture);
         ButterKnife.bind(this);
 

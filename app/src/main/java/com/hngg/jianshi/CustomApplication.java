@@ -1,6 +1,5 @@
 package com.hngg.jianshi;
 
-import com.arialyy.aria.core.Aria;
 import com.hngg.jianshi.ui.MainActivity;
 import com.hngg.jianshi.ui.crash.CaocConfig;
 import com.hngg.jianshi.utils.Utils;
@@ -19,13 +18,13 @@ public class CustomApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        Aria.download(this).register();
+      //  Aria.download(this).register();
         NineGridView.setImageLoader(new GlideImageLoader());
         Utils.init(this);
         com.hngg.network.utils.Utils.init(this);
         com.blankj.utilcode.util.Utils.init(this);
         //内存泄漏检测
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
+         if (!LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);
         }
         //初始化全局异常崩溃

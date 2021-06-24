@@ -84,7 +84,7 @@ public class RecommendFragment extends BaseFragment<RecommendPresent>
         });
 
         //init RecyclerView 与 数据
-        mPresenter.initRecyclerView();
+        initRecyclerView();
         mPresenter.onRefresh();
     }
 
@@ -113,13 +113,18 @@ public class RecommendFragment extends BaseFragment<RecommendPresent>
 
     }
 
-    public void initRecyclerView(LinearLayoutManager layoutManager, RecommendAdapter adapter) {
-        mAdapter = adapter;
+    public void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mAdapter = new RecommendAdapter(getActivity());
         mRv_recommend.setLayoutManager(layoutManager);
-        mRv_recommend.setAdapter(adapter);
+        mRv_recommend.setAdapter(mAdapter);
     }
 
-    public void notifyNoData() {
-        mRefreshLayout.setNoMoreData(true);
+    @Override
+    public void onDestroyView() {
+        mAdapter = null;
+        super.onDestroyView();
     }
+
 }

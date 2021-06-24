@@ -138,4 +138,10 @@ public class PlayInfoActivity extends BaseActivity implements PlayInfoCallBack {
             mDeleteDialog.dismiss();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        DbManager.cancel();
+        super.onDestroy();
+    }
 }

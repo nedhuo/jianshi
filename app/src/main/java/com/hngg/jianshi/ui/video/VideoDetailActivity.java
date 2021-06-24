@@ -1,14 +1,13 @@
 package com.hngg.jianshi.ui.video;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arialyy.aria.core.Aria;
+import com.blankj.utilcode.util.ToastUtils;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.ItemList;
@@ -98,7 +98,6 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
     private CollectionInfoUtil mCollectionDao;
     private HistoryInfoUtil mHistoryDao;
     private boolean mIsCollection = false;
-    private Activity mCtx = this;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,7 +108,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         Aria.download(this).register();
         Aria.get(this).getDownloadConfig().setConvertSpeed(true);
         Aria.get(this).getDownloadConfig().setMaxTaskNum(3);
-        Aria.get(this).getDownloadConfig().setMaxSpeed(1024);
+        Aria.get(this).getDownloadConfig().setMaxSpeed(0);
     }
 
     @Override
@@ -136,6 +135,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
             mCollectionDao = DbManager.getInstance(this).getCollectionInfoDao();
             mHistoryDao = DbManager.getInstance(this).getHistoryInfoDao();
 
+            //收藏记录是否存在
             mIsCollection = mCollectionDao.queryIsExist(mVideoData.getId());
             if (mIsCollection) {
                 ivCollection.setImageDrawable(getDrawable(R.drawable.ic_collection_fill));
@@ -159,6 +159,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
     }
 
     private void initView() {
+        if (mVideoData == null) return;
         IjkMediaPlayer.loadLibrariesOnce(null);
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
 
@@ -196,7 +197,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
         itemAuthor.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putLong(Constant.USERINFO_BEAN_ID, mVideoData.getAuthor().getId());
-         //   LogUtil.i(TAG, " mVideoData.getUserType()" + mVideoData.getUserType());
+            //   LogUtil.i(TAG, " mVideoData.getUserType()" + mVideoData.getUserType());
             bundle.putString(Constant.USERINFO_BEAN_TYPE, "PGC");
             Intent intent = new Intent(this, UserInfoActivity.class);
             intent.putExtra(Constant.USERINFO_BUNDLE, bundle);
@@ -260,7 +261,7 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
                         List<ItemList> itemList = videoBean.getItemList();
                         adapter.setData(itemList);
                         adapter.notifyDataSetChanged();
-                        LogUtil.i(TAG,"videoRelation数据已返回");
+                        LogUtil.i(TAG, "videoRelation数据已返回");
                     }
 
                     @Override
@@ -301,10 +302,14 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        if (mPresenter != null) mPresenter.onDestroy();//释放资源
-        this.mPresenter = null;
+        if (mPresenter != null) {
+            mPresenter.onDestroy();//释放资源
+            this.mPresenter = null;
+        }
         Aria.download(this).unRegister();
+        //DBManager静态持有该类对象引发泄漏
+        DbManager.cancel();
+        super.onDestroy();
     }
 
     @Override
@@ -317,7 +322,17 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
                 mPresenter.onDownloadVideo(mVideoData);
                 break;
             case R.id.iv_share:
-                mPresenter.onShare(mVideoData.getWebUrl().getRaw());
+                if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    if (mVideoData.getWebUrl() != null) {
+                        mPresenter.onShare(mVideoData.getWebUrl().getRaw());
+                    } else {
+                        mPresenter.onShare(mVideoData.getPlayUrl());
+                        ToastUtils.showShort("本地数据分享");
+                    }
+                } else {
+                    ToastUtils.showShort("Android 9以上分享功能暂未适配");
+                }
+
                 break;
             default:
         }
@@ -333,19 +348,20 @@ public class VideoDetailActivity extends GSYBaseActivityDetail<StandardGSYVideoP
             boolean isSuccess = mCollectionDao.cancelCollection(videoData);
             if (isSuccess) {
                 mIsCollection = false;
-                Toast.makeText(mCtx, "取消收藏", Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("取消收藏");
                 ivCollection.setImageDrawable(getDrawable(R.drawable.ic_collection));
             }
         } else {
             /*添加到数据库*/
             boolean isSuccess = mCollectionDao.onCollection(videoData);
             if (isSuccess) {
-                Toast.makeText(mCtx, "收藏成功", Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("收藏成功");
                 mIsCollection = true;
                 ivCollection.setImageDrawable(getDrawable(R.drawable.ic_collection_fill));
             }
 
         }
     }
+
 
 }

@@ -154,4 +154,11 @@ public class CommunityFragment extends BaseFragment<CommunityPresenter>
 //        mTabLayout.addTab(tab);
 //        mTabLayout.setInlineLabel(false);
     }
+
+
+    @Override
+    public void onDestroyView() {
+        mAdapterWrapper = null;
+        super.onDestroyView();
+    }
 }

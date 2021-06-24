@@ -56,10 +56,10 @@ public class DownloadedFragment extends BaseFragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
         List<VideoTaskInfo> videoTaskInfos = DbManager.getInstance(getActivity())
                 .getVideoTaskDao().queryAllComplete();
         mAdapter.setData(videoTaskInfos, true);
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     public void setDeleteEditState(boolean isDeleteState) {

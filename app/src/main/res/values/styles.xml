@@ -6,7 +6,16 @@
         <item name="colorPrimary">@color/colorWhite</item>
         <item name="colorPrimaryDark">@color/colorWhite</item>
         <item name="colorAccent">@color/colorGray</item>
+
+<!--        <item name="android:windowFullscreen">true</item>  splash可以全屏，但后面的Activity需要一一定制-->
+        <item name="android:windowBackground">@mipmap/ic_window_bg</item>
     </style>
+
+
+    <style name="NoStateBarActivity" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 
     <!--    <style name="TranslucentTheme" parent="AppTheme"></style>-->
 

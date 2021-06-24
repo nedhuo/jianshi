@@ -1,11 +1,11 @@
 package com.hngg.jianshi.ui.video;
 
 import android.content.Intent;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.arialyy.aria.core.Aria;
+import com.blankj.utilcode.util.ToastUtils;
 import com.hngg.jianshi.data.bean.home.Data;
 import com.hngg.jianshi.data.bean.home.RelationVideoBean;
 import com.hngg.jianshi.data.bean.reply.ReplyRootBean;
@@ -17,6 +17,8 @@ import com.hngg.jianshi.ui.adapter.VideoReplyAdapter;
 import com.hngg.jianshi.utils.DownloadUtil;
 import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.mvp.BasePresenter;
+
+import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
@@ -35,7 +37,8 @@ public class VideoDetailPresenter extends BasePresenter {
     @Inject
     VideoDetailPresenter(VideoDetailModel model,
                          VideoDetailActivity rootView) {
-        mRootView = rootView;
+        WeakReference<VideoDetailActivity> weakReference = new WeakReference<>(rootView);
+        mRootView = weakReference.get();
         mModel = model;
     }
 
@@ -88,7 +91,6 @@ public class VideoDetailPresenter extends BasePresenter {
         if (mModel != null)
             mModel.onDestroy();
         this.mModel = null;
-        this.mRootView = null;
     }
 
 
@@ -97,10 +99,10 @@ public class VideoDetailPresenter extends BasePresenter {
      * 3. 开始下载
      */
     public void onDownloadVideo(Data videoData) {
-        boolean isDownloaded = DbManager.getInstance(mRootView).getVideoTaskDao()
-                .queryIsDownloaded(videoData.getPlayUrl());
+        boolean isDownloaded = DownloadUtil.isDownloaded(mRootView,
+                videoData.getPlayUrl(),videoData.getTitle());
         if (isDownloaded) {
-            Toast.makeText(mRootView, "当前视频已下载", Toast.LENGTH_SHORT).show();
+            ToastUtils.showShort("当前视频已下载");
             return;
         }
 
@@ -123,9 +125,9 @@ public class VideoDetailPresenter extends BasePresenter {
         if (taskId != -1) {
             taskInfo.setTaskId(taskId);
             DbManager.getInstance(mRootView).getVideoTaskDao().add(taskInfo);
-            Toast.makeText(mRootView, "开始下载...", Toast.LENGTH_SHORT).show();
+            ToastUtils.showShort("开始下载...");
         } else {
-            Toast.makeText(mRootView, "下载失败", Toast.LENGTH_SHORT).show();
+            ToastUtils.showShort("下载失败");
         }
     }
 

@@ -1,10 +1,7 @@
 package com.hngg.jianshi.ui.home.recommend;
 
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.hngg.jianshi.data.bean.recommend.RecommendRootBean;
-import com.hngg.jianshi.ui.adapter.RecommendAdapter;
 import com.hngg.jianshi.utils.LogUtil;
 import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
@@ -73,9 +70,6 @@ public class RecommendPresent extends BasePresenter<RecommendContract.Model, Rec
 
 
     public void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mRootView.getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        RecommendAdapter adapter = new RecommendAdapter(mRootView.getActivity());
-        mRootView.initRecyclerView(layoutManager, adapter);
+
     }
 }

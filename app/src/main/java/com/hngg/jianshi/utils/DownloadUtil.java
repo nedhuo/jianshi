@@ -1,12 +1,14 @@
 package com.hngg.jianshi.utils;
 
 import android.app.Activity;
+import android.content.Context;
 
+import com.blankj.utilcode.util.FileUtils;
+import com.hngg.jianshi.data.VideoTaskState;
 import com.hngg.jianshi.data.bean.home.Data;
-import com.hngg.jianshi.data.database.dao.VideoTaskInfoDao;
 import com.hngg.jianshi.data.database.DbManager;
 import com.hngg.jianshi.data.database.bean.VideoTaskInfo;
-import com.hngg.jianshi.data.VideoTaskState;
+import com.hngg.jianshi.data.database.dao.VideoTaskInfoDao;
 
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class DownloadUtil {
         taskInfo.setCreateTime(System.currentTimeMillis());
         taskInfo.setDownId(uniqueId);
         taskInfo.setPoster(videoData.getCover().getFeed());
-        taskInfo.setFilePath(FileUtil.getDownloadPath());
+        taskInfo.setFilePath(FileUtil.getDownloadPath(context));
         taskInfo.setTaskState(VideoTaskState.STATE_OTHER);
         taskInfo.setUrl(videoData.getPlayUrl());
         taskInfo.setVideoId(videoData.getId());
@@ -46,6 +48,7 @@ public class DownloadUtil {
     }
 
     /**
+     * 避免因为文件误删导致Id出错
      * 当生成int 类型ID为0时，查询数据库进行判断
      * 判断并计算返回真正的downId
      */
@@ -62,5 +65,14 @@ public class DownloadUtil {
             SpUtil.putInt(context, Constant.UNIQUE_ID, downId + 2);
             return downId + 1;
         }
+    }
+
+    public static boolean isDownloaded(Context ctx, String playUrl, String title) {
+        boolean isDownloaded = DbManager.getInstance(ctx).getVideoTaskDao()
+                .queryIsDownloaded(playUrl);
+        String path = FileUtil.getDownloadPath(ctx);
+        boolean fileExists = FileUtils.isFileExists(path + "/" + title+".mp4");
+        //TODO 如果文件存在，数据库不存在，则将数据保存导数据库一份，否则，删除数据库文件 对字符串进行统一构建
+        return fileExists;
     }
 }
