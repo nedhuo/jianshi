@@ -1,8 +1,17 @@
 package com.hngg.jianshi.ui.discover;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.blankj.utilcode.util.ToastUtils;
+import com.hngg.jianshi.data.bean.discover.DisCoverRootBean;
+import com.hngg.jianshi.ui.adapter.DisCoverAdapter;
+import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.network.Observer.BaseObserver;
 import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
+
 
 /**
  * Date: 2020/11/19
@@ -11,11 +20,38 @@ import javax.inject.Inject;
  * Description:
  */
 public class DisCoverPresenter extends BasePresenter<DisCoverContract.Model, DisCoverContract.View> {
-    private DisCoverFragment mRootView;
+    private DisCoverModel mModel = (DisCoverModel) super.mModel;
+    private DisCoverFragment mRootView = (DisCoverFragment) super.mRootView;
 
     @Inject
     DisCoverPresenter(DisCoverContract.Model model, DisCoverContract.View rootView) {
         super(model, rootView);
-        mRootView = (DisCoverFragment) rootView;
     }
+
+    void getCommunityData() {
+        mModel.getDisCoverData()
+                .subscribe(new BaseObserver<DisCoverRootBean>() {
+                    @Override
+                    protected void onSuccess(DisCoverRootBean o) {
+                        mRootView.setData(o.getItemList(), true, false);
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        LogUtil.e(TAG, e.getMessage());
+                        mRootView.setData(null, true, false);
+                        ToastUtils.showShort(e.getMessage());
+                    }
+                });
+    }
+
+
+    public void onLoadMore() {
+        mRootView.setData(null, false, true);
+    }
+
+    public void initRecyclerView() {
+
+    }
+
 }

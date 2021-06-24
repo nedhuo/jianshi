@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="recommend_search">
+        <item>艺术</item>
+        <item>街头</item>
+        <item>摄影日常</item>
+        <item>创意广告</item>
+        <item>美食</item>
+        <item>旅行</item>
+        <item>健身</item>
+        <item>汽车</item>
+        <item>黑科技</item>
+    </string-array>
+    <string-array name="download_page">
+        <item>下载中</item>
+        <item>下载完成</item>
+    </string-array>
+
+    <string-array name="menu_video">
+        <item>删除</item>
+        <item>优先下载</item>
+        <item>跳转详情页</item>
+    </string-array>
+    <string-array name="ranking">
+        <item>日排行</item>
+        <item>周排行</item>
+        <item>月排行</item>
+    </string-array>
+</resources>

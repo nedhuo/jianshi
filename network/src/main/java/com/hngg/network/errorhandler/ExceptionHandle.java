@@ -7,6 +7,7 @@ import org.json.JSONException;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 
 import javax.net.ssl.SSLHandshakeException;
@@ -30,20 +31,30 @@ public class ExceptionHandle {
     private static final int GATEWAY_TIMEOUT = 504;
 
 
-    public static ResponeThrowable handleExceotion(Throwable throwable) {
-        ResponeThrowable ex;
+    public static ResponseThrowable handleException(Throwable throwable) {
+        ResponseThrowable ex;
         if (throwable instanceof HttpException) {
             HttpException httpException = (HttpException) throwable;
-            ex = new ResponeThrowable(throwable, ERROR.HTTP_ERROR);
+            ex = new ResponseThrowable(throwable, ERROR.HTTP_ERROR);
             switch (httpException.code()) {
                 case UNAUTHORIZED:
+                    ex.message = "操作未授权";
+                    break;
                 case FORBIDDEN:
-                case REQUEST_TIMEOUT:
-                case BAD_GATEWAY:
-                case SERVICE_UNAVAILABLE:
-                case GATEWAY_TIMEOUT:
+                    ex.message = "请求被拒绝";
+                    break;
                 case NOT_FOUND:
+                    ex.message = "资源不存在";
+                    break;
+                case REQUEST_TIMEOUT:
+                    ex.message = "服务器执行超时";
+                    break;
                 case INTERNET_SERVER_ERROR:
+                    ex.message = "服务器内部错误";
+                    break;
+                case SERVICE_UNAVAILABLE:
+                    ex.message = "服务器不可用";
+                    break;
                 default:
                     ex.message = "网络错误";
                     break;
@@ -51,33 +62,37 @@ public class ExceptionHandle {
             return ex;
         } else if (throwable instanceof ServerException) {
             ServerException serverException = (ServerException) throwable;
-            ex = new ResponeThrowable(serverException, serverException.code);
+            ex = new ResponseThrowable(serverException, serverException.code);
             ex.message = serverException.message;
             return ex;
         } else if (throwable instanceof JsonParseException ||
                 throwable instanceof JSONException ||
                 throwable instanceof ParseException) {
-            ex = new ResponeThrowable(throwable, ERROR.PARSE_ERROR);
+            ex = new ResponseThrowable(throwable, ERROR.PARSE_ERROR);
             ex.message = "解析错误";
             return ex;
         } else if (throwable instanceof ConnectException) {
-            ex = new ResponeThrowable(throwable, ERROR.NETWORK_ERROR);
+            ex = new ResponseThrowable(throwable, ERROR.NETWORK_ERROR);
             ex.message = "连接失败";
             return ex;
         } else if (throwable instanceof SSLHandshakeException) {
-            ex = new ResponeThrowable(throwable, ERROR.SSL_ERROR);
+            ex = new ResponseThrowable(throwable, ERROR.SSL_ERROR);
             ex.message = "证书验证失败";
             return ex;
         } else if (throwable instanceof ConnectTimeoutException) {
-            ex = new ResponeThrowable(throwable, ERROR.TIMEOUT_ERROR);
+            ex = new ResponseThrowable(throwable, ERROR.TIMEOUT_ERROR);
             ex.message = "连接超时";
             return ex;
         } else if (throwable instanceof SocketTimeoutException) {
-            ex = new ResponeThrowable(throwable, ERROR.TIMEOUT_ERROR);
+            ex = new ResponseThrowable(throwable, ERROR.TIMEOUT_ERROR);
             ex.message = "连接超时";
             return ex;
+        } else if (throwable instanceof UnknownHostException) {
+            ex = new ResponseThrowable(throwable, ERROR.TIMEOUT_ERROR);
+            ex.message = "主机地址未知";
+            return ex;
         } else {
-            ex = new ResponeThrowable(throwable, ERROR.UNKNOWN);
+            ex = new ResponseThrowable(throwable, ERROR.UNKNOWN);
             ex.message = "未知错误";
             return ex;
         }
@@ -96,11 +111,11 @@ public class ExceptionHandle {
         public static final int HTTP_ERROR = 1003;
     }
 
-    public static class ResponeThrowable extends Exception {
+    public static class ResponseThrowable extends Exception {
         public int code;
         public String message;
 
-        public ResponeThrowable(Throwable throwable, int errorCode) {
+        public ResponseThrowable(Throwable throwable, int errorCode) {
             super(throwable);
             this.code = errorCode;
         }
@@ -115,4 +130,5 @@ public class ExceptionHandle {
         public int code;
         public String message;
     }
+
 }

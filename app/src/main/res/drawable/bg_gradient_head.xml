@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <gradient
+        android:endColor="#00000000"
+        android:gradientRadius="@dimen/size_150dp"
+        android:startColor="@color/colorWhite"
+        android:type="radial" />
+
+<!--    startColor：开始颜色；-->
+<!--    endColor：结束颜色；-->
+<!--    angle：角度；-->
+<!--    centerColor：中间颜色；-->
+<!--    centerX、centerY：中心放射点的x和y坐标，注意，这里的坐标是整个背景的百分比的点，并不是确切点，0.2就是20%的点；-->
+<!--    gradientRadius：圆的半径，确切半径；-->
+</shape>

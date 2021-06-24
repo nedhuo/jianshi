@@ -1,10 +1,9 @@
 package com.hngg.jianshi.component;
 
-import com.hngg.jianshi.ui.home.HomeFragment;
-import com.hngg.jianshi.ui.recommend.RecommendFragment;
-import com.hngg.jianshi.ui.recommend.RecommendModule;
-import com.hngg.jianshi.ui.recommend.RecommendScope;
+import com.hngg.jianshi.ui.home.recommend.RecommendFragment;
+import com.hngg.jianshi.ui.home.recommend.RecommendModule;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.di.scope.FragmentScope;
 
 import dagger.Component;
 
@@ -14,7 +13,7 @@ import dagger.Component;
  * Author: nedhuo
  * Description:
  */
-@RecommendScope
+@FragmentScope
 @Component(modules = RecommendModule.class, dependencies = AppComponent.class)
 public interface RecommendComponent {
     void inject(RecommendFragment fragment);

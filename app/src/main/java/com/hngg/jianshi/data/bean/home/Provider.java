@@ -1,12 +1,14 @@
 package com.hngg.jianshi.data.bean.home;
 
+import java.io.Serializable;
+
 /**
  * Date: 2020/11/24
  * Timer: 18:06
  * Author: nedhuo
  * Description:
  */
-public class Provider {
+public class Provider implements Serializable {
 
     private String name;
     private String alias;

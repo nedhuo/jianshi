@@ -1,12 +1,14 @@
 package com.hngg.jianshi.data.bean.home;
 
+import java.io.Serializable;
+
 /**
  * Date: 2020/11/24
  * Timer: 12:09
  * Author: nedhuo
  * Description:
  */
-public class Author {
+public class Author implements Serializable {
 
     private int id;
     private String icon;
@@ -22,6 +24,8 @@ public class Author {
     private boolean ifPgc;
     private int recSort;
     private boolean expert;
+
+
     public void setId(int id) {
         this.id = id;
     }

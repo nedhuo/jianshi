@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app_main">
+
+    <!--       -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <!--                划走的内容-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_300dp">
+
+                <ImageView
+                    android:id="@+id/iv_topImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <ImageButton
+                    android:id="@+id/ib_share"
+                    android:layout_width="@dimen/size_35dp"
+                    android:layout_height="@dimen/size_35dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/size_30dp"
+                    android:layout_marginEnd="@dimen/size_10dp"
+                    android:alpha="1"
+                    android:background="@null"
+                    android:padding="@dimen/size_7dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_share" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_gradient_head"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_tagTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/size_90dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/font_20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_tagDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/size_50dp"
+                        android:layout_marginTop="@dimen/size_5dp"
+                        android:layout_marginRight="@dimen/size_50dp"
+                        android:gravity="center_horizontal"
+                        android:maxLines="4"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/font_16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <!--吸顶的内容-->
+        <!--        占位-->
+        <View
+            android:id="@+id/place_holder"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@null"
+            android:visibility="gone" />
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magicIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_50dp"
+            android:layout_marginLeft="@dimen/size_50dp"
+            android:layout_marginRight="@dimen/size_50dp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <ImageButton
+        android:id="@+id/ib_back"
+        android:layout_width="@dimen/size_40dp"
+        android:layout_height="@dimen/size_40dp"
+        android:layout_marginStart="@dimen/size_5dp"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:alpha="1"
+        android:background="@null"
+        android:padding="@dimen/size_5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_back_black" />
+
+
+    <!--    <androidx.core.widget.NestedScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        >-->
+    <!--    </androidx.core.widget.NestedScrollView>-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_tagDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

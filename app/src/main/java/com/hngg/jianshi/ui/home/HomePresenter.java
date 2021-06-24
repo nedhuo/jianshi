@@ -1,27 +1,22 @@
 package com.hngg.jianshi.ui.home;
 
 
-import android.util.Log;
-import android.widget.TableLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.ui.home.daily.DailyFragment;
+import com.hngg.jianshi.ui.home.recommend.RecommendFragment;
 import com.jess.arms.mvp.BasePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
 /**
  * Date: 2020/11/19
@@ -46,56 +41,28 @@ public class HomePresenter extends BasePresenter {
         mRootView.initTabLayout();
 
         List<Fragment> fragments = obtainPagerList();
-        FragmentPagerAdapter adapter = new FragmentPagerAdapter(
-                mRootView.getChildFragmentManager()) {
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
+        FragmentPagerAdapter adapter =
+                new FragmentPagerAdapter(
+                        mRootView.getChildFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+                    @Override
+                    public int getCount() {
+                        return fragments.size();
+                    }
 
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
+                    @NonNull
+                    @Override
+                    public Fragment getItem(int position) {
+                        return fragments.get(position);
+                    }
 
-            @Nullable
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return titles.get(position);
-            }
-        };
-//        ViewPager.SimpleOnPageChangeListener listener =
-//                new ViewPager.SimpleOnPageChangeListener() {
-//                    @Override
-//                    public void onPageScrolled(int position, float positionOffset,
-//                                               int positionOffsetPixels) {
-//                        mRootView.setCurrentItem(position);
-//                    }
-//                };
+                    @Nullable
+                    @Override
+                    public CharSequence getPageTitle(int position) {
+                        return titles.get(position);
+                    }
+                };
+
         mRootView.initViewPager(adapter);
-
-//        FragmentStateAdapter pagerAdapter = new FragmentStateAdapter(mRootView) {
-//            @Override
-//            public int getItemCount() {
-//                return fragments.size();
-//            }
-//
-//            @NonNull
-//            @Override
-//            public Fragment createFragment(int position) {
-//                return fragments.get(position);
-//            }
-//        };
-//        ViewPager2.OnPageChangeCallback callback = new ViewPager2.OnPageChangeCallback(){
-//            @Override
-//            public void onPageSelected(int position) {
-//                mRootView.setCurrentItem(position);
-//                Log.i(TAG,""+ position);
-//            }
-//        };
-//        mRootView.setPagerAdapter(pagerAdapter,callback);
-
     }
 
     //TabList Item
@@ -110,7 +77,7 @@ public class HomePresenter extends BasePresenter {
     private List<Fragment> obtainPagerList() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new DailyFragment());
-        fragments.add(new DailyFragment());
+        fragments.add(new RecommendFragment());
         return fragments;
     }
 }

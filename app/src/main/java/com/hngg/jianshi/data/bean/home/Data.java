@@ -1,5 +1,11 @@
 package com.hngg.jianshi.data.bean.home;
 
+import com.hngg.jianshi.data.bean.community.Owner;
+import com.hngg.jianshi.data.bean.recommend.Content;
+import com.hngg.jianshi.data.bean.reply.User;
+import com.hngg.jianshi.data.bean.userinfo.BriefCard;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,11 +14,28 @@ import java.util.List;
  * Author: nedhuo
  * Description:
  */
-public class Data{
+public class Data implements Serializable {
+    private boolean expert;
+    private String iconType;
+    private boolean ifPgc;
+    private boolean ifShowNotificationIcon;
+    private boolean switchStatus;
+    private boolean medalIcon;
+    private boolean haveReward;
+    private boolean ifNewest;
+    private String icon;
+
     private String dataType;
     private long id;
+    private long uid;
+    private long createTime;
+    private boolean shade;
+    private long updateTime;
+    private String image;
     private String title;
     private String description;
+    private String subTitle;
+    private String bgPicture;
     private String library;
     private List<Tags> tags;
     private Consumption consumption;
@@ -28,10 +51,7 @@ public class Data{
     private WebUrl webUrl;
     private long releaseTime;
     private List<PlayInfo> playInfo;
-    private String campaign;
-    private String waterMarks;
     private boolean ad;
-    private List<String> adTrack;
     private String type;
     private String titlePgc;
     private String descriptionPgc;
@@ -41,23 +61,12 @@ public class Data{
     private String brandWebsiteInfo;
     private VideoPosterBean videoPosterBean;
     private int idx;
-    private String shareAdTrack;
-    private String favoriteAdTrack;
-    private String webAdTrack;
     private long date;
-    private String promotion;
-    private String label;
-    private List<String> labelList;
     private String descriptionEditor;
     private boolean collected;
     private boolean reallyCollected;
     private boolean played;
     private List<String> subtitles;
-    private String lastViewTime;
-    private String playlists;
-    private String src;
-    private String recallSource;
-    private String recall_source;
 
     private String text;
     private String font;
@@ -66,7 +75,525 @@ public class Data{
     private Header header;
     private List<ItemList> itemList;
     private int count;
-    private String footer;
+
+    private boolean autoPlay;
+    private Content content;
+
+    private long selectedTime;
+    private String checkStatus;
+    private String area;
+    private String city;
+    private double longitude;
+    private double latitude;
+    private boolean ifMock;
+    private String validateStatus;
+    private String validateResult;
+    private int width;
+    private int height;
+    private boolean addWatermark;
+    private String privateMessageActionUrl;
+    private String url;
+    private List<String> urls;
+    private String status;
+    private Owner owner;
+    private List<String> urlsWithWatermark;
+    private RecentOnceReply recentOnceReply;
+
+    private long videoId;
+    private String videoTitle;
+    private int parentReplyId;
+    private long rootReplyId;
+    private int sequence;
+    private String message;
+    private String replyStatus;
+    private User user;
+    private int likeCount;
+    private boolean liked;
+    private boolean hot;
+    private String userType;
+    private String imageUrl;
+    private String ugcVideoId;
+    private String parentReply;
+    private boolean showParentReply;
+    private boolean showConversationButton;
+    private String ugcVideoUrl;
+    private boolean userBlocked;
+    private String sid;
+    private String dynamicType; //follow
+    private BriefCard briefCard;
+
+
+    public String getDynamicType() {
+        return dynamicType;
+    }
+
+    public void setDynamicType(String dynamicType) {
+        this.dynamicType = dynamicType;
+    }
+
+    public BriefCard getBriefCard() {
+        return briefCard;
+    }
+
+    public void setBriefCard(BriefCard briefCard) {
+        this.briefCard = briefCard;
+    }
+
+    public long getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(long videoId) {
+        this.videoId = videoId;
+    }
+
+    public String getVideoTitle() {
+        return videoTitle;
+    }
+
+    public void setVideoTitle(String videoTitle) {
+        this.videoTitle = videoTitle;
+    }
+
+    public int getParentReplyId() {
+        return parentReplyId;
+    }
+
+    public void setParentReplyId(int parentReplyId) {
+        this.parentReplyId = parentReplyId;
+    }
+
+    public long getRootReplyId() {
+        return rootReplyId;
+    }
+
+    public void setRootReplyId(long rootReplyId) {
+        this.rootReplyId = rootReplyId;
+    }
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getReplyStatus() {
+        return replyStatus;
+    }
+
+    public void setReplyStatus(String replyStatus) {
+        this.replyStatus = replyStatus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
+    public boolean isHot() {
+        return hot;
+    }
+
+    public void setHot(boolean hot) {
+        this.hot = hot;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getUgcVideoId() {
+        return ugcVideoId;
+    }
+
+    public void setUgcVideoId(String ugcVideoId) {
+        this.ugcVideoId = ugcVideoId;
+    }
+
+    public String getParentReply() {
+        return parentReply;
+    }
+
+    public void setParentReply(String parentReply) {
+        this.parentReply = parentReply;
+    }
+
+    public boolean isShowParentReply() {
+        return showParentReply;
+    }
+
+    public void setShowParentReply(boolean showParentReply) {
+        this.showParentReply = showParentReply;
+    }
+
+    public boolean isShowConversationButton() {
+        return showConversationButton;
+    }
+
+    public void setShowConversationButton(boolean showConversationButton) {
+        this.showConversationButton = showConversationButton;
+    }
+
+    public String getUgcVideoUrl() {
+        return ugcVideoUrl;
+    }
+
+    public void setUgcVideoUrl(String ugcVideoUrl) {
+        this.ugcVideoUrl = ugcVideoUrl;
+    }
+
+    public boolean isUserBlocked() {
+        return userBlocked;
+    }
+
+    public void setUserBlocked(boolean userBlocked) {
+        this.userBlocked = userBlocked;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public boolean isExpert() {
+        return expert;
+    }
+
+    public void setExpert(boolean expert) {
+        this.expert = expert;
+    }
+
+    public String getIconType() {
+        return iconType;
+    }
+
+    public void setIconType(String iconType) {
+        this.iconType = iconType;
+    }
+
+    public boolean isIfPgc() {
+        return ifPgc;
+    }
+
+    public void setIfPgc(boolean ifPgc) {
+        this.ifPgc = ifPgc;
+    }
+
+    public boolean isIfShowNotificationIcon() {
+        return ifShowNotificationIcon;
+    }
+
+    public void setIfShowNotificationIcon(boolean ifShowNotificationIcon) {
+        this.ifShowNotificationIcon = ifShowNotificationIcon;
+    }
+
+    public boolean isSwitchStatus() {
+        return switchStatus;
+    }
+
+    public void setSwitchStatus(boolean switchStatus) {
+        this.switchStatus = switchStatus;
+    }
+
+    public boolean isMedalIcon() {
+        return medalIcon;
+    }
+
+    public void setMedalIcon(boolean medalIcon) {
+        this.medalIcon = medalIcon;
+    }
+
+    public boolean isHaveReward() {
+        return haveReward;
+    }
+
+    public void setHaveReward(boolean haveReward) {
+        this.haveReward = haveReward;
+    }
+
+    public boolean isIfNewest() {
+        return ifNewest;
+    }
+
+    public void setIfNewest(boolean ifNewest) {
+        this.ifNewest = ifNewest;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(long updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public long getSelectedTime() {
+        return selectedTime;
+    }
+
+    public void setSelectedTime(long selectedTime) {
+        this.selectedTime = selectedTime;
+    }
+
+    public String getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(String checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public boolean isIfMock() {
+        return ifMock;
+    }
+
+    public void setIfMock(boolean ifMock) {
+        this.ifMock = ifMock;
+    }
+
+    public String getValidateStatus() {
+        return validateStatus;
+    }
+
+    public void setValidateStatus(String validateStatus) {
+        this.validateStatus = validateStatus;
+    }
+
+    public String getValidateResult() {
+        return validateResult;
+    }
+
+    public void setValidateResult(String validateResult) {
+        this.validateResult = validateResult;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public boolean isAddWatermark() {
+        return addWatermark;
+    }
+
+    public void setAddWatermark(boolean addWatermark) {
+        this.addWatermark = addWatermark;
+    }
+
+    public String getPrivateMessageActionUrl() {
+        return privateMessageActionUrl;
+    }
+
+    public void setPrivateMessageActionUrl(String privateMessageActionUrl) {
+        this.privateMessageActionUrl = privateMessageActionUrl;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public List<String> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(List<String> urls) {
+        this.urls = urls;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<String> getUrlsWithWatermark() {
+        return urlsWithWatermark;
+    }
+
+    public void setUrlsWithWatermark(List<String> urlsWithWatermark) {
+        this.urlsWithWatermark = urlsWithWatermark;
+    }
+
+    public RecentOnceReply getRecentOnceReply() {
+        return recentOnceReply;
+    }
+
+    public void setRecentOnceReply(RecentOnceReply recentOnceReply) {
+        this.recentOnceReply = recentOnceReply;
+    }
+
+    public boolean isShade() {
+        return shade;
+    }
+
+    public void setShade(boolean shade) {
+        this.shade = shade;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean isAutoPlay() {
+        return autoPlay;
+    }
+
+    public void setAutoPlay(boolean autoPlay) {
+        this.autoPlay = autoPlay;
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+    public String getBgPicture() {
+        return bgPicture;
+    }
+
+    public void setBgPicture(String bgPicture) {
+        this.bgPicture = bgPicture;
+    }
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
 
     public String getDataType() {
         return dataType;
@@ -220,22 +747,6 @@ public class Data{
         this.playInfo = playInfo;
     }
 
-    public String getCampaign() {
-        return campaign;
-    }
-
-    public void setCampaign(String campaign) {
-        this.campaign = campaign;
-    }
-
-    public String getWaterMarks() {
-        return waterMarks;
-    }
-
-    public void setWaterMarks(String waterMarks) {
-        this.waterMarks = waterMarks;
-    }
-
     public boolean isAd() {
         return ad;
     }
@@ -244,13 +755,6 @@ public class Data{
         this.ad = ad;
     }
 
-    public List<String> getAdTrack() {
-        return adTrack;
-    }
-
-    public void setAdTrack(List<String> adTrack) {
-        this.adTrack = adTrack;
-    }
 
     public String getType() {
         return type;
@@ -324,60 +828,12 @@ public class Data{
         this.idx = idx;
     }
 
-    public String getShareAdTrack() {
-        return shareAdTrack;
-    }
-
-    public void setShareAdTrack(String shareAdTrack) {
-        this.shareAdTrack = shareAdTrack;
-    }
-
-    public String getFavoriteAdTrack() {
-        return favoriteAdTrack;
-    }
-
-    public void setFavoriteAdTrack(String favoriteAdTrack) {
-        this.favoriteAdTrack = favoriteAdTrack;
-    }
-
-    public String getWebAdTrack() {
-        return webAdTrack;
-    }
-
-    public void setWebAdTrack(String webAdTrack) {
-        this.webAdTrack = webAdTrack;
-    }
-
     public long getDate() {
         return date;
     }
 
     public void setDate(long date) {
         this.date = date;
-    }
-
-    public String getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(String promotion) {
-        this.promotion = promotion;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public List<String> getLabelList() {
-        return labelList;
-    }
-
-    public void setLabelList(List<String> labelList) {
-        this.labelList = labelList;
     }
 
     public String getDescriptionEditor() {
@@ -418,46 +874,6 @@ public class Data{
 
     public void setSubtitles(List<String> subtitles) {
         this.subtitles = subtitles;
-    }
-
-    public String getLastViewTime() {
-        return lastViewTime;
-    }
-
-    public void setLastViewTime(String lastViewTime) {
-        this.lastViewTime = lastViewTime;
-    }
-
-    public String getPlaylists() {
-        return playlists;
-    }
-
-    public void setPlaylists(String playlists) {
-        this.playlists = playlists;
-    }
-
-    public String getSrc() {
-        return src;
-    }
-
-    public void setSrc(String src) {
-        this.src = src;
-    }
-
-    public String getRecallSource() {
-        return recallSource;
-    }
-
-    public void setRecallSource(String recallSource) {
-        this.recallSource = recallSource;
-    }
-
-    public String getRecall_source() {
-        return recall_source;
-    }
-
-    public void setRecall_source(String recall_source) {
-        this.recall_source = recall_source;
     }
 
     public String getText() {
@@ -508,11 +924,109 @@ public class Data{
         this.count = count;
     }
 
-    public String getFooter() {
-        return footer;
-    }
-
-    public void setFooter(String footer) {
-        this.footer = footer;
+    @Override
+    public String toString() {
+        return "Data{" +
+                "expert=" + expert +
+                ", iconType='" + iconType + '\'' +
+                ", ifPgc=" + ifPgc +
+                ", ifShowNotificationIcon=" + ifShowNotificationIcon +
+                ", switchStatus=" + switchStatus +
+                ", medalIcon=" + medalIcon +
+                ", haveReward=" + haveReward +
+                ", ifNewest=" + ifNewest +
+                ", icon='" + icon + '\'' +
+                ", dataType='" + dataType + '\'' +
+                ", id=" + id +
+                ", uid=" + uid +
+                ", createTime=" + createTime +
+                ", shade=" + shade +
+                ", updateTime=" + updateTime +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", subTitle='" + subTitle + '\'' +
+                ", bgPicture='" + bgPicture + '\'' +
+                ", library='" + library + '\'' +
+                ", tags=" + tags +
+                ", consumption=" + consumption +
+                ", resourceType='" + resourceType + '\'' +
+                ", slogan='" + slogan + '\'' +
+                ", provider=" + provider +
+                ", category='" + category + '\'' +
+                ", author=" + author +
+                ", cover=" + cover +
+                ", playUrl='" + playUrl + '\'' +
+                ", thumbPlayUrl='" + thumbPlayUrl + '\'' +
+                ", duration=" + duration +
+                ", webUrl=" + webUrl +
+                ", releaseTime=" + releaseTime +
+                ", playInfo=" + playInfo +
+                ", ad=" + ad +
+                ", type='" + type + '\'' +
+                ", titlePgc='" + titlePgc + '\'' +
+                ", descriptionPgc='" + descriptionPgc + '\'' +
+                ", remark='" + remark + '\'' +
+                ", ifLimitVideo=" + ifLimitVideo +
+                ", searchWeight=" + searchWeight +
+                ", brandWebsiteInfo='" + brandWebsiteInfo + '\'' +
+                ", videoPosterBean=" + videoPosterBean +
+                ", idx=" + idx +
+                ", date=" + date +
+                ", descriptionEditor='" + descriptionEditor + '\'' +
+                ", collected=" + collected +
+                ", reallyCollected=" + reallyCollected +
+                ", played=" + played +
+                ", subtitles=" + subtitles +
+                ", text='" + text + '\'' +
+                ", font='" + font + '\'' +
+                ", actionUrl='" + actionUrl + '\'' +
+                ", header=" + header +
+                ", itemList=" + itemList +
+                ", count=" + count +
+                ", autoPlay=" + autoPlay +
+                ", content=" + content +
+                ", selectedTime=" + selectedTime +
+                ", checkStatus='" + checkStatus + '\'' +
+                ", area='" + area + '\'' +
+                ", city='" + city + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", ifMock=" + ifMock +
+                ", validateStatus='" + validateStatus + '\'' +
+                ", validateResult='" + validateResult + '\'' +
+                ", width=" + width +
+                ", height=" + height +
+                ", addWatermark=" + addWatermark +
+                ", privateMessageActionUrl='" + privateMessageActionUrl + '\'' +
+                ", url='" + url + '\'' +
+                ", urls=" + urls +
+                ", status='" + status + '\'' +
+                ", owner=" + owner +
+                ", urlsWithWatermark=" + urlsWithWatermark +
+                ", recentOnceReply=" + recentOnceReply +
+                ", videoId=" + videoId +
+                ", videoTitle='" + videoTitle + '\'' +
+                ", parentReplyId=" + parentReplyId +
+                ", rootReplyId=" + rootReplyId +
+                ", sequence=" + sequence +
+                ", message='" + message + '\'' +
+                ", replyStatus='" + replyStatus + '\'' +
+                ", user=" + user +
+                ", likeCount=" + likeCount +
+                ", liked=" + liked +
+                ", hot=" + hot +
+                ", userType='" + userType + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", ugcVideoId='" + ugcVideoId + '\'' +
+                ", parentReply='" + parentReply + '\'' +
+                ", showParentReply=" + showParentReply +
+                ", showConversationButton=" + showConversationButton +
+                ", ugcVideoUrl='" + ugcVideoUrl + '\'' +
+                ", userBlocked=" + userBlocked +
+                ", sid='" + sid + '\'' +
+                ", dynamicType='" + dynamicType + '\'' +
+                ", briefCard=" + briefCard +
+                '}';
     }
 }

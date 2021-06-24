@@ -7,24 +7,109 @@ package com.hngg.jianshi.data.bean.home;
  * Description:
  */
 
-import java.util.List;
+import java.io.Serializable;
 
 /**
  * Auto-generated: 2020-11-22 14:0:2
  */
-public class Header {
+public class Header implements Serializable {
 
     private int id;
     private String title;
-    private String font;
-    private String subTitle;
-    private String subTitleFont;
     private String textAlign;
     private String cover;
     private Label label;
     private String actionUrl;
-    private List<LabelList> labelList;
-    private String rightText;
+    private String icon;
+    private String iconType;
+    private String description;
+    private long time;
+    private String followType;
+    private boolean showHateVideo;
+    private int tagId;
+    private String tagName;
+    private String issuerName;
+    private boolean topShow;
+
+    public String getFollowType() {
+        return followType;
+    }
+
+    public void setFollowType(String followType) {
+        this.followType = followType;
+    }
+
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
+
+    public String getIssuerName() {
+        return issuerName;
+    }
+
+    public void setIssuerName(String issuerName) {
+        this.issuerName = issuerName;
+    }
+
+    public boolean isTopShow() {
+        return topShow;
+    }
+
+    public void setTopShow(boolean topShow) {
+        this.topShow = topShow;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getIconType() {
+        return iconType;
+    }
+
+    public void setIconType(String iconType) {
+        this.iconType = iconType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public boolean isShowHateVideo() {
+        return showHateVideo;
+    }
+
+    public void setShowHateVideo(boolean showHateVideo) {
+        this.showHateVideo = showHateVideo;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -40,30 +125,6 @@ public class Header {
 
     public String getTitle() {
         return title;
-    }
-
-    public void setFont(String font) {
-        this.font = font;
-    }
-
-    public String getFont() {
-        return font;
-    }
-
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-    }
-
-    public String getSubTitle() {
-        return subTitle;
-    }
-
-    public void setSubTitleFont(String subTitleFont) {
-        this.subTitleFont = subTitleFont;
-    }
-
-    public String getSubTitleFont() {
-        return subTitleFont;
     }
 
     public void setTextAlign(String textAlign) {
@@ -98,20 +159,25 @@ public class Header {
         return actionUrl;
     }
 
-    public void setLabelList(List<LabelList> labelList) {
-        this.labelList = labelList;
+    @Override
+    public String toString() {
+        return "Header{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", textAlign='" + textAlign + '\'' +
+                ", cover='" + cover + '\'' +
+                ", label=" + label +
+                ", actionUrl='" + actionUrl + '\'' +
+                ", icon='" + icon + '\'' +
+                ", iconType='" + iconType + '\'' +
+                ", description='" + description + '\'' +
+                ", time=" + time +
+                ", followType='" + followType + '\'' +
+                ", showHateVideo=" + showHateVideo +
+                ", tagId=" + tagId +
+                ", tagName='" + tagName + '\'' +
+                ", issuerName='" + issuerName + '\'' +
+                ", topShow=" + topShow +
+                '}';
     }
-
-    public List<LabelList> getLabelList() {
-        return labelList;
-    }
-
-    public void setRightText(String rightText) {
-        this.rightText = rightText;
-    }
-
-    public String getRightText() {
-        return rightText;
-    }
-
 }

@@ -6,19 +6,23 @@ package com.hngg.jianshi.data.bean.home;
  * Author: nedhuo
  * Description:
  */
+
+import java.io.Serializable;
+
 /**
  * Auto-generated: 2020-11-22 13:39:12
  *
  * @author json.cn (i@json.cn)
  * @website http://www.json.cn/java2pojo/
  */
-public class Cover {
+public class Cover implements Serializable {
 
     private String feed;
     private String detail;
     private String blurred;
     private String sharing;
     private String homepage;
+
     public void setFeed(String feed) {
         this.feed = feed;
     }
@@ -54,4 +58,14 @@ public class Cover {
         return homepage;
     }
 
+    @Override
+    public String toString() {
+        return "Cover{" +
+                "feed='" + feed + '\'' +
+                ", detail='" + detail + '\'' +
+                ", blurred='" + blurred + '\'' +
+                ", sharing='" + sharing + '\'' +
+                ", homepage='" + homepage + '\'' +
+                '}';
+    }
 }

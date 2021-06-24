@@ -1,17 +1,30 @@
 package com.hngg.jianshi.ui.me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hngg.jianshi.R;
 import com.hngg.jianshi.component.DaggerMeComponent;
+import com.hngg.jianshi.data.RandomData;
+import com.hngg.jianshi.ui.me.collection.CollectionActivity;
+import com.hngg.jianshi.ui.me.download.DownloadActivity;
+import com.hngg.jianshi.ui.me.history.HistoryActivity;
+import com.hngg.jianshi.ui.me.playinfo.PlayInfoActivity;
+import com.hngg.jianshi.utils.GlideUtil;
+import com.hngg.jianshi.utils.LogUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Date: 2020/11/19
@@ -19,7 +32,22 @@ import com.jess.arms.di.component.AppComponent;
  * Author: nedhuo
  * Description:
  */
-public class MeFragment extends BaseFragment<MePresenter> implements MeContract.View {
+public class MeFragment extends BaseFragment<MePresenter> implements MeContract.View, View.OnClickListener {
+
+
+    @BindView(R.id.ll_myDownload)
+    LinearLayout ll_myDownload;
+    @BindView(R.id.ll_myCollection)
+    LinearLayout ll_myCollection;
+    @BindView(R.id.ll_history)
+    LinearLayout ll_history;
+    @BindView(R.id.ll_playInfo)
+    LinearLayout ll_playInfo;
+    @BindView(R.id.iv_background)
+    ImageView ivBackground;
+    @BindView(R.id.iv_headImage)
+    ImageView ivHeadImage;
+
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
         DaggerMeComponent
@@ -30,15 +58,32 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
                 .inject(this);
     }
 
+
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                          @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_me, container,false);
+        return inflater.inflate(R.layout.fragment_me, container, false);
     }
 
     @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        ButterKnife.bind(this, view);
 
+
+    }
+
+    /**
+     * onActivityCreate调用
+     */
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        //    Glide.with(getActivity()).load(R.drawable.defalut_photo).bitmapTransform(new BlurTransformation( 15)).into(mImageView);
+        GlideUtil.loadBlurImage(this.getContext(), RandomData.obtainImageData(), ivBackground);
+        GlideUtil.loadCircleImage(this.getContext(), RandomData.obtainImageData(), ivHeadImage);
+        ll_myDownload.setOnClickListener(this);
+        ll_history.setOnClickListener(this);
+        ll_myCollection.setOnClickListener(this);
+        ll_playInfo.setOnClickListener(this);
     }
 
     @Override
@@ -50,5 +95,34 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeContract.
     @Override
     public void showMessage(@NonNull String message) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.ll_playInfo:
+                LogUtil.i(TAG, "ll_playInfo");
+                intent = new Intent(this.getActivity(), PlayInfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_myDownload:
+                LogUtil.i(TAG, "ll_myDownload");
+                intent = new Intent(this.getActivity(), DownloadActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_myCollection:
+                intent = new Intent(this.getActivity(), CollectionActivity.class);
+                startActivity(intent);
+
+                break;
+            case R.id.ll_history:
+                intent = new Intent(this.getActivity(), HistoryActivity.class);
+                startActivity(intent);
+                LogUtil.i(TAG, "ll_history");
+
+                break;
+
+        }
     }
 }

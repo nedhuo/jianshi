@@ -1,4 +1,7 @@
 package com.hngg.jianshi.data.bean.home;
+
+import java.io.Serializable;
+
 /**
  * Date: 2020/11/24
  * Timer: 12:08
@@ -6,12 +9,10 @@ package com.hngg.jianshi.data.bean.home;
  * Description:
  */
 
-public class ItemList {
+public class ItemList implements Serializable {
 
     private String type;
     private Data data;
-    private String trackingData;
-    private String tag;
     private int id;
     private int adIndex;
     public void setType(String type) {
@@ -28,20 +29,6 @@ public class ItemList {
         return data;
     }
 
-    public void setTrackingData(String trackingData) {
-        this.trackingData = trackingData;
-    }
-    public String getTrackingData() {
-        return trackingData;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-    public String getTag() {
-        return tag;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -56,4 +43,13 @@ public class ItemList {
         return adIndex;
     }
 
+    @Override
+    public String toString() {
+        return "ItemList{" +
+                "type='" + type + '\'' +
+                ", data=" + data +
+                ", id=" + id +
+                ", adIndex=" + adIndex +
+                '}';
+    }
 }

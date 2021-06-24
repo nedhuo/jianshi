@@ -2,9 +2,6 @@ package com.hngg.jianshi.component;
 
 import com.hngg.jianshi.ui.discover.DisCoverFragment;
 import com.hngg.jianshi.ui.discover.DisCoverModule;
-import com.hngg.jianshi.ui.discover.DisCoverScope;
-import com.hngg.jianshi.ui.home.HomeFragment;
-import com.hngg.jianshi.ui.home.HomeModule;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.di.scope.FragmentScope;
 
@@ -16,7 +13,7 @@ import dagger.Component;
  * Author: nedhuo
  * Description:
  */
-@DisCoverScope
+@FragmentScope
 @Component(modules = DisCoverModule.class, dependencies = AppComponent.class)
 public interface DisCoverComponent {
     void inject(DisCoverFragment fragment);

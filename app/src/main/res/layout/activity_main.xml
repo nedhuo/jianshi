@@ -29,7 +29,7 @@
         android:id="@+id/bnv_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorWhite"
         app:itemIconTint="@drawable/main_bottom_selector"
         app:itemTextColor="@drawable/main_bottom_selector"
         app:menu="@menu/menu_main_bottom" />

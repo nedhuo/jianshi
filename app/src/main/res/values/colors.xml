@@ -4,7 +4,29 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="bg_app_main">#ffffff</color>
     <color name="transParent">#00000000</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorBlue">#3333ff</color>
+    <color name="colorGray">#808080</color>
+    <color name="colorGreen">#00ff00</color>
+    <color name="colorBlack_shade">#88000000</color>
+    <color name="bg_font_black">#40ffffff</color>
+
+    <color name="color_statusBar">@color/colorWhite</color>
+    <color name="color_statusBar_font">@color/colorBlack</color>
+
+    <color name="color_selected_flow">#CCCCCC</color>
+    <color name="color_select_flow">#F7F7F7</color>
+
+    <color name="color_item_unpressed">#FFFFFF</color>
+    <color name="color_item_pressed">#EFF2FB</color>
+
+
+    <color name="color_CCCCCC">#CCCCCC</color>
+    <color name="color_66CCFF">#66ccff</color>
+    <color name="color_2BB3D5">#2BB3D5</color>
+    <color name="color_FF9933">#80ff9933</color>
+    <color name="color_FF6600">#ff6600</color>
 </resources>

@@ -9,8 +9,9 @@ package com.hngg.network;
  */
 public class  KaiYanApi {
 
-    public static final String baseUrl = "http://baobab.kaiyanapp.com/";
+    public static final String baseHttpUrl = "http://baobab.kaiyanapp.com/";
 
+    public static final String baseHttpsUrl="https://baobab.kaiyanapp.com/";
     //日常（首页）
     public static final String homePageUrl = "api/v4/tabs/selected";
 
@@ -58,6 +59,27 @@ public class  KaiYanApi {
             "GET /api/v3/messages?udid=d07e6618dd4446629393f593a9b832f7eb0ed504&vc=6030101&vn=6.3.10&size=1080X2207&deviceModel=V1813BT&first_channel=vivo&last_channel=vivo&system_version_code=28 HTTP/1.1";
 
 
+    /**
+     * 用户 UserInfo
+     *
+     * https://baobab.kaiyanapp.com/api/v5/userInfo/tab?id=2171&userType=PGC
+     *
+     * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/works?uid=301178684
+     *
+     * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/index?id=2171&userType=PGC
+     *
+     * https://baobab.kaiyanapp.com/api/v5/userInfo/tab/works?uid=301178684&start=5&num=5
+     * */
 
-
+    /**
+     * 主题？
+     * http://baobab.kaiyanapp.com/api/v6/tag/index?id=1064
+     *
+     * http://baobab.kaiyanapp.com/api/v1/tag/videos?id=1064
+     *
+     * http://baobab.kaiyanapp.com/api/v6/tag/dynamics?id=1064
+     *
+     * 访问不到里面的数据
+     * http://baobab.kaiyanapp.com/api/v1/tag/1064/?title=%E5%9F%8E%E5%B8%82%E9%87%8C%E7%9A%84%E6%8A%A5%E5%88%8A%E4%BA%AD
+     * */
 }

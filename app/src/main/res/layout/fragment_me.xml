@@ -1,13 +1,371 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlack"
-    android:gravity="center"
+    android:background="@color/color_selected_flow"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="#60ffffff" />
+    <!--    <androidx.appcompat.widget.Toolbar-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:background="@color/colorWhite">-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:text="@string/me"-->
+    <!--            android:textColor="@color/colorBlack"-->
+    <!--            android:textSize="@dimen/font_16sp"-->
+    <!--            android:textStyle="bold" />-->
+    <!--    </androidx.appcompat.widget.Toolbar>-->
+
+    <RelativeLayout
+        android:id="@+id/rl_personInfo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_250dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/size_5dp"
+            android:layout_marginBottom="@dimen/size_50dp"
+            android:background="@drawable/shape_image_ring">
+
+            <ImageView
+                android:id="@+id/iv_headImage"
+                android:layout_width="@dimen/size_100dp"
+                android:layout_height="@dimen/size_100dp"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_name"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignTop="@id/iv_headImage"-->
+        <!--            android:layout_toEndOf="@id/iv_headImage"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:text="法外狂徒张三"-->
+        <!--            android:textSize="@dimen/font_16sp"-->
+        <!--            android:textStyle="bold" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_description"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignBottom="@id/iv_headImage"-->
+        <!--            android:layout_toStartOf="@id/iv_flag"-->
+        <!--            android:layout_toEndOf="@id/iv_headImage"-->
+        <!--            android:ellipsize="end"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:text="测试测试测试测试测试"-->
+        <!--            android:textSize="13sp" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/iv_flag"-->
+        <!--            android:layout_width="@dimen/size_10dp"-->
+        <!--            android:layout_height="@dimen/size_10dp"-->
+        <!--            android:layout_alignBottom="@id/iv_headImage"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_marginStart="10dp"-->
+        <!--            android:src="@drawable/ic_go_flag" />-->
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hahahahahaha" />
-</LinearLayout>
+        android:layout_below="@id/rl_personInfo"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_playInfo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/size_20dp"
+            android:paddingRight="@dimen/size_20dp">
+
+            <ImageView
+                android:layout_width="@dimen/size_30dp"
+                android:layout_height="@dimen/size_30dp"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/me_collection" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:clickable="false"
+                android:text="@string/me_playInfo"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_16sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_myCollection"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_marginTop="@dimen/size_2dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/size_20dp"
+            android:paddingRight="@dimen/size_20dp">
+
+            <ImageView
+                android:layout_width="@dimen/size_30dp"
+                android:layout_height="@dimen/size_30dp"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/me_collection" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:clickable="false"
+                android:text="@string/my_collection"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_myDownload"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_marginTop="1dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/size_20dp"
+            android:paddingRight="@dimen/size_20dp">
+
+            <ImageView
+                android:layout_width="@dimen/size_30dp"
+                android:layout_height="@dimen/size_30dp"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/me_download" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:clickable="false"
+                android:text="@string/my_download"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_history"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_marginTop="0.5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/size_20dp"
+            android:paddingRight="@dimen/size_20dp">
+
+            <ImageView
+                android:layout_width="@dimen/size_30dp"
+                android:layout_height="@dimen/size_30dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/me_history" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:text="@string/history_record"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font_16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/ll_playInfo"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/size_60dp"-->
+    <!--        android:layout_marginTop="@dimen/size_5dp"-->
+    <!--        android:background="@drawable/selector_item_click"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingLeft="@dimen/size_20dp"-->
+    <!--        android:paddingRight="@dimen/size_20dp">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="@dimen/size_30dp"-->
+    <!--            android:layout_height="@dimen/size_30dp"-->
+    <!--            android:clickable="false"-->
+    <!--            android:scaleType="centerCrop"-->
+    <!--            android:src="@drawable/me_collection" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="@dimen/size_20dp"-->
+    <!--            android:clickable="false"-->
+    <!--            android:text="@string/me_playInfo"-->
+    <!--            android:textColor="@color/colorBlack"-->
+    <!--            android:textSize="@dimen/font_14sp" />-->
+
+    <!--        <View-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="1dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:clickable="false" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="@dimen/size_10dp"-->
+    <!--            android:layout_height="@dimen/size_15dp"-->
+    <!--            android:clickable="false"-->
+    <!--            android:scaleType="centerCrop"-->
+    <!--            android:src="@drawable/ic_go_flag" />-->
+
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/ll_myCollection"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/size_60dp"-->
+    <!--        android:layout_marginTop="@dimen/size_2dp"-->
+    <!--        android:background="@drawable/selector_item_click"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingLeft="@dimen/size_20dp"-->
+    <!--        android:paddingRight="@dimen/size_20dp">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="@dimen/size_30dp"-->
+    <!--            android:layout_height="@dimen/size_30dp"-->
+    <!--            android:clickable="false"-->
+    <!--            android:scaleType="centerCrop"-->
+    <!--            android:src="@drawable/me_collection" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="@dimen/size_20dp"-->
+    <!--            android:clickable="false"-->
+    <!--            android:text="@string/my_collection"-->
+    <!--            android:textColor="@color/colorBlack"-->
+    <!--            android:textSize="@dimen/font_14sp" />-->
+
+    <!--        <View-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="1dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:clickable="false" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="@dimen/size_10dp"-->
+    <!--            android:layout_height="@dimen/size_15dp"-->
+    <!--            android:clickable="false"-->
+    <!--            android:scaleType="centerCrop"-->
+    <!--            android:src="@drawable/ic_go_flag" />-->
+
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/ll_myDownload"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/size_60dp"-->
+    <!--        android:layout_marginTop="1dp"-->
+    <!--        android:background="@drawable/selector_item_click"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingLeft="@dimen/size_20dp"-->
+    <!--        android:paddingRight="@dimen/size_20dp">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="@dimen/size_30dp"-->
+    <!--            android:layout_height="@dimen/size_30dp"-->
+    <!--            android:clickable="false"-->
+    <!--            android:scaleType="centerCrop"-->
+    <!--            android:src="@drawable/me_download" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="@dimen/size_20dp"-->
+    <!--            android:clickable="false"-->
+    <!--            android:text="@string/my_download"-->
+    <!--            android:textColor="@color/colorBlack"-->
+    <!--            android:textSize="@dimen/font_14sp" />-->
+
+    <!--        <View-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="1dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:clickable="false" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="@dimen/size_10dp"-->
+    <!--            android:layout_height="@dimen/size_15dp"-->
+    <!--            android:clickable="false"-->
+    <!--            android:scaleType="centerCrop"-->
+    <!--            android:src="@drawable/ic_go_flag" />-->
+
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/ll_history"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/size_60dp"-->
+    <!--        android:layout_marginTop="0.5dp"-->
+    <!--        android:background="@drawable/selector_item_click"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingLeft="@dimen/size_20dp"-->
+    <!--        android:paddingRight="@dimen/size_20dp">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="@dimen/size_30dp"-->
+    <!--            android:layout_height="@dimen/size_30dp"-->
+    <!--            android:scaleType="centerCrop"-->
+    <!--            android:src="@drawable/me_history" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="@dimen/size_20dp"-->
+    <!--            android:text="@string/history_record"-->
+    <!--            android:textColor="@color/colorBlack"-->
+    <!--            android:textSize="@dimen/font_14sp" />-->
+
+    <!--        <View-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="1dp"-->
+    <!--            android:layout_weight="1" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="@dimen/size_10dp"-->
+    <!--            android:layout_height="@dimen/size_15dp"-->
+    <!--            android:scaleType="centerCrop"-->
+    <!--            android:src="@drawable/ic_go_flag" />-->
+
+    <!--    </LinearLayout>-->
+</RelativeLayout>

@@ -1,41 +1,52 @@
 package com.hngg.jianshi.ui;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
-import android.os.Bundle;
-import android.util.Log;
-
-import android.view.MotionEvent;
-
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hngg.jianshi.R;
-
 import com.hngg.jianshi.component.DaggerMainComponent;
+import com.hngg.jianshi.utils.LogUtil;
+import com.hngg.jianshi.utils.PermissionUtil;
+import com.hngg.jianshi.utils.StatusBarUtil;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 
+import java.util.List;
 
 import butterknife.BindView;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
+ * 一般让 Activity 或 Fragment 实现 Contract 中定义的 View 接口, 供 Presenter 调用对应方法响应 UI,
+ * BaseActivity 默认注入 Presenter, 如想使用 Presenter, 必须将范型指定为 Presenter 的实现类
+ * (虽然框架只可以指定一个范型, 但是可以自行生成并持有多个 Presenter, 达到复用的目的, 如何复用 Presenter?),
+ * 还需要实现 setupActivityComponent 来提供 Presenter 需要的 Component 和 Module (如这个页面逻辑简单,
+ * 并不需要 Presenter, 那就不要指定范型, 也不要实现 setupActivityComponent 方法)
+ * <p>
  * BaseActivity
  * 1. 提供了Presenter的对象
  * 2. 绑定了ButterKnife
  * ......
  */
-public class MainActivity extends BaseActivity<MainPresenter> {
+public class MainActivity extends BaseActivity<MainPresenter>
+        implements EasyPermissions.PermissionCallbacks {
 
     @BindView(R.id.vp_main)
     ViewPager mViewPager;
 
     @BindView(R.id.bnv_main)
     BottomNavigationView mBottomBar;
+    private long firstTime = 0;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -47,6 +58,7 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                 .inject(this);
     }
 
+
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
         return R.layout.activity_main;
@@ -57,10 +69,21 @@ public class MainActivity extends BaseActivity<MainPresenter> {
      */
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        StatusBarUtil.setFontColor(getWindow(), getColor(R.color.color_statusBar_font));
 
-        assert mPresenter != null;
+        if (mPresenter == null) {
+            LogUtil.i(TAG, "mPresenter为null");
+            return;
+        }
         mPresenter.initBottomBar();
         mPresenter.initViewPager();
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PermissionUtil.checkPermissions(this);
+
     }
 
     /**
@@ -100,8 +123,44 @@ public class MainActivity extends BaseActivity<MainPresenter> {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-
         return super.dispatchTouchEvent(ev);
     }
-}
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //  EasyPermissions
+        //         .onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+
+    //权限允许
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        LogUtils.i(TAG, "onPermissionsGranted");
+    }
+
+    //拒绝授权
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        LogUtils.i(TAG, "onPermissionsDenied");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 2000) {
+                ToastUtils.showShort("再按一次退出程序");
+                firstTime = secondTime;
+                return true;
+            } else {
+                System.exit(0);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+}

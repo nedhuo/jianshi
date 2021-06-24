@@ -57,6 +57,15 @@ public class CustomViewPager extends ViewPager {
         return super.dispatchTouchEvent(ev);
     }
 
+
+
+    @Override
+    public void setCurrentItem(int item) {
+        //去除页面切换时的滑动翻页效果
+        super.setCurrentItem(item, false);
+    }
+
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return super.onTouchEvent(ev);

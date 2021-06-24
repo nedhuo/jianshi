@@ -1,5 +1,6 @@
 package com.hngg.jianshi.data.bean.home;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -49,13 +50,13 @@ public class TextFooter extends Data {
         this.actionUrl = actionUrl;
     }
 
-    @Override
-    public List<String> getAdTrack() {
-        return adTrack;
-    }
-
-    @Override
-    public void setAdTrack(List<String> adTrack) {
-        this.adTrack = adTrack;
-    }
+//    @Override
+//    public List<String> getAdTrack() {
+//        return adTrack;
+//    }
+//
+//    @Override
+//    public void setAdTrack(List<String> adTrack) {
+//        this.adTrack = adTrack;
+//    }
 }

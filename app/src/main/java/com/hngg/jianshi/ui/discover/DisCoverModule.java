@@ -21,13 +21,13 @@ public class DisCoverModule {
         this.view = view;
     }
 
-    @DisCoverScope
+    @FragmentScope
     @Provides
     DisCoverContract.View provideDisCoverView() {
         return this.view;
     }
 
-    @DisCoverScope
+    @FragmentScope
     @Provides
     DisCoverContract.Model provideDisCoverModel(DisCoverModel model) {
         return model;

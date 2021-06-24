@@ -1,6 +1,5 @@
 package com.hngg.network.Observer;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -9,7 +8,7 @@ import io.reactivex.disposables.Disposable;
  * Timer: 20:23
  * Author: nedhuo
  * Description:
- *      对RxJava observer进行一层封装，让其只显示两个方法
+ * 对RxJava observer进行一层封装，让其只显示两个方法
  */
 public abstract class BaseObserver<T> implements Observer<T> {
 
@@ -35,5 +34,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     protected abstract void onSuccess(T o);
 
-    public abstract void onFail(Throwable e);
+    public void onFail(Throwable e) {
+
+    }
 }

@@ -1,12 +1,14 @@
 package com.hngg.jianshi.data.bean.home;
 
+import java.io.Serializable;
+
 /**
  * Date: 2020/11/24
  * Timer: 12:10
  * Author: nedhuo
  * Description:
  */
-public class VideoPosterBean {
+public class VideoPosterBean implements Serializable {
 
     private double scale;
     private String url;

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_30dp">
+
+    <TextView
+        android:id="@+id/tv_findPast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/size_15dp"
+        android:gravity="center_vertical"
+        android:text="查看往期精选"
+        android:textColor="@color/color_66CCFF" />
+
+</RelativeLayout>

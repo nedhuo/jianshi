@@ -7,6 +7,7 @@ package com.hngg.jianshi.data.bean.home;
  * Description:
  */
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  *  videoCollectionOfFollow
  *  videoCollectionForCover
  */
-public class ItemCollection extends  Data {
+public class ItemCollection extends  Data implements Serializable {
 
     private String dataType;
     private Header header;
