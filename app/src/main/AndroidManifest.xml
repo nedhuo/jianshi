@@ -28,12 +28,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.MainActivity">
+
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.MainActivity">
+
         </activity>
         <activity
             android:name=".ui.video.VideoDetailActivity"
@@ -41,8 +46,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.community.UgcPictureActivity"
-            android:theme="@style/NoStateBarActivity">
-        </activity>
+            android:theme="@style/NoStateBarActivity"></activity>
         <activity
             android:name=".ui.community.CommunityVideoActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
@@ -70,6 +74,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.webview.WebViewActivity" />
         <activity android:name=".ui.crash.DefaultErrorActivity" />
+
 
         <service android:name=".service.DownloadService" />
     </application>

@@ -7,14 +7,24 @@
         <item name="colorPrimaryDark">@color/colorWhite</item>
         <item name="colorAccent">@color/colorGray</item>
 
-<!--        <item name="android:windowFullscreen">true</item>  splash可以全屏，但后面的Activity需要一一定制-->
-        <item name="android:windowBackground">@mipmap/ic_window_bg</item>
+        <!--        <item name="android:windowFullscreen">true</item>  splash可以全屏，但后面的Activity需要一一定制-->
+        <!--        <item name="android:windowBackground">@mipmap/ic_window_bg</item>-->
     </style>
 
     <style name="NoStateBarActivity" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="SplashTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        <!-- 闪屏背景，可用图片 -->
+        <item name="android:windowBackground">@mipmap/ic_window_bg</item>
+<!--        <item name="android:background">@android:color/transparent</item>-->
+<!--        <item name="android:windowIsTranslucent">false</item>-->
+        <!--statusBar透明-->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+        <!--虚拟按键透明 -->
+<!--        <item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
 
     <!--    <style name="TranslucentTheme" parent="AppTheme"></style>-->
 

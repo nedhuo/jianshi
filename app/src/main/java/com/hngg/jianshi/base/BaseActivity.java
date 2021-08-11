@@ -9,6 +9,7 @@ import java.util.List;
 public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
 
+
     @Override
     protected void onStart() {
         super.onStart();
