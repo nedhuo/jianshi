@@ -50,9 +50,9 @@ dependencies {
 //
 //    compileOnly Config.depConfig.support_appcompat_v7.dep
 //    compileOnly Config.depConfig.support_design.dep
-    implementation rootProject.ext.dependencies['appcompat-v7']
-    implementation rootProject.ext.dependencies['design']
-    implementation rootProject.ext.dependencies['gson']
+//    implementation rootProject.ext.dependencies['appcompat-v7']
+//    implementation rootProject.ext.dependencies['design']
+//    implementation rootProject.ext.dependencies['gson']
 
 //    testImplementation Config.depConfig.test_junit.dep
 //    testImplementation Config.depConfig.test_robolectric.dep

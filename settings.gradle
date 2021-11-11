@@ -1,5 +1,5 @@
 
-include ':app', ':network', ':utilcode'
+include ':app', ':lib_network', ':utilcode'
 rootProject.name='jianshi'
 include ':lib_common'
 include ':lib_base'

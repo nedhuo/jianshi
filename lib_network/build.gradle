@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
 
     defaultConfig {
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -30,8 +30,8 @@ dependencies {
 
     implementation rootProject.ext.dependencies["retrofit-converter-gson"]
     implementation rootProject.ext.dependencies["retrofit"]
-    //OkHttp日志
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.2'
+    //OkHttp日志 okhttp3-logging
+    implementation rootProject.ext.dependencies["okhttp3-logging"]
     //RxJava
     implementation rootProject.ext.dependencies["rxandroid2"]
     implementation rootProject.ext.dependencies["rxjava2"]

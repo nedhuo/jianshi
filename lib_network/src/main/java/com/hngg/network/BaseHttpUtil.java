@@ -36,7 +36,6 @@ import static com.hngg.network.KaiYanApi.baseHttpUrl;
  * 请求类
  */
 public abstract class BaseHttpUtil {
-    private final String TAG = "HttpUtils";
     private static HashMap<String, Retrofit> retrofitHashMap = new HashMap<>();
 
     /**
@@ -67,15 +66,12 @@ public abstract class BaseHttpUtil {
         if (retrofitHashMap.get(baseUrl + clazz.getName()) != null) {
             return retrofitHashMap.get(baseUrl + clazz.getName());
         }
-        Retrofit.Builder retrofitBuilder = new Retrofit.Builder();
-        retrofitBuilder.baseUrl(baseUrl);
-        //添加的是OkHttp的拦截器，因此需要在OkHttp的客户端上添加
-        retrofitBuilder.client(getOkHttpClient());
-        //Json转Bean
-        retrofitBuilder.addConverterFactory(GsonConverterFactory.create());
-        //
-        retrofitBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-        Retrofit retrofit = retrofitBuilder.build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(getOkHttpClient())
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())//Json转Bean
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
         retrofitHashMap.put(baseUrl + clazz.getName(), retrofit);
         return retrofit;
     }
@@ -118,8 +114,8 @@ public abstract class BaseHttpUtil {
      *
      * @return
      */
-    public <T> ObservableTransformer<T,T> exceptionTransformer() {
-        return new ObservableTransformer<T,T> () {
+    public <T> ObservableTransformer<T, T> exceptionTransformer() {
+        return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> observable) {
                 return observable

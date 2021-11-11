@@ -9,10 +9,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by goldze on 2017/5/10.
+ * 添加请求头信息
  */
 public class BaseInterceptor implements Interceptor {
-    private Map<String, String> headers;
+    private final Map<String, String> headers;
 
     public BaseInterceptor(Map<String, String> headers) {
         this.headers = headers;
@@ -25,7 +25,9 @@ public class BaseInterceptor implements Interceptor {
         if (headers != null && headers.size() > 0) {
             Set<String> keys = headers.keySet();
             for (String headerKey : keys) {
-                builder.addHeader(headerKey, headers.get(headerKey)).build();
+                if (headers.get(headerKey) != null) {
+                    builder.addHeader(headerKey, headers.get(headerKey)).build();
+                }
             }
         }
         //请求信息
