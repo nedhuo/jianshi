@@ -18,13 +18,13 @@ public class CustomApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-      //  Aria.download(this).register();
+        //  Aria.download(this).register();
         NineGridView.setImageLoader(new GlideImageLoader());
         Utils.init(this);
         com.hngg.network.utils.Utils.init(this);
         com.blankj.utilcode.util.Utils.init(this);
         //内存泄漏检测
-         if (!LeakCanary.isInAnalyzerProcess(this)) {
+        if (!LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);
         }
         //初始化全局异常崩溃
@@ -45,5 +45,13 @@ public class CustomApplication extends BaseApplication {
 //                .errorActivity(YourCustomErrorActivity.class) //崩溃后的错误activity
 //                .eventListener(new YourCustomEventListener()) //崩溃后的错误监听
                 .apply();
+    }
+
+    /**
+     * 这个方法会通知目前的内存占用级别，可以处理内存回收
+     */
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
     }
 }

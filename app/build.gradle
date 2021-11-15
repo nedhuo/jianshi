@@ -61,12 +61,7 @@ dependencies {
     //implementation 'jp.wasabeef:glide-transformations:2.0.1' //Glide实现高斯模糊
  //   implementation 'jp.wasabeef:glide-transformations:4.0.1'
     //TabLayout
-//    implementation rootProject.ext.dependencies["support-design"]
-
-//    implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["gson"]
-//    implementation rootProject.ext.dependencies["appcompat-v7"]
-//    implementation rootProject.ext.dependencies["cardview-v7"]
 
     implementation rootProject.ext.dependencies["androideventbus"]
     implementation rootProject.ext.dependencies["dagger2"]
